@@ -6,15 +6,14 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public abstract class BaseElement {
+public class ListElements {
     protected WebDriver driver;
     protected List<WebElement> elementsList;
-    protected WebElement element;
     protected String xpath;
 
-    public BaseElement(WebDriver driver, String xpath) {
+    public ListElements(WebDriver driver, String xpath) {
         this.driver = driver;
         this.xpath = xpath;
-        element = driver.findElement(By.xpath(xpath));
+        elementsList = driver.findElements(By.xpath(xpath));
     }
 }
