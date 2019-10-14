@@ -1,6 +1,5 @@
 package pageobjects;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.LineInputStream;
 import locators.HeaderLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,14 +7,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Button;
-import pageelements.ListElements;
 
 
 import java.util.List;
 
 public class HeaderPageObject extends BasePageObject {
     WebDriverWait wait = new WebDriverWait(driver,10);
-    List<String> listOfCurrency;
+    List<WebElement> listOfCurrency;
     private Button wishPageButton;
     private Button itemsPageButton;
     private Button homePageButton;
@@ -24,12 +22,14 @@ public class HeaderPageObject extends BasePageObject {
     private Button registrationPageButton;
     private Button shoppingCartButton;
     private Button currencyListButton;
-    private Button dollar;
-    private Button pound;
-    private Button euro;
 
     public HeaderPageObject(WebDriver driver) {
         super(driver);
+    }
+
+    public List<WebElement>createListOfCurrency(String xpath){
+       listOfCurrency =  driver.findElements(By.xpath(xpath));
+        return listOfCurrency;
     }
     public HomePageObject goToHomePage(){
         homePageButton = new Button(driver, HeaderLocators.YOUR_STORE_BUTTON_LOC).click();
@@ -59,27 +59,19 @@ public class HeaderPageObject extends BasePageObject {
         shoppingCartButton = new Button(driver,HeaderLocators.SHOPPING_CART_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
     }
-    public List<String> findListOfCurrency(){
-         currencyListButton = new Button(driver,HeaderLocators.CURRENCY_BUTTON_LOC).click();
-         listOfCurrency = (List<String>) new ListElements(driver,HeaderLocators.LIST_OF_CURRENCY_LOC);
-        return listOfCurrency;
-    }
     public HeaderPageObject chooseDollarCurrency(){
         currencyListButton = new Button(driver,HeaderLocators.CURRENCY_BUTTON_LOC).click();
-        listOfCurrency = (List<String>) new ListElements(driver,HeaderLocators.LIST_OF_CURRENCY_LOC);
-         dollar = new Button(driver,listOfCurrency.get(2)).click();
+        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(2).click();
         return new HeaderPageObject(driver);
     }
     public HeaderPageObject chooseEuroCurrency(){
         currencyListButton = new Button(driver,HeaderLocators.CURRENCY_BUTTON_LOC).click();
-        listOfCurrency = (List<String>) new ListElements(driver,HeaderLocators.LIST_OF_CURRENCY_LOC);
-        dollar = new Button(driver,listOfCurrency.get(0)).click();
+        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(0).click();
         return new HeaderPageObject(driver);
     }
     public HeaderPageObject choosePoundCurrency(){
         currencyListButton = new Button(driver,HeaderLocators.CURRENCY_BUTTON_LOC).click();
-        listOfCurrency = (List<String>) new ListElements(driver,HeaderLocators.LIST_OF_CURRENCY_LOC);
-        dollar = new Button(driver,listOfCurrency.get(1)).click();
+        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(1).click();
         return new HeaderPageObject(driver);
     }
 
