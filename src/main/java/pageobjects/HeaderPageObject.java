@@ -16,6 +16,7 @@ import static utils.commonconstants.Constants.*;
 public class HeaderPageObject extends BasePageObject {
     WebDriverWait wait = new WebDriverWait(driver,10);
     List<WebElement> listOfCurrency;
+    List<WebElement> listOfMyAccountButtons;
     private Button wishPageButton;
     private Button itemsPageButton;
     private Button homePageButton;
@@ -29,11 +30,15 @@ public class HeaderPageObject extends BasePageObject {
         super(driver);
     }
 
-    public List<WebElement>createListOfCurrency(String xpath){
+    private List<WebElement>createListOfCurrency(String xpath){
        listOfCurrency =  driver.findElements(By.xpath(xpath));
         return listOfCurrency;
     }
-    public HomePageObject goToHomePage(){
+    private List<WebElement> createListOfMyAccountButtons(String xpath){
+        listOfMyAccountButtons = driver.findElements(By.xpath(xpath));
+        return listOfMyAccountButtons;
+
+    }    public HomePageObject goToHomePage(){
         homePageButton = new Button(driver, HeaderLocators.YOUR_STORE_BUTTON_LOC).click();
         return new HomePageObject(driver);
     }
@@ -76,5 +81,4 @@ public class HeaderPageObject extends BasePageObject {
         this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(ONE).click();
         return new HeaderPageObject(driver);
     }
-
 }
