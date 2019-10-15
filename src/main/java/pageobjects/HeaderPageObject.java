@@ -11,6 +11,8 @@ import pageelements.Button;
 
 import java.util.List;
 
+import static utils.commonconstants.Constants.*;
+
 public class HeaderPageObject extends BasePageObject {
     WebDriverWait wait = new WebDriverWait(driver,10);
     List<WebElement> listOfCurrency;
@@ -61,17 +63,17 @@ public class HeaderPageObject extends BasePageObject {
     }
     public HeaderPageObject chooseDollarCurrency(){
         currencyListButton = new Button(driver,HeaderLocators.CURRENCY_BUTTON_LOC).click();
-        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(2).click();
+        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(TWO).click();
         return new HeaderPageObject(driver);
     }
     public HeaderPageObject chooseEuroCurrency(){
         currencyListButton = new Button(driver,HeaderLocators.CURRENCY_BUTTON_LOC).click();
-        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(0).click();
+        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(NULL).click();
         return new HeaderPageObject(driver);
     }
     public HeaderPageObject choosePoundCurrency(){
         currencyListButton = new Button(driver,HeaderLocators.CURRENCY_BUTTON_LOC).click();
-        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(1).click();
+        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(ONE).click();
         return new HeaderPageObject(driver);
     }
 
