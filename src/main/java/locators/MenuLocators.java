@@ -1,7 +1,4 @@
 package locators;
-
-import java.sql.Struct;
-
 public class MenuLocators {
     public static final String DESKTOP_BUTTON_LOC = "/html/body/div[1]/nav/div[2]/ul/li[1]";
     public static final String LAPTOPS_NOTEBOOKS_BUTTON_LOC = "/html/body/div[1]/nav/div[2]/ul/li[2]";
