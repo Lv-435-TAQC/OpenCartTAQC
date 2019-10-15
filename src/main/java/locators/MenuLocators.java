@@ -15,5 +15,6 @@ public class MenuLocators {
     public static final String SHOW_ALL_LAPTOPS_NOTEBOOKS_BUTTON_LOC = "/html/body/div[1]/nav/div[2]/ul/li[2]/div/a";
     public static final String COMPONENTS_OPTIONS_LOC = "/html/body/div[1]/nav/div[2]/ul/li[3]/div/div/ul/li";
     public static final String SHOW_ALL_COMPONENTS_BUTTON_LOC = "/html/body/div[1]/nav/div[2]/ul/li[3]/div/a";
+    public static final String MP3_PLAYERS_BUTTON_LOC = "//*[@id=\"menu\"]/div[2]/ul/li[8]";
     public static final String SHOW_ALL_MP3PLAYERS_BUTTON_LOC = "/html/body/div[1]/nav/div[2]/ul/li[8]/div/a";
 }
