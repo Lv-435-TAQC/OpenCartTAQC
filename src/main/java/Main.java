@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 
-=======
 import locators.ShoppingCartLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
