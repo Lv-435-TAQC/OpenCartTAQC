@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import pageelements.Button;
 import pageelements.DropDown;
 import pageelements.Input;
+import pageelements.Label;
 
 
 public class SearchPageObject extends BasePageObject {
@@ -12,7 +13,9 @@ public class SearchPageObject extends BasePageObject {
     private Input inputeNameOfProduct;
     private DropDown categoriesButton;
     private Button searchInSubcategories;
-
+    private Label returnTextOfInpute;
+    private Label returnFalseInpute;
+    private Input inputeFalseNameOfProduct;
 
     public SearchPageObject(WebDriver driver) {
         super(driver);
@@ -25,11 +28,30 @@ public class SearchPageObject extends BasePageObject {
         return new SearchPageObject(this.driver);
     }
 
+    public String returnTextFromSearch() {
+        returnTextOfInpute = new Label(this.driver, SearchLocators.RETURN_TEXT_XPATH);
+        String textFromInpute = returnTextOfInpute.getText();
+        return textFromInpute;
+    }
+
+    public String returnTextFormInvalidSearch() {
+        returnFalseInpute = new Label(this.driver, SearchLocators.RETURN_TEXT_WITH_FALSE_DATA);
+        String returnFalseSearch = returnFalseInpute.getText();
+        return returnFalseSearch;
+    }
+
+    public SearchPageObject inputeFalseProductName() {
+        inputeFalseNameOfProduct = new Input(this.driver, SearchLocators.INPUTE_SEARCH_TEXT_XPATH);
+        inputeFalseNameOfProduct.setTextForField("cam");
+        return new SearchPageObject(this.driver);
+    }
+
     public SearchPageObject inputeProductName() {
         inputeNameOfProduct = new Input(this.driver, SearchLocators.INPUTE_SEARCH_TEXT_XPATH);
         inputeNameOfProduct.setTextForField("Mac");
         return new SearchPageObject(this.driver);
     }
+
 
     public SearchPageObject selectCategories() {
         this.categoriesButton = new DropDown(driver, SearchLocators.CATEGORIES_BUTTON_XPATH);
