@@ -9,6 +9,7 @@ import pageobjects.ShoppingCartPageObject;
 
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
@@ -30,7 +31,7 @@ public class ShoppingCartPageObjectTest  {
     }
     @AfterClass
     public void closeUp() {
-      //  driver.close();
+        driver.close();
     }
 
     @Test
@@ -48,10 +49,16 @@ public class ShoppingCartPageObjectTest  {
         String actual = home.goToShoppingCartPage().getCouponCode();
         assertEquals(actual,expected);
     }
+    @DataProvider(name = "dp")
+    public Object[][] createData(Method m) {
+        System.out.println(m.getName());  // print test method name
+        return new Object[][] { new Object[] { "a111" }, new Object[] { "" }};
+    }
     @Test(
+            dataProvider = "dp",
             expectedExceptions =  org.openqa.selenium.NoSuchElementException.class
             )
-    public void testUseCouponCodeWithInvalidData() {
+    public void testUseCouponCodeWithInvalidData(String invalidData) {
         home.addToCart();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.writeCouponCode("a111");
