@@ -36,7 +36,7 @@ public class SearchPageObject extends BasePageObject {
         return new SearchPageObject(this.driver);
     }
 
-    public SearchPageObject useInSubcaSubcategories() {
+    public SearchPageObject useInSubcategories() {
         searchInSubcategories = new Button(this.driver, SearchLocators.SEARCH_IN_SUBCATEGORIES_BUTTON_XPATH);
         searchInSubcategories.click();
         return new SearchPageObject(this.driver);
