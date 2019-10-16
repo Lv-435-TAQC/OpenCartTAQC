@@ -1,3 +1,4 @@
+
 import locators.ShoppingCartLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +14,10 @@ import pageobjects.PreviewShoppingCart;
 import pageobjects.ShoppingCartPageObject;
 
 import java.util.concurrent.TimeUnit;
+
+
+
+
 
 public class Main {
     public static void main(String[] args) {
