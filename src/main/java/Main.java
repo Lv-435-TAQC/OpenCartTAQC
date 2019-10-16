@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Main {
     public static void main(String[] args) {
+<<<<<<< HEAD
         System.setProperty("webdriver.gecko.driver", "D:\\geckodriver.exe");
         WebDriver driver = new FirefoxDriver();
         driver.get("http://192.168.186.129/opencart/index.php?route=product/search");
@@ -20,5 +21,7 @@ public class Main {
         SearchButton.click();
 
 
+=======
+>>>>>>> develop
     }
 }

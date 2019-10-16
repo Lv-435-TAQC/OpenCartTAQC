@@ -2,18 +2,12 @@ package pageelements;
 
 import org.openqa.selenium.WebDriver;
 
-import java.util.List;
-
-public class Button extends BaseElement {
-    public Button(WebDriver driver, String xpath) {
-
+public class LinkedLabel extends Label {
+    public LinkedLabel(WebDriver driver, String xpath) {
         super(driver, xpath);
     }
-
-    public Button click() {
+    public Label click(){
         this.element.click();
         return this;
     }
-
-
 }
