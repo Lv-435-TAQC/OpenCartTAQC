@@ -2,10 +2,12 @@ package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.HomePageObject;
 import pageobjects.ShoppingCartPageObject;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
@@ -27,21 +29,27 @@ public class ShoppingCartPageObjectTest {
         driver.get("http://localhost/OpenCart");
         home = new HomePageObject(driver);
     }
+    @AfterMethod
+    public void makeScreenshot(ITestResult result)throws IOException {
+        if (result.getStatus() == ITestResult.FAILURE) {
+            ShoppingCartPageObject.makeScreenShotSteps(driver,"test");
+        }
+    }
 
     @AfterClass
     public void closeUp() {
-        // driver.quit();
+         driver.quit();
     }
 
     @Test
     public void testAddProductToShoppinCart() {
-        String productID = home.addToCart();
+        String productID = home.addToCartIphone();
         assertTrue(home.goToShoppingCartPage().getShoppinProductsList().containsKey(productID));
     }
 
     @Test
     public void testRemoveProductFromCart() {
-        String productID = home.addToCart();
+        String productID = home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.removeProductFromCart(productID);
         assertEquals(shoppingCartPageObject.getCartEmptyMassage(), "Your shopping cart is empty!");
@@ -49,7 +57,7 @@ public class ShoppingCartPageObjectTest {
 
     @Test
     public void testChangingQuantityProducts() {
-        String productID = home.addToCart();
+        String productID = home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         String expected = "$246.40";
         shoppingCartPageObject.writeProductQuantityInCart(productID,"2");
@@ -60,7 +68,7 @@ public class ShoppingCartPageObjectTest {
 
     @Test(invocationCount = 1)
     public void testUseCouponCode() {
-        home.addToCart();
+        home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.writeCouponCode("111");
         String expected = "$-10.10";
@@ -76,7 +84,7 @@ public class ShoppingCartPageObjectTest {
 
     @Test(dataProvider = "invalidData", expectedExceptions = org.openqa.selenium.NoSuchElementException.class)
     public void testUseCouponCodeWithInvalidData(String invalidData) {
-        home.addToCart();
+        home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.writeCouponCode(invalidData);
         String expected = "$-10.10";
@@ -86,7 +94,7 @@ public class ShoppingCartPageObjectTest {
 
     @Test(invocationCount = 3)
     public void testWriteEstimateShippingAndTaxes() {
-        home.addToCart();
+        home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.writeEstimateShippingAndTaxes("Ukraine", 13, "790032");
         String actualResult = shoppingCartPageObject.massageNotise();
@@ -96,10 +104,10 @@ public class ShoppingCartPageObjectTest {
 
     @Test
     public void testWriteGiftCertificate() {
-        home.addToCart();
+        home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.writeGiftCertificate("333");
-        String expected = "$-100.00";
+        String expected = "$-30.00";
         String actual = home.goToShoppingCartPage().getGiftCertificate();
         assertEquals(actual, expected);
     }
@@ -109,9 +117,9 @@ public class ShoppingCartPageObjectTest {
         return new Object[][]{new Object[]{"a333"}, new Object[]{""}, new Object[]{"333a"}};
     }
 
-    @Test(dataProvider = "invalidDataGift", expectedExceptions = org.openqa.selenium.NoSuchElementException.class)
+    @Test(dataProvider = "invalidDataGift", expectedExceptions = org.openqa.selenium.TimeoutException.class)
     public void testUseGiftCertificateWithInvalidData(String invalidDataForGift) {
-        home.addToCart();
+        home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.writeGiftCertificate(invalidDataForGift);
         String expected = "$-30.00";
@@ -121,7 +129,7 @@ public class ShoppingCartPageObjectTest {
 
     @Test(invocationCount = 1)
     public void checkTheTotalCostWithCouponCode() {
-        home.addToCart();
+        home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.writeCouponCode("111");
         shoppingCartPageObject.getCouponCode();
@@ -130,7 +138,7 @@ public class ShoppingCartPageObjectTest {
 
     @Test
     public void checkTheTotalCostWithGiftCertificate() {
-        home.addToCart();
+        home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.writeGiftCertificate("333");
         shoppingCartPageObject.getGiftCertificate();
@@ -139,7 +147,7 @@ public class ShoppingCartPageObjectTest {
 
     @Test(invocationCount = 1)
     public void checkTheTotalCostWithCouponCodeAndGiftCertificate() {
-        home.addToCart();
+        home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.writeCouponCode("111");
         shoppingCartPageObject.getCouponCode();
@@ -150,7 +158,7 @@ public class ShoppingCartPageObjectTest {
 
     @Test
     public void testContinueShopping() {
-        home.addToCart();
+        home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         HomePageObject home = shoppingCartPageObject.continueShopping();
 //        String actual = home.getURL();

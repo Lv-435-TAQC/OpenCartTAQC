@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Button;
+import pageelements.Label;
 import pageelements.ProductForPreview;
 
 import java.io.BufferedReader;
@@ -19,6 +20,7 @@ public class PreviewShoppingCart extends BasePageObject {
     LinkedHashMap< String,ProductForPreview> productsForPreviews;
     Button viewCartButton;
     Button checkoutButton;
+    Label msgEmptyCart;
     public PreviewShoppingCart(WebDriver driver) {
         super(driver);
         productsForPreviews = new LinkedHashMap<String, ProductForPreview>();
@@ -37,10 +39,15 @@ public class PreviewShoppingCart extends BasePageObject {
         }
         return productsForPreviews;
     }
-    public HomePageObject removeProductFromShoppingCart(String idProduct){
+    public PreviewShoppingCart removeProductFromShoppingCart(String idProduct){
         LinkedHashMap<String, ProductForPreview> productMap= getMapProductInCart();
         productMap.get(idProduct).removeProduct();
-        return new HomePageObject(driver);
+        return this;
+    }
+    public String getMassageFromEmptyCart(){
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/header/div/div/div[3]/div/ul/li/p")));
+        msgEmptyCart = new Label(driver,"/html/body/header/div/div/div[3]/div/ul/li/p");
+        return msgEmptyCart.getText();
     }
 
 }

@@ -1,12 +1,17 @@
 package pageobjects;
 
 import locators.ShoppingCartLocators;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class ShoppingCartPageObject extends BasePageObject {
@@ -150,7 +155,7 @@ public class ShoppingCartPageObject extends BasePageObject {
         return subTotalCost.getText();
     }
     public String  getCouponCode(){
-        new WebDriverWait(driver, 30).
+        new WebDriverWait(driver, 20).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.COUPON_XPATH)));
         couponCode= new Label(driver,ShoppingCartLocators.COUPON_XPATH);
         return  couponCode.getText();
@@ -164,13 +169,13 @@ public class ShoppingCartPageObject extends BasePageObject {
         return VAT.getText();
     }
     public String  getGiftCertificate(){
-        new WebDriverWait(driver, 30).
+        new WebDriverWait(driver, 15).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.GIFT_CERTIDICATE_XPATH)));
         giftCertificate= new Label(driver,ShoppingCartLocators.GIFT_CERTIDICATE_XPATH);
         return giftCertificate.getText();
     }
     public String  getCartEmptyMassage(){
-        new WebDriverWait(driver, 15).
+        new WebDriverWait(driver, 10).
                 until(ExpectedConditions.textToBePresentInElementLocated(By.xpath(ShoppingCartLocators.CART_EMPTY_MASSAGE),"our shopping cart is empty!"));
         shoppingCartEmptyMassage = new Label(driver,ShoppingCartLocators.CART_EMPTY_MASSAGE);
         return shoppingCartEmptyMassage.getText();
@@ -189,5 +194,15 @@ public class ShoppingCartPageObject extends BasePageObject {
     }
     public String  getURL(){
         return this.getURL();
+    }
+    public static void makeScreenShotSteps(WebDriver driver, String screenshotName) {
+
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+        try {
+            FileUtils.copyFile(scrFile, new File("src\\main\\resources\\screenshots\\"+screenshotName+".png"));
+        } catch (IOException e) {
+
+        }
     }
 }
