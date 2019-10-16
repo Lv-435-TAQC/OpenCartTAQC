@@ -18,6 +18,7 @@ public class ShoppingProductsTable extends BaseElement {
     public HashMap<String,ShoppingCartPruduct> productsListInCart() {
         List<WebElement> tableRow = this.element.findElements(By.tagName("tr"));
         for (int i = 0; i < tableRow.size(); i++) {
+            String productID = tableRow.get(i).findElement(By.xpath("td[2]")).findElement(By.xpath("a")).getAttribute("href").split("=")[2];
             String productName = tableRow.get(i).findElement(By.xpath("td[2]")).getText();
             String productModel = tableRow.get(i).findElement(By.xpath("td[3]")).getText();
             WebElement input = tableRow.get(i).findElement(By.xpath("td[4]")).findElement(By.tagName("div")).findElement(By.tagName("input"));
@@ -26,7 +27,7 @@ public class ShoppingProductsTable extends BaseElement {
             WebElement buttonRemove = ButtonConteiner.findElements(By.tagName("button")).get(1);
             String producsUnitPrice = tableRow.get(i).findElement(By.xpath("td[5]")).getText();
             String producsTotalPrice = tableRow.get(i).findElement(By.xpath("td[6]")).getText();
-            shoppingCartPruducts.put(productModel,new ShoppingCartPruduct(
+            shoppingCartPruducts.put(productID,new ShoppingCartPruduct(
                     productName, productModel, input.getText(), producsUnitPrice, producsTotalPrice, input, buttonUpdate, buttonRemove));
         }
         return shoppingCartPruducts;
