@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import java.util.HashMap;
 import java.util.List;
 
+import static locators.WishListLocators.WISH_LIST_TABLE;
+
 
 public class WishListPageObject extends BasePageObject {
     public HeaderPageObject header;
@@ -28,9 +30,9 @@ public class WishListPageObject extends BasePageObject {
         return this;
     }
 
-    public HashMap<String, WishListItem> getListItems(String table){
+    public HashMap<String, WishListItem> getListItems(){
         HashMap<String, WishListItem> items = new HashMap<String, WishListItem>();
-        List<WebElement> listTr = driver.findElement(By.xpath(table)).findElements(By.xpath("tr"));
+        List<WebElement> listTr = driver.findElement(By.xpath(WISH_LIST_TABLE)).findElements(By.xpath("tr"));
 
         for (WebElement element: listTr ) {
             String id = element.findElement(By.xpath("td[2]/a")).getAttribute("href").split("=")[2];
@@ -38,11 +40,9 @@ public class WishListPageObject extends BasePageObject {
             String productName = element.findElement(By.xpath("td[2]")).getText().toString();
             WebElement addToCart = element.findElement(By.xpath("td[6]/button"));
             WebElement remove = element.findElement(By.xpath("td[6]/a"));
-
             items.put(id,new WishListItem(driver, image, productName, addToCart, remove));
         }
         return items;
-
     }
 
     public class WishListItem extends BasePageObject{
@@ -59,7 +59,6 @@ public class WishListPageObject extends BasePageObject {
             this.addToCart = addToCart;
             this.remove = remove;
         }
-
     }
 }
 
