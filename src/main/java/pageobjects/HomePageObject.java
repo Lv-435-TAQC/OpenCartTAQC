@@ -9,6 +9,7 @@ import pageelements.Button;
 
 public class HomePageObject extends BasePageObject {
     public HeaderPageObject headerPageObject;
+    public HeaderPageObject menuPageObject;
     Button iphoneAddToCart;
     WebElement product;
 

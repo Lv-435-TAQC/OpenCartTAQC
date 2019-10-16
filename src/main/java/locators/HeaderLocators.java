@@ -11,4 +11,8 @@ public class HeaderLocators {
     public static final String YOUR_STORE_BUTTON_LOC = "/html/body/header/div/div/div[1]/div/h1/a";
     public static final String CURRENCY_BUTTON_LOC = "/html/body/nav/div/div[1]/form/div/button";
     public static final String LIST_OF_CURRENCY_LOC = "/html/body/nav/div/div[1]/form/div/ul/li";
+    public static final String FIRST_ELEMENT_OF_TAPE = "//*[@id=\"error-not-found\"]/ul/li[2]";
+    public static final String SECOND_ELEMENT_OF_TAPE = "//*[@id=\"error-not-found\"]/ul/li[3]";
+
+
 }

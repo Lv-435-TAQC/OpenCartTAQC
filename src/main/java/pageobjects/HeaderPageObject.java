@@ -25,7 +25,10 @@ public class HeaderPageObject extends BasePageObject {
     private Button registrationPageButton;
     private Button shoppingCartButton;
     private Button currencyListButton;
-
+    private String itemButtonText;
+    private Label firstElementOfTape;
+    private Label secondElementOfTape;
+    private
     public HeaderPageObject(WebDriver driver) {
         super(driver);
     }
@@ -34,11 +37,11 @@ public class HeaderPageObject extends BasePageObject {
        listOfCurrency =  driver.findElements(By.xpath(xpath));
         return listOfCurrency;
     }
-    private List<WebElement> createListOfMyAccountButtons(String xpath){
-        listOfMyAccountButtons = driver.findElements(By.xpath(xpath));
-        return listOfMyAccountButtons;
+    private String getTextOfButton(){
+        return
+    }
 
-    }    public HomePageObject goToHomePage(){
+    public HomePageObject goToHomePage(){
         yourStore = new LinkedLabel(driver, HeaderLocators.YOUR_STORE_BUTTON_LOC).click();
         return new HomePageObject(driver);
     }
@@ -80,5 +83,12 @@ public class HeaderPageObject extends BasePageObject {
         currencyListButton = new ImageTextButton(driver,HeaderLocators.CURRENCY_BUTTON_LOC).click();
         this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(ONE).click();
         return new HeaderPageObject(driver);
+    }
+    public String getItemsButtonText(){
+        itemButtonText = new TextButton(driver,HeaderLocators.ITEMS_PAGE_BUTTON_LOC).getText();
+        return itemButtonText;
+    }
+    public String getText(){
+        return
     }
 }

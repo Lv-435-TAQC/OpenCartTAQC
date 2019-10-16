@@ -90,7 +90,7 @@ public class MenuPageObject extends BasePageObject {
         return new ProductsPageObject(driver);
     }
     public ProductsPageObject showAllComponents(){
-        laptopsOptionsButton = new TextButton(driver,MenuLocators.LAPTOPS_NOTEBOOKS_BUTTON_LOC).click();
+        laptopsOptionsButton = new TextButton(driver,MenuLocators.COMPONENTS_BUTTON_LOC).click();
         showAllLaptopsButton = new TextButton(driver,MenuLocators.SHOW_ALL_COMPONENTS_BUTTON_LOC).click();
         return new ProductsPageObject(driver);
     }
@@ -103,7 +103,7 @@ public class MenuPageObject extends BasePageObject {
         return new ProductsPageObject(driver);
     }
     public ProductsPageObject goToPhonesAndPDAs(){
-        tabletsButton = new TextButton(driver,MenuLocators.MP3PLAYERS_BUTTON_LOC).click();
+        tabletsButton = new TextButton(driver,MenuLocators.PHONES_PDAS_BUTTON_LOC).click();
         return new ProductsPageObject(driver);
     }
     public ProductsPageObject goToWebCameras(){
