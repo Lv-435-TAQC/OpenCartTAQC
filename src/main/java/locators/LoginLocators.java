@@ -5,4 +5,5 @@ public class LoginLocators {
     public static final String INPUT_EMAIL_FIELD = "//*[@id=\"input-email\"]";
     public static final String INPUT_PASSWORD_FIELD = "//*[@id=\"input-password\"]";
     public static final String LOGIN_BUTTON = "/html/body/div[2]/div/div/div/div[2]/div/form/input";
+    public static final String WARNING_MESSAGE="//div[@class = 'alert alert-danger alert-dismissible']";
 }

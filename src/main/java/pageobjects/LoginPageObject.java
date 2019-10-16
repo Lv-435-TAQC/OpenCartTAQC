@@ -2,9 +2,14 @@ package pageobjects;
 
 import locators.ForgottenPasswordLocators;
 import locators.LoginLocators;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Button;
 import pageelements.Input;
+import pageelements.Label;
 import pageelements.LinkedLabel;
 
 public class LoginPageObject extends BasePageObject {
@@ -15,6 +20,8 @@ public class LoginPageObject extends BasePageObject {
     private LinkedLabel forgottenPassword;
     private HeaderPageObject headerPage;
     private MenuPageObject menuPage;
+    private Label warningMessage;
+    private Label successfulMessage;
 
     public LoginPageObject(WebDriver driver) {
         super(driver);
@@ -29,20 +36,6 @@ public class LoginPageObject extends BasePageObject {
         return new MyAccountPageObject(driver);
     }
 
-    public MyAccountPageObject forgottenPassword(String loginName) {
-        this
-                .goToPageForgottenPassword()
-                .setEmailFieldForgotten(loginName)
-                .clickContinueButton();
-
-        return new MyAccountPageObject(driver);
-    }
-
-    public RegistrationPageObject goToRegistationFromLogPage() {
-        this.clickToGoToRegistation();
-
-        return new RegistrationPageObject(driver);
-    }
 
     public LoginPageObject setLogInField(String loginName) {
         loginField = new Input(this.driver, LoginLocators.INPUT_EMAIL_FIELD);
@@ -75,4 +68,23 @@ public class LoginPageObject extends BasePageObject {
         return new ForgottenPasswordPageObject(driver);
     }
 
+    public String warningMessage() {
+        warningMessage = new Label(this.driver, LoginLocators.WARNING_MESSAGE);
+        return this.warningMessage.getText();
+    }
+    public LoginPageObject forgottenPassword(String loginName) {
+        this
+                .goToPageForgottenPassword()
+                .setEmailFieldForgotten(loginName)
+                .clickContinueButton();
+
+        return new LoginPageObject(driver);
+    }
+
+    public String successfulMessage() {
+        WebElement explicitWait = (new WebDriverWait(driver,10)).
+                until(ExpectedConditions.presenceOfElementLocated(By.xpath(ForgottenPasswordLocators.SENT_INFORMATION_FOR_FORGOTTEN_PASSWORD)));
+        successfulMessage = new Label(this.driver, ForgottenPasswordLocators.SENT_INFORMATION_FOR_FORGOTTEN_PASSWORD);
+        return this.successfulMessage.getText();
+    }
 }
