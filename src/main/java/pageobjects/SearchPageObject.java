@@ -28,13 +28,13 @@ public class SearchPageObject extends BasePageObject {
         return new SearchPageObject(this.driver);
     }
 
-    public String returnText() {
+    public String returnTextFromSearch() {
         returnTextOfInpute = new Label(this.driver, SearchLocators.RETURN_TEXT_XPATH);
         String textFromInpute = returnTextOfInpute.getText();
         return textFromInpute;
     }
 
-    public String returnFalseText() {
+    public String returnTextFormInvalidSearch() {
         returnFalseInpute = new Label(this.driver, SearchLocators.RETURN_TEXT_WITH_FALSE_DATA);
         String returnFalseSearch = returnFalseInpute.getText();
         return returnFalseSearch;
