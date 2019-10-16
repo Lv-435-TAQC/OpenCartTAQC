@@ -35,4 +35,7 @@ public class HomePageObject extends BasePageObject {
         driver.navigate().to("http://localhost/OpenCart/index.php?route=checkout/cart");
         return new ShoppingCartPageObject(driver);
     }
+    public String  getURL(){
+        return this.getURL();
+    }
 }

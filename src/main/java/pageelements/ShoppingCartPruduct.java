@@ -39,4 +39,7 @@ public class ShoppingCartPruduct {
         this.quantityInput.sendKeys(quantity);
         return this;
     }
+    public String getTotalPrice(){
+        return this.totalPrice;
+    }
 }

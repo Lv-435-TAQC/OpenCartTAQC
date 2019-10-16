@@ -2,9 +2,9 @@ package pageelements;
 
 import org.openqa.selenium.WebDriver;
 
-public class TextFromWebElement extends BaseElement {
+public class Label extends BaseElement {
 
-    public TextFromWebElement(WebDriver driver, String xpath){
+    public Label(WebDriver driver, String xpath){
         super(driver,xpath);
     }
     public String getText(){
