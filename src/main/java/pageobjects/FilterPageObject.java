@@ -21,22 +21,22 @@ public class FilterPageObject extends BasePageObject {
         super(driver);
     }
 
-    public FilterPageObject clickListButton() {
+    public CategoryPageObject clickListButton() {
         listButton = new ImageTextButton(this.driver, FilterLocators.SHOW_LIST_BUTTON_LOC);
         listButton.click();
-        return this;
+        return new CategoryPageObject(this.driver);
     }
 
-    public FilterPageObject clickGridButton() {
+    public CategoryPageObject clickGridButton() {
         gridButton = new ImageTextButton(this.driver, FilterLocators.SHOW_GRID_BUTTON_LOC);
         gridButton.click();
-        return this;
+        return new CategoryPageObject(this.driver);
     }
 
-    public FilterPageObject clickProductCompare() {
+    public ProductComparePageObject clickProductCompare() {
         productCompareLabel = new LinkedLabel(this.driver, FilterLocators.PRODUCT_COMPARE_LABEL_LOC);
         productCompareLabel.click();
-        return this;
+        return new ProductComparePageObject(this.driver);
     }
 
     public String getProductCompareText() {
