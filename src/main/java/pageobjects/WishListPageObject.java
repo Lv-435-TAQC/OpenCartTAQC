@@ -19,13 +19,15 @@ public class WishListPageObject extends BasePageObject {
         this.header = new HeaderPageObject(driver);
     }
 
-    public HashMap<String, WishListItem> removeItemFromWishList(HashMap<String,WishListItem> items, String id){
+    public HashMap<String, WishListItem> removeItemFromWishList(String id){
+        HashMap<String,WishListItem> items = getListItems();
         items.get(id).remove.click();
         items.remove(id);
         return items;
     }
 
-    public WishListPageObject addItemToCart(HashMap<String,WishListItem> items, String id){
+    public WishListPageObject addItemToCart(String id){
+        HashMap<String,WishListItem> items = getListItems();
         items.get(id).addToCart.click();
         return this;
     }
