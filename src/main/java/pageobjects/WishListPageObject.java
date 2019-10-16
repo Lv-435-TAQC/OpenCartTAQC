@@ -1,47 +1,65 @@
 package pageobjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import pageelements.Button;
+import org.openqa.selenium.WebElement;
 
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class WishListPageObject extends BasePageObject {
     public HeaderPageObject header;
-    public static Map<Integer, WishListItem> items;
+    public HashMap<String, WishListItem> items;
 
     public WishListPageObject(WebDriver driver) {
         super(driver);
+        this.header = new HeaderPageObject(driver);
     }
 
-    public WishListPageObject removeFromWishList(WishListItem item){
-        for(Iterator<Map.Entry<Integer, WishListItem>> it = items.entrySet().iterator(); it.hasNext(); ) {
-            Map.Entry<Integer, WishListItem> entry = it.next();
-            if(entry.getKey().equals(item.id)) {
-                it.remove();
-            }
-        }
+    public HashMap<String, WishListItem> removeItemFromWishList(HashMap<String,WishListItem> items, String id){
+        items.get(id).remove.click();
+        items.remove(id);
+        return items;
+    }
+
+    public WishListPageObject addItemToCart(HashMap<String,WishListItem> items, String id){
+        items.get(id).addToCart.click();
         return this;
     }
 
-    private class WishListItem extends BasePageObject{
-        public Integer id;
+    public HashMap<String, WishListItem> getListItems(String table){
+        HashMap<String, WishListItem> items = new HashMap<String, WishListItem>();
+        List<WebElement> listTr = driver.findElement(By.xpath(table)).findElements(By.xpath("tr"));
+
+        for (WebElement element: listTr ) {
+            String id = element.findElement(By.xpath("td[2]/a")).getAttribute("href").split("=")[2];
+            String image = element.findElement(By.xpath("td[1]/a")).getAttribute("href").toString();
+            String productName = element.findElement(By.xpath("td[2]")).getText().toString();
+            WebElement addToCart = element.findElement(By.xpath("td[6]/button"));
+            WebElement remove = element.findElement(By.xpath("td[6]/a"));
+
+            items.put(id,new WishListItem(driver, image, productName, addToCart, remove));
+        }
+        return items;
+
+    }
+
+    public class WishListItem extends BasePageObject{
         public String image;
         public String productName;
-        public Button addToCart;
-        public Button remove;
+        public WebElement addToCart;
+        public WebElement remove;
 
 
-
-        public WishListItem(WebDriver driver,Integer id, String image, String productName) {
+        public WishListItem(WebDriver driver, String image, String productName, WebElement addToCart, WebElement remove) {
             super(driver);
-            this.id = id;
             this.image = image;
             this.productName = productName;
-            this.addToCart = new Button(driver, "//*[@id=\"content\"]/div[1]/table/tbody/tr[1]/td[6]/button/i");
-            this.remove = new Button(driver, "//*[@id=\"content\"]/div[1]/table/tbody/tr[1]/td[6]/a/i");
+            this.addToCart = addToCart;
+            this.remove = remove;
         }
+
     }
 }
 
