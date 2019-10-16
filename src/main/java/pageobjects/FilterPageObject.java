@@ -1,5 +1,6 @@
 package pageobjects;
 
+import locators.FilterLocators;
 import org.openqa.selenium.WebDriver;
 import pageelements.DropDown;
 import pageelements.ImageTextButton;
@@ -21,51 +22,58 @@ public class FilterPageObject extends BasePageObject {
     }
 
     public FilterPageObject clickListButton() {
-        listButton = new ImageTextButton(this.driver, );
+        listButton = new ImageTextButton(this.driver, FilterLocators.SHOW_LIST_BUTTON_LOC);
         listButton.click();
         return this;
     }
 
     public FilterPageObject clickGridButton() {
-        gridButton = new ImageTextButton(this.driver, );
+        gridButton = new ImageTextButton(this.driver, FilterLocators.SHOW_GRID_BUTTON_LOC);
         gridButton.click();
         return this;
     }
 
     public FilterPageObject clickProductCompare() {
-        productCompareLabel = new LinkedLabel(this.driver, );
+        productCompareLabel = new LinkedLabel(this.driver, FilterLocators.PRODUCT_COMPARE_LABEL_LOC);
         productCompareLabel.click();
         return this;
     }
-    public String getProductCompareText(){
-        productCompareLabel = new LinkedLabel(this.driver, );
+
+    public String getProductCompareText() {
+        productCompareLabel = new LinkedLabel(this.driver, FilterLocators.PRODUCT_COMPARE_LABEL_LOC);
         return productCompareLabel.getText();
     }
-    public String getSortByLabelText(){
-        sortByLabel = new LinkedLabel(this.driver, );
+
+    public String getSortByLabelText() {
+        sortByLabel = new LinkedLabel(this.driver, FilterLocators.SORT_BY_LABEL_LOC);
         return sortByLabel.getText();
     }
-    public CategoryPageObject choseSortBySelectorByParam(String param){
-        sortByDropDown = new DropDown(driver,);
+
+    public CategoryPageObject choseSortBySelectorByParam(String param) {
+        sortByDropDown = new DropDown(driver, FilterLocators.SORT_BY_SELECTOR_LOC);
         sortByDropDown.writOptionParameter(param);
         return new CategoryPageObject(this.driver);
     }
-    public CategoryPageObject choseSortBySelectorByID(int id){
-        sortByDropDown = new DropDown(driver,);
+
+    public CategoryPageObject choseSortBySelectorByID(int id) {
+        sortByDropDown = new DropDown(driver, FilterLocators.SORT_BY_SELECTOR_LOC);
         sortByDropDown.writOrdinalIndex(id);
         return new CategoryPageObject(this.driver);
     }
-    public String getShowLabelText(){
-        showLabel = new LinkedLabel(this.driver, );
+
+    public String getShowLabelText() {
+        showLabel = new LinkedLabel(this.driver, FilterLocators.SHOW_LABEL_LOC);
         return showLabel.getText();
     }
-    public CategoryPageObject choseShowSelectorByParam(String param){
-        showDropDown = new DropDown(driver,);
+
+    public CategoryPageObject choseShowSelectorByParam(String param) {
+        showDropDown = new DropDown(driver, FilterLocators.SHOW_SELECTOR_LOC);
         showDropDown.writOptionParameter(param);
         return new CategoryPageObject(this.driver);
     }
-    public CategoryPageObject choseShowSelectorByID(int id){
-        showDropDown = new DropDown(driver,);
+
+    public CategoryPageObject choseShowSelectorByID(int id) {
+        showDropDown = new DropDown(driver, FilterLocators.SHOW_SELECTOR_LOC);
         showDropDown.writOrdinalIndex(id);
         return new CategoryPageObject(this.driver);
     }
