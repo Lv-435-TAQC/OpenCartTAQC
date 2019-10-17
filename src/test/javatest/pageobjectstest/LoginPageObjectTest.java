@@ -17,6 +17,9 @@ import static org.testng.Assert.assertEquals;
 public class LoginPageObjectTest {
     WebDriver driver;
     LoginPageObject loginPageObject;
+    String warn1 = "Warning: No match for E-Mail Address and/or Password.";
+    String warn2 = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
+
 
     @BeforeClass
     public void setUp() {
@@ -36,7 +39,6 @@ public class LoginPageObjectTest {
     public void closeUp() {
         driver.quit();
     }
-
     @Test
     public void clickButtonToGoToRegistrationPage() {
         loginPageObject.clickToGoToRegistation();
@@ -44,8 +46,6 @@ public class LoginPageObjectTest {
         String expected = URLConstants.REGISTRATION_PAGE;
         assertEquals(actual, expected);
     }
-    String warn1 = "Warning: No match for E-Mail Address and/or Password.";
-    String warn2 = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
     @Test
     public void LoginNegative() {
         String actual = loginPageObject.setLogInField("").setPasswordField("").clickNextButton().warningMessage();

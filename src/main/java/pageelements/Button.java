@@ -2,11 +2,9 @@ package pageelements;
 
 import org.openqa.selenium.WebDriver;
 
-import java.util.List;
-
 public class Button extends BaseElement {
-    public Button(WebDriver driver, String xpath) {
 
+    public Button(WebDriver driver, String xpath) {
         super(driver, xpath);
     }
 
@@ -14,6 +12,4 @@ public class Button extends BaseElement {
         this.element.click();
         return this;
     }
-
-
 }
