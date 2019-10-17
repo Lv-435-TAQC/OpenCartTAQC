@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryPageObject extends BasePageObject {
-    List<WebElement> elements;
+    private List<WebElement> elements;
     private Label alertLabel;
     private ArrayList<ProductUnitPageObject> products;
     private FilterPageObject filterPageObject;
