@@ -38,7 +38,7 @@ public class MenuPageObject extends BasePageObject {
 
     public ProductsPageObject goToPcDesktops(){
     desktopsOptionsButton = new TextButton(driver, MenuLocators.DESKTOP_BUTTON_LOC).click();
-    this.createListOfOptions(MenuLocators.DESKTOP_OPTIONS_LOC).get(NULL).click();
+    this.createListOfOptions(MenuLocators.DESKTOP_OPTIONS_LOC).get(ZERO).click();
         return new ProductsPageObject(driver);
     }
 
@@ -56,7 +56,7 @@ public class MenuPageObject extends BasePageObject {
 
     public ProductsPageObject goToMacsLaptops(){
         laptopsOptionsButton = new TextButton(driver,MenuLocators.LAPTOPS_NOTEBOOKS_BUTTON_LOC).click();
-        this.createListOfOptions(MenuLocators.LAPTOPS_NOTEBOOKS_OPTIONS_LOC).get(NULL).click();
+        this.createListOfOptions(MenuLocators.LAPTOPS_NOTEBOOKS_OPTIONS_LOC).get(ZERO).click();
         return new ProductsPageObject(driver);
     }
 
@@ -74,7 +74,7 @@ public class MenuPageObject extends BasePageObject {
 
     public ProductsPageObject goToMiceAndTrackballsComponents(){
         componentsOptionsButton = new TextButton(driver,MenuLocators.COMPONENTS_BUTTON_LOC).click();
-        this.createListOfOptions(MenuLocators.COMPONENTS_OPTIONS_LOC).get(NULL).click();
+        this.createListOfOptions(MenuLocators.COMPONENTS_OPTIONS_LOC).get(ZERO).click();
         return new ProductsPageObject(driver);
     }
 

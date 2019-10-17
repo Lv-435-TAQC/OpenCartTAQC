@@ -36,7 +36,6 @@ public class HeaderPageObject extends BasePageObject {
 
     private List<WebElement> createListOfCurrency(String xpath) {
         listOfCurrency = driver.findElements(By.xpath(xpath));
-        System.out.println(listOfCurrency);
         return listOfCurrency;
     }
 
@@ -87,7 +86,7 @@ public class HeaderPageObject extends BasePageObject {
 
     public HeaderPageObject chooseEuroCurrency() {
         currencyListButton = new ImageTextButton(driver, HeaderLocators.CURRENCY_BUTTON_LOC).click();
-        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(NULL).click();
+        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(ZERO).click();
         return new HeaderPageObject(driver);
     }
 
