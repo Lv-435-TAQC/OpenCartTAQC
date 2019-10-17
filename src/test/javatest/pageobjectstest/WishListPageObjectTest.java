@@ -104,8 +104,7 @@ public class WishListPageObjectTest {
     }
 
     @AfterClass
-    public void tearDown() throws InterruptedException {
-        Thread.sleep(1000);
+    public void tearDown() {
         driver.close();
     }
 }
