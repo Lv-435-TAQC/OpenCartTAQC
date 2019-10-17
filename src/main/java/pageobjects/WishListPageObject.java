@@ -24,26 +24,26 @@ public class WishListPageObject extends BasePageObject {
     }
 
     public ItemPageObject itemImageClick(String id){
-        HashMap<String, WishListItemPageObject> items = getListItems();
+        HashMap<String, WishListItemPageObject> items = getMapOfItems();
         items.get(id).image.click();
         return new ItemPageObject(driver);
     }
 
     public ItemPageObject itemProductNameClick(String id){
-        HashMap<String, WishListItemPageObject> items = getListItems();
+        HashMap<String, WishListItemPageObject> items = getMapOfItems();
         items.get(id).productName.click();
         return new ItemPageObject(driver);
     }
 
     public WishListPageObject removeItemFromWishList(String id){
-        HashMap<String, WishListItemPageObject> items = getListItems();
+        HashMap<String, WishListItemPageObject> items = getMapOfItems();
         items.get(id).remove.click();
         items.remove(id);
         return this;
     }
 
     public BasePageObject addItemToCart(String id){
-        HashMap<String, WishListItemPageObject> items = getListItems();
+        HashMap<String, WishListItemPageObject> items = getMapOfItems();
         items.get(id).addToCart.click();
         String currentUrl = driver.getCurrentUrl();
         if(currentUrl.equals(WISH_LIST_URL)){
@@ -53,7 +53,7 @@ public class WishListPageObject extends BasePageObject {
         }
     }
 
-    public HashMap<String, WishListItemPageObject> getListItems(){
+    public HashMap<String, WishListItemPageObject> getMapOfItems(){
         HashMap<String, WishListItemPageObject> items = new HashMap<String, WishListItemPageObject>();
         List<WebElement> listTr = driver.findElement(By.xpath(WISH_LIST_TABLE)).findElements(By.xpath("tr"));
 
