@@ -30,7 +30,7 @@ public class WishListPageObjectTest {
 
     @BeforeClass
     public void setUp() {
-     //   System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
         driver.get(LOGIN_PAGE_URL);
         headerPageObject = new HeaderPageObject(driver);
         headerPageObject.goToLoginPage().logIn(LOGIN_NAME, LOGIN_PASSWORD);
@@ -57,7 +57,7 @@ public class WishListPageObjectTest {
         menu.goToMacDesktops();
         categoryPageObject = new CategoryPageObject(driver);
         categoryPageObject.generateProductsPageObject().clickToLinkedNameOfProduct(1);
-       // itemPageObject.clickAdd
+       //TODO Marta need to write her metods - itemPageObject.clickAdd
         Boolean expected = element.findElement(By.xpath("//*[@id=\"product-category\"]/div[1]")).isDisplayed();
         assertTrue(expected);
     }
