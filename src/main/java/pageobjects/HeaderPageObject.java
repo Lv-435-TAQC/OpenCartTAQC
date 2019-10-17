@@ -35,6 +35,7 @@ public class HeaderPageObject extends BasePageObject {
 
     private List<WebElement> createListOfCurrency(String xpath) {
         listOfCurrency = driver.findElements(By.xpath(xpath));
+        System.out.println(listOfCurrency);
         return listOfCurrency;
     }
 
@@ -71,6 +72,7 @@ public class HeaderPageObject extends BasePageObject {
         shoppingCartButton = new ImageTextButton(driver, HeaderLocators.SHOPPING_CART_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
     }
+
     public ShoppingCartPageObject goToCheckoutCartPage(){
         checkoutButton = new ImageTextButton(driver,HeaderLocators.CHECKOUT_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
