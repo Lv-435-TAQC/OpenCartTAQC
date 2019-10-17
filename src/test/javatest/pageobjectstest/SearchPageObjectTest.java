@@ -31,14 +31,12 @@ public class SearchPageObjectTest {
 
     @AfterClass
     public void closeUp() {
-        driver.close();
+        driver.quit();
     }
 
+
     @Test
-    public void testClickSearchButton() {
-    }
-    @Test
-    public void testInputeProductName() {
+    public void testInputeValidProductName() {
         SearchPageObject searchPageObject = search.inputeProductName();
         searchPageObject.clickSearchButton();
         String actual = search.returnTextFromSearch();
@@ -55,5 +53,30 @@ public class SearchPageObjectTest {
     }
     @Test
     public void testUseInSubcategories() {
+        search.inputeProductName();
+        search.selectCategories();
+        search.clickSearchButton();
+        String actual = search.returnTextFromFirstSearchElement();
+        String expected = ("MacBook");
+        assertEquals(actual, expected);
+    }
+    @Test
+    public void testUseSearcWhithDescription() {
+        search.inputeProductNameForSearchWhithProductDescription();
+        search.searchInDescription();
+        search.clickSearchButton();
+        String actual = search.returnTextFromFirstSearchElement();
+        String expected = ("Canon EOS 5D");
+        assertEquals(actual, expected);
+    }
+    @Test
+    public void testSearchWithSubcategoriesButton() {
+        search.inputeProductName();
+        search.selectCategories();
+        search.useInSubcategories();
+        search.clickSearchButton();
+        String actual = search.returnTextFromFirstSearchElement();
+        String expected = ("iMac");
+        assertEquals(actual, expected);
     }
 }
