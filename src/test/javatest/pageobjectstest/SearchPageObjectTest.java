@@ -36,7 +36,7 @@ public class SearchPageObjectTest {
 
 
     @Test
-    public void testInputeValidProductName() {
+    public void testInputValidProductName() {
         SearchPageObject searchPageObject = search.inputeProductName();
         searchPageObject.clickSearchButton();
         String actual = search.returnTextFromSearch();
@@ -44,7 +44,7 @@ public class SearchPageObjectTest {
         assertEquals(actual, expected);
     }
     @Test
-    public void testInputeFalseData() {
+    public void testInputFalseData() {
         SearchPageObject searchPageObject = search.inputeFalseProductName();
         searchPageObject.clickSearchButton();
         String actual = search.returnTextFormInvalidSearch();
@@ -61,7 +61,7 @@ public class SearchPageObjectTest {
         assertEquals(actual, expected);
     }
     @Test
-    public void testUseSearcWhithDescription() {
+    public void testUseSearchWithDescription() {
         search.inputeProductNameForSearchWhithProductDescription();
         search.searchInDescription();
         search.clickSearchButton();
