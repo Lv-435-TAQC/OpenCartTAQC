@@ -1,14 +1,12 @@
 package pageobjects;
 
 import locators.HeaderLocators;
-import locators.MenuLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.*;
-
 
 import java.util.List;
 
@@ -42,11 +40,6 @@ public class HeaderPageObject extends BasePageObject {
     public HomePageObject goToHomePage() {
         yourStore = new LinkedLabel(driver, HeaderLocators.YOUR_STORE_BUTTON_LOC).click();
         return new HomePageObject(driver);
-    }
-
-    public ItemPageObject goToItemsPage() {
-        itemsPageButton = new ImageTextButton(driver, HeaderLocators.ITEMS_PAGE_BUTTON_LOC).click();
-        return new ItemPageObject(driver);
     }
 
     public WishListPageObject goToWishList() {
