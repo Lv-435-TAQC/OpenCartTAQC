@@ -12,11 +12,13 @@ import pageobjects.PreviewShoppingCart;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 public class PreviewShoppingCartTest {
     WebDriver driver;
     HomePageObject home;
+
     @BeforeClass
     public void setUp() {
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
@@ -34,6 +36,7 @@ public class PreviewShoppingCartTest {
     public void closeUp() {
         driver.quit();
     }
+
     @Test
     public void testGetMapProductInCart() {
         String productID = home.addToCartIphone();
