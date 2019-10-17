@@ -32,7 +32,7 @@ public class CategoryPageObject extends BasePageObject {
 
     public CategoryPageObject generateProductsPageObject() {
         WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CategoryLocators.ALL_PRODUCTS_DIV_LOC)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CategoryLocators.FIRST_PRODUCT_LOC)));
         products = new ArrayList<ProductUnitPageObject>();
         getAllProductsElementsFromPage();
         for (int i = 0; i < elements.size(); i++) {
@@ -67,7 +67,7 @@ public class CategoryPageObject extends BasePageObject {
     }
 
     public String getNameOfProduct(int numberOfProduct) {
-        return products.get(numberOfProduct).getNameOfProduct();
+        return products.get(numberOfProduct-1).getNameOfProduct();
     }
 
     public String getDescriptionOfProduct(int numberOfProduct) {
@@ -106,6 +106,7 @@ public class CategoryPageObject extends BasePageObject {
 
     public CategoryPageObject choseSortBySelectorByParam(String param) {
         filterPageObject.choseSortBySelectorByParam(param);
+        generateProductsPageObject();
         return this;
     }
 

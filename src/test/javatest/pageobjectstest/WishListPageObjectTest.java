@@ -18,14 +18,11 @@ import static org.testng.Assert.assertTrue;
 
 public class WishListPageObjectTest {
     WebDriver driver = new FirefoxDriver();
-    WebElement element;
     WishListPageObject wishList;
     WebDriverWait wait = new WebDriverWait(driver, 10);
-    LoginPageObject loginPageObject;
     MenuPageObject menu;
     CategoryPageObject categoryPageObject;
     HeaderPageObject headerPageObject;
-    ItemPageObject itemPageObject;
 
 
     @BeforeClass
@@ -45,39 +42,62 @@ public class WishListPageObjectTest {
 
     @Test
     public void addItemToWishListFromMenu(){
-        menu.goToMacDesktops();
+        menu.showAllDesktops();
         categoryPageObject = new CategoryPageObject(driver);
         categoryPageObject.generateProductsPageObject().clickAddToWishList(1);
-        Boolean expected = element.findElement(By.xpath("//*[@id=\"product-category\"]/div[1]")).isDisplayed();
-        assertTrue(expected);
+        String actual = categoryPageObject.getTextFromAlertLabel();
+        String expected = "Success: You have added Apple Cinema 30\" to your wish list!";
+        assertTrue(actual.contains(expected));
     }
 
     @Test
     public void addItemToWishListFromItemObject(){
-        menu.goToMacDesktops();
+        menu.showAllDesktops();
         categoryPageObject = new CategoryPageObject(driver);
         categoryPageObject.generateProductsPageObject().clickToLinkedNameOfProduct(1);
-       //TODO Marta need to write her metods - itemPageObject.clickAdd
-        Boolean expected = element.findElement(By.xpath("//*[@id=\"product-category\"]/div[1]")).isDisplayed();
-        assertTrue(expected);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[1]/button[1]")));
+        driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[1]/button[1]")).click();
+       //TODO Marta need to write her method - itemPageObject.clickAddToWishList
+        String actual = driver.findElement(By.xpath("//*[@id=\"product-product\"]/div[1]")).getText();
+        String expected = "Success: You have added Apple Cinema 30\" to your wish list!";
+        assertTrue(actual.contains(expected));
     }
 
     @Test
     public void addItemFromWishListToChoppingCart(){
-        menu.goToMacDesktops();
-        categoryPageObject = new CategoryPageObject(driver);
-        categoryPageObject.generateProductsPageObject().clickAddToWishList(1);
         headerPageObject.goToWishList().addItemToCart("41");
-        Boolean expected = element.findElement(By.xpath("//*[@id=\"account-wishlist\"]/div[1]")).isDisplayed();
-        assertTrue(expected);
+        wishList = new WishListPageObject(driver);
+        String actual = wishList.getTextFromAlertLabel();
+        String expected = "Success: You have added iMac to your shopping cart!";
+        assertTrue(actual.contains(expected));
     }
 
     @Test
     public void addItemWithParametersFromWishListToChoppingCart(){
-        menu.goToMacDesktops();
-        categoryPageObject = new CategoryPageObject(driver);
-        categoryPageObject.generateProductsPageObject().clickAddToWishList(1);
         headerPageObject.goToWishList().addItemToCart("42");
+        String actual = driver.getCurrentUrl();
+        String expected = "http://192.168.152.128/opencart/index.php?route=product/product&product_id=42";
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    public void removeItemFromWishList(){
+        wishList = headerPageObject.goToWishList().removeItemFromWishList("41");
+        Boolean expected = wishList.getMapOfItems().containsKey("41") ? Boolean.FALSE : Boolean.TRUE;
+        assertTrue(expected);
+    }
+
+    @Test
+    public void goToItemByImageFromWishList(){
+        headerPageObject.goToWishList().itemImageClick("42");
+        String actual = driver.getCurrentUrl();
+        String expected = "http://192.168.152.128/opencart/index.php?route=product/product&product_id=42";
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    public void goToItemByProductNameFromWishList(){
+        headerPageObject.goToWishList().itemProductNameClick("42");
         String actual = driver.getCurrentUrl();
         String expected = "http://192.168.152.128/opencart/index.php?route=product/product&product_id=42";
         assertEquals(actual, expected);

@@ -71,8 +71,9 @@ public class HeaderPageObject extends BasePageObject {
         return new ShoppingCartPageObject(driver);
     }
 
-    public ShoppingCartPageObject goToCheckoutCartPage() {
-        checkoutButton = new ImageTextButton(driver, HeaderLocators.CHECKOUT_PAGE_BUTTON_LOC).click();
+
+    public ShoppingCartPageObject goToCheckoutCartPage(){
+        checkoutButton = new ImageTextButton(driver,HeaderLocators.CHECKOUT_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
     }
 
@@ -84,7 +85,7 @@ public class HeaderPageObject extends BasePageObject {
 
     public HeaderPageObject chooseEuroCurrency() {
         currencyListButton = new ImageTextButton(driver, HeaderLocators.CURRENCY_BUTTON_LOC).click();
-        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(NULL).click();
+        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(ZERO).click();
         return new HeaderPageObject(driver);
     }
 
