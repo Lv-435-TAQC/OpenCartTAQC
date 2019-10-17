@@ -10,12 +10,15 @@ import pageelements.Label;
 
 public class SearchPageObject extends BasePageObject {
     private Button searchButton;
-    private Input inputeNameOfProduct;
-    private DropDown categoriesButton;
     private Button searchInSubcategories;
+    private Button searchInDescriptionButton;
+    private Input inputeFalseNameOfProduct;
+    private Input inputeNameOfProduct;
+    private Input inputeProductNameForSearchWhithDescription;
+    private DropDown categoriesButton;
     private Label returnTextOfInpute;
     private Label returnFalseInpute;
-    private Input inputeFalseNameOfProduct;
+    private Label returnFirstElementOfSearchText;
 
     public SearchPageObject(WebDriver driver) {
         super(driver);
@@ -35,9 +38,14 @@ public class SearchPageObject extends BasePageObject {
     }
 
     public String returnTextFormInvalidSearch() {
-        returnFalseInpute = new Label(this.driver, SearchLocators.RETURN_TEXT_WITH_FALSE_DATA);
+        returnFalseInpute = new Label(this.driver, SearchLocators.RETURN_TEXT_WITH_FALSE_DATA_XPATH);
         String returnFalseSearch = returnFalseInpute.getText();
         return returnFalseSearch;
+    }
+    public  String returnTextFromFirstSearchElement(){
+        returnFirstElementOfSearchText = new Label(this.driver, SearchLocators.RETURN_FIRST_ELEMENT_NAME_XPATH);
+        String returnFirstElementName = returnFirstElementOfSearchText.getText();
+        return  returnFirstElementName;
     }
 
     public SearchPageObject inputeFalseProductName() {
@@ -51,11 +59,20 @@ public class SearchPageObject extends BasePageObject {
         inputeNameOfProduct.setTextForField("Mac");
         return new SearchPageObject(this.driver);
     }
-
+    public SearchPageObject inputeProductNameForSearchWhithProductDescription() {
+        inputeProductNameForSearchWhithDescription = new Input(this.driver, SearchLocators.INPUTE_SEARCH_TEXT_XPATH);
+        inputeProductNameForSearchWhithDescription.setTextForField("New D_SLR");
+        return new SearchPageObject(this.driver);
+    }
 
     public SearchPageObject selectCategories() {
         this.categoriesButton = new DropDown(driver, SearchLocators.CATEGORIES_BUTTON_XPATH);
         this.categoriesButton.writOptionParameter("Desktops");
+        return new SearchPageObject(this.driver);
+    }
+    public SearchPageObject searchInDescription() {
+        searchInDescriptionButton = new Button(this.driver, SearchLocators.SEARCH_IN_PRODUCT_DESCRIPTION_BUTTON_XPATH);
+        searchInDescriptionButton.click();
         return new SearchPageObject(this.driver);
     }
 
