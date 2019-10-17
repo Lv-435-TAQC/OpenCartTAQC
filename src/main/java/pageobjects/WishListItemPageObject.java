@@ -5,13 +5,13 @@ import org.openqa.selenium.WebElement;
 
 public class WishListItemPageObject extends BasePageObject{
 
-    public String image;
-    public String productName;
+    public WebElement image;
+    public WebElement productName;
     public WebElement addToCart;
     public WebElement remove;
 
 
-    public WishListItemPageObject(WebDriver driver, String image, String productName, WebElement addToCart, WebElement remove) {
+    public WishListItemPageObject(WebDriver driver, WebElement image, WebElement productName, WebElement addToCart, WebElement remove) {
         super(driver);
         this.image = image;
         this.productName = productName;
