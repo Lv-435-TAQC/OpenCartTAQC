@@ -2,13 +2,13 @@ package pageelements;
 
 import org.openqa.selenium.WebDriver;
 
-public class Button extends BaseElement {
+public class Checkbox extends BaseElement{
 
-    public Button(WebDriver driver, String xpath) {
+    public Checkbox(WebDriver driver, String xpath) {
         super(driver, xpath);
     }
 
-    public Button click() {
+    public Checkbox clickOnCheckbox() {
         this.element.click();
         return this;
     }
