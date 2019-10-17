@@ -12,12 +12,12 @@ public class DropDown extends BaseElement {
     }
 
 
-    public DropDown writOptionParameter(String parameter) {
+    public DropDown writeOptionParameter(String parameter) {
         select.selectByVisibleText(parameter);
         return this;
     }
 
-    public DropDown writOrdinalIndex(int ordinalIndex) {
+    public DropDown writeOrdinalIndex(int ordinalIndex) {
         select.selectByIndex(ordinalIndex);
         return this;
     }

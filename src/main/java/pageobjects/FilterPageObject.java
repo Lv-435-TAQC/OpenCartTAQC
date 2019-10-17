@@ -51,13 +51,13 @@ public class FilterPageObject extends BasePageObject {
 
     public CategoryPageObject choseSortBySelectorByParam(String param) {
         sortByDropDown = new DropDown(driver, FilterLocators.SORT_BY_SELECTOR_LOC);
-        sortByDropDown.writOptionParameter(param);
+        sortByDropDown.writeOptionParameter(param);
         return new CategoryPageObject(this.driver);
     }
 
     public CategoryPageObject choseSortBySelectorByID(int id) {
         sortByDropDown = new DropDown(driver, FilterLocators.SORT_BY_SELECTOR_LOC);
-        sortByDropDown.writOrdinalIndex(id);
+        sortByDropDown.writeOrdinalIndex(id);
         return new CategoryPageObject(this.driver);
     }
 
@@ -68,13 +68,13 @@ public class FilterPageObject extends BasePageObject {
 
     public CategoryPageObject choseShowSelectorByParam(String param) {
         showDropDown = new DropDown(driver, FilterLocators.SHOW_SELECTOR_LOC);
-        showDropDown.writOptionParameter(param);
+        showDropDown.writeOptionParameter(param);
         return new CategoryPageObject(this.driver);
     }
 
     public CategoryPageObject choseShowSelectorByID(int id) {
         showDropDown = new DropDown(driver, FilterLocators.SHOW_SELECTOR_LOC);
-        showDropDown.writOrdinalIndex(id);
+        showDropDown.writeOrdinalIndex(id);
         return new CategoryPageObject(this.driver);
     }
 

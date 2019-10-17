@@ -27,7 +27,7 @@ public class ShoppingProductsTable extends BaseElement {
             WebElement buttonRemove = ButtonContainer.findElements(By.tagName("button")).get(1);
             String productsUnitPrice = tableRow.get(i).findElement(By.xpath("td[5]")).getText();
             String productsTotalPrice = tableRow.get(i).findElement(By.xpath("td[6]")).getText();
-            shoppingCartProducts.put(productID,new ShoppingCartProduct(
+            shoppingCartProducts.put(productID, new ShoppingCartProduct(
                     productName, productModel, input.getText(), productsUnitPrice, productsTotalPrice, input, buttonUpdate, buttonRemove));
         }
         return shoppingCartProducts;

@@ -11,9 +11,10 @@ public class ShoppingCartProduct {
     private WebElement quantityInput;
     private WebElement buttonUpdate;
     private WebElement buttonRemove;
+
     ShoppingCartProduct(
             String name, String model, String quantity, String utilPrice, String totalPrice,
-            WebElement quantityInput,WebElement buttonUpdate, WebElement buttonRemove ){
+            WebElement quantityInput, WebElement buttonUpdate, WebElement buttonRemove) {
         this.productName = name;
         this.productModel = model;
         this.productsQuantity = quantity;
@@ -23,23 +24,28 @@ public class ShoppingCartProduct {
         this.buttonUpdate = buttonUpdate;
         this.buttonRemove = buttonRemove;
     }
-     public ShoppingCartProduct removeProductsFromCart(){
+
+    public ShoppingCartProduct removeProductsFromCart() {
         this.buttonRemove.click();
         return this;
     }
-    public ShoppingCartProduct updateProductsFromCart(){
+
+    public ShoppingCartProduct updateProductsFromCart() {
         this.buttonUpdate.click();
         return this;
     }
-    public ShoppingCartProduct clearInputQuantity(){
+
+    public ShoppingCartProduct clearInputQuantity() {
         this.quantityInput.clear();
         return this;
     }
-    public ShoppingCartProduct writeQuantity(String quantity){
+
+    public ShoppingCartProduct writeQuantity(String quantity) {
         this.quantityInput.sendKeys(quantity);
         return this;
     }
-    public String getTotalPrice(){
+
+    public String getTotalPrice() {
         return this.totalPrice;
     }
 }

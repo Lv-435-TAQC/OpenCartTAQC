@@ -66,6 +66,7 @@ public class HeaderPageObject extends BasePageObject {
         return new ShoppingCartPageObject(driver);
     }
 
+
     public ShoppingCartPageObject goToCheckoutCartPage(){
         checkoutButton = new ImageTextButton(driver,HeaderLocators.CHECKOUT_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
@@ -103,10 +104,11 @@ public class HeaderPageObject extends BasePageObject {
         buttonText = new LinkedLabel(driver, HeaderLocators.ITEMS_PAGE_BUTTON_LOC).getText();
         return buttonText;
     }
-    public PreviewShoppingCart getPreviewShoppingCart(){
+
+    public PreviewShoppingCart getPreviewShoppingCart() {
         new WebDriverWait(driver, 30).
-                until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/header/div/div/div[3]/div/button")));
-        openPreview = new Button(driver,"/html/body/header/div/div/div[3]/div/button");
+                until(ExpectedConditions.elementToBeClickable(By.xpath(HeaderLocators.OPEN_PREVIEW_CART)));
+        openPreview = new Button(driver, HeaderLocators.OPEN_PREVIEW_CART);
         openPreview.click();
         return new PreviewShoppingCart(driver);
     }
