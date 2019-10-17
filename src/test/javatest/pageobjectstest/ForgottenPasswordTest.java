@@ -7,7 +7,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ForgottenPasswordPageObject;
-import utils.commonconstants.URLConstants;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +15,8 @@ import static org.testng.Assert.assertEquals;
 public class ForgottenPasswordTest {
     WebDriver driver;
     ForgottenPasswordPageObject forgottenPassword;
-
+    public static final String LOGIN_PAGE="http://192.168.184.130/opencart/index.php?route=account/login";
+    public static final String FORGOTTEN_PAGE="http://192.168.184.130/opencart/index.php?route=account/forgotten";
     @BeforeClass
     public void setUp() {
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
@@ -26,7 +26,7 @@ public class ForgottenPasswordTest {
     @BeforeMethod
     public void getGorgottenPassword() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(URLConstants.FORGOTTEN_PAGE);
+        driver.get(FORGOTTEN_PAGE);
         forgottenPassword = new ForgottenPasswordPageObject(this.driver);
     }
 
@@ -39,7 +39,7 @@ public class ForgottenPasswordTest {
     public void clickButtonToGoToLoginPage() {
         forgottenPassword.clickBackToLoginPageButton();
         String actual = driver.getCurrentUrl();
-        String expected = URLConstants.LOGIN_PAGE;
+        String expected = LOGIN_PAGE;
         assertEquals(actual, expected);
     }
 }
