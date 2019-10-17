@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 public class CategoryPageObject extends BasePageObject {
 
-    Label alertLabel;
-    ArrayList<ProductUnitPageObject> products;
-    FilterPageObject filterPageObject;
+    private Label alertLabel;
+    private ArrayList<ProductUnitPageObject> products;
+    private FilterPageObject filterPageObject;
 
 
     public CategoryPageObject(WebDriver driver) {
