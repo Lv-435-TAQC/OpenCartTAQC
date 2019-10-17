@@ -34,10 +34,9 @@ public class SearchPageObjectTest {
         driver.quit();
     }
 
-
     @Test
     public void testInputValidProductName() {
-        SearchPageObject searchPageObject = search.inputeProductName();
+        SearchPageObject searchPageObject = search.inputProductName();
         searchPageObject.clickSearchButton();
         String actual = search.returnTextFromSearch();
         String expected = ("Search - Mac");
@@ -45,7 +44,7 @@ public class SearchPageObjectTest {
     }
     @Test
     public void testInputFalseData() {
-        SearchPageObject searchPageObject = search.inputeFalseProductName();
+        SearchPageObject searchPageObject = search.inputFalseProductName();
         searchPageObject.clickSearchButton();
         String actual = search.returnTextFormInvalidSearch();
         String expected = ("Your shopping cart is empty!");
@@ -53,7 +52,7 @@ public class SearchPageObjectTest {
     }
     @Test
     public void testUseInSubcategories() {
-        search.inputeProductName();
+        search.inputProductName();
         search.selectCategories();
         search.clickSearchButton();
         String actual = search.returnTextFromFirstSearchElement();
@@ -62,7 +61,7 @@ public class SearchPageObjectTest {
     }
     @Test
     public void testUseSearchWithDescription() {
-        search.inputeProductNameForSearchWhithProductDescription();
+        search.inputProductNameForSearchWithProductDescription();
         search.searchInDescription();
         search.clickSearchButton();
         String actual = search.returnTextFromFirstSearchElement();
@@ -71,7 +70,7 @@ public class SearchPageObjectTest {
     }
     @Test
     public void testSearchWithSubcategoriesButton() {
-        search.inputeProductName();
+        search.inputProductName();
         search.selectCategories();
         search.useInSubcategories();
         search.clickSearchButton();
