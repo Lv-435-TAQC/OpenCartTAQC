@@ -83,8 +83,15 @@ public class WishListPageObjectTest {
         assertEquals(actual, expected);
     }
 
-    @AfterClass
-    public void tearDown() {
-        driver.close();
+    @Test
+    public void removeItemFromWishList(){
+        wishList = headerPageObject.goToWishList().removeItemFromWishList("41");
+        Boolean expected = wishList.getMapOfItems().containsKey("41") ? Boolean.FALSE : Boolean.TRUE;
+        assertTrue(expected);
     }
+
+//    @AfterClass
+//    public void tearDown() {
+//        driver.close();
+//    }
 }
