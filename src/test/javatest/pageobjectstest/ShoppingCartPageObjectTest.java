@@ -29,20 +29,21 @@ public class ShoppingCartPageObjectTest {
         driver.get("http://localhost/OpenCart");
         home = new HomePageObject(driver);
     }
+
     @AfterMethod
-    public void makeScreenshots(ITestResult result)throws IOException {
+    public void makeScreenshots(ITestResult result) throws IOException {
         if (result.getStatus() == ITestResult.FAILURE) {
-            ShoppingCartPageObject.makeScreenShotSteps(driver,result.getName());
+            ShoppingCartPageObject.makeScreenShotSteps(driver, result.getName());
         }
         driver.manage().deleteAllCookies();
     }
 
     @AfterClass
     public void closeUp() {
-         driver.quit();
+        driver.quit();
     }
 
-    @Test
+    @Test(invocationCount = 2)
     public void testAddProductToShoppingCart() {
         String productID = home.addToCartIphone();
         assertTrue(home.goToShoppingCartPage().getShoppingProductsList().containsKey(productID));
@@ -53,7 +54,9 @@ public class ShoppingCartPageObjectTest {
         String productID = home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.removeProductFromCart(productID);
-        assertEquals(shoppingCartPageObject.getCartEmptyMassage(), "Your shopping cart is empty!");
+        String actual = shoppingCartPageObject.getCartEmptyMassage();
+        ShoppingCartPageObject.makeScreenShotSteps(driver, "correct ID");
+        assertEquals(actual, "Your shopping cart is empty!");
     }
 
     @Test
@@ -61,9 +64,25 @@ public class ShoppingCartPageObjectTest {
         String productID = home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         String expected = "$246.40";
-        shoppingCartPageObject.writeProductQuantityInCart(productID,"2");
+        shoppingCartPageObject.writeProductQuantityInCart(productID, "2");
         shoppingCartPageObject.updateProductQuantityInCart(productID);
-        String actual =shoppingCartPageObject.getTotalCostProductInCart(productID);
+        String actual = shoppingCartPageObject.getTotalCostProductInCart(productID);
+        assertEquals(actual, expected);
+    }
+
+    @DataProvider(name = "invalidDataQuantityProducts")
+    public Object[][] createDataQuantityProducts(Method m) {
+        return new Object[][]{new Object[]{"aaa"}, new Object[]{""}, new Object[]{"12v"}};
+    }
+
+    @Test(dataProvider = "invalidDataQuantityProducts")  //Bug
+    public void testChangingQuantityProductsNegative(String quantity) {
+        String productID = home.addToCartIphone();
+        ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
+        String expected = "$101.00";
+        shoppingCartPageObject.writeProductQuantityInCart(productID, quantity);
+        shoppingCartPageObject.updateProductQuantityInCart(productID);
+        String actual = shoppingCartPageObject.getTotalCostProductInCart(productID);
         assertEquals(actual, expected);
     }
 
@@ -80,7 +99,7 @@ public class ShoppingCartPageObjectTest {
 
     @DataProvider(name = "invalidData")
     public Object[][] createData(Method m) {
-        return new Object[][]{new Object[]{"a111"}, new Object[]{""}};
+        return new Object[][]{new Object[]{"a111"}, new Object[]{""}, new Object[]{"1111"}};
     }
 
     @Test(dataProvider = "invalidData", expectedExceptions = org.openqa.selenium.NoSuchElementException.class)
@@ -158,10 +177,19 @@ public class ShoppingCartPageObjectTest {
 
     @Test
     public void testContinueShopping() {
-        home.addToCartIphone();
+        home.addToCartMacBook();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         HomePageObject home = shoppingCartPageObject.continueShopping();
+        String productId = home.addToCartIphone();
+        assertEquals(productId, "40");
+    }
 
+    @Test
+    public void testCheckout() {
+        home.addToCartMacBook();
+        ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
+        String actual = shoppingCartPageObject.checkout();
+        assertEquals(actual, "http://localhost/OpenCart/index.php?route=checkout/checkout");
     }
 
 

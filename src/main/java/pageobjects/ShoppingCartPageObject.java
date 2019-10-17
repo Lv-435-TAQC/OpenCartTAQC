@@ -15,34 +15,43 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class ShoppingCartPageObject extends BasePageObject {
-    ShoppingProductsTable productsTable;
-    Button continueShoppingButton;
-    Button checkoutButton;
-    Button openCouponCodeButton;
-    Input inputCouponCode;
-    Button applyCouponButton;
-    Button openEstimateShippingTaxesButton;
-    DropDown selectCountry;
-    DropDown selectRegion;
-    Input postCode;
-    Button flatRateInput;
-    Button cancelFlatRate;
-    Button applyFlatRate;
-    Button getQuotesButton;
-    Button openUseGiftCertificateButton;
-    Input inputGiftCertificate;
-    Button applyGiftCertificateButton;
-    Label massageSuccessOperation;
-    Label subTotalCost;
-    Label couponCode;
-    Label ecoTax;
-    Label VAT;
-    Label giftCertificate;
+    private ShoppingProductsTable productsTable;
+    private Button continueShoppingButton;
+    private Button checkoutButton;
+    private Button openCouponCodeButton;
+    private Input inputCouponCode;
+    private Button applyCouponButton;
+    private Button openEstimateShippingTaxesButton;
+    private DropDown selectCountry;
+    private DropDown selectRegion;
+    private Input postCode;
+    private Button flatRateInput;
+    private Button cancelFlatRate;
+    private Button applyFlatRate;
+    private Button getQuotesButton;
+    private Button openUseGiftCertificateButton;
+    private Input inputGiftCertificate;
+    private Button applyGiftCertificateButton;
+    private Label massageSuccessOperation;
+    private Label subTotalCost;
+    private Label couponCode;
+    private Label ecoTax;
+    private Label VAT;
+    private Label giftCertificate;
     private Label totalCost;
     private Label shoppingCartEmptyMassage;
 
     public ShoppingCartPageObject(WebDriver driver) {
         super(driver);
+    }
+
+    public static void makeScreenShotSteps(WebDriver driver, String screenshotsName) {
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(scrFile, new File("src\\main\\resources\\screenshots\\" + screenshotsName + ".png"));
+        } catch (IOException e) {
+
+        }
     }
 
     public HashMap<String, ShoppingCartProduct> getShoppingProductsList() {
@@ -51,24 +60,28 @@ public class ShoppingCartPageObject extends BasePageObject {
         this.productsTable = new ShoppingProductsTable(driver, ShoppingCartLocators.PRODUCTS_TABLE_XPATH);
         return productsTable.productsListInCart();
     }
+
     public ShoppingCartPageObject removeProductFromCart(String productID) {
-        HashMap<String, ShoppingCartProduct> mapProducts= this.getShoppingProductsList();
+        HashMap<String, ShoppingCartProduct> mapProducts = this.getShoppingProductsList();
         mapProducts.get(productID).removeProductsFromCart();
         return this;
     }
+
     public ShoppingCartPageObject updateProductQuantityInCart(String productID) {
-        HashMap<String, ShoppingCartProduct> mapProducts= this.getShoppingProductsList();
+        HashMap<String, ShoppingCartProduct> mapProducts = this.getShoppingProductsList();
         mapProducts.get(productID).updateProductsFromCart();
         return this;
     }
-    public ShoppingCartPageObject writeProductQuantityInCart(String productID,String quantyty) {
-        HashMap<String, ShoppingCartProduct> mapProducts= this.getShoppingProductsList();
+
+    public ShoppingCartPageObject writeProductQuantityInCart(String productID, String quantity) {
+        HashMap<String, ShoppingCartProduct> mapProducts = this.getShoppingProductsList();
         mapProducts.get(productID).clearInputQuantity();
-        mapProducts.get(productID).writeQuantity(quantyty);
+        mapProducts.get(productID).writeQuantity(quantity);
         return this;
     }
+
     public String getTotalCostProductInCart(String productID) {
-        HashMap<String, ShoppingCartProduct> mapProducts= this.getShoppingProductsList();
+        HashMap<String, ShoppingCartProduct> mapProducts = this.getShoppingProductsList();
         return mapProducts.get(productID).getTotalPrice();
     }
 
@@ -97,12 +110,12 @@ public class ShoppingCartPageObject extends BasePageObject {
         new WebDriverWait(driver, 30).
                 until(ExpectedConditions.elementToBeClickable(By.xpath(ShoppingCartLocators.SELECT_COUNTRY_XPATH)));
         this.selectCountry = new DropDown(driver, ShoppingCartLocators.SELECT_COUNTRY_XPATH);
-        this.selectCountry.writOptionParameter(shippingCountry);
+        this.selectCountry.writeOptionParameter(shippingCountry);
 
         new WebDriverWait(driver, 30).
                 until(ExpectedConditions.presenceOfNestedElementsLocatedBy(By.xpath(ShoppingCartLocators.SELECT_REGION_XPATH), By.tagName("option")));
         this.selectRegion = new DropDown(driver, ShoppingCartLocators.SELECT_REGION_XPATH);
-        this.selectRegion.writOrdinalIndex(shippingRegion);
+        this.selectRegion.writeOrdinalIndex(shippingRegion);
 
         this.postCode = new Input(driver, ShoppingCartLocators.POST_CODE_XPATH);
         this.postCode.setTextForField(postCode);
@@ -112,12 +125,13 @@ public class ShoppingCartPageObject extends BasePageObject {
         this.messageAboutOption();
         return this;
     }
+
     public ShoppingCartPageObject chooseFlatRate() {
         new WebDriverWait(driver, 15).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.FLAT_SHIPPING_RATE_XPATH)));
         this.flatRateInput = new Button(driver, ShoppingCartLocators.FLAT_SHIPPING_RATE_XPATH);
         this.flatRateInput.click();
-        this.applyFlatRate = new Button(driver,ShoppingCartLocators.FLAT_SHIPPING_RATE_APPLY_XPATH);
+        this.applyFlatRate = new Button(driver, ShoppingCartLocators.FLAT_SHIPPING_RATE_APPLY_XPATH);
         this.applyFlatRate.click();
         this.messageAboutOption();
         return this;
@@ -141,68 +155,73 @@ public class ShoppingCartPageObject extends BasePageObject {
     }
 
     public HomePageObject continueShopping() {
+        new WebDriverWait(driver, 30).
+                until(ExpectedConditions.elementToBeClickable(By.xpath(ShoppingCartLocators.CONTINUE_SHOPPING)));
         continueShoppingButton = new Button(driver, ShoppingCartLocators.CONTINUE_SHOPPING);
         continueShoppingButton.click();
         return new HomePageObject(driver);
     }
 
-    public void checkout() {
+    public String checkout() {
         checkoutButton = new Button(driver, ShoppingCartLocators.CHECKOUT_BUTTON_XPATH);
         checkoutButton.click();
+        return driver.getCurrentUrl();
     }
-    public  String getSubTotalCost(){
-        subTotalCost = new Label(driver,ShoppingCartLocators.SUB_TOTAL_COST_XPATH);
+
+    public String getSubTotalCost() {
+        subTotalCost = new Label(driver, ShoppingCartLocators.SUB_TOTAL_COST_XPATH);
         return subTotalCost.getText();
     }
-    public String  getCouponCode(){
-        couponCode= new Label(driver,ShoppingCartLocators.COUPON_XPATH);
-        return  couponCode.getText();
+
+    public String getCouponCode() {
+        couponCode = new Label(driver, ShoppingCartLocators.COUPON_XPATH);
+        return couponCode.getText();
     }
-    public String  getEcoTax(){
-        ecoTax = new Label(driver,ShoppingCartLocators.ECO_TAX_XPATH);
+
+    public String getEcoTax() {
+        ecoTax = new Label(driver, ShoppingCartLocators.ECO_TAX_XPATH);
         return ecoTax.getText();
     }
-    public String  getVAT(){
-        VAT = new Label(driver,ShoppingCartLocators.VAT_XPATH);
+
+    public String getVAT() {
+        VAT = new Label(driver, ShoppingCartLocators.VAT_XPATH);
         return VAT.getText();
     }
-    public String  getGiftCertificate(){
-        giftCertificate= new Label(driver,ShoppingCartLocators.GIFT_CERTIFICATE_XPATH);
+
+    public String getGiftCertificate() {
+        giftCertificate = new Label(driver, ShoppingCartLocators.GIFT_CERTIFICATE_XPATH);
         return giftCertificate.getText();
     }
-    public String  getGiftCertificateWithWait(){
+
+    public String getGiftCertificateWithWait() {
         new WebDriverWait(driver, 15).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.GIFT_CERTIFICATE_XPATH)));
-        giftCertificate= new Label(driver,ShoppingCartLocators.GIFT_CERTIFICATE_XPATH);
+        giftCertificate = new Label(driver, ShoppingCartLocators.GIFT_CERTIFICATE_XPATH);
         return giftCertificate.getText();
     }
-    public String  getCartEmptyMassage(){
+
+    public String getCartEmptyMassage() {
         new WebDriverWait(driver, 10).
-                until(ExpectedConditions.textToBePresentInElementLocated(By.xpath(ShoppingCartLocators.CART_EMPTY_MASSAGE),"our shopping cart is empty!"));
-        shoppingCartEmptyMassage = new Label(driver,ShoppingCartLocators.CART_EMPTY_MASSAGE);
+                until(ExpectedConditions.textToBePresentInElementLocated(By.xpath(ShoppingCartLocators.CART_EMPTY_MASSAGE), "our shopping cart is empty!"));
+        shoppingCartEmptyMassage = new Label(driver, ShoppingCartLocators.CART_EMPTY_MASSAGE);
         return shoppingCartEmptyMassage.getText();
     }
-    public String  getTotalCost(){
+
+    public String getTotalCost() {
         new WebDriverWait(driver, 30).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.TOTAL_COST_XPATH)));
-        totalCost= new Label(driver,ShoppingCartLocators.TOTAL_COST_XPATH);
+        totalCost = new Label(driver, ShoppingCartLocators.TOTAL_COST_XPATH);
         return totalCost.getText();
     }
-    public String messageAboutOption(){
+
+    public String messageAboutOption() {
         new WebDriverWait(driver, 30).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.SUCCESS_MASSAGE)));
-        massageSuccessOperation = new Label(driver,ShoppingCartLocators.SUCCESS_MASSAGE);
+        massageSuccessOperation = new Label(driver, ShoppingCartLocators.SUCCESS_MASSAGE);
         return massageSuccessOperation.getText();
     }
-    public String  getURL(){
-        return this.getURL();
-    }
-    public static void makeScreenShotSteps(WebDriver driver, String screenshotsName) {
-        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        try {
-            FileUtils.copyFile(scrFile, new File("src\\main\\resources\\screenshots\\"+screenshotsName+".png"));
-        } catch (IOException e) {
 
-        }
+    public String getURL() {
+        return this.getURL();
     }
 }
