@@ -39,7 +39,7 @@ public class RegistrationPageObject extends BasePageObject {
     }
 
     public RegistrationPageObject setDataToTelephoneField(String telephone) {
-        this.fieldTelephone = new Input(driver, "//input[@name = 'email']");
+        this.fieldTelephone = new Input(driver, "//input[@name = 'telephone']");
         this.fieldTelephone.setTextForField(telephone);
         return this;
     }
@@ -66,5 +66,9 @@ public class RegistrationPageObject extends BasePageObject {
         this.buttonContinue = new Button(driver, "//input[@type = 'submit' and @value = 'Continue']");
         this.buttonContinue.click();
         return this;
+    }
+
+    public Input getFieldEmail() {
+        return fieldEmail;
     }
 }
