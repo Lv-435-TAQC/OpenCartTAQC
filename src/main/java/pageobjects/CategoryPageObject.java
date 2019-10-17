@@ -46,17 +46,17 @@ public class CategoryPageObject extends BasePageObject {
     }
 
     public ItemPageObject clickToAddToCard(int numberOfProduct) {
-        products.get(numberOfProduct).clickAddToCardButton();
+        products.get(numberOfProduct-1).clickAddToCardButton();
         return new ItemPageObject(this.driver);
     }
 
     public CategoryPageObject clickAddToWishList(int numberOfProduct) {
-        products.get(numberOfProduct).clickAddToWishList();
+        products.get(numberOfProduct-1).clickAddToWishList();
         return this;
     }
 
     public CategoryPageObject clickCompareThisProduct(int numberOfProduct) {
-        products.get(numberOfProduct).clickCompareThisProduct();
+        products.get(numberOfProduct-1).clickCompareThisProduct();
         return this;
     }
 
@@ -65,19 +65,19 @@ public class CategoryPageObject extends BasePageObject {
     }
 
     public String getDescriptionOfProduct(int numberOfProduct) {
-        return products.get(numberOfProduct).getDescriptionOfProduct();
+        return products.get(numberOfProduct-1).getDescriptionOfProduct();
     }
 
     public String getOldPrice(int numberOfProduct) {
-        return products.get(numberOfProduct).getOldPrice();
+        return products.get(numberOfProduct-1).getOldPrice();
     }
 
     public String getNewPrice(int numberOfProduct) {
-        return products.get(numberOfProduct).getNewPrice();
+        return products.get(numberOfProduct-1).getNewPrice();
     }
 
     public String getExTax(int numberOfProduct) {
-        return products.get(numberOfProduct).getExTax();
+        return products.get(numberOfProduct-1).getExTax();
     }
 
     public CategoryPageObject clickListButton() {
