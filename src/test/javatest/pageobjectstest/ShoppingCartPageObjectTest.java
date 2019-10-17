@@ -32,8 +32,10 @@ public class ShoppingCartPageObjectTest {
     @AfterMethod
     public void makeScreenshot(ITestResult result)throws IOException {
         if (result.getStatus() == ITestResult.FAILURE) {
-            ShoppingCartPageObject.makeScreenShotSteps(driver,"test");
+            ShoppingCartPageObject.makeScreenShotSteps(driver,result.getName());
         }
+
+        driver.manage().deleteAllCookies();
     }
 
     @AfterClass
@@ -98,7 +100,6 @@ public class ShoppingCartPageObjectTest {
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.writeEstimateShippingAndTaxes("Ukraine", 13, "790032");
         String actualResult = shoppingCartPageObject.massageNotise();
-
         assertTrue(actualResult.contains("Success: Your shipping estimate has been applied"));
     }
 
@@ -117,7 +118,7 @@ public class ShoppingCartPageObjectTest {
         return new Object[][]{new Object[]{"a333"}, new Object[]{""}, new Object[]{"333a"}};
     }
 
-    @Test(dataProvider = "invalidDataGift", expectedExceptions = org.openqa.selenium.TimeoutException.class)
+    @Test(dataProvider = "invalidDataGift", expectedExceptions = org.openqa.selenium.NoSuchElementException.class)
     public void testUseGiftCertificateWithInvalidData(String invalidDataForGift) {
         home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();

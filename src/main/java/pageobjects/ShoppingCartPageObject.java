@@ -155,8 +155,6 @@ public class ShoppingCartPageObject extends BasePageObject {
         return subTotalCost.getText();
     }
     public String  getCouponCode(){
-        new WebDriverWait(driver, 20).
-                until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.COUPON_XPATH)));
         couponCode= new Label(driver,ShoppingCartLocators.COUPON_XPATH);
         return  couponCode.getText();
     }
@@ -169,6 +167,10 @@ public class ShoppingCartPageObject extends BasePageObject {
         return VAT.getText();
     }
     public String  getGiftCertificate(){
+        giftCertificate= new Label(driver,ShoppingCartLocators.GIFT_CERTIDICATE_XPATH);
+        return giftCertificate.getText();
+    }
+    public String  getGiftCertificateWithWait(){
         new WebDriverWait(driver, 15).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.GIFT_CERTIDICATE_XPATH)));
         giftCertificate= new Label(driver,ShoppingCartLocators.GIFT_CERTIDICATE_XPATH);
