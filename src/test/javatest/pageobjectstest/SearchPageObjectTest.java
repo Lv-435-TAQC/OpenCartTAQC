@@ -34,18 +34,17 @@ public class SearchPageObjectTest {
         driver.quit();
     }
 
-
     @Test
-    public void testInputeValidProductName() {
-        SearchPageObject searchPageObject = search.inputeProductName();
+    public void testInputValidProductName() {
+        SearchPageObject searchPageObject = search.inputProductName();
         searchPageObject.clickSearchButton();
         String actual = search.returnTextFromSearch();
         String expected = ("Search - Mac");
         assertEquals(actual, expected);
     }
     @Test
-    public void testInputeFalseData() {
-        SearchPageObject searchPageObject = search.inputeFalseProductName();
+    public void testInputFalseData() {
+        SearchPageObject searchPageObject = search.inputFalseProductName();
         searchPageObject.clickSearchButton();
         String actual = search.returnTextFormInvalidSearch();
         String expected = ("Your shopping cart is empty!");
@@ -53,7 +52,7 @@ public class SearchPageObjectTest {
     }
     @Test
     public void testUseInSubcategories() {
-        search.inputeProductName();
+        search.inputProductName();
         search.selectCategories();
         search.clickSearchButton();
         String actual = search.returnTextFromFirstSearchElement();
@@ -61,8 +60,8 @@ public class SearchPageObjectTest {
         assertEquals(actual, expected);
     }
     @Test
-    public void testUseSearcWhithDescription() {
-        search.inputeProductNameForSearchWhithProductDescription();
+    public void testUseSearchWithDescription() {
+        search.inputProductNameForSearchWithProductDescription();
         search.searchInDescription();
         search.clickSearchButton();
         String actual = search.returnTextFromFirstSearchElement();
@@ -71,7 +70,7 @@ public class SearchPageObjectTest {
     }
     @Test
     public void testSearchWithSubcategoriesButton() {
-        search.inputeProductName();
+        search.inputProductName();
         search.selectCategories();
         search.useInSubcategories();
         search.clickSearchButton();

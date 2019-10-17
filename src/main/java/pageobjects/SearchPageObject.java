@@ -12,12 +12,12 @@ public class SearchPageObject extends BasePageObject {
     private Button searchButton;
     private Button searchInSubcategories;
     private Button searchInDescriptionButton;
-    private Input inputeFalseNameOfProduct;
-    private Input inputeNameOfProduct;
-    private Input inputeProductNameForSearchWhithDescription;
+    private Input inputFalseNameOfProduct;
+    private Input inputNameOfProduct;
+    private Input inputProductNameForSearchWhithDescription;
     private DropDown categoriesButton;
-    private Label returnTextOfInpute;
-    private Label returnFalseInpute;
+    private Label returnTextOfInput;
+    private Label returnFalseInput;
     private Label returnFirstElementOfSearchText;
 
     public SearchPageObject(WebDriver driver) {
@@ -32,14 +32,14 @@ public class SearchPageObject extends BasePageObject {
     }
 
     public String returnTextFromSearch() {
-        returnTextOfInpute = new Label(this.driver, SearchLocators.RETURN_TEXT_XPATH);
-        String textFromInpute = returnTextOfInpute.getText();
-        return textFromInpute;
+        returnTextOfInput = new Label(this.driver, SearchLocators.RETURN_TEXT_XPATH);
+        String textFromInput = returnTextOfInput.getText();
+        return textFromInput;
     }
 
     public String returnTextFormInvalidSearch() {
-        returnFalseInpute = new Label(this.driver, SearchLocators.RETURN_TEXT_WITH_FALSE_DATA_XPATH);
-        String returnFalseSearch = returnFalseInpute.getText();
+        returnFalseInput = new Label(this.driver, SearchLocators.RETURN_TEXT_WITH_FALSE_DATA_XPATH);
+        String returnFalseSearch = returnFalseInput.getText();
         return returnFalseSearch;
     }
     public  String returnTextFromFirstSearchElement(){
@@ -48,20 +48,20 @@ public class SearchPageObject extends BasePageObject {
         return  returnFirstElementName;
     }
 
-    public SearchPageObject inputeFalseProductName() {
-        inputeFalseNameOfProduct = new Input(this.driver, SearchLocators.INPUTE_SEARCH_TEXT_XPATH);
-        inputeFalseNameOfProduct.setTextForField("cam");
+    public SearchPageObject inputFalseProductName() {
+        inputFalseNameOfProduct = new Input(this.driver, SearchLocators.INPUT_SEARCH_TEXT_XPATH);
+        inputFalseNameOfProduct.setTextForField("cam");
         return new SearchPageObject(this.driver);
     }
 
-    public SearchPageObject inputeProductName() {
-        inputeNameOfProduct = new Input(this.driver, SearchLocators.INPUTE_SEARCH_TEXT_XPATH);
-        inputeNameOfProduct.setTextForField("Mac");
+    public SearchPageObject inputProductName() {
+        inputNameOfProduct = new Input(this.driver, SearchLocators.INPUT_SEARCH_TEXT_XPATH);
+        inputNameOfProduct.setTextForField("Mac");
         return new SearchPageObject(this.driver);
     }
-    public SearchPageObject inputeProductNameForSearchWhithProductDescription() {
-        inputeProductNameForSearchWhithDescription = new Input(this.driver, SearchLocators.INPUTE_SEARCH_TEXT_XPATH);
-        inputeProductNameForSearchWhithDescription.setTextForField("New D_SLR");
+    public SearchPageObject inputProductNameForSearchWithProductDescription() {
+        inputProductNameForSearchWhithDescription = new Input(this.driver, SearchLocators.INPUT_SEARCH_TEXT_XPATH);
+        inputProductNameForSearchWhithDescription.setTextForField("New D_SLR");
         return new SearchPageObject(this.driver);
     }
 
