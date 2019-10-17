@@ -15,4 +15,8 @@ public abstract class BaseElement {
         this.xpath = xpath;
         element = driver.findElement(By.xpath(xpath));
     }
+    public BaseElement(WebElement elementToParse, String xpath) {
+        this.xpath = xpath;
+        element = elementToParse.findElement(By.xpath(xpath));
+    }
 }

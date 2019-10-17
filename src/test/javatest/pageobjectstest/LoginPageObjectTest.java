@@ -41,7 +41,6 @@ public class LoginPageObjectTest {
     public void closeUp() {
         driver.quit();
     }
-
     @Test
     public void clickButtonToGoToRegistrationPage() {
         loginPageObject.clickToGoToRegistation();

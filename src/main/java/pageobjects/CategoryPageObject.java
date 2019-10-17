@@ -9,9 +9,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Label;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryPageObject extends BasePageObject {
-
+    private List<WebElement> elements;
     private Label alertLabel;
     private ArrayList<ProductUnitPageObject> products;
     private FilterPageObject filterPageObject;
@@ -24,16 +25,16 @@ public class CategoryPageObject extends BasePageObject {
     }
 
 
-    public ArrayList<WebElement> getAllProductsElementsFromPage() {
-        ArrayList<WebElement> elements = new ArrayList<WebElement>();
-        elements.addAll(this.driver.findElements(By.xpath(CategoryLocators.ALL_PRODUCTS_DIV_LOC)));
+    private List<WebElement> getAllProductsElementsFromPage() {
+        elements = driver.findElements(By.xpath(CategoryLocators.ALL_PRODUCTS_DIV_LOC));
         return elements;
     }
 
     public CategoryPageObject generateProductsPageObject() {
         WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CategoryLocators.ALL_PRODUCTS_DIV_LOC)));
-        ArrayList<WebElement> elements = getAllProductsElementsFromPage();
+        products = new ArrayList<ProductUnitPageObject>();
+        getAllProductsElementsFromPage();
         for (int i = 0; i < elements.size(); i++) {
             products.add(new ProductUnitPageObject(this.driver, elements.get(i)));
         }
@@ -51,17 +52,17 @@ public class CategoryPageObject extends BasePageObject {
     }
 
     public ItemPageObject clickToAddToCard(int numberOfProduct) {
-        products.get(numberOfProduct-1).clickAddToCardButton();
+        products.get(numberOfProduct - 1).clickAddToCardButton();
         return new ItemPageObject(this.driver);
     }
 
     public CategoryPageObject clickAddToWishList(int numberOfProduct) {
-        products.get(numberOfProduct-1).clickAddToWishList();
+        products.get(numberOfProduct - 1).clickAddToWishList();
         return this;
     }
 
     public CategoryPageObject clickCompareThisProduct(int numberOfProduct) {
-        products.get(numberOfProduct-1).clickCompareThisProduct();
+        products.get(numberOfProduct - 1).clickCompareThisProduct();
         return this;
     }
 
@@ -70,19 +71,19 @@ public class CategoryPageObject extends BasePageObject {
     }
 
     public String getDescriptionOfProduct(int numberOfProduct) {
-        return products.get(numberOfProduct-1).getDescriptionOfProduct();
+        return products.get(numberOfProduct - 1).getDescriptionOfProduct();
     }
 
     public String getOldPrice(int numberOfProduct) {
-        return products.get(numberOfProduct-1).getOldPrice();
+        return products.get(numberOfProduct - 1).getOldPrice();
     }
 
     public String getNewPrice(int numberOfProduct) {
-        return products.get(numberOfProduct-1).getNewPrice();
+        return products.get(numberOfProduct - 1).getNewPrice();
     }
 
     public String getExTax(int numberOfProduct) {
-        return products.get(numberOfProduct-1).getExTax();
+        return products.get(numberOfProduct - 1).getExTax();
     }
 
     public CategoryPageObject clickListButton() {
@@ -142,7 +143,7 @@ public class CategoryPageObject extends BasePageObject {
         return products;
     }
 
-    public String getTextFromAlertLabel(){
+    public String getTextFromAlertLabel() {
         WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CategoryLocators.ALERT_LABEL_LOC)));
         alertLabel = new Label(this.driver, CategoryLocators.ALERT_LABEL_LOC);
