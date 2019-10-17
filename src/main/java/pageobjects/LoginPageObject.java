@@ -18,8 +18,6 @@ public class LoginPageObject extends BasePageObject {
     private Button nextButton;
     private Button registetionButton;
     private LinkedLabel forgottenPassword;
-    private HeaderPageObject headerPage;
-    private MenuPageObject menuPage;
     private Label warningMessage;
     private Label successfulMessage;
 
@@ -72,6 +70,7 @@ public class LoginPageObject extends BasePageObject {
         warningMessage = new Label(this.driver, LoginLocators.WARNING_MESSAGE);
         return this.warningMessage.getText();
     }
+
     public LoginPageObject forgottenPassword(String loginName) {
         this
                 .goToPageForgottenPassword()
