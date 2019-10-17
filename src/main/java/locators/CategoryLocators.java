@@ -1,6 +1,7 @@
 package locators;
 
 public class CategoryLocators {
+    public static final String ALERT_LABEL_LOC = "//*[@id=\"product-category\"]/div[1]";
     public static final String ALL_PRODUCTS_DIV_LOC = "/html/body/div[2]/div/div/div[4]";
     public static final String FIRST_PRODUCT_LOC = "/html/body/div[2]/div/div/div[4]/div[1]";
     public static final String SECOND_PRODUCT_LOC = "/html/body/div[2]/div/div/div[4]/div[2]";

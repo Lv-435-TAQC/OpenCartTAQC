@@ -31,23 +31,20 @@ public class SearchPageObjectTest {
 
     @AfterClass
     public void closeUp() {
-        driver.close();
+        driver.quit();
     }
 
     @Test
-    public void testClickSearchButton() {
-    }
-    @Test
-    public void testInputeProductName() {
-        SearchPageObject searchPageObject = search.inputeProductName();
+    public void testInputValidProductName() {
+        SearchPageObject searchPageObject = search.inputProductName();
         searchPageObject.clickSearchButton();
         String actual = search.returnTextFromSearch();
         String expected = ("Search - Mac");
         assertEquals(actual, expected);
     }
     @Test
-    public void testInputeFalseData() {
-        SearchPageObject searchPageObject = search.inputeFalseProductName();
+    public void testInputFalseData() {
+        SearchPageObject searchPageObject = search.inputFalseProductName();
         searchPageObject.clickSearchButton();
         String actual = search.returnTextFormInvalidSearch();
         String expected = ("Your shopping cart is empty!");
@@ -55,5 +52,30 @@ public class SearchPageObjectTest {
     }
     @Test
     public void testUseInSubcategories() {
+        search.inputProductName();
+        search.selectCategories();
+        search.clickSearchButton();
+        String actual = search.returnTextFromFirstSearchElement();
+        String expected = ("MacBook");
+        assertEquals(actual, expected);
+    }
+    @Test
+    public void testUseSearchWithDescription() {
+        search.inputProductNameForSearchWithProductDescription();
+        search.searchInDescription();
+        search.clickSearchButton();
+        String actual = search.returnTextFromFirstSearchElement();
+        String expected = ("Canon EOS 5D");
+        assertEquals(actual, expected);
+    }
+    @Test
+    public void testSearchWithSubcategoriesButton() {
+        search.inputProductName();
+        search.selectCategories();
+        search.useInSubcategories();
+        search.clickSearchButton();
+        String actual = search.returnTextFromFirstSearchElement();
+        String expected = ("iMac");
+        assertEquals(actual, expected);
     }
 }
