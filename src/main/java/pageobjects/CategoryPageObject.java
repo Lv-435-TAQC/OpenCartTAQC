@@ -4,20 +4,23 @@ import locators.CategoryLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import pageelements.Label;
 
 import java.util.ArrayList;
 
 public class CategoryPageObject extends BasePageObject {
 
+    Label alertLabel;
     ArrayList<ProductUnitPageObject> products;
-    HeaderPageObject headerPageObject;
-    MenuPageObject menuPageObject;
     FilterPageObject filterPageObject;
 
 
     public CategoryPageObject(WebDriver driver) {
         super(driver);
         filterPageObject = new FilterPageObject(this.driver);
+        generateProductsPageObject();
     }
 
 
@@ -28,6 +31,8 @@ public class CategoryPageObject extends BasePageObject {
     }
 
     public CategoryPageObject generateProductsPageObject() {
+        WebDriverWait wait = new WebDriverWait(driver, 50);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CategoryLocators.ALL_PRODUCTS_DIV_LOC)));
         ArrayList<WebElement> elements = getAllProductsElementsFromPage();
         for (int i = 0; i < elements.size(); i++) {
             products.add(new ProductUnitPageObject(this.driver, elements.get(i)));
@@ -82,16 +87,19 @@ public class CategoryPageObject extends BasePageObject {
 
     public CategoryPageObject clickListButton() {
         filterPageObject.clickListButton();
+        generateProductsPageObject();
         return this;
     }
 
     public CategoryPageObject clickGridButton() {
         filterPageObject.clickGridButton();
+        generateProductsPageObject();
         return this;
     }
 
     public CategoryPageObject clickProductCompere() {
         filterPageObject.clickProductCompare();
+        generateProductsPageObject();
         return this;
     }
 
@@ -102,16 +110,19 @@ public class CategoryPageObject extends BasePageObject {
 
     public CategoryPageObject choseSortBySelectorByID(int id) {
         filterPageObject.choseSortBySelectorByID(id);
+        generateProductsPageObject();
         return this;
     }
 
     public CategoryPageObject choseShowSelectorByParam(String param) {
         filterPageObject.choseShowSelectorByParam(param);
+        generateProductsPageObject();
         return this;
     }
 
     public CategoryPageObject choseShowSelectorByID(int id) {
         filterPageObject.choseShowSelectorByID(id);
+        generateProductsPageObject();
         return this;
     }
 
@@ -129,5 +140,12 @@ public class CategoryPageObject extends BasePageObject {
 
     public ArrayList<ProductUnitPageObject> getProducts() {
         return products;
+    }
+
+    public String getTextFromAlertLabel(){
+        WebDriverWait wait = new WebDriverWait(driver, 50);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CategoryLocators.ALERT_LABEL_LOC)));
+        alertLabel = new Label(this.driver, CategoryLocators.ALERT_LABEL_LOC);
+        return alertLabel.getText();
     }
 }
