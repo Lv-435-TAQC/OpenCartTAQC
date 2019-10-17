@@ -36,45 +36,50 @@ public class SearchPageObjectTest {
 
     @Test
     public void testInputValidProductName() {
-        SearchPageObject searchPageObject = search.inputProductName();
-        searchPageObject.clickSearchButton();
-        String actual = search.returnTextFromSearch();
+        String actual = search
+                .inputProductName()
+                .clickSearchButton()
+                .returnTextFromSearch();
         String expected = ("Search - Mac");
         assertEquals(actual, expected);
     }
     @Test
     public void testInputFalseData() {
-        SearchPageObject searchPageObject = search.inputFalseProductName();
-        searchPageObject.clickSearchButton();
-        String actual = search.returnTextFormInvalidSearch();
+        String actual = search
+                .inputFalseProductName()
+                .clickSearchButton()
+                .returnTextFormInvalidSearch();
         String expected = ("Your shopping cart is empty!");
         assertEquals(actual, expected);
     }
     @Test
     public void testUseInSubcategories() {
-        search.inputProductName();
-        search.selectCategories();
-        search.clickSearchButton();
-        String actual = search.returnTextFromFirstSearchElement();
+        String actual = search
+                .inputProductName()
+                .selectCategories()
+                .clickSearchButton()
+                .returnTextFromFirstSearchElement();
         String expected = ("MacBook");
         assertEquals(actual, expected);
     }
     @Test
     public void testUseSearchWithDescription() {
-        search.inputProductNameForSearchWithProductDescription();
-        search.searchInDescription();
-        search.clickSearchButton();
-        String actual = search.returnTextFromFirstSearchElement();
+        String actual = search
+                .inputProductNameForSearchWithProductDescription()
+                .searchInDescription()
+                .clickSearchButton()
+                .returnTextFromFirstSearchElement();
         String expected = ("Canon EOS 5D");
         assertEquals(actual, expected);
     }
     @Test
     public void testSearchWithSubcategoriesButton() {
-        search.inputProductName();
-        search.selectCategories();
-        search.useInSubcategories();
-        search.clickSearchButton();
-        String actual = search.returnTextFromFirstSearchElement();
+        String actual = search
+                .inputProductName()
+                .selectCategories()
+                .useInSubcategories()
+                .clickSearchButton()
+                .returnTextFromFirstSearchElement();
         String expected = ("iMac");
         assertEquals(actual, expected);
     }

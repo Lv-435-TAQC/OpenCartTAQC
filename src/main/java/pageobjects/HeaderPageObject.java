@@ -25,6 +25,7 @@ public class HeaderPageObject extends BasePageObject {
     private Button registrationPageButton;
     private Button shoppingCartButton;
     private Button checkoutButton;
+    private Button openPreview;
     private Button currencyListButton;
     private String buttonText;
 
@@ -71,6 +72,7 @@ public class HeaderPageObject extends BasePageObject {
         shoppingCartButton = new ImageTextButton(driver, HeaderLocators.SHOPPING_CART_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
     }
+
     public ShoppingCartPageObject goToCheckoutCartPage(){
         checkoutButton = new ImageTextButton(driver,HeaderLocators.CHECKOUT_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
@@ -84,7 +86,7 @@ public class HeaderPageObject extends BasePageObject {
 
     public HeaderPageObject chooseEuroCurrency() {
         currencyListButton = new ImageTextButton(driver, HeaderLocators.CURRENCY_BUTTON_LOC).click();
-        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(NULL).click();
+        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(ZERO).click();
         return new HeaderPageObject(driver);
     }
 
@@ -107,5 +109,12 @@ public class HeaderPageObject extends BasePageObject {
     public String getTextFromItems() {
         buttonText = new LinkedLabel(driver, HeaderLocators.ITEMS_PAGE_BUTTON_LOC).getText();
         return buttonText;
+    }
+    public PreviewShoppingCart getPreviewShoppingCart(){
+        new WebDriverWait(driver, 30).
+                until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/header/div/div/div[3]/div/button")));
+        openPreview = new Button(driver,"/html/body/header/div/div/div[3]/div/button");
+        openPreview.click();
+        return new PreviewShoppingCart(driver);
     }
 }
