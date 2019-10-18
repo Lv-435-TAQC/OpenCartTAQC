@@ -27,16 +27,16 @@ public class WishListPageObject extends BasePageObject {
 
     }
 
-    public ItemPageObject itemImageClick(String id){
+    public ItemInfoPageObject itemImageClick(String id){
         HashMap<String, WishListItemPageObject> items = getMapOfItems();
         items.get(id).image.click();
-        return new ItemPageObject(driver);
+        return new ItemInfoPageObject(driver);
     }
 
-    public ItemPageObject itemProductNameClick(String id){
+    public ItemInfoPageObject itemProductNameClick(String id){
         HashMap<String, WishListItemPageObject> items = getMapOfItems();
         items.get(id).productName.click();
-        return new ItemPageObject(driver);
+        return new ItemInfoPageObject(driver);
     }
 
     public WishListPageObject removeItemFromWishList(String id){
@@ -53,7 +53,7 @@ public class WishListPageObject extends BasePageObject {
         if(currentUrl.equals(WISH_LIST_URL)){
             return this;
         }else {
-            return new ItemPageObject(driver);
+            return new ItemInfoPageObject(driver);
         }
     }
 
