@@ -15,5 +15,20 @@ public class Button extends BaseElement {
         return this;
     }
 
+    public Button isDisplayed(){
+        this.element.isDisplayed();
+        return this;
+    }
+
+    public Button isEnabled() {
+        this.element.isEnabled();
+        return this;
+    }
+
+    public Button isSelected() {
+        this.element.isSelected();
+        return this;
+    }
+
 
 }

@@ -1,7 +1,6 @@
 package pageobjects;
 
 import locators.HeaderLocators;
-import locators.MenuLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -43,9 +42,9 @@ public class HeaderPageObject extends BasePageObject {
         return new HomePageObject(driver);
     }
 
-    public ItemPageObject goToItemsPage() {
+    public ItemInfoPageObject goToItemsPage() {
         itemsPageButton = new ImageTextButton(driver, HeaderLocators.ITEMS_PAGE_BUTTON_LOC).click();
-        return new ItemPageObject(driver);
+        return new ItemInfoPageObject(driver);
     }
 
     public WishListPageObject goToWishList() {

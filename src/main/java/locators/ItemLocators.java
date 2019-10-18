@@ -20,6 +20,8 @@ public class ItemLocators {
     public static final String MAIN_IMAGE = "//*[@id=\"content\"]/div/div[1]/ul[1]/li[1]/a/img";
     public static final String IMAGE_LIST = "//*[@id=\"content\"]/div/div[1]/ul[1]/li[2]";
     public static final String NAVIGATION_BAR = "//*[@id=\"product-product\"]/ul";
-    public static final String HOME_BUTTON = "/*[@id=\\\"product-product\\\"]/ul/li[1]/a/i\"";
+    public static final String HOME_BUTTON = "//*[@id=\"product-product\"]/ul/li[1]/a/i";
+    public static final String SUCCESS_NOTIFICATION_MESSAGE ="//*[@id=\"product-product\"]/div[1]";
+
 
 }
