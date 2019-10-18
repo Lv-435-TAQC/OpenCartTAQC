@@ -17,7 +17,6 @@ public class Button extends BaseElement {
         this.element.click();
         return this;
     }
-<<<<<<< HEAD
 
     public Button isDisplayed(){
         this.element.isDisplayed();
@@ -35,6 +34,4 @@ public class Button extends BaseElement {
     }
 
 
-=======
->>>>>>> develop
 }

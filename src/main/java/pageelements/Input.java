@@ -8,10 +8,6 @@ public class Input extends BaseElement {
         super(driver, xpath);
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
     public Input setTextForField(String text) {
         this.element.sendKeys(text);
         return this;

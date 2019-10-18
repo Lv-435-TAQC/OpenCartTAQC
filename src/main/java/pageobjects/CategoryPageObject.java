@@ -41,19 +41,19 @@ public class CategoryPageObject extends BasePageObject {
         return this;
     }
 
-    public ItemPageObject clickToImageByNumberOfProduct(int numberOfProduct) {
+    public ItemInfoPageObject clickToImageByNumberOfProduct(int numberOfProduct) {
         products.get(numberOfProduct - 1).clickProductImage();
-        return new ItemPageObject(this.driver);
+        return new ItemInfoPageObject(this.driver);
     }
 
-    public ItemPageObject clickToLinkedNameOfProduct(int numberOfProduct) {
+    public ItemInfoPageObject clickToLinkedNameOfProduct(int numberOfProduct) {
         products.get(numberOfProduct - 1).clickLinkedProductName();
-        return new ItemPageObject(this.driver);
+        return new ItemInfoPageObject(this.driver);
     }
 
-    public ItemPageObject clickToAddToCard(int numberOfProduct) {
+    public ItemInfoPageObject clickToAddToCard(int numberOfProduct) {
         products.get(numberOfProduct - 1).clickAddToCardButton();
-        return new ItemPageObject(this.driver);
+        return new ItemInfoPageObject(this.driver);
     }
 
     public CategoryPageObject clickAddToWishList(int numberOfProduct) {

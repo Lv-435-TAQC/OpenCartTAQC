@@ -42,14 +42,11 @@ public class HeaderPageObject extends BasePageObject {
         return new HomePageObject(driver);
     }
 
-<<<<<<< HEAD
     public ItemInfoPageObject goToItemsPage() {
         itemsPageButton = new ImageTextButton(driver, HeaderLocators.ITEMS_PAGE_BUTTON_LOC).click();
         return new ItemInfoPageObject(driver);
     }
 
-=======
->>>>>>> develop
     public WishListPageObject goToWishList() {
         wishPageButton = new ImageTextButton(driver, HeaderLocators.WISH_LIST_PAGE_BUTTON_LOC).click();
         return new WishListPageObject(driver);
