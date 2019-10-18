@@ -3,6 +3,7 @@ package pageobjects;
 import org.openqa.selenium.WebDriver;
 
 public abstract class BasePageObject {
+
     protected WebDriver driver;
 
     public BasePageObject(WebDriver driver) {
@@ -12,5 +13,4 @@ public abstract class BasePageObject {
     public void goToUrl(String url) {
         driver.get(url);
     }
-    
 }
