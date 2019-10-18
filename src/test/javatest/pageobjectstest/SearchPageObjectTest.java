@@ -31,29 +31,56 @@ public class SearchPageObjectTest {
 
     @AfterClass
     public void closeUp() {
-        driver.close();
+        driver.quit();
     }
 
     @Test
-    public void testClickSearchButton() {
-    }
-    @Test
-    public void testInputeProductName() {
-        SearchPageObject searchPageObject = search.inputeProductName();
-        searchPageObject.clickSearchButton();
-        String actual = search.returnTextFromSearch();
+    public void testInputValidProductName() {
+        String actual = search
+                .inputProductName()
+                .clickSearchButton()
+                .returnTextFromSearch();
         String expected = ("Search - Mac");
         assertEquals(actual, expected);
     }
     @Test
-    public void testInputeFalseData() {
-        SearchPageObject searchPageObject = search.inputeFalseProductName();
-        searchPageObject.clickSearchButton();
-        String actual = search.returnTextFormInvalidSearch();
+    public void testInputFalseData() {
+        String actual = search
+                .inputFalseProductName()
+                .clickSearchButton()
+                .returnTextFormInvalidSearch();
         String expected = ("Your shopping cart is empty!");
         assertEquals(actual, expected);
     }
     @Test
     public void testUseInSubcategories() {
+        String actual = search
+                .inputProductName()
+                .selectCategories()
+                .clickSearchButton()
+                .returnTextFromFirstSearchElement();
+        String expected = ("MacBook");
+        assertEquals(actual, expected);
+    }
+    @Test
+    public void testUseSearchWithDescription() {
+        String actual = search
+                .inputProductNameForSearchWithProductDescription()
+                .searchInDescription()
+                .clickSearchButton()
+                .returnTextFromFirstSearchElement();
+        String expected = ("Canon EOS 5D");
+        assertEquals(actual, expected);
+    }
+    @Test
+    public void testSearchWithSubcategoriesButton() {
+        String actual = search
+                .inputProductName()
+                .selectCategories()
+                .useInSubcategories()
+                .clickSearchButton()
+                .returnTextFromFirstSearchElement();
+        String expected = ("iMac");
+        assertEquals(actual, expected);
     }
 }

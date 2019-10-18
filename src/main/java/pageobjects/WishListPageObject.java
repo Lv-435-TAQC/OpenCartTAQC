@@ -1,64 +1,82 @@
 package pageobjects;
 
+import locators.CategoryLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import pageelements.Label;
 
 import java.util.HashMap;
 import java.util.List;
 
-import static locators.WishListLocators.WISH_LIST_TABLE;
+import static locators.WishListLocators.*;
 
 
 public class WishListPageObject extends BasePageObject {
     public HeaderPageObject header;
-    public HashMap<String, WishListItem> items;
+    public MenuPageObject menu;
+    public Label label;
+    public HashMap<String, WishListItemPageObject> items;
 
     public WishListPageObject(WebDriver driver) {
         super(driver);
         this.header = new HeaderPageObject(driver);
+        this.menu = new MenuPageObject(driver);
+
     }
 
-    public HashMap<String, WishListItem> removeItemFromWishList(HashMap<String,WishListItem> items, String id){
+    public ItemPageObject itemImageClick(String id){
+        HashMap<String, WishListItemPageObject> items = getMapOfItems();
+        items.get(id).image.click();
+        return new ItemPageObject(driver);
+    }
+
+    public ItemPageObject itemProductNameClick(String id){
+        HashMap<String, WishListItemPageObject> items = getMapOfItems();
+        items.get(id).productName.click();
+        return new ItemPageObject(driver);
+    }
+
+    public WishListPageObject removeItemFromWishList(String id){
+        HashMap<String, WishListItemPageObject> items = getMapOfItems();
         items.get(id).remove.click();
         items.remove(id);
-        return items;
-    }
-
-    public WishListPageObject addItemToCart(HashMap<String,WishListItem> items, String id){
-        items.get(id).addToCart.click();
         return this;
     }
 
-    public HashMap<String, WishListItem> getListItems(){
-        HashMap<String, WishListItem> items = new HashMap<String, WishListItem>();
+    public BasePageObject addItemToCart(String id){
+        HashMap<String, WishListItemPageObject> items = getMapOfItems();
+        items.get(id).addToCart.click();
+        String currentUrl = driver.getCurrentUrl();
+        if(currentUrl.equals(WISH_LIST_URL)){
+            return this;
+        }else {
+            return new ItemPageObject(driver);
+        }
+    }
+
+    public String getTextFromAlertLabel() {
+        WebDriverWait wait = new WebDriverWait(driver, 50);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(ALERT_LABEL_WISH_LIST)));
+        label = new Label(this.driver, ALERT_LABEL_WISH_LIST);
+        return label.getText();
+    }
+
+    public HashMap<String, WishListItemPageObject> getMapOfItems(){
+        HashMap<String, WishListItemPageObject> items = new HashMap<String, WishListItemPageObject>();
         List<WebElement> listTr = driver.findElement(By.xpath(WISH_LIST_TABLE)).findElements(By.xpath("tr"));
 
         for (WebElement element: listTr ) {
             String id = element.findElement(By.xpath("td[2]/a")).getAttribute("href").split("=")[2];
-            String image = element.findElement(By.xpath("td[1]/a")).getAttribute("href").toString();
-            String productName = element.findElement(By.xpath("td[2]")).getText().toString();
+            WebElement image = element.findElement(By.xpath("td[1]/a"));
+            WebElement productName = element.findElement(By.xpath("td[2]/a"));
             WebElement addToCart = element.findElement(By.xpath("td[6]/button"));
             WebElement remove = element.findElement(By.xpath("td[6]/a"));
-            items.put(id,new WishListItem(driver, image, productName, addToCart, remove));
+            items.put(id,new WishListItemPageObject(driver, image, productName, addToCart, remove));
         }
         return items;
-    }
-
-    public class WishListItem extends BasePageObject{
-        public String image;
-        public String productName;
-        public WebElement addToCart;
-        public WebElement remove;
-
-
-        public WishListItem(WebDriver driver, String image, String productName, WebElement addToCart, WebElement remove) {
-            super(driver);
-            this.image = image;
-            this.productName = productName;
-            this.addToCart = addToCart;
-            this.remove = remove;
-        }
     }
 }
 

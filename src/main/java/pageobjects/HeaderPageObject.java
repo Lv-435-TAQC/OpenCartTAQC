@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.*;
 
-
 import java.util.List;
 
 import static utils.commonconstants.Constants.*;
@@ -24,6 +23,7 @@ public class HeaderPageObject extends BasePageObject {
     private Button registrationPageButton;
     private Button shoppingCartButton;
     private Button checkoutButton;
+    private Button openPreview;
     private Button currencyListButton;
     private String buttonText;
 
@@ -42,11 +42,14 @@ public class HeaderPageObject extends BasePageObject {
         return new HomePageObject(driver);
     }
 
+<<<<<<< HEAD
     public ItemInfoPageObject goToItemsPage() {
         itemsPageButton = new ImageTextButton(driver, HeaderLocators.ITEMS_PAGE_BUTTON_LOC).click();
         return new ItemInfoPageObject(driver);
     }
 
+=======
+>>>>>>> develop
     public WishListPageObject goToWishList() {
         wishPageButton = new ImageTextButton(driver, HeaderLocators.WISH_LIST_PAGE_BUTTON_LOC).click();
         return new WishListPageObject(driver);
@@ -70,6 +73,8 @@ public class HeaderPageObject extends BasePageObject {
         shoppingCartButton = new ImageTextButton(driver, HeaderLocators.SHOPPING_CART_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
     }
+
+
     public ShoppingCartPageObject goToCheckoutCartPage(){
         checkoutButton = new ImageTextButton(driver,HeaderLocators.CHECKOUT_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
@@ -83,7 +88,7 @@ public class HeaderPageObject extends BasePageObject {
 
     public HeaderPageObject chooseEuroCurrency() {
         currencyListButton = new ImageTextButton(driver, HeaderLocators.CURRENCY_BUTTON_LOC).click();
-        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(NULL).click();
+        this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(ZERO).click();
         return new HeaderPageObject(driver);
     }
 
@@ -106,5 +111,13 @@ public class HeaderPageObject extends BasePageObject {
     public String getTextFromItems() {
         buttonText = new LinkedLabel(driver, HeaderLocators.ITEMS_PAGE_BUTTON_LOC).getText();
         return buttonText;
+    }
+
+    public PreviewShoppingCart getPreviewShoppingCart() {
+        new WebDriverWait(driver, 30).
+                until(ExpectedConditions.elementToBeClickable(By.xpath(HeaderLocators.OPEN_PREVIEW_CART)));
+        openPreview = new Button(driver, HeaderLocators.OPEN_PREVIEW_CART);
+        openPreview.click();
+        return new PreviewShoppingCart(driver);
     }
 }

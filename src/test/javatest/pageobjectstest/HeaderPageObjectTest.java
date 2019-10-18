@@ -40,22 +40,22 @@ public class HeaderPageObjectTest {
     @Test
     public void euroCurrencyTest() {
         String actual = header.chooseEuroCurrency().getTextFromItems();
-        String expected = "0 item(s) - 0.00€";
-        assertEquals(expected, actual);
+        String expected = "€";
+        assertTrue(actual.contains(expected));
     }
 
     @Test
     public void dollarCurrencyTest() {
         String actual = header.chooseDollarCurrency().getTextFromItems();
-        String expected = "0 item(s) - $0.00";
-        assertEquals(expected, actual);
+        String expected = "$";
+        assertTrue(actual.contains(expected));
     }
 
     @Test
     public void poundCurrencyTest() {
         String actual = header.choosePoundCurrency().getTextFromItems();
-        String expected = "0 item(s) - £0.00";
-        assertEquals(expected, actual);
+        String expected = "£";
+        assertTrue(actual.contains(expected));
     }
 
     @Test
@@ -73,6 +73,7 @@ public class HeaderPageObjectTest {
         String expected = "Register";
         assertEquals(actual, expected);
     }
+
     @Test
     public void testWishListPage(){
         header.goToWishList();
@@ -80,6 +81,7 @@ public class HeaderPageObjectTest {
         String expected = "Login";
         assertEquals(actual,expected);
     }
+
     @Test
     public void testShoppingCartPage(){
     header.goToShoppingCartPage();
@@ -87,6 +89,7 @@ public class HeaderPageObjectTest {
     String expected = "Shopping Cart";
     assertEquals(actual,expected);
     }
+
     @Test
     public void testCheckoutPage(){
         header.goToCheckoutCartPage();

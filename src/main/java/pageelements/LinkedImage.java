@@ -3,18 +3,17 @@ package pageelements;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LinkedLabel extends Label {
+public class LinkedImage extends BaseElement {
 
-
-    public LinkedLabel(WebDriver driver, String xpath) {
+    public LinkedImage(WebDriver driver, String xpath) {
         super(driver, xpath);
     }
 
-    public LinkedLabel(WebElement elementToParse, String xpath) {
+    public LinkedImage(WebElement elementToParse, String xpath) {
         super(elementToParse, xpath);
     }
 
-    public Label click(){
+    public LinkedImage click(){
         this.element.click();
         return this;
     }

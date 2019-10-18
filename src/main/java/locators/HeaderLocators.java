@@ -13,6 +13,6 @@ public class HeaderLocators {
     public static final String LIST_OF_CURRENCY_LOC = "/html/body/nav/div/div[1]/form/div/ul/li";
     public static final String FIRST_ELEMENT_OF_TAPE = "/html/body/div[2]/ul/li[2]/a";
     public static final String SECOND_ELEMENT_OF_TAPE = "/html/body/div[2]/ul/li[3]/a";
-
+    public static final String OPEN_PREVIEW_CART = "/html/body/header/div/div/div[3]/div/button";
 
 }

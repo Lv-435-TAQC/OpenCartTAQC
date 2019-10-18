@@ -10,12 +10,15 @@ import pageelements.Label;
 
 public class SearchPageObject extends BasePageObject {
     private Button searchButton;
-    private Input inputeNameOfProduct;
-    private DropDown categoriesButton;
     private Button searchInSubcategories;
-    private Label returnTextOfInpute;
-    private Label returnFalseInpute;
-    private Input inputeFalseNameOfProduct;
+    private Button searchInDescriptionButton;
+    private Input inputFalseNameOfProduct;
+    private Input inputNameOfProduct;
+    private Input inputProductNameForSearchWhithDescription;
+    private DropDown categoriesButton;
+    private Label returnTextOfInput;
+    private Label returnFalseInput;
+    private Label returnFirstElementOfSearchText;
 
     public SearchPageObject(WebDriver driver) {
         super(driver);
@@ -29,33 +32,47 @@ public class SearchPageObject extends BasePageObject {
     }
 
     public String returnTextFromSearch() {
-        returnTextOfInpute = new Label(this.driver, SearchLocators.RETURN_TEXT_XPATH);
-        String textFromInpute = returnTextOfInpute.getText();
-        return textFromInpute;
+        returnTextOfInput = new Label(this.driver, SearchLocators.RETURN_TEXT_XPATH);
+        String textFromInput = returnTextOfInput.getText();
+        return textFromInput;
     }
 
     public String returnTextFormInvalidSearch() {
-        returnFalseInpute = new Label(this.driver, SearchLocators.RETURN_TEXT_WITH_FALSE_DATA);
-        String returnFalseSearch = returnFalseInpute.getText();
+        returnFalseInput = new Label(this.driver, SearchLocators.RETURN_TEXT_WITH_FALSE_DATA_XPATH);
+        String returnFalseSearch = returnFalseInput.getText();
         return returnFalseSearch;
     }
+    public  String returnTextFromFirstSearchElement(){
+        returnFirstElementOfSearchText = new Label(this.driver, SearchLocators.RETURN_FIRST_ELEMENT_NAME_XPATH);
+        String returnFirstElementName = returnFirstElementOfSearchText.getText();
+        return  returnFirstElementName;
+    }
 
-    public SearchPageObject inputeFalseProductName() {
-        inputeFalseNameOfProduct = new Input(this.driver, SearchLocators.INPUTE_SEARCH_TEXT_XPATH);
-        inputeFalseNameOfProduct.setTextForField("cam");
+    public SearchPageObject inputFalseProductName() {
+        inputFalseNameOfProduct = new Input(this.driver, SearchLocators.INPUT_SEARCH_TEXT_XPATH);
+        inputFalseNameOfProduct.setTextForField("cam");
         return new SearchPageObject(this.driver);
     }
 
-    public SearchPageObject inputeProductName() {
-        inputeNameOfProduct = new Input(this.driver, SearchLocators.INPUTE_SEARCH_TEXT_XPATH);
-        inputeNameOfProduct.setTextForField("Mac");
+    public SearchPageObject inputProductName() {
+        inputNameOfProduct = new Input(this.driver, SearchLocators.INPUT_SEARCH_TEXT_XPATH);
+        inputNameOfProduct.setTextForField("Mac");
         return new SearchPageObject(this.driver);
     }
-
+    public SearchPageObject inputProductNameForSearchWithProductDescription() {
+        inputProductNameForSearchWhithDescription = new Input(this.driver, SearchLocators.INPUT_SEARCH_TEXT_XPATH);
+        inputProductNameForSearchWhithDescription.setTextForField("New D_SLR");
+        return new SearchPageObject(this.driver);
+    }
 
     public SearchPageObject selectCategories() {
         this.categoriesButton = new DropDown(driver, SearchLocators.CATEGORIES_BUTTON_XPATH);
-        this.categoriesButton.writOptionParameter("Desktops");
+        this.categoriesButton.writeOptionParameter("Desktops");
+        return new SearchPageObject(this.driver);
+    }
+    public SearchPageObject searchInDescription() {
+        searchInDescriptionButton = new Button(this.driver, SearchLocators.SEARCH_IN_PRODUCT_DESCRIPTION_BUTTON_XPATH);
+        searchInDescriptionButton.click();
         return new SearchPageObject(this.driver);
     }
 
