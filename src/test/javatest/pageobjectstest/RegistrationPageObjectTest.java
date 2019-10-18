@@ -13,6 +13,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
+import static utils.commonconstants.Constants.*;
 
 public class RegistrationPageObjectTest {
 
@@ -29,7 +30,7 @@ public class RegistrationPageObjectTest {
 
     @BeforeMethod
     public void getToRegistrationPage() {
-        registrationPageObject.goToUrl("http://192.168.65.128/opencart/index.php?route=account/register");
+        registrationPageObject.goToUrl(REGISTRATION_PAGE_URL);
     }
 
     @AfterClass
@@ -40,96 +41,84 @@ public class RegistrationPageObjectTest {
     @Test
     public void firstNameFieldNumbersAndSymbolsNegativeTest() {
         registrationPageObject.setDataToFirstNameField("q873458273#%").pushOnContinueButton();
-        String expectedMessage = "First Name does not appear to be valid!";
-        assertFalse(driver.getPageSource().contains(expectedMessage));
+        assertFalse(driver.getPageSource().contains(FIRST_NAME_INVALID_MESSAGE));
     }
 
     @Test
     public void firstNameFieldEmptySpaceNegativeTest() {
         registrationPageObject.setDataToFirstNameField("").pushOnContinueButton();
-        String expectedMessage = "First Name must be between 1 and 32 characters!";
-        assertTrue(driver.getPageSource().contains(expectedMessage));
+        assertTrue(driver.getPageSource().contains(FIRST_NAME_INVALID_LENGTH_MESSAGE));
     }
 
     @Test
     public void firstNameFieldGreaterAmountOfCharactersThanAllowedNegativeTest() {
         registrationPageObject.setDataToFirstNameField("alsoiruejthgnsmcbnbksjsnbksdjfsjdnfjsndfjnsdjfnsdjfn")
                 .pushOnContinueButton();
-        String expectedMessage = "First Name must be between 1 and 32 characters!";
-        assertTrue(driver.getPageSource().contains(expectedMessage));
+        assertTrue(driver.getPageSource().contains(FIRST_NAME_INVALID_LENGTH_MESSAGE));
     }
 
     @Test
     public void lastNameFieldNumbersAndSymbolsNegativeTest() {
         registrationPageObject.setDataToLastNameField("q873458273#%").pushOnContinueButton();
-        String expectedMessage = "Last Name does not appear to be valid!";
-        assertFalse(driver.getPageSource().contains(expectedMessage));
+        assertFalse(driver.getPageSource().contains(LAST_NAME_INVALID_MESSAGE));
     }
 
     @Test
     public void lastNameFieldEmptySpaceNegativeTest() {
         registrationPageObject.setDataToLastNameField("").pushOnContinueButton();
-        String expectedMessage = "Last Name must be between 1 and 32 characters!";
-        assertTrue(driver.getPageSource().contains(expectedMessage));
+        assertTrue(driver.getPageSource().contains(LAST_NAME_INVALID_LENGTH_MESSAGE));
     }
 
     @Test
     public void lastNameFieldGreaterAmountOfCharactersThanAllowedNegativeTest() {
         registrationPageObject.setDataToLastNameField("alsoiruejthgnsmcbnbksjsnbksdjfsjdnfjsndfjnsdjfnsdjfn")
                 .pushOnContinueButton();
-        String expectedMessage = "Last Name must be between 1 and 32 characters!";
-        assertTrue(driver.getPageSource().contains(expectedMessage));
+        assertTrue(driver.getPageSource().contains(LAST_NAME_INVALID_LENGTH_MESSAGE));
     }
 
     @Test
     public void emailFieldInvalidEmailAddressNegativeTest() {
         registrationPageObject.setDataToEmailField("akjdgfjdfkg").pushOnContinueButton();
-        assertFalse((Boolean)((JavascriptExecutor)driver)
+        assertFalse((Boolean) ((JavascriptExecutor) driver)
                 .executeScript("return arguments[0].validity.valid;", registrationPageObject.getFieldEmail().element));
     }
 
     @Test
     public void emailFieldEmptySpaceNegativeTest() {
         registrationPageObject.setDataToEmailField("").pushOnContinueButton();
-        String expectedMessage = "E-Mail Address does not appear to be valid!";
-        assertTrue(driver.getPageSource().contains(expectedMessage));
+        assertTrue(driver.getPageSource().contains(EMAIL_INVALID_ADDRESS_MESSAGE));
     }
 
     @Test
     public void telephoneFieldEmptySpaceNegativeTest() {
         registrationPageObject.setDataToTelephoneField("").pushOnContinueButton();
-        String expectedMessage = "Telephone must be between 3 and 32 characters!";
-        assertTrue(driver.getPageSource().contains(expectedMessage));
+        assertTrue(driver.getPageSource().contains(TELEPHONE_INVALID_LENGTH_MESSAGE));
     }
 
     @Test
     public void passwordFieldFewerAmountCharactersThanAllowedNegativeTest() {
         registrationPageObject.setDataToPasswordField("075").pushOnContinueButton();
-        String expectedMessage = "Password must be between 4 and 20 characters!";
-        assertTrue(driver.getPageSource().contains(expectedMessage));
+        assertTrue(driver.getPageSource().contains(PASSWORD_INVALID_LENGTH_MESSAGE));
     }
 
     @Test
     public void passwordFieldGreaterAmountOfCharactersThanAllowedNegativeTest() {
         registrationPageObject.setDataToPasswordField("12345678901234567890123456789012345678901")
                 .pushOnContinueButton();
-        String expectedMessage = "Password must be between 4 and 20 characters!";
-        assertTrue(driver.getPageSource().contains(expectedMessage));
+        assertTrue(driver.getPageSource().contains(PASSWORD_INVALID_LENGTH_MESSAGE));
     }
 
     @Test
     public void passwordConfirmFieldInvalidConfirmationNegativeTest() {
         registrationPageObject
                 .setDataToPasswordField("12345").setDataToPasswordConfirmField("085741").pushOnContinueButton();
-        String expectedMessage = "Password confirmation does not match password!";
-        assertTrue(driver.getPageSource().contains(expectedMessage));
+        assertTrue(driver.getPageSource().contains(PASSWORD_CONFIRMATION_MATCH_ERROR_MESSAGE));
     }
 
     @Test
     public void checkboxPrivacyPolicyClickTest() {
         registrationPageObject.checkOnPrivacyPolicyCheckbox().pushOnContinueButton();
-        String unexpectedMessage = "Warning: You must agree to the Privacy Policy!";
-        assertFalse(driver.getPageSource().contains(unexpectedMessage));
+        assertFalse(driver.getPageSource().contains(PRIVACY_POLICY_AGREE_WARNING_MESSAGE));
     }
 
     @Test(priority = 1)
@@ -138,7 +127,6 @@ public class RegistrationPageObjectTest {
                 .setDataToEmailField(new Random().nextInt(1000) + "paprika@paprika.com")
                 .setDataToTelephoneField("0794852421").setDataToPasswordField("12345").setDataToPasswordConfirmField("12345")
                 .checkOnPrivacyPolicyCheckbox().pushOnContinueButton();
-        String expectedURL = "http://192.168.65.128/opencart/index.php?route=account/success";
-        assertEquals(driver.getCurrentUrl(), expectedURL);
+        assertEquals(driver.getCurrentUrl(), SUCCESSFUL_REGISTRATION_URL);
     }
 }
