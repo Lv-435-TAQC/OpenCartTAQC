@@ -1,18 +1,28 @@
 package pageobjects;
 
+
 import locators.ShoppingCartLocators;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import org.sikuli.api.robot.Keyboard;
+import org.sikuli.api.robot.desktop.DesktopKeyboard;
+
+import org.sikuli.script.*;
 import pageelements.*;
+import pageelements.Button;
+import pageelements.Label;
+
+
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+
+
+
 
 public class ShoppingCartPageObject extends BasePageObject {
     private ShoppingProductsTable productsTable;
@@ -40,9 +50,18 @@ public class ShoppingCartPageObject extends BasePageObject {
     private Label giftCertificate;
     private Label totalCost;
     private Label shoppingCartEmptyMassage;
+    Screen screen;
+    Pattern iphoneAddToCartButton;
+    Pattern scroll;
+    Pattern openShoppingCartButton;
+    Pattern quantityUpdate;
+    Pattern quantityForm;
+    Pattern message;
+    Pattern totalCostProduct;
 
     public ShoppingCartPageObject(WebDriver driver) {
         super(driver);
+        screen = new Screen();
     }
 
     public static void makeScreenShotSteps(WebDriver driver, String screenshotsName) {
@@ -220,6 +239,32 @@ public class ShoppingCartPageObject extends BasePageObject {
         massageSuccessOperation = new Label(driver, ShoppingCartLocators.SUCCESS_MASSAGE);
         return massageSuccessOperation.getText();
     }
+
+    public ShoppingCartPageObject addIphoneToShoppingCart() throws Exception{
+        iphoneAddToCartButton = new Pattern("src/main/resources/sikulipaterns/iphone.png").targetOffset(10,180);
+        scroll = new Pattern("src/main/resources/sikulipaterns/scroll.png");
+        openShoppingCartButton = new Pattern("src/main/resources/sikulipaterns/open_shopping_cart.png");
+        quantityUpdate = new Pattern("src/main/resources/sikulipaterns/quantity_update.png");
+        quantityForm = new Pattern("src/main/resources/sikulipaterns/quantity_form.png");
+        message = new Pattern("src/main/resources/sikulipaterns/message.png");
+        totalCostProduct = new Pattern("src/main/resources/sikulipaterns/total_cost.png");
+        screen.wait(scroll,20);
+        screen.type(Key.PAGE_DOWN);
+        screen.find(iphoneAddToCartButton).click();
+        screen.wait(openShoppingCartButton,20).click();
+        screen.wait(quantityForm.targetOffset(-100,0),20).click();
+        Keyboard keyboard = new DesktopKeyboard();
+        keyboard.type(Key.BACKSPACE);
+        keyboard.type("2");
+        screen.find(quantityUpdate).click();
+        screen.wait(message,20);
+        screen.wait(totalCostProduct,20);
+        String text = screen.find( "src/main/resources/sikulipaterns/total_cost.png").text();
+        String finalCost = text.trim();
+        System.out.println(finalCost);
+        return this;
+    }
+
 
     public String getURL() {
         return this.getURL();

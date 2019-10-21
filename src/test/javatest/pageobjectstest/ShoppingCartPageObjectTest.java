@@ -40,13 +40,21 @@ public class ShoppingCartPageObjectTest {
 
     @AfterClass
     public void closeUp() {
-        driver.quit();
+
+       driver.quit();
+
     }
 
-    @Test(invocationCount = 2)
+    @Test(invocationCount = 1)
     public void testAddProductToShoppingCart() {
         String productID = home.addToCartIphone();
         assertTrue(home.goToShoppingCartPage().getShoppingProductsList().containsKey(productID));
+    }
+    @Test(invocationCount = 1)
+    public void testAddProductToShoppingCartUseSikuli()throws Exception {
+       ShoppingCartPageObject shoppingCartPageObject = new ShoppingCartPageObject(driver);
+       shoppingCartPageObject.addIphoneToShoppingCart();
+        assertEquals("","");
     }
 
     @Test
