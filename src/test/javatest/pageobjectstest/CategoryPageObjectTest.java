@@ -24,14 +24,9 @@ public class CategoryPageObjectTest {
         driver = new FirefoxDriver();
         driver.get("http://192.168.92.128/opencart");
         headerPageObject = new HeaderPageObject(driver);
-        headerPageObject.goToLoginPage().logIn("oleh.zarichnyi@gmail.com", "lhgfeilhgfei");
-    }
-
-    @BeforeMethod
-    public void goToTestPage() {
         menuPageObject = new MenuPageObject(driver);
         menuPageObject.showAllDesktops();
-    }
+     }
 
     @Test
     public void labelSortByTextTest() {
