@@ -145,7 +145,8 @@ public class RegistrationPageObjectTest {
         Pattern fieldPasswordConfirm = new Pattern("src/main/resources/sikulipatterns/fieldPasswordConfirm.png");
         Pattern checkboxPrivacyPolicy = new Pattern("src/main/resources/sikulipatterns/checkboxPrivacyPolicy.png");
         Pattern buttonContinue = new Pattern("src/main/resources/sikulipatterns/buttonContinue.png");
-        Pattern messageOnSuccessfulRegistration = new Pattern("src/main/resources/sikulipatterns/messageOnSuccessfulRegistration.png");
+        Pattern messageOnSuccessfulRegistration = new Pattern(
+                "src/main/resources/sikulipatterns/messageOnSuccessfulRegistration.png");
         registrationPageObject.typeTextToPattern(screen, fieldFirstName, "Paprika");
         registrationPageObject.typeTextToPattern(screen, fieldLastName, "Pepper");
         registrationPageObject.typeTextToPattern(screen, fieldEmail,
