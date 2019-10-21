@@ -18,6 +18,7 @@ import static org.testng.Assert.assertTrue;
 
 public class WishListPageObjectTest {
     WebDriver driver;
+    WebElement element;
     WishListPageObject wishList;
     WebDriverWait wait = new WebDriverWait(driver, 10);;
     MenuPageObject menu;
@@ -32,6 +33,9 @@ public class WishListPageObjectTest {
         driver.get(LOGIN_PAGE_URL);
         headerPageObject = new HeaderPageObject(driver);
         headerPageObject.goToLoginPage().logIn(LOGIN_NAME, LOGIN_PASSWORD);
+        menu.goToMacDesktops();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"content\"]/div[2]/div/div/div[2]/div[2]/button[2]")));
+
     }
 
     @BeforeMethod
