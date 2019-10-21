@@ -2,6 +2,8 @@ package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.sikuli.script.Location;
+import org.sikuli.script.Screen;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.HomePageObject;
@@ -60,7 +62,7 @@ public class ShoppingCartPageObjectTest {
     }
 
     @Test
-    public void testChangingQuantityProducts() {
+    public void testChangingQuantityProducts() throws InterruptedException {
         String productID = home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         String expected = "$246.40";
@@ -68,6 +70,7 @@ public class ShoppingCartPageObjectTest {
         shoppingCartPageObject.updateProductQuantityInCart(productID);
         String actual = shoppingCartPageObject.getTotalCostProductInCart(productID);
         assertEquals(actual, expected);
+
     }
 
     @DataProvider(name = "invalidDataQuantityProducts")
