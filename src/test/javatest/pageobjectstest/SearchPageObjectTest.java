@@ -2,6 +2,9 @@ package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -31,7 +34,7 @@ public class SearchPageObjectTest {
 
     @AfterClass
     public void closeUp() {
-        driver.quit();
+       //driver.quit();
     }
 
     @Test
@@ -82,5 +85,13 @@ public class SearchPageObjectTest {
                 .returnTextFromFirstSearchElement();
         String expected = ("iMac");
         assertEquals(actual, expected);
+    }
+    @Test(priority = 1)
+    public void testSikuli() throws FindFailed {
+        Screen screen = new Screen();
+        String searchButton = "D:\\sikuliScreenshot\\searchButton.PNG";
+        String inputProductName = "D:\\sikuliScreenshot\\inputNameProduct";;
+        screen.type(inputProductName, "mac");
+        screen.click(searchButton);
     }
 }
