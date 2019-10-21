@@ -67,7 +67,7 @@ public class SearchPageObject extends BasePageObject {
 
     public SearchPageObject selectCategories() {
         this.categoriesButton = new DropDown(driver, SearchLocators.CATEGORIES_BUTTON_XPATH);
-        this.categoriesButton.writOptionParameter("Desktops");
+        this.categoriesButton.writeOptionParameter("Desktops");
         return new SearchPageObject(this.driver);
     }
     public SearchPageObject searchInDescription() {

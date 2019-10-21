@@ -22,22 +22,22 @@ public class ProductUnitPageObject extends BasePageObject {
         this.elementToParse = elementToParse;
     }
 
-    public ItemPageObject clickProductImage() {
+    public ItemInfoPageObject clickProductImage() {
         productImage = new LinkedImage(elementToParse, ProductUnitLocators.IMAGE_LOC);
         productImage.click();
-        return new ItemPageObject(driver);
+        return new ItemInfoPageObject(driver);
     }
 
-    public ItemPageObject clickLinkedProductName() {
+    public ItemInfoPageObject clickLinkedProductName() {
         linkedProductName = new LinkedLabel(elementToParse, ProductUnitLocators.LINKED_NAME_LOC);
         linkedProductName.click();
-        return new ItemPageObject(driver);
+        return new ItemInfoPageObject(driver);
     }
 
-    public ItemPageObject clickAddToCardButton() {
+    public ItemInfoPageObject clickAddToCardButton() {
         addToCartButton = new ImageTextButton(elementToParse, ProductUnitLocators.ADD_TO_CARD_BUTTON_LOC);
         addToCartButton.click();
-        return new ItemPageObject(driver);
+        return new ItemInfoPageObject(driver);
     }
 
     public String getDescriptionOfProduct() {

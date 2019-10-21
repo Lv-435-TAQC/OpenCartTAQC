@@ -1,5 +1,6 @@
 package pageobjects;
 
+import locators.HomeLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,7 +12,7 @@ public class HomePageObject extends BasePageObject {
     public HeaderPageObject headerPageObject;
     public HeaderPageObject menuPageObject;
     Button iphoneAddToCart;
-    WebElement productIpnone;
+    WebElement productIphone;
     Button macBookAddToCart;
     WebElement productMacBook;
 
@@ -20,17 +21,19 @@ public class HomePageObject extends BasePageObject {
     }
 
     public String addToCartIphone() {
-        new WebDriverWait(driver, 30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[2]/div/div/div[2]/div[2]/div/div[3]/button[1]")));
-        this.productIpnone = driver.findElement(By.xpath("/html/body/div[2]/div/div/div[2]/div[2]/div/div[2]/h4/a"));
-        this.iphoneAddToCart = new Button(driver, "/html/body/div[2]/div/div/div[2]/div[2]/div/div[3]/button[1]");
+        new WebDriverWait(driver, 30).
+                until(ExpectedConditions.visibilityOfElementLocated(By.xpath(HomeLocators.ADD_IPHONE)));
+        this.productIphone = driver.findElement(By.xpath(HomeLocators.IPHONE_ID));
+        this.iphoneAddToCart = new Button(driver, HomeLocators.ADD_IPHONE);
         iphoneAddToCart.click();
-        return productIpnone.getAttribute("href").split("=")[2];
+        return productIphone.getAttribute("href").split("=")[2];
     }
 
     public String addToCartMacBook() {
-        new WebDriverWait(driver, 30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[2]/div[2]/div/div[2]/div[1]/div/div[3]/button[1]")));
-        this.productMacBook = driver.findElement(By.xpath("/html/body/div[2]/div[2]/div/div[2]/div[1]/div/div[2]/h4/a"));
-        this.macBookAddToCart = new Button(driver, "/html/body/div[2]/div[2]/div/div[2]/div[1]/div/div[3]/button[1]");
+        new WebDriverWait(driver, 30).
+                until(ExpectedConditions.visibilityOfElementLocated(By.xpath(HomeLocators.ADD_MACBOOK)));
+        this.productMacBook = driver.findElement(By.xpath(HomeLocators.MACBOOK_ID));
+        this.macBookAddToCart = new Button(driver, HomeLocators.ADD_MACBOOK);
         macBookAddToCart.click();
         return productMacBook.getAttribute("href").split("=")[2];
     }

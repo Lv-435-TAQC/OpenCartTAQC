@@ -1,14 +1,12 @@
 package pageobjects;
 
 import locators.HeaderLocators;
-import locators.MenuLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.*;
-
 
 import java.util.List;
 
@@ -44,9 +42,9 @@ public class HeaderPageObject extends BasePageObject {
         return new HomePageObject(driver);
     }
 
-    public ItemPageObject goToItemsPage() {
+    public ItemInfoPageObject goToItemsPage() {
         itemsPageButton = new ImageTextButton(driver, HeaderLocators.ITEMS_PAGE_BUTTON_LOC).click();
-        return new ItemPageObject(driver);
+        return new ItemInfoPageObject(driver);
     }
 
     public WishListPageObject goToWishList() {
@@ -72,6 +70,7 @@ public class HeaderPageObject extends BasePageObject {
         shoppingCartButton = new ImageTextButton(driver, HeaderLocators.SHOPPING_CART_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
     }
+
 
     public ShoppingCartPageObject goToCheckoutCartPage(){
         checkoutButton = new ImageTextButton(driver,HeaderLocators.CHECKOUT_PAGE_BUTTON_LOC).click();
@@ -110,10 +109,11 @@ public class HeaderPageObject extends BasePageObject {
         buttonText = new LinkedLabel(driver, HeaderLocators.ITEMS_PAGE_BUTTON_LOC).getText();
         return buttonText;
     }
-    public PreviewShoppingCart getPreviewShoppingCart(){
+
+    public PreviewShoppingCart getPreviewShoppingCart() {
         new WebDriverWait(driver, 30).
-                until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/header/div/div/div[3]/div/button")));
-        openPreview = new Button(driver,"/html/body/header/div/div/div[3]/div/button");
+                until(ExpectedConditions.elementToBeClickable(By.xpath(HeaderLocators.OPEN_PREVIEW_CART)));
+        openPreview = new Button(driver, HeaderLocators.OPEN_PREVIEW_CART);
         openPreview.click();
         return new PreviewShoppingCart(driver);
     }

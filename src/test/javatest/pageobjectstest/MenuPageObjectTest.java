@@ -34,16 +34,16 @@ public class MenuPageObjectTest {
     }
     @AfterClass
     public void tearDown() {
-        driver.close();
+        driver.quit();
     }
     @Test
-    public void PcPageTest(){
+    public void pcPageTest(){
        String actual =  menu.goToPcDesktops().getLabelText();
         String expected = "PC";
         assertEquals(actual,expected);
     }
     @Test
-    public void MacPageTest(){
+    public void macPageTest(){
         String actual =  menu.goToMacDesktops().getLabelText();
         String expected = "Mac";
         assertEquals(actual,expected);
@@ -55,13 +55,13 @@ public class MenuPageObjectTest {
         assertEquals(actual,expected);
     }
     @Test
-    public void WindowsPageTest(){
+    public void windowsPageTest(){
         String actual =  menu.goToWindowsLaptops().getLabelText();
         String expected = "Windows";
         assertEquals(actual,expected);
     }
     @Test
-    public void MacsPageTest(){
+    public void macsPageTest(){
         String actual =  menu.goToMacsLaptops().getLabelText();
         String expected = "Macs";
         assertEquals(actual,expected);
@@ -73,31 +73,31 @@ public class MenuPageObjectTest {
         assertEquals(actual,expected);
     }
     @Test
-    public void MiceAndTrackballsPageTest(){
+    public void miceAndTrackballsPageTest(){
         String actual =  menu.goToMiceAndTrackballsComponents().getLabelText();
         String expected = "Mice and Trackballs";
         assertEquals(actual,expected);
     }
     @Test
-    public void MonitorsPageTest(){
+    public void monitorsPageTest(){
         String actual =  menu.goToMonitorsComponents().getLabelText();
         String expected = "Monitors";
         assertEquals(actual,expected);
     }
     @Test
-    public void ScannersPageTest(){
+    public void scannersPageTest(){
         String actual =  menu.goToScannersComponents().getLabelText();
         String expected = "Scanners";
         assertEquals(actual,expected);
     }
     @Test
-    public void PrintersPageTest(){
+    public void printersPageTest(){
         String actual =  menu.goToPrintersComponents().getLabelText();
         String expected = "Printers";
         assertEquals(actual,expected);
     }
     @Test
-    public void WebCamerasPageTest(){
+    public void webCamerasPageTest(){
         String actual =  menu.goToWebCamerasComponents().getLabelText();
         String expected = "Web Cameras";
         assertEquals(actual,expected);
@@ -109,31 +109,31 @@ public class MenuPageObjectTest {
         assertEquals(actual,expected);
     }
     @Test
-    public void TabletsPageTest(){
+    public void tabletsPageTest(){
         String actual =  menu.goToTablets().getLabelText();
         String expected = "Tablets";
         assertEquals(actual,expected);
     }
     @Test
-    public void SoftwarePageTest(){
+    public void softwarePageTest(){
         String actual =  menu.goToSoftware().getLabelText();
         String expected = "Software";
         assertEquals(actual,expected);
     }
     @Test
-    public void PhonesPageTest(){
+    public void phonesPageTest(){
         String actual =  menu.goToPhonesAndPDAs().getLabelText();
         String expected = "Phones & PDAs";
         assertEquals(actual,expected);
     }
     @Test
-    public void CamerasPageTest(){
+    public void camerasPageTest(){
         String actual =  menu.goToWebCameras().getLabelText();
         String expected = "Cameras";
         assertEquals(actual,expected);
     }
     @Test
-    public void MP3PageTest(){
+    public void mp3PageTest(){
         String actual =  menu.showAllMP3Players().getLabelText();
         String expected = "MP3 Players";
         assertEquals(actual,expected);
