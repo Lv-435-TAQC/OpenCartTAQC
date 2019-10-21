@@ -17,9 +17,9 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class WishListPageObjectTest {
-    WebDriver driver = new FirefoxDriver();
+    WebDriver driver;
     WishListPageObject wishList;
-    WebDriverWait wait = new WebDriverWait(driver, 10);
+    WebDriverWait wait = new WebDriverWait(driver, 10);;
     MenuPageObject menu;
     CategoryPageObject categoryPageObject;
     HeaderPageObject headerPageObject;
@@ -28,10 +28,10 @@ public class WishListPageObjectTest {
     @BeforeClass
     public void setUp() {
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+        driver = new FirefoxDriver();
         driver.get(LOGIN_PAGE_URL);
         headerPageObject = new HeaderPageObject(driver);
         headerPageObject.goToLoginPage().logIn(LOGIN_NAME, LOGIN_PASSWORD);
-        wait = new WebDriverWait(driver, 10);
     }
 
     @BeforeMethod
