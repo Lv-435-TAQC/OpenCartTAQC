@@ -1,19 +1,23 @@
 package pageobjects;
 
+import locators.CategoryLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import pageelements.Label;
 
 import java.util.HashMap;
 import java.util.List;
 
-import static locators.WishListLocators.WISH_LIST_TABLE;
-import static locators.WishListLocators.WISH_LIST_URL;
+import static locators.WishListLocators.*;
 
 
 public class WishListPageObject extends BasePageObject {
     public HeaderPageObject header;
     public MenuPageObject menu;
+    public Label label;
     public HashMap<String, WishListItemPageObject> items;
 
     public WishListPageObject(WebDriver driver) {
@@ -23,16 +27,16 @@ public class WishListPageObject extends BasePageObject {
 
     }
 
-    public ItemPageObject itemImageClick(String id){
+    public ItemInfoPageObject itemImageClick(String id){
         HashMap<String, WishListItemPageObject> items = getMapOfItems();
         items.get(id).image.click();
-        return new ItemPageObject(driver);
+        return new ItemInfoPageObject(driver);
     }
 
-    public ItemPageObject itemProductNameClick(String id){
+    public ItemInfoPageObject itemProductNameClick(String id){
         HashMap<String, WishListItemPageObject> items = getMapOfItems();
         items.get(id).productName.click();
-        return new ItemPageObject(driver);
+        return new ItemInfoPageObject(driver);
     }
 
     public WishListPageObject removeItemFromWishList(String id){
@@ -49,8 +53,15 @@ public class WishListPageObject extends BasePageObject {
         if(currentUrl.equals(WISH_LIST_URL)){
             return this;
         }else {
-            return new ItemPageObject(driver);
+            return new ItemInfoPageObject(driver);
         }
+    }
+
+    public String getTextFromAlertLabel() {
+        WebDriverWait wait = new WebDriverWait(driver, 50);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(ALERT_LABEL_WISH_LIST)));
+        label = new Label(this.driver, ALERT_LABEL_WISH_LIST);
+        return label.getText();
     }
 
     public HashMap<String, WishListItemPageObject> getMapOfItems(){
@@ -60,7 +71,7 @@ public class WishListPageObject extends BasePageObject {
         for (WebElement element: listTr ) {
             String id = element.findElement(By.xpath("td[2]/a")).getAttribute("href").split("=")[2];
             WebElement image = element.findElement(By.xpath("td[1]/a"));
-            WebElement productName = element.findElement(By.xpath("td[2]"));
+            WebElement productName = element.findElement(By.xpath("td[2]/a"));
             WebElement addToCart = element.findElement(By.xpath("td[6]/button"));
             WebElement remove = element.findElement(By.xpath("td[6]/a"));
             items.put(id,new WishListItemPageObject(driver, image, productName, addToCart, remove));

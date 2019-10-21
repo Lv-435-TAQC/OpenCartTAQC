@@ -5,6 +5,8 @@ import pageelements.Button;
 import pageelements.Checkbox;
 import pageelements.Input;
 
+import static locators.RegistrationLocators.*;
+
 public class RegistrationPageObject extends BasePageObject {
 
     private Input fieldFirstName;
@@ -21,50 +23,54 @@ public class RegistrationPageObject extends BasePageObject {
     }
 
     public RegistrationPageObject setDataToFirstNameField(String firstName) {
-        this.fieldFirstName = new Input(driver, "//input[@name = 'firstname']");
+        this.fieldFirstName = new Input(driver, FIRST_NAME_FIELD_XPATH);
         this.fieldFirstName.setTextForField(firstName);
         return this;
     }
 
     public RegistrationPageObject setDataToLastNameField(String lastName) {
-        this.fieldLastName = new Input(driver, "//input[@name = 'lastname']");
+        this.fieldLastName = new Input(driver, LAST_NAME_FIELD_XPATH);
         this.fieldLastName.setTextForField(lastName);
         return this;
     }
 
     public RegistrationPageObject setDataToEmailField(String email) {
-        this.fieldEmail = new Input(driver, "//input[@name = 'email']");
+        this.fieldEmail = new Input(driver, EMAIL_FIELD_XPATH);
         this.fieldEmail.setTextForField(email);
         return this;
     }
 
     public RegistrationPageObject setDataToTelephoneField(String telephone) {
-        this.fieldTelephone = new Input(driver, "//input[@name = 'email']");
+        this.fieldTelephone = new Input(driver, TELEPHONE_FIELD_XPATH);
         this.fieldTelephone.setTextForField(telephone);
         return this;
     }
 
     public RegistrationPageObject setDataToPasswordField(String password) {
-        this.fieldPassword = new Input(driver, "//input[@name = 'password']");
+        this.fieldPassword = new Input(driver, PASSWORD_FIELD_XPATH);
         this.fieldPassword.setTextForField(password);
         return this;
     }
 
     public RegistrationPageObject setDataToPasswordConfirmField(String passwordConfirm) {
-        this.fieldPasswordConfirm = new Input(driver, "//input[@name = 'confirm']");
+        this.fieldPasswordConfirm = new Input(driver, PASSWORD_CONFIRM_FIELD_XPATH);
         this.fieldPasswordConfirm.setTextForField(passwordConfirm);
         return this;
     }
 
     public RegistrationPageObject checkOnPrivacyPolicyCheckbox() {
-        this.checkboxPrivacyPolicy = new Checkbox(driver, "//input[@name = 'agree']");
+        this.checkboxPrivacyPolicy = new Checkbox(driver, PRIVACY_POLICY_CHECKBOX_XPATH);
         this.checkboxPrivacyPolicy.clickOnCheckbox();
         return this;
     }
 
     public RegistrationPageObject pushOnContinueButton() {
-        this.buttonContinue = new Button(driver, "//input[@type = 'submit' and @value = 'Continue']");
+        this.buttonContinue = new Button(driver, CONTINUE_BUTTON_XPATH);
         this.buttonContinue.click();
         return this;
+    }
+
+    public Input getFieldEmail() {
+        return fieldEmail;
     }
 }
