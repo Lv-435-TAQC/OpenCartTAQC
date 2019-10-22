@@ -111,8 +111,8 @@ public class AddNewProductPageObject extends BasePageObject{
         return new AddNewProductPageObject(driver);
     }
 
-    public AdminProductsList saveNewProduct(){
+    public AdminProductsListPageObject saveNewProduct(){
         saveNewProductButton = new ImageButton(driver,AddNewProductsLocators.SAVE_PRODUCT_BUTTON_LOC).click();
-        return new AdminProductsList(driver);
+        return new AdminProductsListPageObject(driver);
     }
 }

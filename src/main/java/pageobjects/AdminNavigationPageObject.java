@@ -19,9 +19,9 @@ public class AdminNavigationPageObject extends BasePageObject {
             return new AdminNavigationPageObject(driver);
     }
 
-    public AdminProductsList goToProducts(){
+    public AdminProductsListPageObject goToProducts(){
         products = new TextButton(driver, AdminNavigationLocators.PRODUCTS_PAGE_BUTTON_LOC).click();
-        return new AdminProductsList(driver);
+        return new AdminProductsListPageObject(driver);
     }
 
 }
