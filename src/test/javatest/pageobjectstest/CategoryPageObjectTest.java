@@ -3,10 +3,13 @@ package pageobjectstest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Key;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.CategoryPageObject;
 import pageobjects.HeaderPageObject;
@@ -24,11 +27,6 @@ public class CategoryPageObjectTest {
         driver = new FirefoxDriver();
         driver.get("http://192.168.92.128/opencart");
         headerPageObject = new HeaderPageObject(driver);
-        headerPageObject.goToLoginPage().logIn("oleh.zarichnyi@gmail.com", "lhgfeilhgfei");
-    }
-
-    @BeforeMethod
-    public void goToTestPage() {
         menuPageObject = new MenuPageObject(driver);
         menuPageObject.showAllDesktops();
     }
@@ -180,6 +178,30 @@ public class CategoryPageObjectTest {
         Assert.assertTrue(actual <= expected);
     }
 
+    @Test
+    public void validateGridButtonByImageTest() throws FindFailed {
+        Screen s = new Screen();
+        Pattern fileGridButton = new Pattern("src/main/resources/sikulipatterns/gridButton.png");
+        s.find(fileGridButton);
+    }
+
+    @Test
+    public void validateListButtonByImageTest() throws FindFailed {
+        Screen s = new Screen();
+        Pattern fileListButton = new Pattern("src/main/resources/sikulipatterns/listButton.png");
+        s.find(fileListButton);
+    }
+
+    @Test
+    public void sortByNameAZParamValidateByImageTest() throws FindFailed {
+        categoryPageObject = new CategoryPageObject(driver);
+        categoryPageObject.clickGridButton().choseSortBySelectorByParam("Name (A - Z)");
+        Pattern scroll = new Pattern("src/main/resources/sikulipatterns/scroll.png");
+        Screen s = new Screen();
+        s.type(Key.PAGE_DOWN);
+        Pattern fileAppleCinema30 = new Pattern("src/main/resources/sikulipatterns/AppleCinema30.png");
+        s.find(fileAppleCinema30);
+    }
 
     @AfterClass
     public void tearDown() {

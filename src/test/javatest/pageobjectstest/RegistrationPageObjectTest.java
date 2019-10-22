@@ -3,6 +3,9 @@ package pageobjectstest;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.sikuli.script.Key;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -128,5 +131,33 @@ public class RegistrationPageObjectTest {
                 .setDataToTelephoneField("0794852421").setDataToPasswordField("12345").setDataToPasswordConfirmField("12345")
                 .checkOnPrivacyPolicyCheckbox().pushOnContinueButton();
         assertEquals(driver.getCurrentUrl(), SUCCESSFUL_REGISTRATION_URL);
+    }
+
+    @Test
+    public void successfulRegisterSikuliTest() {
+        Screen screen = new Screen();
+        Pattern fieldFirstName = new Pattern("src/main/resources/sikulipatterns/fieldFirstName.png");
+        Pattern fieldLastName = new Pattern("src/main/resources/sikulipatterns/fieldLastName.png");
+        Pattern fieldEmail = new Pattern("src/main/resources/sikulipatterns/fieldEmail.png");
+        Pattern fieldTelephone = new Pattern("src/main/resources/sikulipatterns/fieldTelephone.png");
+        Pattern labelYourPassword = new Pattern("src/main/resources/sikulipatterns/labelYourPassword.png");
+        Pattern fieldPassword = new Pattern("src/main/resources/sikulipatterns/fieldPassword.png");
+        Pattern fieldPasswordConfirm = new Pattern("src/main/resources/sikulipatterns/fieldPasswordConfirm.png");
+        Pattern checkboxPrivacyPolicy = new Pattern("src/main/resources/sikulipatterns/checkboxPrivacyPolicy.png");
+        Pattern buttonContinue = new Pattern("src/main/resources/sikulipatterns/buttonContinue.png");
+        Pattern messageOnSuccessfulRegistration = new Pattern(
+                "src/main/resources/sikulipatterns/messageOnSuccessfulRegistration.png");
+        registrationPageObject.typeTextToPattern(screen, fieldFirstName, "Paprika");
+        registrationPageObject.typeTextToPattern(screen, fieldLastName, "Pepper");
+        registrationPageObject.typeTextToPattern(screen, fieldEmail,
+                new Random().nextInt(1000) + "paprika@paprika.com");
+        registrationPageObject.typeTextToPattern(screen, fieldTelephone, "0794852421");
+        registrationPageObject.clickOnPattern(screen, labelYourPassword);
+        screen.type(Key.PAGE_DOWN);
+        registrationPageObject.typeTextToPattern(screen, fieldPassword.exact(), "12345");
+        registrationPageObject.typeTextToPattern(screen, fieldPasswordConfirm, "12345");
+        registrationPageObject.clickOnPattern(screen, checkboxPrivacyPolicy);
+        registrationPageObject.clickOnPattern(screen, buttonContinue);
+        assertNotNull(screen.exists(messageOnSuccessfulRegistration));
     }
 }

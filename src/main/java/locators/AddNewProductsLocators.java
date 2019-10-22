@@ -11,7 +11,7 @@ public class AddNewProductsLocators {
     public static final String QUANTITY_FIELD_LOC = "//*[@id=\"tab-data\"]/div[11]/div";
     public static final String STOCK_STATUS_LOC = "//*[@id=\"input-stock-status\"]";
     public static final String MANUFACTURES_FIELD_LOC = "//*[@id=\"tab-links\"]/div[1]/div";
-    public static final String CATEGORIES_SELECT_LOC = "//*[@id=\"input-category\"]";
+    public static final String CATEGORIES_FIELD_LOC = "//*[@id=\"input-category\"]";
     public static final String PHOTO_LOC = "//*[@id=\"thumb-image\"]";
     public static final String EDIT_PHOTO_BUTTON_LOC = "//*[@id=\"button-image\"]";
     public static final String SELECT_PHOTO_LOC = "//*[@id=\"filemanager\"]/div/div[2]/div[2]/div[3]/a";
