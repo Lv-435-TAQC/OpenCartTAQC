@@ -9,7 +9,6 @@ import pageelements.Button;
 import pageelements.TextButton;
 
 import java.util.List;
-
 import static utils.commonconstants.Constants.*;
 
 public class MenuPageObject extends BasePageObject {

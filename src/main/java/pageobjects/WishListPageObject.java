@@ -1,13 +1,14 @@
 package pageobjects;
 
-import locators.CategoryLocators;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Label;
+import org.sikuli.script.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,10 +16,10 @@ import static locators.WishListLocators.*;
 
 
 public class WishListPageObject extends BasePageObject {
-    public HeaderPageObject header;
-    public MenuPageObject menu;
-    public Label label;
-    public HashMap<String, WishListItemPageObject> items;
+    private HeaderPageObject header;
+    private MenuPageObject menu;
+    private Label label;
+    private HashMap<String, WishListItemPageObject> items;
 
     public WishListPageObject(WebDriver driver) {
         super(driver);
@@ -27,16 +28,24 @@ public class WishListPageObject extends BasePageObject {
 
     }
 
+    public static void makeScreenShotSteps(WebDriver driver, String screenshotsName) {
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(scrFile, new File("src\\main\\resources\\screenshots\\" + screenshotsName + ".png"));
+        } catch (IOException e) {
+        }
+    }
+
     public ItemInfoPageObject itemImageClick(String id){
         HashMap<String, WishListItemPageObject> items = getMapOfItems();
         items.get(id).image.click();
-        return new ItemInfoPageObject(driver);
+        return new ItemInfoPageObject(this.driver);
     }
 
     public ItemInfoPageObject itemProductNameClick(String id){
         HashMap<String, WishListItemPageObject> items = getMapOfItems();
         items.get(id).productName.click();
-        return new ItemInfoPageObject(driver);
+        return new ItemInfoPageObject(this.driver);
     }
 
     public WishListPageObject removeItemFromWishList(String id){
@@ -77,6 +86,16 @@ public class WishListPageObject extends BasePageObject {
             items.put(id,new WishListItemPageObject(driver, image, productName, addToCart, remove));
         }
         return items;
+    }
+
+    public static Boolean findImageInScreen(Screen screen, Pattern pattern){
+        try {
+            screen.find(pattern);
+            return true;
+        } catch (FindFailed findFailed) {
+            findFailed.printStackTrace();
+            return false;
+        }
     }
 }
 
