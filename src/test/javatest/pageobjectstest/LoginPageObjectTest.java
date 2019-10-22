@@ -115,10 +115,14 @@ public class LoginPageObjectTest {
         assertEquals(actual, expected);
     }
 
+    /**
+     *
+     * @throws FindFailed
+     */
     @Test
     public void validateLinkedTextByImageTest() throws FindFailed {
         Screen screen = new Screen();
-        Pattern text = new Pattern("src/main/resources/sikulipaterns/forgottenPass.png");
+        Pattern text = new Pattern("src/main/resources/sikulipatterns/forgottenPass.png");
         screen.find(text);
     }
 }

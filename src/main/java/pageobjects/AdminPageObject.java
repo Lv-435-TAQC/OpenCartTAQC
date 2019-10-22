@@ -8,6 +8,10 @@ public class AdminPageObject extends BasePageObject {
 
     private NavigationPageObject navigationPageObject;
 
+    /**
+     *
+     * @param driver
+     */
     public AdminPageObject(WebDriver driver) {
         super(driver);
     }
