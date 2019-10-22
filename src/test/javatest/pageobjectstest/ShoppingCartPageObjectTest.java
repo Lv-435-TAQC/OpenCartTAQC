@@ -1,11 +1,14 @@
-package javatest.pageobjectstest;
+package pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.sikuli.script.Match;
+import org.sikuli.script.Pattern;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.HomePageObject;
 import pageobjects.ShoppingCartPageObject;
+import patterns.ShoppingCartPatterns;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -52,9 +55,20 @@ public class ShoppingCartPageObjectTest {
     }
     @Test(invocationCount = 1)
     public void testAddProductToShoppingCartUseSikuli()throws Exception {
+        ShoppingCartPageObject shoppingCartPageObject = new ShoppingCartPageObject(driver);
+        shoppingCartPageObject.addIphoneToShoppingCartSikuly();
+        Match match = shoppingCartPageObject.finedElementInShoppingCart(new Pattern(ShoppingCartPatterns.IPHONE_IN_SHOPPING_CART));
+        System.out.println(match);
+        assertNotNull(match);
+    }
+    @Test(invocationCount = 1)
+    public void testChangingQuantityProductsUseSikuli()throws Exception {
        ShoppingCartPageObject shoppingCartPageObject = new ShoppingCartPageObject(driver);
-       shoppingCartPageObject.addIphoneToShoppingCart();
-        assertEquals("","");
+       shoppingCartPageObject.addIphoneToShoppingCartSikuly();
+       shoppingCartPageObject.changeQuantityProductsSikuly();
+        String actual = shoppingCartPageObject.getTotalCostSikuly().split(" ")[1];
+        String expected ="$246.40";
+        assertEquals(actual,expected);
     }
 
     @Test
@@ -68,7 +82,7 @@ public class ShoppingCartPageObjectTest {
     }
 
     @Test
-    public void testChangingQuantityProducts() {
+    public void testChangingQuantityProducts() throws InterruptedException {
         String productID = home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         String expected = "$246.40";
@@ -76,6 +90,7 @@ public class ShoppingCartPageObjectTest {
         shoppingCartPageObject.updateProductQuantityInCart(productID);
         String actual = shoppingCartPageObject.getTotalCostProductInCart(productID);
         assertEquals(actual, expected);
+
     }
 
     @DataProvider(name = "invalidDataQuantityProducts")

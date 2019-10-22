@@ -28,6 +28,7 @@ public class AddNewProductPageObject extends BasePageObject{
     private Input productCategories;
     private Button productPhotoButton;
     private Button selectPhotoButton;
+    private Button editPhotoButton;
     private Button saveNewProductButton;
 
     public AddNewProductPageObject(WebDriver driver) {
@@ -97,6 +98,11 @@ public class AddNewProductPageObject extends BasePageObject{
 
     public AddNewProductPageObject clickPhoto(){
         productPhotoButton = new ImageButton(driver,AddNewProductsLocators.PHOTO_LOC).click();
+        return new AddNewProductPageObject(driver);
+    }
+
+    public AddNewProductPageObject editPhoto(){
+        editPhotoButton = new ImageButton(driver,AddNewProductsLocators.EDIT_PHOTO_BUTTON_LOC).click();
         return new AddNewProductPageObject(driver);
     }
 

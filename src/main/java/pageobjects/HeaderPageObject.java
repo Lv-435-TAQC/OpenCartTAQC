@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.*;
+import pageobjects.WishListPageObject.*;
 
 import java.util.List;
 
@@ -72,8 +73,8 @@ public class HeaderPageObject extends BasePageObject {
     }
 
 
-    public ShoppingCartPageObject goToCheckoutCartPage(){
-        checkoutButton = new ImageTextButton(driver,HeaderLocators.CHECKOUT_PAGE_BUTTON_LOC).click();
+    public ShoppingCartPageObject goToCheckoutCartPage() {
+        checkoutButton = new ImageTextButton(driver, HeaderLocators.CHECKOUT_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
     }
 
