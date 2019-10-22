@@ -36,7 +36,7 @@ public class SearchPageObjectTest {
 
     @AfterClass
     public void closeUp() {
-       //driver.quit();
+       driver.quit();
     }
 
     @Test
