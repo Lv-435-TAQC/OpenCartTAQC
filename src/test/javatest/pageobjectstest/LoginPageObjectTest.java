@@ -2,6 +2,10 @@ package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -9,6 +13,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.HeaderPageObject;
 import pageobjects.LoginPageObject;
+
+
 
 import java.util.concurrent.TimeUnit;
 
@@ -44,7 +50,7 @@ public class LoginPageObjectTest {
 
     @AfterClass
     public void closeUp() {
-        driver.quit();
+     driver.quit();
     }
 
     @Test
@@ -107,5 +113,12 @@ public class LoginPageObjectTest {
         String actual = loginPageObject.forgottenPassword("hahahaha@gmail.com").warningMessage();
         String expected = "Warning: The E-Mail Address was not found in our records, please try again!";
         assertEquals(actual, expected);
+    }
+
+    @Test
+    public void validateLinkedTextByImageTest() throws FindFailed {
+        Screen screen = new Screen();
+        Pattern text = new Pattern("src/main/resources/sikulipaterns/forgottenPass.png");
+        screen.find(text);
     }
 }
