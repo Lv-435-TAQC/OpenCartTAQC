@@ -41,7 +41,7 @@ public class OrdersPageObjectTest {
     @AfterClass
     public void closeUp() {
 
-        //driver.quit();
+        driver.quit();
     }
 
     @Test(invocationCount = 1)
