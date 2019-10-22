@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryPageObject extends BasePageObject {
+    private Label categoryNameLabel;
     private List<WebElement> elements;
     private Label alertLabel;
     private ArrayList<ProductUnitPageObject> products;
@@ -22,7 +23,6 @@ public class CategoryPageObject extends BasePageObject {
         super(driver);
         this.productsXpath = productsXpath;
         filterPageObject = new FilterPageObject(this.driver);
-        generateProductsPageObject();
     }
 
 
@@ -150,5 +150,9 @@ public class CategoryPageObject extends BasePageObject {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CategoryLocators.ALERT_LABEL_LOC)));
         alertLabel = new Label(this.driver, CategoryLocators.ALERT_LABEL_LOC);
         return alertLabel.getText();
+    }
+    public String getCategoryName(){
+        categoryNameLabel = new Label(driver, CategoryLocators.CATEGORY_NAME_LABEL_LOC);
+        return categoryNameLabel.getText();
     }
 }

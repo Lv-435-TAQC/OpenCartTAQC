@@ -5,12 +5,12 @@ import org.openqa.selenium.WebDriver;
 import pageelements.Label;
 
 public class ProductsPageObject extends BasePageObject {
-    private String productLabel;
+    private String categoryNameLabel;
     public ProductsPageObject(WebDriver driver) {
         super(driver);
     }
-    public String getLabelText(){
-        productLabel = new Label(driver, ProductLocators.PRODUCTS_LABEL_LOC).getText();
-        return productLabel;
+    public String getCategoryName(){
+        categoryNameLabel = new Label(driver, ProductLocators.PRODUCTS_LABEL_LOC).getText();
+        return categoryNameLabel;
     }
 }
