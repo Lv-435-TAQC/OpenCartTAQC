@@ -44,6 +44,19 @@ public class CategoryPageObject extends BasePageObject {
         return this;
     }
 
+    public CategoryPageObject generateProductsList(){
+        Product product;
+        generateProductsPageObjects();
+        for (int i = 0; i < productsPO.size(); i++) {
+            product = new Product();
+            product.setId(Integer.parseInt(productsPO.get(i).getIdOfProduct()));
+            product.setProductName(productsPO.get(i).getNameOfProduct());
+            product.setDimensions(productsPO.get(i).getDescriptionOfProduct());
+            products.add(product);
+        }
+        return this;
+    }
+
     public ItemInfoPageObject clickToImageByNumberOfProduct(int numberOfProduct) {
         productsPO.get(numberOfProduct - 1).clickProductImage();
         return new ItemInfoPageObject(this.driver);
@@ -60,12 +73,12 @@ public class CategoryPageObject extends BasePageObject {
     }
 
     public CategoryPageObject clickAddToWishListByNumberOfProduct(int numberOfProduct) {
-        productsPO.get(numberOfProduct - 1).clickAddToWishList();
+        productsPO.get(numberOfProduct - 1).clickAddToWishList(productsXpath);
         return this;
     }
 
     public CategoryPageObject clickCompareThisProductByNumberOfProduct(int numberOfProduct) {
-        productsPO.get(numberOfProduct - 1).clickCompareThisProduct();
+        productsPO.get(numberOfProduct - 1).clickCompareThisProduct(productsXpath);
         return this;
     }
 
