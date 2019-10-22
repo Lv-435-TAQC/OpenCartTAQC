@@ -9,7 +9,7 @@ import pageobjects.NavigationPageObject;
 
 public class AdminPageObject extends BasePageObject {
 
-    private NavigationPageObject navigationPageObject;
+    private AdminNavigationPageObject navigationPageObject;
 
     public AdminPageObject(WebDriver driver) {
         super(driver);
