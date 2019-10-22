@@ -20,7 +20,6 @@ public class WishListPageObject extends BasePageObject {
     private MenuPageObject menu;
     private Label label;
     private HashMap<String, WishListItemPageObject> items;
-    org.sikuli.script.Screen screen = new org.sikuli.script.Screen();
 
     public WishListPageObject(WebDriver driver) {
         super(driver);
