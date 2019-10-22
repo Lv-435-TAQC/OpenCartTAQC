@@ -44,7 +44,7 @@ public class CategoryPageObject extends BasePageObject {
         return this;
     }
 
-    public CategoryPageObject generateProductsList(){
+    public CategoryPageObject generateProductsList() {
         Product product;
         generateProductsPageObjects();
         for (int i = 0; i < productsPO.size(); i++) {
@@ -103,13 +103,13 @@ public class CategoryPageObject extends BasePageObject {
     }
 
     public CategoryPageObject clickListButton() {
-        filterPageObject.clickListButton();
+        filterPageObject.clickListButton(productsXpath);
         generateProductsPageObjects();
         return this;
     }
 
     public CategoryPageObject clickGridButton() {
-        filterPageObject.clickGridButton();
+        filterPageObject.clickGridButton(productsXpath);
         generateProductsPageObjects();
         return this;
     }
@@ -121,25 +121,25 @@ public class CategoryPageObject extends BasePageObject {
     }
 
     public CategoryPageObject choseSortBySelectorByParam(String param) {
-        filterPageObject.choseSortBySelectorByParam(param);
+        filterPageObject.choseSortBySelectorByParam(param, productsXpath);
         generateProductsPageObjects();
         return this;
     }
 
     public CategoryPageObject choseSortBySelectorByID(int id) {
-        filterPageObject.choseSortBySelectorByID(id);
+        filterPageObject.choseSortBySelectorByID(id, productsXpath);
         generateProductsPageObjects();
         return this;
     }
 
     public CategoryPageObject choseShowSelectorByParam(String param) {
-        filterPageObject.choseShowSelectorByParam(param);
+        filterPageObject.choseShowSelectorByParam(param, productsXpath);
         generateProductsPageObjects();
         return this;
     }
 
     public CategoryPageObject choseShowSelectorByID(int id) {
-        filterPageObject.choseShowSelectorByID(id);
+        filterPageObject.choseShowSelectorByID(id, productsXpath);
         generateProductsPageObjects();
         return this;
     }
@@ -171,5 +171,5 @@ public class CategoryPageObject extends BasePageObject {
         categoryNameLabel = new Label(driver, CategoryLocators.CATEGORY_NAME_LABEL_LOC);
         return categoryNameLabel.getText();
     }
-    
+
 }
