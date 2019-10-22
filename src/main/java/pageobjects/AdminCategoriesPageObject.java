@@ -4,6 +4,7 @@ package pageobjects;
 import org.openqa.selenium.WebDriver;
 import locators.AdminCategoriesLocators;
 import pageelements.Button;
+import pageelements.Label;
 
 public class AdminCategoriesPageObject extends BasePageObject{
 
@@ -12,6 +13,7 @@ public class AdminCategoriesPageObject extends BasePageObject{
     private Button rebuildCategoriesPage;
     private Button chooseCategories;
     private Button editSomethingToCategories;
+    private Label  returnTextFromCategoriesListElement;
 
     public AdminCategoriesPageObject(WebDriver driver) {
         super(driver);
@@ -36,6 +38,11 @@ public class AdminCategoriesPageObject extends BasePageObject{
     public AdminCategoriesPageObject changeSomethingInCategories(){
         editSomethingToCategories = new Button(driver, AdminCategoriesLocators.EDIT_SOMETHING_TO_CATEGORIES_BUTTON_LOC).click();
         return new AdminCategoriesPageObject(driver);
+    }
+    public String returnTextElementFromListOfCategories() {
+        returnTextFromCategoriesListElement = new Label(this.driver, AdminCategoriesLocators.RETURN_TEXT_FROM_CATEGORIES_LIST_LOC);
+        String textFromCategoriesList = returnTextFromCategoriesListElement.getText();
+        return textFromCategoriesList;
     }
 
 
