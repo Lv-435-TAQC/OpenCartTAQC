@@ -50,7 +50,7 @@ public class CategoryPageObjectTest {
     @Test
     public void sortByDefaultParamTest() {
         categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Default").getNameOfProduct(1);
+        String actual = categoryPageObject.choseSortBySelectorByParam("Default").getNameOfProductByNumberOfProduct(1);
         String expected = "Apple Cinema 30";
         Assert.assertTrue(actual.contains(expected));
     }
@@ -58,7 +58,7 @@ public class CategoryPageObjectTest {
     @Test
     public void sortByNameAZParamTest() {
         categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Name (A - Z)").getNameOfProduct(1);
+        String actual = categoryPageObject.choseSortBySelectorByParam("Name (A - Z)").getNameOfProductByNumberOfProduct(1);
         String expected = "Apple Cinema 30";
         Assert.assertTrue(actual.contains(expected));
     }
@@ -66,7 +66,7 @@ public class CategoryPageObjectTest {
     @Test
     public void sortByNameZAParamTest() {
         categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Name (Z - A)").getNameOfProduct(1);
+        String actual = categoryPageObject.choseSortBySelectorByParam("Name (Z - A)").getNameOfProductByNumberOfProduct(1);
         String expected = "Sony VAIO";
         Assert.assertTrue(actual.contains(expected));
     }
@@ -74,7 +74,7 @@ public class CategoryPageObjectTest {
     @Test
     public void sortByPriceLowHighParamTest() {
         categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Price (Low > High)").getNameOfProduct(1);
+        String actual = categoryPageObject.choseSortBySelectorByParam("Price (Low > High)").getNameOfProductByNumberOfProduct(1);
         System.out.println(actual);
         String expected = "Canon EOS 5D";
         Assert.assertTrue(actual.contains(expected));
@@ -83,7 +83,7 @@ public class CategoryPageObjectTest {
     @Test
     public void sortByPriceHighLowParamTest() {
         categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Price (High > Low)").getNameOfProduct(1);
+        String actual = categoryPageObject.choseSortBySelectorByParam("Price (High > Low)").getNameOfProductByNumberOfProduct(1);
         String expected = "Sony VAIO";
         Assert.assertTrue(actual.contains(expected));
     }
@@ -91,7 +91,7 @@ public class CategoryPageObjectTest {
     @Test
     public void sortByRatingHighestParamTest() {
         categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Rating (Highest)").getNameOfProduct(1);
+        String actual = categoryPageObject.choseSortBySelectorByParam("Rating (Highest)").getNameOfProductByNumberOfProduct(1);
         String expected = "Sony VAIO";
         Assert.assertTrue(actual.contains(expected));
     }
@@ -99,7 +99,7 @@ public class CategoryPageObjectTest {
     @Test
     public void sortByRatingLowestParamTest() {
         categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Rating (Lowest)").getNameOfProduct(1);
+        String actual = categoryPageObject.choseSortBySelectorByParam("Rating (Lowest)").getNameOfProductByNumberOfProduct(1);
         String expected = "Apple Cinema 30";
         Assert.assertTrue(actual.contains(expected));
     }
@@ -107,7 +107,7 @@ public class CategoryPageObjectTest {
     @Test
     public void sortByModelAZParamTest() {
         categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Model (A - Z)").getNameOfProduct(1);
+        String actual = categoryPageObject.choseSortBySelectorByParam("Model (A - Z)").getNameOfProductByNumberOfProduct(1);
         String expected = "HTC Touch HD";
         Assert.assertTrue(actual.contains(expected));
     }
@@ -115,7 +115,7 @@ public class CategoryPageObjectTest {
     @Test
     public void sortByModelZAParamTest() {
         categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Model (Z - A)").getNameOfProduct(1);
+        String actual = categoryPageObject.choseSortBySelectorByParam("Model (Z - A)").getNameOfProductByNumberOfProduct(1);
         String expected = "Product 8";
         Assert.assertTrue(actual.contains(expected));
     }
@@ -141,7 +141,7 @@ public class CategoryPageObjectTest {
     @Test
     public void showFifteenElements() {
         categoryPageObject = new CategoryPageObject(driver);
-        Integer actual = categoryPageObject.choseShowSelectorByParam("15").generateProductsPageObject().getProducts().size();
+        Integer actual = categoryPageObject.choseShowSelectorByParam("15").generateProductsPageObjects().getProductsPO().size();
         Integer expected = 15;
         Assert.assertTrue(actual <= expected);
     }
@@ -149,7 +149,7 @@ public class CategoryPageObjectTest {
     @Test
     public void showTwentyFiveElements() {
         categoryPageObject = new CategoryPageObject(driver);
-        Integer actual = categoryPageObject.choseShowSelectorByParam("25").generateProductsPageObject().getProducts().size();
+        Integer actual = categoryPageObject.choseShowSelectorByParam("25").generateProductsPageObjects().getProductsPO().size();
         Integer expected = 25;
         Assert.assertTrue(actual <= expected);
     }
@@ -157,7 +157,7 @@ public class CategoryPageObjectTest {
     @Test
     public void showFiftyElements() {
         categoryPageObject = new CategoryPageObject(driver);
-        Integer actual = categoryPageObject.choseShowSelectorByParam("50").generateProductsPageObject().getProducts().size();
+        Integer actual = categoryPageObject.choseShowSelectorByParam("50").generateProductsPageObjects().getProductsPO().size();
         Integer expected = 50;
         Assert.assertTrue(actual <= expected);
     }
@@ -165,7 +165,7 @@ public class CategoryPageObjectTest {
     @Test
     public void showSeventyFiveElements() {
         categoryPageObject = new CategoryPageObject(driver);
-        Integer actual = categoryPageObject.choseShowSelectorByParam("75").generateProductsPageObject().getProducts().size();
+        Integer actual = categoryPageObject.choseShowSelectorByParam("75").generateProductsPageObjects().getProductsPO().size();
         Integer expected = 75;
         Assert.assertTrue(actual <= expected);
     }
@@ -173,7 +173,7 @@ public class CategoryPageObjectTest {
     @Test
     public void showHundredElements() {
         categoryPageObject = new CategoryPageObject(driver);
-        Integer actual = categoryPageObject.choseShowSelectorByParam("100").generateProductsPageObject().getProducts().size();
+        Integer actual = categoryPageObject.choseShowSelectorByParam("100").generateProductsPageObjects().getProductsPO().size();
         Integer expected = 100;
         Assert.assertTrue(actual <= expected);
     }

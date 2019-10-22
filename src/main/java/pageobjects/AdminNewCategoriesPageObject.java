@@ -22,12 +22,12 @@ public class AdminNewCategoriesPageObject extends BasePageObject {
     }
     public AdminNewCategoriesPageObject inputCategoriesName() {
         nameOfCategories = new Input(this.driver, AdminAddCategoriesLocators.NAME_OF_CATEGORIES_INPUT_LOC);
-        nameOfCategories.setTextForField("forTest");
+        nameOfCategories.setText("forTest");
         return new AdminNewCategoriesPageObject(this.driver);
     }
     public AdminNewCategoriesPageObject inputMetaTagOfCategories() {
         metaTag = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_TITLE_INPUT_LOC);
-        metaTag.setTextForField("justTest");
+        metaTag.setText("justTest");
         return new AdminNewCategoriesPageObject(this.driver);
     }
 
