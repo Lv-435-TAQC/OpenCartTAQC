@@ -60,16 +60,16 @@ public class ProductUnitPageObject extends BasePageObject {
         return exTax.getText();
     }
 
-    public CategoryPageObject clickAddToWishList() {
+    public CategoryPageObject clickAddToWishList(String xpath) {
         addToWishListButton = new ImageButton(elementToParse, ProductUnitLocators.ADD_TO_WISH_LIST_BUTTON_LOC);
         addToWishListButton.click();
-        return new CategoryPageObject(this.driver);
+        return new CategoryPageObject(this.driver, xpath);
     }
 
-    public CategoryPageObject clickCompareThisProduct() {
+    public CategoryPageObject clickCompareThisProduct(String xpath) {
         compareThisProductButton = new ImageButton(elementToParse, ProductUnitLocators.COMPARE_THIS_PRODUCT_BUTTON_LOC);
         compareThisProductButton.click();
-        return new CategoryPageObject(this.driver);
+        return new CategoryPageObject(this.driver, xpath);
     }
 
     public String getNameOfProduct() {
@@ -77,4 +77,8 @@ public class ProductUnitPageObject extends BasePageObject {
         return linkedProductName.getText();
     }
 
+    public String getIdOfProduct() {
+        linkedProductName = new LinkedLabel(elementToParse, ProductUnitLocators.HREF_NAME_LOC);
+        return linkedProductName.getAttribute("href").split("=")[2];
+    }
 }

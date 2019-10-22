@@ -1,5 +1,6 @@
 package pageobjectstest;
 
+import locators.CategoryLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -36,7 +37,7 @@ public class CategoryPageObjectTest {
 
     @Test
     public void labelSortByTextTest() {
-        categoryPageObject = new CategoryPageObject(driver);
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         String actual = categoryPageObject.getSortByLabelText();
         String expected = "Sort By:";
         Assert.assertTrue(actual.contains(expected));
@@ -44,7 +45,7 @@ public class CategoryPageObjectTest {
 
     @Test
     public void labelShowTextTest() {
-        categoryPageObject = new CategoryPageObject(driver);
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         String actual = categoryPageObject.getShowLabelText();
         String expected = "Show:";
         Assert.assertTrue(actual.contains(expected));
@@ -66,14 +67,14 @@ public class CategoryPageObjectTest {
 
     @Test(dataProvider = "sortBySelector")
     public void sortByParamTest(String sortType, String expected) {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam(sortType).getNameOfProduct(1);
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
+        String actual = categoryPageObject.choseSortBySelectorByParam(sortType).getNameOfProductByNumberOfProduct(1);
         Assert.assertTrue(actual.contains(expected));
     }
 
     @Test
     public void ListButtonTest() {
-        categoryPageObject = new CategoryPageObject(driver);
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         categoryPageObject.clickListButton();
         String actual = driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div[1]")).getAttribute("class");
         String expected = "product-layout product-list col-xs-12";
@@ -82,7 +83,7 @@ public class CategoryPageObjectTest {
 
     @Test
     public void GridButtonTest() {
-        categoryPageObject = new CategoryPageObject(driver);
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         categoryPageObject.clickGridButton();
         String actual = driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div[1]")).getAttribute("class");
         String expected = "product-layout product-grid col-lg-4 col-md-4 col-sm-6 col-xs-12";
@@ -102,8 +103,8 @@ public class CategoryPageObjectTest {
 
     @Test(dataProvider = "showSelector")
     public void showNumberOfElements(String numberOfItems, Integer expected) {
-        categoryPageObject = new CategoryPageObject(driver);
-        Integer actual = categoryPageObject.choseShowSelectorByParam(numberOfItems).generateProductsPageObject().getProducts().size();
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
+        Integer actual = categoryPageObject.choseShowSelectorByParam(numberOfItems).generateProductsPageObjects().getProductsPO().size();
         Assert.assertTrue(actual <= expected);
     }
 
@@ -123,7 +124,7 @@ public class CategoryPageObjectTest {
 
     @Test
     public void sortByNameAZParamValidateByImageTest() throws FindFailed {
-        categoryPageObject = new CategoryPageObject(driver);
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         categoryPageObject.clickGridButton().choseSortBySelectorByParam("Name (A - Z)");
         Pattern scroll = new Pattern("src/main/resources/sikulipatterns/scroll.png");
         Screen s = new Screen();
