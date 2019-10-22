@@ -14,11 +14,12 @@ public class SearchPageObject extends BasePageObject {
     private Button searchInDescriptionButton;
     private Input inputFalseNameOfProduct;
     private Input inputNameOfProduct;
-    private Input inputProductNameForSearchWhithDescription;
+    private Input inputProductNameForSearchWithDescription;
     private DropDown categoriesButton;
     private Label returnTextOfInput;
     private Label returnFalseInput;
     private Label returnFirstElementOfSearchText;
+    private Label returnFifthElementOfCategories;
 
     public SearchPageObject(WebDriver driver) {
         super(driver);
@@ -47,6 +48,11 @@ public class SearchPageObject extends BasePageObject {
         String returnFirstElementName = returnFirstElementOfSearchText.getText();
         return  returnFirstElementName;
     }
+    public String returnTextFromFifthElementOfCategories(){
+        returnFifthElementOfCategories = new Label(this.driver, SearchLocators.FIFTH_ELEMENT_OF_CATEGORIES);
+        String returnFifthElementCategories = returnFifthElementOfCategories.getText();
+        return  returnFifthElementCategories;
+    }
 
     public SearchPageObject inputFalseProductName() {
         inputFalseNameOfProduct = new Input(this.driver, SearchLocators.INPUT_SEARCH_TEXT_XPATH);
@@ -60,8 +66,8 @@ public class SearchPageObject extends BasePageObject {
         return new SearchPageObject(this.driver);
     }
     public SearchPageObject inputProductNameForSearchWithProductDescription() {
-        inputProductNameForSearchWhithDescription = new Input(this.driver, SearchLocators.INPUT_SEARCH_TEXT_XPATH);
-        inputProductNameForSearchWhithDescription.setTextForField("New D_SLR");
+        inputProductNameForSearchWithDescription = new Input(this.driver, SearchLocators.INPUT_SEARCH_TEXT_XPATH);
+        inputProductNameForSearchWithDescription.setTextForField("New D_SLR");
         return new SearchPageObject(this.driver);
     }
 

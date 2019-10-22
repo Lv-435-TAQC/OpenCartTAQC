@@ -1,0 +1,19 @@
+package locators;
+
+public class AddNewProductsLocators {
+    public static final String ADD_PRODUCT_MENU_LOC = "//*[@id=\"form-product\"]/ul/li";
+    public static final String PRODUCT_NAME_FIELD_LOC = "//*[@id=\"input-name1\"]";
+    public static final String PRODUCT_DESK_AREA_LOC = "//*[@id=\"language1\"]/div[2]/div/div/div[3]/div[2]";
+    public static final String MEGA_TEG_TITLE_LOC = "//*[@id=\"language1\"]/div[3]/div";
+    public static final String SAVE_PRODUCT_BUTTON_LOC = "//*[@id=\"content\"]/div[1]/div/div/button";
+    public static final String MODEL_FIELD_LOC = "//*[@id=\"input-model\"]";
+    public static final String PRICE_FIELD_LOC = "//*[@id=\"tab-data\"]/div[9]/div";
+    public static final String QUANTITY_FIELD_LOC = "//*[@id=\"tab-data\"]/div[11]/div";
+    public static final String STOCK_STATUS_LOC = "//*[@id=\"input-stock-status\"]";
+    public static final String MANUFACTURES_FIELD_LOC = "//*[@id=\"tab-links\"]/div[1]/div";
+    public static final String CATEGORIES_FIELD_LOC = "//*[@id=\"input-category\"]";
+    public static final String PHOTO_LOC = "//*[@id=\"thumb-image\"]";
+    public static final String EDIT_PHOTO_BUTTON_LOC = "//*[@id=\"button-image\"]";
+    public static final String SELECT_PHOTO_LOC = "//*[@id=\"filemanager\"]/div/div[2]/div[2]/div[3]/a";
+
+}

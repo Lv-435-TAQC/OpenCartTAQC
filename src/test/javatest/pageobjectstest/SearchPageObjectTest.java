@@ -1,7 +1,12 @@
 package javatest.pageobjectstest;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -15,7 +20,7 @@ import static org.testng.Assert.*;
 public class SearchPageObjectTest {
     WebDriver driver;
     SearchPageObject search;
-    
+
     @BeforeClass
     public void setUp() {
         System.setProperty("webdriver.gecko.driver", "D:\\geckodriver.exe");
@@ -31,7 +36,7 @@ public class SearchPageObjectTest {
 
     @AfterClass
     public void closeUp() {
-        driver.quit();
+       driver.quit();
     }
 
     @Test
@@ -82,5 +87,20 @@ public class SearchPageObjectTest {
                 .returnTextFromFirstSearchElement();
         String expected = ("iMac");
         assertEquals(actual, expected);
+    }
+    @Test(priority = 1)
+    public void testSikuli() throws FindFailed {
+        Screen screen = new Screen();
+        String categoriesSelect = "D:\\sikuliScreenshot\\categories.PNG";
+        String laptopsAndNote = "D:\\sikuliScreenshot\\Mac.PNG";
+        String inputNameOfProduct = "D:\\sikuliScreenshot\\inputNameProduct.PNG";
+        String searchButton = "D:\\sikuliScreenshot\\searchButton.PNG";
+        String firstElementOfSearch = "D:\\sikuliScreenshot\\MacBook.PNG";
+        screen.type(inputNameOfProduct, "mac");
+        screen.click(categoriesSelect);
+        screen.click(laptopsAndNote);
+        screen.click(searchButton);
+        screen.find(firstElementOfSearch);
+
     }
 }
