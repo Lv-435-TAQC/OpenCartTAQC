@@ -1,6 +1,9 @@
 package pageobjects;
 
 import org.openqa.selenium.WebDriver;
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
 import pageelements.Button;
 import pageelements.Checkbox;
 import pageelements.Input;
@@ -72,5 +75,21 @@ public class RegistrationPageObject extends BasePageObject {
 
     public Input getFieldEmail() {
         return fieldEmail;
+    }
+
+    public void typeTextToPattern(Screen screen, Pattern pattern, String text) {
+        try {
+            screen.type(pattern, text);
+        } catch (FindFailed findFailed) {
+            findFailed.printStackTrace();
+        }
+    }
+
+    public void clickOnPattern(Screen screen, Pattern pattern) {
+        try {
+            screen.click(pattern);
+        } catch (FindFailed findFailed) {
+            findFailed.printStackTrace();
+        }
     }
 }
