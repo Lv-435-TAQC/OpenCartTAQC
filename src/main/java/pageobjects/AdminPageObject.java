@@ -3,11 +3,8 @@ package pageobjects;
 import locators.AdminPageLocators;
 import org.openqa.selenium.WebDriver;
 
-import org.stringtemplate.v4.ST;
 import pageelements.Button;
 import pageelements.Input;
-import pageobjects.BasePageObject;
-import pageobjects.NavigationPageObject;
 
 
 public class AdminPageObject extends BasePageObject {
@@ -23,8 +20,8 @@ public class AdminPageObject extends BasePageObject {
         Input login = new Input(driver,"");
         Input password = new Input(driver,"");
         Button buttonLogin = new Button(driver,"");
-        login.setTextForField(loginInputPath);
-        password.setTextForField(passwordInputPath);
+        login.setText(loginInputPath);
+        password.setText(passwordInputPath);
         buttonLogin.click();
         return this;
 
