@@ -2,7 +2,6 @@ package javatest.pageobjectstest;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -44,7 +43,7 @@ public class WishListPageObjectTest {
     public void addItemToWishListFromMenu(){
         menu.showAllDesktops();
         categoryPageObject = new CategoryPageObject(driver);
-        categoryPageObject.generateProductsPageObject().clickAddToWishList(1);
+        categoryPageObject.generateProductsPageObjects().clickAddToWishListByNumberOfProduct(1);
         String actual = categoryPageObject.getTextFromAlertLabel();
         String expected = "Success: You have added Apple Cinema 30\" to your wish list!";
         assertTrue(actual.contains(expected));
@@ -54,7 +53,7 @@ public class WishListPageObjectTest {
     public void addItemToWishListFromItemObject(){
         menu.showAllDesktops();
         categoryPageObject = new CategoryPageObject(driver);
-        categoryPageObject.generateProductsPageObject().clickToLinkedNameOfProduct(1);
+        categoryPageObject.generateProductsPageObjects().clickToLinkedNameByNumberOfProduct(1);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[1]/button[1]")));
         driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/div[2]/div[1]/button[1]")).click();
        //TODO Marta need to write her method - itemPageObject.clickAddToWishList
