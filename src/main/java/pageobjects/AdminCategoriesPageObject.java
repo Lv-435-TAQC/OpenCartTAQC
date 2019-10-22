@@ -39,13 +39,10 @@ public class AdminCategoriesPageObject extends BasePageObject{
         editSomethingToCategories = new Button(driver, AdminCategoriesLocators.EDIT_SOMETHING_TO_CATEGORIES_BUTTON_LOC).click();
         return new AdminCategoriesPageObject(driver);
     }
-    public String returnTextElementFromListOfCategories() {
+    public String getTextOfElementFromListOfCategories() {
         returnTextFromCategoriesListElement = new Label(this.driver, AdminCategoriesLocators.RETURN_TEXT_FROM_CATEGORIES_LIST_LOC);
-        String textFromCategoriesList = returnTextFromCategoriesListElement.getText();
-        return textFromCategoriesList;
+        return returnTextFromCategoriesListElement.getText();
     }
-
-
 }
 
 
