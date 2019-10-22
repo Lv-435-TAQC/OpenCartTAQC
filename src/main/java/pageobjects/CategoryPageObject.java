@@ -171,4 +171,5 @@ public class CategoryPageObject extends BasePageObject {
         categoryNameLabel = new Label(driver, CategoryLocators.CATEGORY_NAME_LABEL_LOC);
         return categoryNameLabel.getText();
     }
+    
 }
