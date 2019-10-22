@@ -36,7 +36,7 @@ public class SearchPageObjectTest {
 
     @AfterClass
     public void closeUp() {
-       driver.quit();
+       //driver.quit();
     }
 
     @Test
@@ -93,9 +93,14 @@ public class SearchPageObjectTest {
         Screen screen = new Screen();
         String categoriesSelect = "D:\\sikuliScreenshot\\categories.PNG";
         String laptopsAndNote = "D:\\sikuliScreenshot\\Mac.PNG";
+        String inputNameOfProduct = "D:\\sikuliScreenshot\\inputNameProduct.PNG";
+        String searchButton = "D:\\sikuliScreenshot\\searchButton.PNG";
+        String firstElementOfSearch = "D:\\sikuliScreenshot\\MacBook.PNG";
+        screen.type(inputNameOfProduct, "mac");
         screen.click(categoriesSelect);
         screen.click(laptopsAndNote);
-        search.returnTextFromFifthElementOfCategories();
-        Assert.assertTrue(search.returnTextFromFifthElementOfCategories().contentEquals("Laptops & Notebooks"));
+        screen.click(searchButton);
+        screen.find(firstElementOfSearch);
+
     }
 }
