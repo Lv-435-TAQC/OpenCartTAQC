@@ -9,6 +9,7 @@ public class AdminNavigationPageObject extends BasePageObject {
 
     private Button products;
     private Button catalog;
+    private Button categories;
 
     public AdminNavigationPageObject(WebDriver driver) {
         super(driver);
@@ -21,6 +22,10 @@ public class AdminNavigationPageObject extends BasePageObject {
 
     public AdminProductsList goToProducts(){
         products = new TextButton(driver, AdminNavigationLocators.PRODUCTS_PAGE_BUTTON_LOC).click();
+        return new AdminProductsList(driver);
+    }
+    public AdminProductsList goToCategories(){
+        categories = new TextButton(driver, AdminNavigationLocators.CATEGORIES_BUTTON_LOC).click();
         return new AdminProductsList(driver);
     }
 

@@ -27,37 +27,37 @@ public class RegistrationPageObject extends BasePageObject {
 
     public RegistrationPageObject setDataToFirstNameField(String firstName) {
         this.fieldFirstName = new Input(driver, FIRST_NAME_FIELD_XPATH);
-        this.fieldFirstName.setTextForField(firstName);
+        this.fieldFirstName.setText(firstName);
         return this;
     }
 
     public RegistrationPageObject setDataToLastNameField(String lastName) {
         this.fieldLastName = new Input(driver, LAST_NAME_FIELD_XPATH);
-        this.fieldLastName.setTextForField(lastName);
+        this.fieldLastName.setText(lastName);
         return this;
     }
 
     public RegistrationPageObject setDataToEmailField(String email) {
         this.fieldEmail = new Input(driver, EMAIL_FIELD_XPATH);
-        this.fieldEmail.setTextForField(email);
+        this.fieldEmail.setText(email);
         return this;
     }
 
     public RegistrationPageObject setDataToTelephoneField(String telephone) {
         this.fieldTelephone = new Input(driver, TELEPHONE_FIELD_XPATH);
-        this.fieldTelephone.setTextForField(telephone);
+        this.fieldTelephone.setText(telephone);
         return this;
     }
 
     public RegistrationPageObject setDataToPasswordField(String password) {
         this.fieldPassword = new Input(driver, PASSWORD_FIELD_XPATH);
-        this.fieldPassword.setTextForField(password);
+        this.fieldPassword.setText(password);
         return this;
     }
 
     public RegistrationPageObject setDataToPasswordConfirmField(String passwordConfirm) {
         this.fieldPasswordConfirm = new Input(driver, PASSWORD_CONFIRM_FIELD_XPATH);
-        this.fieldPasswordConfirm.setTextForField(passwordConfirm);
+        this.fieldPasswordConfirm.setText(passwordConfirm);
         return this;
     }
 

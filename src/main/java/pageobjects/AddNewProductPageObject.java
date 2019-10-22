@@ -28,6 +28,7 @@ public class AddNewProductPageObject extends BasePageObject{
     private Input productCategories;
     private Button productPhotoButton;
     private Button selectPhotoButton;
+    private Button editPhotoButton;
     private Button saveNewProductButton;
 
     public AddNewProductPageObject(WebDriver driver) {
@@ -41,22 +42,22 @@ public class AddNewProductPageObject extends BasePageObject{
     }
 
     public AddNewProductPageObject setProductName(String name){
-        productName = new Input(driver, AddNewProductsLocators.PRODUCT_NAME_FIELD_LOC).setTextForField(name);
+        productName = new Input(driver, AddNewProductsLocators.PRODUCT_NAME_FIELD_LOC).setText(name);
         return new AddNewProductPageObject(driver);
     }
 
     public AddNewProductPageObject setDescription(String desc){
-        productDescription = new Input(driver,AddNewProductsLocators.PRODUCT_DESK_AREA_LOC).setTextForField(desc);
+        productDescription = new Input(driver,AddNewProductsLocators.PRODUCT_DESK_AREA_LOC).setText(desc);
         return new AddNewProductPageObject(driver);
     }
 
     public AddNewProductPageObject setMetaTagTitle(String tagTitle){
-    metaTagTitle = new Input(driver,AddNewProductsLocators.MEGA_TEG_TITLE_LOC).setTextForField(tagTitle);
+    metaTagTitle = new Input(driver,AddNewProductsLocators.MEGA_TEG_TITLE_LOC).setText(tagTitle);
         return new AddNewProductPageObject(driver);
     }
 
     public AddNewProductPageObject setProductModel(String model){
-        productModel = new Input(driver,AddNewProductsLocators.MODEL_FIELD_LOC).setTextForField(model);
+        productModel = new Input(driver,AddNewProductsLocators.MODEL_FIELD_LOC).setText(model);
         return new AddNewProductPageObject(driver);
     }
 
@@ -76,27 +77,32 @@ public class AddNewProductPageObject extends BasePageObject{
     }
 
     public AddNewProductPageObject setPrice(String price){
-        productPrice = new Input(driver,AddNewProductsLocators.PRICE_FIELD_LOC).setTextForField(price);
+        productPrice = new Input(driver,AddNewProductsLocators.PRICE_FIELD_LOC).setText(price);
         return new AddNewProductPageObject(driver);
     }
 
     public AddNewProductPageObject setQuantity(String quantity){
-        productQuantity = new Input(driver,AddNewProductsLocators.QUANTITY_FIELD_LOC).setTextForField(quantity);
+        productQuantity = new Input(driver,AddNewProductsLocators.QUANTITY_FIELD_LOC).setText(quantity);
         return new AddNewProductPageObject(driver);
     }
 
     public AddNewProductPageObject setManufactures(String manufactures){
-        productManufactures = new Input(driver,AddNewProductsLocators.MANUFACTURES_FIELD_LOC).setTextForField(manufactures);
+        productManufactures = new Input(driver,AddNewProductsLocators.MANUFACTURES_FIELD_LOC).setText(manufactures);
         return new AddNewProductPageObject(driver);
     }
 
     public AddNewProductPageObject setCategories(String categories){
-        productCategories = new Input(driver,AddNewProductsLocators.CATEGORIES_FIELD_LOC).setTextForField(categories);
+        productCategories = new Input(driver,AddNewProductsLocators.CATEGORIES_FIELD_LOC).setText(categories);
         return new AddNewProductPageObject(driver);
     }
 
     public AddNewProductPageObject clickPhoto(){
         productPhotoButton = new ImageButton(driver,AddNewProductsLocators.PHOTO_LOC).click();
+        return new AddNewProductPageObject(driver);
+    }
+
+    public AddNewProductPageObject editPhoto(){
+        editPhotoButton = new ImageButton(driver,AddNewProductsLocators.EDIT_PHOTO_BUTTON_LOC).click();
         return new AddNewProductPageObject(driver);
     }
 
