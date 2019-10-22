@@ -4,7 +4,10 @@ import locators.AddNewProductsLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import pageelements.Button;
+import pageelements.ImageButton;
 import pageelements.Input;
+import pageelements.TextButton;
 
 import java.util.List;
 
@@ -21,6 +24,11 @@ public class AddNewProductPageObject extends BasePageObject{
     private Input productModel;
     private Input productPrice;
     private Input productQuantity;
+    private Input productManufactures;
+    private Input productCategories;
+    private Button productPhotoButton;
+    private Button selectPhotoButton;
+    private Button saveNewProductButton;
 
     public AddNewProductPageObject(WebDriver driver) {
 
@@ -77,4 +85,28 @@ public class AddNewProductPageObject extends BasePageObject{
         return new AddNewProductPageObject(driver);
     }
 
+    public AddNewProductPageObject setManufactures(String manufactures){
+        productManufactures = new Input(driver,AddNewProductsLocators.MANUFACTURES_FIELD_LOC).setTextForField(manufactures);
+        return new AddNewProductPageObject(driver);
+    }
+
+    public AddNewProductPageObject setCategories(String categories){
+        productCategories = new Input(driver,AddNewProductsLocators.CATEGORIES_FIELD_LOC).setTextForField(categories);
+        return new AddNewProductPageObject(driver);
+    }
+
+    public AddNewProductPageObject clickPhoto(){
+        productPhotoButton = new ImageButton(driver,AddNewProductsLocators.PHOTO_LOC).click();
+        return new AddNewProductPageObject(driver);
+    }
+
+    public AddNewProductPageObject selectPhoto(){
+        selectPhotoButton = new TextButton(driver,AddNewProductsLocators.SELECT_PHOTO_LOC).click();
+        return new AddNewProductPageObject(driver);
+    }
+
+    public AdminProductsList saveNewProduct(){
+        saveNewProductButton = new ImageButton(driver,AddNewProductsLocators.SAVE_PRODUCT_BUTTON_LOC).click();
+        return new AdminProductsList(driver);
+    }
 }
