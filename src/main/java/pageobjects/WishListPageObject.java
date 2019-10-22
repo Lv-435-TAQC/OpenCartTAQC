@@ -38,26 +38,26 @@ public class WishListPageObject extends BasePageObject {
 
     public ItemInfoPageObject itemImageClick(String id){
         HashMap<String, WishListItemPageObject> items = getMapOfItems();
-        items.get(id).image.click();
+        items.get(id).getImage().click();
         return new ItemInfoPageObject(this.driver);
     }
 
     public ItemInfoPageObject itemProductNameClick(String id){
         HashMap<String, WishListItemPageObject> items = getMapOfItems();
-        items.get(id).productName.click();
+        items.get(id).getProductName().click();
         return new ItemInfoPageObject(this.driver);
     }
 
     public WishListPageObject removeItemFromWishList(String id){
         HashMap<String, WishListItemPageObject> items = getMapOfItems();
-        items.get(id).remove.click();
+        items.get(id).getRemove().click();
         items.remove(id);
         return this;
     }
 
     public BasePageObject addItemToCart(String id){
         HashMap<String, WishListItemPageObject> items = getMapOfItems();
-        items.get(id).addToCart.click();
+        items.get(id).getAddToCart().click();
         String currentUrl = driver.getCurrentUrl();
         if(currentUrl.equals(WISH_LIST_URL)){
             return this;
