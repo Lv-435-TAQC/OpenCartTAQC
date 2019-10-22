@@ -111,7 +111,7 @@ public class ShoppingCartPageObject extends BasePageObject {
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.INPUT_COUPON_CODE)));
         inputCouponCode = new Input(driver, ShoppingCartLocators.INPUT_COUPON_CODE);
         inputCouponCode.element.clear();
-        inputCouponCode.setTextForField(couponCode);
+        inputCouponCode.setText(couponCode);
         new WebDriverWait(driver, 20).
                 until(ExpectedConditions.elementToBeClickable(By.xpath(ShoppingCartLocators.APPLY_COUPON_BUTTON)));
         applyCouponButton = new Button(driver, ShoppingCartLocators.APPLY_COUPON_BUTTON);
@@ -137,7 +137,7 @@ public class ShoppingCartPageObject extends BasePageObject {
         this.selectRegion.writeOrdinalIndex(shippingRegion);
 
         this.postCode = new Input(driver, ShoppingCartLocators.POST_CODE_XPATH);
-        this.postCode.setTextForField(postCode);
+        this.postCode.setText(postCode);
         this.getQuotesButton = new Button(driver, ShoppingCartLocators.GET_QUOTES_BUTTON);
         this.getQuotesButton.click();
         this.chooseFlatRate();
@@ -164,7 +164,7 @@ public class ShoppingCartPageObject extends BasePageObject {
         new WebDriverWait(driver, 20).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.INPUT_CERTIFICATE_CODE)));
         inputGiftCertificate = new Input(driver, ShoppingCartLocators.INPUT_CERTIFICATE_CODE);
-        inputGiftCertificate.setTextForField(certificateCode);
+        inputGiftCertificate.setText(certificateCode);
         new WebDriverWait(driver, 30).
                 until(ExpectedConditions.elementToBeClickable(By.xpath(ShoppingCartLocators.APPLY_CERTIFICATE_CODE_BUTTON)));
         applyGiftCertificateButton = new Button(driver, ShoppingCartLocators.APPLY_CERTIFICATE_CODE_BUTTON);
