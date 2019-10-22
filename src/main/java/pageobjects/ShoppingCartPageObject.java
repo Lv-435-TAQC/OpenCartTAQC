@@ -241,13 +241,13 @@ public class ShoppingCartPageObject extends BasePageObject {
     }
 
     public ShoppingCartPageObject addIphoneToShoppingCart() throws Exception{
-        iphoneAddToCartButton = new Pattern("src/main/resources/sikulipaterns/iphone.png").targetOffset(10,180);
-        scroll = new Pattern("src/main/resources/sikulipaterns/scroll.png");
-        openShoppingCartButton = new Pattern("src/main/resources/sikulipaterns/open_shopping_cart.png");
-        quantityUpdate = new Pattern("src/main/resources/sikulipaterns/quantity_update.png");
-        quantityForm = new Pattern("src/main/resources/sikulipaterns/quantity_form.png");
-        message = new Pattern("src/main/resources/sikulipaterns/message.png");
-        totalCostProduct = new Pattern("src/main/resources/sikulipaterns/total_cost.png");
+        iphoneAddToCartButton = new Pattern("src/main/resources/sikulipatterns/iphone.png").targetOffset(10,180);
+        scroll = new Pattern("src/main/resources/sikulipatterns/scroll.png");
+        openShoppingCartButton = new Pattern("src/main/resources/sikulipatterns/open_shopping_cart.png");
+        quantityUpdate = new Pattern("src/main/resources/sikulipatterns/quantity_update.png");
+        quantityForm = new Pattern("src/main/resources/sikulipatterns/quantity_form.png");
+        message = new Pattern("src/main/resources/sikulipatterns/message.png");
+        totalCostProduct = new Pattern("src/main/resources/sikulipatterns/total_cost.png");
         screen.wait(scroll,20);
         screen.type(Key.PAGE_DOWN);
         screen.find(iphoneAddToCartButton).click();
@@ -259,7 +259,7 @@ public class ShoppingCartPageObject extends BasePageObject {
         screen.find(quantityUpdate).click();
         screen.wait(message,20);
         screen.wait(totalCostProduct,20);
-        String text = screen.find( "src/main/resources/sikulipaterns/total_cost.png").text();
+        String text = screen.find( "src/main/resources/sikulipatterns/total_cost.png").text();
         String finalCost = text.trim();
         System.out.println(finalCost);
         return this;
