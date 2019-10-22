@@ -10,10 +10,13 @@ import org.sikuli.script.Screen;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pageobjects.CategoryPageObject;
 import pageobjects.HeaderPageObject;
 import pageobjects.MenuPageObject;
+
+import java.lang.reflect.Method;
 
 public class CategoryPageObjectTest {
     WebDriver driver;
@@ -47,76 +50,24 @@ public class CategoryPageObjectTest {
         Assert.assertTrue(actual.contains(expected));
     }
 
-    @Test
-    public void sortByDefaultParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Default").getNameOfProduct(1);
-        String expected = "Apple Cinema 30";
-        Assert.assertTrue(actual.contains(expected));
+    @DataProvider(name = "sortBySelector")
+    public Object[][] createData(Method m) {
+        return new Object[][]{new Object[]{"Default", "Apple Cinema 30"}
+                , new Object[]{"Name (A - Z)", "Apple Cinema 30"}
+                , new Object[]{"Name (Z - A)", "Sony VAIO"}
+                , new Object[]{"Price (Low > High)", "Canon EOS 5D"}
+                , new Object[]{"Price (High > Low)", "Sony VAIO"}
+                , new Object[]{"Rating (Highest)", "Sony VAIO"}
+                , new Object[]{"Rating (Lowest)", "Apple Cinema 30"}
+                , new Object[]{"Model (A - Z)", "HTC Touch HD"}
+                , new Object[]{"Model (Z - A)", "Product 8"}
+        };
     }
-
-    @Test
-    public void sortByNameAZParamTest() {
+    @Test(dataProvider = "sortBySelector")
+    public void sortByParamTest(String sortType, String expected) {
         categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Name (A - Z)").getNameOfProduct(1);
-        String expected = "Apple Cinema 30";
-        Assert.assertTrue(actual.contains(expected));
-    }
+        String actual = categoryPageObject.choseSortBySelectorByParam(sortType).getNameOfProduct(1);
 
-    @Test
-    public void sortByNameZAParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Name (Z - A)").getNameOfProduct(1);
-        String expected = "Sony VAIO";
-        Assert.assertTrue(actual.contains(expected));
-    }
-
-    @Test
-    public void sortByPriceLowHighParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Price (Low > High)").getNameOfProduct(1);
-        System.out.println(actual);
-        String expected = "Canon EOS 5D";
-        Assert.assertTrue(actual.contains(expected));
-    }
-
-    @Test
-    public void sortByPriceHighLowParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Price (High > Low)").getNameOfProduct(1);
-        String expected = "Sony VAIO";
-        Assert.assertTrue(actual.contains(expected));
-    }
-
-    @Test
-    public void sortByRatingHighestParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Rating (Highest)").getNameOfProduct(1);
-        String expected = "Sony VAIO";
-        Assert.assertTrue(actual.contains(expected));
-    }
-
-    @Test
-    public void sortByRatingLowestParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Rating (Lowest)").getNameOfProduct(1);
-        String expected = "Apple Cinema 30";
-        Assert.assertTrue(actual.contains(expected));
-    }
-
-    @Test
-    public void sortByModelAZParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Model (A - Z)").getNameOfProduct(1);
-        String expected = "HTC Touch HD";
-        Assert.assertTrue(actual.contains(expected));
-    }
-
-    @Test
-    public void sortByModelZAParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Model (Z - A)").getNameOfProduct(1);
-        String expected = "Product 8";
         Assert.assertTrue(actual.contains(expected));
     }
 
