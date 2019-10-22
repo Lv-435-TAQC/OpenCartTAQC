@@ -16,23 +16,24 @@ public class CategoryPageObject extends BasePageObject {
     private Label alertLabel;
     private ArrayList<ProductUnitPageObject> products;
     private FilterPageObject filterPageObject;
+    private String productsXpath;
 
-
-    public CategoryPageObject(WebDriver driver) {
+    public CategoryPageObject(WebDriver driver, String productsXpath) {
         super(driver);
+        this.productsXpath = productsXpath;
         filterPageObject = new FilterPageObject(this.driver);
         generateProductsPageObject();
     }
 
 
     private List<WebElement> getAllProductsElementsFromPage() {
-        elements = driver.findElements(By.xpath(CategoryLocators.ALL_PRODUCTS_DIV_LOC));
+        elements = driver.findElements(By.xpath(productsXpath));
         return elements;
     }
 
     public CategoryPageObject generateProductsPageObject() {
         WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CategoryLocators.FIRST_PRODUCT_LOC)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(productsXpath)));
         products = new ArrayList<ProductUnitPageObject>();
         getAllProductsElementsFromPage();
         for (int i = 0; i < elements.size(); i++) {
