@@ -27,31 +27,31 @@ public class AdminNewCategoriesPageObject extends BasePageObject {
     public AdminNewCategoriesPageObject inputCategoriesName() {
         nameOfCategories = new Input(this.driver, AdminAddCategoriesLocators.NAME_OF_CATEGORIES_INPUT_LOC);
         nameOfCategories.setText("forTest");
-        return new AdminNewCategoriesPageObject(this.driver);
+        return this;
     }
 
     public AdminNewCategoriesPageObject inputMetaTagOfCategories() {
         metaTag = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_TITLE_INPUT_LOC);
         metaTag.setText("justTest");
-        return new AdminNewCategoriesPageObject(this.driver);
+        return this;
     }
 
     public AdminNewCategoriesPageObject inputDescriptionOfCategories() {
         descriptionOfCategories = new Input(this.driver, AdminAddCategoriesLocators.DESCRIPTION_OF_CATEGORIES_INPUT_LOC);
         descriptionOfCategories.setText("TEST");
-        return new AdminNewCategoriesPageObject(this.driver);
+        return this;
     }
 
     public AdminNewCategoriesPageObject inputMetaTagDescriptionOfCategories() {
         metaTagDescription = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_DESCRIPTION_INPUT_LOC);
         metaTagDescription.setText("TEST");
-        return new AdminNewCategoriesPageObject(this.driver);
+        return this;
     }
 
     public AdminNewCategoriesPageObject inputMetaTagKeywordsOfCategories() {
         metaTagKeywords = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_KEYWORDS_INPUT_LOC);
         metaTagKeywords.setText("TEST");
-        return new AdminNewCategoriesPageObject(this.driver);
+        return this;
     }
 
 
