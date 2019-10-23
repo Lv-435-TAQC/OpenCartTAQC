@@ -115,13 +115,17 @@ public class ItemInfoPageObject extends BasePageObject {
         return new ItemInfoPageObject(this.driver);
     }
 
-    public ItemInfoPageObject goToHomePage(){
+    public HomePageObject goToHomePage(){
         homePageButton = new Button(this.driver, HOME_BUTTON).click();
-        return new ItemInfoPageObject(this.driver);
+        return new HomePageObject(this.driver);
     }
 
     public ItemInfoPageObject verifySuccessNotification(){
         successNotificationMessage = new NotificationMeassage(this.driver,SUCCESS_NOTIFICATION_MESSAGE).isDisplayed();
         return new ItemInfoPageObject(this.driver);
     }
+    public String getTextSuccessNotification(){
+        return new NotificationMeassage(this.driver,SUCCESS_NOTIFICATION_MESSAGE).getText();
+    }
+
 }

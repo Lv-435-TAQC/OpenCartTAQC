@@ -10,7 +10,7 @@ import pageelements.Button;
 
 public class HomePageObject extends BasePageObject {
     public HeaderPageObject headerPageObject;
-    public HeaderPageObject menuPageObject;
+    public MenuPageObject menuPageObject;
     Button iphoneAddToCart;
     WebElement productIphone;
     Button macBookAddToCart;
@@ -18,6 +18,8 @@ public class HomePageObject extends BasePageObject {
 
     public HomePageObject(WebDriver driver) {
         super(driver);
+        this.headerPageObject = new HeaderPageObject(driver);
+        this.menuPageObject = new MenuPageObject(driver);
     }
 
     public String addToCartIphone() {
@@ -43,8 +45,11 @@ public class HomePageObject extends BasePageObject {
         return new ShoppingCartPageObject(driver);
     }
 
-    public HeaderPageObject goToHeaderPage() {
-        return new HeaderPageObject(driver);
+    public HeaderPageObject getHeaderPageObject() {
+        return this.headerPageObject;
+    }
+    public MenuPageObject getMenuPageObject(){
+        return this.menuPageObject;
     }
 
     public String getURL() {

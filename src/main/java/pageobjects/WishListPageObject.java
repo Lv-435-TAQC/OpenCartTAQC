@@ -16,16 +16,33 @@ import static locators.WishListLocators.*;
 
 
 public class WishListPageObject extends BasePageObject {
-    private HeaderPageObject header;
-    private MenuPageObject menu;
+    private HeaderPageObject headerPageObject;
+    private MenuPageObject menuPageObject;
     private Label label;
     private HashMap<String, WishListItemPageObject> items;
 
     public WishListPageObject(WebDriver driver) {
         super(driver);
-        this.header = new HeaderPageObject(driver);
-        this.menu = new MenuPageObject(driver);
+        this.headerPageObject = new HeaderPageObject(driver);
+        this.menuPageObject = new MenuPageObject(driver);
+        this.items = new HashMap<>();
 
+    }
+
+    public HeaderPageObject getHeaderPageObject() {
+        return this.headerPageObject;
+    }
+
+    public MenuPageObject getMenuPageObject() {
+        return this.menuPageObject;
+    }
+
+    public Label getLabel() {
+        return this.label;
+    }
+
+    public HashMap<String, WishListItemPageObject> getItems() {
+        return this.getMapOfItems();
     }
 
     public static void makeScreenShotSteps(WebDriver driver, String screenshotsName) {
@@ -74,7 +91,6 @@ public class WishListPageObject extends BasePageObject {
     }
 
     public HashMap<String, WishListItemPageObject> getMapOfItems(){
-        HashMap<String, WishListItemPageObject> items = new HashMap<String, WishListItemPageObject>();
         List<WebElement> listTr = driver.findElement(By.xpath(WISH_LIST_TABLE)).findElements(By.xpath("tr"));
 
         for (WebElement element: listTr ) {
@@ -83,9 +99,13 @@ public class WishListPageObject extends BasePageObject {
             WebElement productName = element.findElement(By.xpath("td[2]/a"));
             WebElement addToCart = element.findElement(By.xpath("td[6]/button"));
             WebElement remove = element.findElement(By.xpath("td[6]/a"));
-            items.put(id,new WishListItemPageObject(driver, image, productName, addToCart, remove));
+            this.items.put(id,new WishListItemPageObject(driver, image, productName, addToCart, remove));
         }
-        return items;
+        return this.items;
+    }
+
+    public  Screen doScreen(){
+        return new Screen();
     }
 
     public static Boolean findImageInScreen(Screen screen, Pattern pattern){

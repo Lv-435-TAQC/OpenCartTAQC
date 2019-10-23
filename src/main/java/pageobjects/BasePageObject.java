@@ -2,9 +2,9 @@ package pageobjects;
 
 import org.openqa.selenium.WebDriver;
 
+import static utils.commonconstants.Constants.BASE_URL;
+
 public abstract class BasePageObject {
-    MenuPageObject menuPageObject;
-    HeaderPageObject headerPageObject;
 
     protected WebDriver driver;
 
@@ -12,7 +12,13 @@ public abstract class BasePageObject {
         this.driver = driver;
     }
 
-    public void goToUrl(String url) {
+    public BasePageObject goToUrl(String url) {
         driver.get(url);
+        return this;
+    }
+
+    public HomePageObject goToHomePage() {
+        driver.get(BASE_URL);
+        return new HomePageObject(driver);
     }
 }

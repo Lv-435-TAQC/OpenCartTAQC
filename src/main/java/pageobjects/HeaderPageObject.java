@@ -48,26 +48,26 @@ public class HeaderPageObject extends BasePageObject {
         return new ItemInfoPageObject(driver);
     }
 
-    public WishListPageObject goToWishList() {
+    public WishListPageObject clickWishList() {
         wishPageButton = new ImageTextButton(driver, HeaderLocators.WISH_LIST_PAGE_BUTTON_LOC).click();
         return new WishListPageObject(driver);
     }
 
-    public LoginPageObject goToLoginPage() {
+    public LoginPageObject clickLoginPage() {
         myAccountButton = new ImageTextButton(driver, HeaderLocators.MY_ACCOUNT_BUTTON_LOC).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(HeaderLocators.LOGIN_PAGE_BUTTON_LOC)));
         loginPageButton = new TextButton(driver, HeaderLocators.LOGIN_PAGE_BUTTON_LOC).click();
         return new LoginPageObject(driver);
     }
 
-    public RegistrationPageObject goToRegistrationPage() {
+    public RegistrationPageObject clickRegistrationPage() {
         myAccountButton = new ImageTextButton(driver, HeaderLocators.MY_ACCOUNT_BUTTON_LOC).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(HeaderLocators.REGISTRATION_PAGE_BUTTON_LOC)));
         registrationPageButton = new TextButton(driver, HeaderLocators.REGISTRATION_PAGE_BUTTON_LOC).click();
         return new RegistrationPageObject(driver);
     }
 
-    public ShoppingCartPageObject goToShoppingCartPage() {
+    public ShoppingCartPageObject clickShoppingCartPage() {
         shoppingCartButton = new ImageTextButton(driver, HeaderLocators.SHOPPING_CART_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
     }

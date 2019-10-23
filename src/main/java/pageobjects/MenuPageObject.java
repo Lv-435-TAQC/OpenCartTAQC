@@ -42,7 +42,7 @@ public class MenuPageObject extends BasePageObject {
         return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
     }
 
-    public CategoryPageObject goToMacDesktops() {
+    public CategoryPageObject clickMacDesktops() {
         desktopsOptionsButton = new TextButton(driver, MenuLocators.DESKTOP_BUTTON_LOC).click();
         this.createListOfOptions(MenuLocators.DESKTOP_OPTIONS_LOC).get(ONE).click();
         return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
