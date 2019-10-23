@@ -7,6 +7,6 @@ public class AdminCategoriesLocators {
     public static final String CHOOSE_CATEGORIES_BUTTON_LOC = "//*[@id=\"form-category\"]/div/table/tbody/tr[13]/td[1]/input";
     public static final String EDIT_SOMETHING_TO_CATEGORIES_BUTTON_LOC = "//*[@id=\"form-category\"]/div/table/tbody/tr[13]/td[4]/a";
     public static final String RETURN_TEXT_FROM_CATEGORIES_LIST_LOC="//*[@id=\"form-category\"]/div/table/tbody/tr[13]/td[2]";
-    public static final String RETURN_TEXT_FROM_MESSAGE = "//*[@id=\"content\"]/div[2]/div[1]";
+    public static final String RETURN_TEXT_FROM_MESSAGE_LOC = "//*[@id=\"content\"]/div[2]/div[1]";
 
 }
