@@ -1,5 +1,6 @@
 package pageobjectstest;
 
+import locators.CategoryLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -10,10 +11,13 @@ import org.sikuli.script.Screen;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pageobjects.CategoryPageObject;
 import pageobjects.HeaderPageObject;
 import pageobjects.MenuPageObject;
+
+import java.lang.reflect.Method;
 
 public class CategoryPageObjectTest {
     WebDriver driver;
@@ -33,7 +37,7 @@ public class CategoryPageObjectTest {
 
     @Test
     public void labelSortByTextTest() {
-        categoryPageObject = new CategoryPageObject(driver);
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         String actual = categoryPageObject.getSortByLabelText();
         String expected = "Sort By:";
         Assert.assertTrue(actual.contains(expected));
@@ -41,88 +45,36 @@ public class CategoryPageObjectTest {
 
     @Test
     public void labelShowTextTest() {
-        categoryPageObject = new CategoryPageObject(driver);
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         String actual = categoryPageObject.getShowLabelText();
         String expected = "Show:";
         Assert.assertTrue(actual.contains(expected));
     }
 
-    @Test
-    public void sortByDefaultParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Default").getNameOfProduct(1);
-        String expected = "Apple Cinema 30";
-        Assert.assertTrue(actual.contains(expected));
+    @DataProvider(name = "sortBySelector")
+    public Object[][] createDataForSortByParam(Method m) {
+        return new Object[][]{new Object[]{"Default", "Apple Cinema 30"}
+                , new Object[]{"Name (A - Z)", "Apple Cinema 30"}
+                , new Object[]{"Name (Z - A)", "Sony VAIO"}
+                , new Object[]{"Price (Low > High)", "Canon EOS 5D"}
+                , new Object[]{"Price (High > Low)", "Sony VAIO"}
+                , new Object[]{"Rating (Highest)", "Sony VAIO"}
+                , new Object[]{"Rating (Lowest)", "Apple Cinema 30"}
+                , new Object[]{"Model (A - Z)", "HTC Touch HD"}
+                , new Object[]{"Model (Z - A)", "Product 8"}
+        };
     }
 
-    @Test
-    public void sortByNameAZParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Name (A - Z)").getNameOfProduct(1);
-        String expected = "Apple Cinema 30";
-        Assert.assertTrue(actual.contains(expected));
-    }
-
-    @Test
-    public void sortByNameZAParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Name (Z - A)").getNameOfProduct(1);
-        String expected = "Sony VAIO";
-        Assert.assertTrue(actual.contains(expected));
-    }
-
-    @Test
-    public void sortByPriceLowHighParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Price (Low > High)").getNameOfProduct(1);
-        System.out.println(actual);
-        String expected = "Canon EOS 5D";
-        Assert.assertTrue(actual.contains(expected));
-    }
-
-    @Test
-    public void sortByPriceHighLowParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Price (High > Low)").getNameOfProduct(1);
-        String expected = "Sony VAIO";
-        Assert.assertTrue(actual.contains(expected));
-    }
-
-    @Test
-    public void sortByRatingHighestParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Rating (Highest)").getNameOfProduct(1);
-        String expected = "Sony VAIO";
-        Assert.assertTrue(actual.contains(expected));
-    }
-
-    @Test
-    public void sortByRatingLowestParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Rating (Lowest)").getNameOfProduct(1);
-        String expected = "Apple Cinema 30";
-        Assert.assertTrue(actual.contains(expected));
-    }
-
-    @Test
-    public void sortByModelAZParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Model (A - Z)").getNameOfProduct(1);
-        String expected = "HTC Touch HD";
-        Assert.assertTrue(actual.contains(expected));
-    }
-
-    @Test
-    public void sortByModelZAParamTest() {
-        categoryPageObject = new CategoryPageObject(driver);
-        String actual = categoryPageObject.choseSortBySelectorByParam("Model (Z - A)").getNameOfProduct(1);
-        String expected = "Product 8";
+    @Test(dataProvider = "sortBySelector")
+    public void sortByParamTest(String sortType, String expected) {
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
+        String actual = categoryPageObject.choseSortBySelectorByParam(sortType).getNameOfProductByNumberOfProduct(1);
         Assert.assertTrue(actual.contains(expected));
     }
 
     @Test
     public void ListButtonTest() {
-        categoryPageObject = new CategoryPageObject(driver);
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         categoryPageObject.clickListButton();
         String actual = driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div[1]")).getAttribute("class");
         String expected = "product-layout product-list col-xs-12";
@@ -131,50 +83,28 @@ public class CategoryPageObjectTest {
 
     @Test
     public void GridButtonTest() {
-        categoryPageObject = new CategoryPageObject(driver);
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         categoryPageObject.clickGridButton();
         String actual = driver.findElement(By.xpath("/html/body/div[2]/div/div/div[4]/div[1]")).getAttribute("class");
         String expected = "product-layout product-grid col-lg-4 col-md-4 col-sm-6 col-xs-12";
         Assert.assertTrue(actual.contains(expected));
     }
 
-    @Test
-    public void showFifteenElements() {
-        categoryPageObject = new CategoryPageObject(driver);
-        Integer actual = categoryPageObject.choseShowSelectorByParam("15").generateProductsPageObject().getProducts().size();
-        Integer expected = 15;
-        Assert.assertTrue(actual <= expected);
+    @DataProvider(name = "showSelector")
+    public Object[][] createDataForShowElements(Method m) {
+        return new Object[][]{
+                new Object[]{"15", 15}
+                , new Object[]{"25", 25}
+                , new Object[]{"50", 50}
+                , new Object[]{"75", 75}
+                , new Object[]{"100", 100}
+        };
     }
 
-    @Test
-    public void showTwentyFiveElements() {
-        categoryPageObject = new CategoryPageObject(driver);
-        Integer actual = categoryPageObject.choseShowSelectorByParam("25").generateProductsPageObject().getProducts().size();
-        Integer expected = 25;
-        Assert.assertTrue(actual <= expected);
-    }
-
-    @Test
-    public void showFiftyElements() {
-        categoryPageObject = new CategoryPageObject(driver);
-        Integer actual = categoryPageObject.choseShowSelectorByParam("50").generateProductsPageObject().getProducts().size();
-        Integer expected = 50;
-        Assert.assertTrue(actual <= expected);
-    }
-
-    @Test
-    public void showSeventyFiveElements() {
-        categoryPageObject = new CategoryPageObject(driver);
-        Integer actual = categoryPageObject.choseShowSelectorByParam("75").generateProductsPageObject().getProducts().size();
-        Integer expected = 75;
-        Assert.assertTrue(actual <= expected);
-    }
-
-    @Test
-    public void showHundredElements() {
-        categoryPageObject = new CategoryPageObject(driver);
-        Integer actual = categoryPageObject.choseShowSelectorByParam("100").generateProductsPageObject().getProducts().size();
-        Integer expected = 100;
+    @Test(dataProvider = "showSelector")
+    public void showNumberOfElements(String numberOfItems, Integer expected) {
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
+        Integer actual = categoryPageObject.choseShowSelectorByParam(numberOfItems).generateProductsPageObjects().getProductsPO().size();
         Assert.assertTrue(actual <= expected);
     }
 
@@ -194,7 +124,7 @@ public class CategoryPageObjectTest {
 
     @Test
     public void sortByNameAZParamValidateByImageTest() throws FindFailed {
-        categoryPageObject = new CategoryPageObject(driver);
+        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         categoryPageObject.clickGridButton().choseSortBySelectorByParam("Name (A - Z)");
         Pattern scroll = new Pattern("src/main/resources/sikulipatterns/scroll.png");
         Screen s = new Screen();

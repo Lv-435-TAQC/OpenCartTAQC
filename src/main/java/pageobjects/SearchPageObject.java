@@ -56,18 +56,18 @@ public class SearchPageObject extends BasePageObject {
 
     public SearchPageObject inputFalseProductName() {
         inputFalseNameOfProduct = new Input(this.driver, SearchLocators.INPUT_SEARCH_TEXT_XPATH);
-        inputFalseNameOfProduct.setTextForField("cam");
+        inputFalseNameOfProduct.setText("cam");
         return new SearchPageObject(this.driver);
     }
 
     public SearchPageObject inputProductName() {
         inputNameOfProduct = new Input(this.driver, SearchLocators.INPUT_SEARCH_TEXT_XPATH);
-        inputNameOfProduct.setTextForField("Mac");
+        inputNameOfProduct.setText("Mac");
         return new SearchPageObject(this.driver);
     }
     public SearchPageObject inputProductNameForSearchWithProductDescription() {
         inputProductNameForSearchWithDescription = new Input(this.driver, SearchLocators.INPUT_SEARCH_TEXT_XPATH);
-        inputProductNameForSearchWithDescription.setTextForField("New D_SLR");
+        inputProductNameForSearchWithDescription.setText("New D_SLR");
         return new SearchPageObject(this.driver);
     }
 

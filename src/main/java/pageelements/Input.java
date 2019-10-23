@@ -8,7 +8,7 @@ public class Input extends BaseElement {
         super(driver, xpath);
     }
 
-    public Input setTextForField(String text) {
+    public Input setText(String text) {
         this.element.sendKeys(text);
         return this;
     }
