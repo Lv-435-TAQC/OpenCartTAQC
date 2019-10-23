@@ -15,10 +15,10 @@ import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.assertEquals;
 
 public class LoginPageObjectTest {
-    public static final String HOME_PAGE = "http://192.168.184.130/opencart/index.php?route=common/home";
-    public static final String REGISTRATION_PAGE = "http://192.168.184.130/opencart/index.php?route=account/register";
-    public static final String FORGOTTEN_PAGE = "http://192.168.184.130/opencart/index.php?route=account/forgotten";
-    public static final String ACCOUNT_PAGE = "http://192.168.184.130/opencart/index.php?route=account/account";
+    public static final String HOME_PAGE = "http://localhost/opencart/index.php?route=common/home";
+    public static final String REGISTRATION_PAGE = "http://localhost/opencart/index.php?route=account/register";
+    public static final String FORGOTTEN_PAGE = "http://localhost/opencart/index.php?route=account/forgotten";
+    public static final String ACCOUNT_PAGE = "http://localhost/opencart/index.php?route=account/account";
     WebDriver driver;
     HeaderPageObject headerPageObject;
     LoginPageObject loginPageObject;
