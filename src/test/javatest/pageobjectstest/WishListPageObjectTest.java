@@ -87,7 +87,7 @@ public class WishListPageObjectTest {
 
     @Test
     public void addItemFromWishListToChoppingCart(){
-        headerPageObject.goToWishList().addItemToCart("41");
+        headerPageObject.clickWishList().addItemToCart("41");
         wishList = new WishListPageObject(driver);
         String actual = wishList.getTextFromAlertLabel();
         String expected = "Success: You have added iMac to your shopping cart!";
@@ -96,7 +96,7 @@ public class WishListPageObjectTest {
 
     @Test
     public void addItemWithParametersFromWishListToChoppingCart(){
-        headerPageObject.goToWishList().addItemToCart("42");
+        headerPageObject.clickWishList().addItemToCart("42");
         String actual = driver.getCurrentUrl();
         String expected = "http://192.168.152.128/opencart/index.php?route=product/product&product_id=42";
         assertEquals(actual, expected);
@@ -104,14 +104,14 @@ public class WishListPageObjectTest {
 
     @Test
     public void removeItemFromWishList(){
-        wishList = headerPageObject.goToWishList().removeItemFromWishList("41");
+        wishList = headerPageObject.clickWishList().removeItemFromWishList("41");
         Boolean expected = wishList.getMapOfItems().containsKey("41") ? Boolean.FALSE : Boolean.TRUE;
         assertTrue(expected);
     }
 
     @Test
     public void goToItemByImageFromWishList(){
-        headerPageObject.goToWishList().itemImageClick("42");
+        headerPageObject.clickWishList().itemImageClick("42");
         String actual = driver.getCurrentUrl();
         String expected = "http://192.168.152.128/opencart/index.php?route=product/product&product_id=42";
         assertEquals(actual, expected);
@@ -119,7 +119,7 @@ public class WishListPageObjectTest {
 
     @Test
     public void goToItemByProductNameFromWishList(){
-        headerPageObject.goToWishList().itemProductNameClick("42");
+        headerPageObject.clickWishList().itemProductNameClick("42");
         String actual = driver.getCurrentUrl();
         String expected = "http://192.168.152.128/opencart/index.php?route=product/product&product_id=42";
         assertEquals(actual, expected);

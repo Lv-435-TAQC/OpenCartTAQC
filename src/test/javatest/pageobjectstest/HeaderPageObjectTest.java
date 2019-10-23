@@ -1,4 +1,4 @@
-package javatest.pageobjectstest;
+package pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -7,7 +7,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.HeaderPageObject;
-import pageobjects.MenuPageObject;
 
 import java.util.concurrent.TimeUnit;
 
@@ -76,7 +75,7 @@ public class HeaderPageObjectTest {
 
     @Test
     public void testWishListPage(){
-        header.goToWishList();
+        header.clickWishList();
         String actual = header.getTextFromSecondTape();
         String expected = "Login";
         assertEquals(actual,expected);

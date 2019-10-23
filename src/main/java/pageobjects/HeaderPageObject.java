@@ -48,7 +48,7 @@ public class HeaderPageObject extends BasePageObject {
         return new ItemInfoPageObject(driver);
     }
 
-    public WishListPageObject goToWishList() {
+    public WishListPageObject clickWishList() {
         wishPageButton = new ImageTextButton(driver, HeaderLocators.WISH_LIST_PAGE_BUTTON_LOC).click();
         return new WishListPageObject(driver);
     }
