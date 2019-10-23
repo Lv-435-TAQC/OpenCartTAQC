@@ -14,14 +14,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pageobjects.CategoryPageObject;
-import pageobjects.HeaderPageObject;
 import pageobjects.MenuPageObject;
 
 import java.lang.reflect.Method;
 
+
 public class CategoryPageObjectTest {
     WebDriver driver;
-    HeaderPageObject headerPageObject;
     MenuPageObject menuPageObject;
     CategoryPageObject categoryPageObject;
 
@@ -30,7 +29,6 @@ public class CategoryPageObjectTest {
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
         driver = new FirefoxDriver();
         driver.get("http://192.168.92.128/opencart");
-        headerPageObject = new HeaderPageObject(driver);
         menuPageObject = new MenuPageObject(driver);
         menuPageObject.showAllDesktops();
     }

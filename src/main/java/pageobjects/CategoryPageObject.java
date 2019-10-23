@@ -25,6 +25,7 @@ public class CategoryPageObject extends BasePageObject {
         super(driver);
         this.productsXpath = productsXpath;
         filterPageObject = new FilterPageObject(this.driver);
+        generateProductsPageObjects();
     }
 
 
@@ -47,11 +48,13 @@ public class CategoryPageObject extends BasePageObject {
     public CategoryPageObject generateProductsList() {
         Product product;
         generateProductsPageObjects();
+        products.clear();
         for (int i = 0; i < productsPO.size(); i++) {
             product = new Product();
-            product.setId(Integer.parseInt(productsPO.get(i).getIdOfProduct()));
+            product.setId(productsPO.get(i).getIdOfProduct());
             product.setProductName(productsPO.get(i).getNameOfProduct());
             product.setDimensions(productsPO.get(i).getDescriptionOfProduct());
+            product.setPrise(Double.parseDouble(productsPO.get(i).getNewPrice()));
             products.add(product);
         }
         return this;
@@ -172,4 +175,122 @@ public class CategoryPageObject extends BasePageObject {
         return categoryNameLabel.getText();
     }
 
+    public CategoryPageObject clickAddToWishListByID(Integer id) {
+        for (int i = 0; i < productsPO.size(); i++) {
+            if (productsPO.get(i).getIdOfProduct() == id) {
+                productsPO.get(i).clickAddToWishList(productsXpath);
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickAddToWishListByNameOfProduct(String nameOfProduct) {
+        generateProductsList();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(nameOfProduct)) {
+                productsPO.get(i).clickAddToWishList(productsXpath);
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickAddToWishListByProduct(Product product) {
+        generateProductsList();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(product.getProductName())) {
+                productsPO.get(i).clickAddToWishList(productsXpath);
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickAddToCardByID(Integer id) {
+        for (int i = 0; i < productsPO.size(); i++) {
+            if (productsPO.get(i).getIdOfProduct() == id) {
+                productsPO.get(i).clickAddToCardButton();
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickAddToCardByNameOfProduct(String nameOfProduct) {
+        generateProductsList();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(nameOfProduct)) {
+                productsPO.get(i).clickAddToCardButton();
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickAddToCardByProduct(Product product) {
+        generateProductsList();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(product.getProductName())) {
+                productsPO.get(i).clickAddToCardButton();
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickCompareThisProductByID(Integer id) {
+        for (int i = 0; i < productsPO.size(); i++) {
+            if (productsPO.get(i).getIdOfProduct() == id) {
+                productsPO.get(i).clickCompareThisProduct(productsXpath);
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickCompareThisProductByNameOfProduct(String nameOfProduct) {
+        generateProductsList();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(nameOfProduct)) {
+                productsPO.get(i).clickCompareThisProduct(productsXpath);
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickCompareThisProductByProduct(Product product) {
+        generateProductsList();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(product.getProductName())) {
+                productsPO.get(i).clickCompareThisProduct(productsXpath);
+            }
+        }
+        return this;
+    }
+
+    public Product getProductByID(Integer id) {
+        generateProductsList();
+        Product product = new Product();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getId() == id) {
+                product = products.get(i);
+            }
+        }
+        return product;
+    }
+
+    public Product getProductByPosition(Integer position) {
+        return products.get(position);
+
+    }
+
+    public Product getProductByName(String name) {
+        generateProductsList();
+        Product product = new Product();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(name)) {
+                product = products.get(i);
+            }
+        }
+        return product;
+    }
+
+    public ArrayList<Product> getProducts() {
+        generateProductsList();
+        return products;
+    }
 }
