@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import pageobjects.AdminLoginPageObject;
+import pageobjects.AdminNavigationPageObject;
 import pageobjects.AdminPageObject;
 import pageobjects.ShoppingCartPageObject;
 
@@ -15,6 +17,8 @@ import static org.testng.Assert.assertTrue;
 public class OrdersPageObjectTest {
     WebDriver driver;
     AdminPageObject adminPage;
+    AdminLoginPageObject adminLogin;
+    AdminNavigationPageObject adminNavigation;
 
 
     @BeforeClass
@@ -27,7 +31,7 @@ public class OrdersPageObjectTest {
     public void getHome() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://localhost/OpenCart/admin");
-        adminPage = new AdminPageObject(driver);
+        adminLogin = new AdminLoginPageObject(driver);
     }
 
     @AfterMethod
@@ -46,6 +50,9 @@ public class OrdersPageObjectTest {
 
     @Test(invocationCount = 1)
     public void goToAdminPage() {
-
+        adminPage = adminLogin.logIn("admin","admin");
+        adminPage.closeModalWindow();
+        adminNavigation = adminPage.getNavigation();
+        adminNavigation.goToVouchersList().goToCreationGiftVoucher();
     }
 }
