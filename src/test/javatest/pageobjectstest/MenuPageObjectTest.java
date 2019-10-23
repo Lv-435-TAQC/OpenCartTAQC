@@ -1,4 +1,4 @@
-package javatest.pageobjectstest;
+package pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -6,10 +6,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.HomePageObject;
 import pageobjects.MenuPageObject;
-import org.testng.Assert;
-import pageobjects.ProductsPageObject;
 
 import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.*;
@@ -38,103 +35,103 @@ public class MenuPageObjectTest {
     }
     @Test
     public void pcPageTest(){
-       String actual =  menu.goToPcDesktops().getLabelText();
+       String actual =  menu.goToPcDesktops().getCategoryName();
         String expected = "PC";
         assertEquals(actual,expected);
     }
     @Test
     public void macPageTest(){
-        String actual =  menu.goToMacDesktops().getLabelText();
+        String actual =  menu.goToMacDesktops().getCategoryName();
         String expected = "Mac";
         assertEquals(actual,expected);
     }
     @Test
     public void showAllDesktopsPageTest(){
-        String actual =  menu.showAllDesktops().getLabelText();
+        String actual =  menu.showAllDesktops().getCategoryName();
         String expected = "Desktops";
         assertEquals(actual,expected);
     }
     @Test
     public void windowsPageTest(){
-        String actual =  menu.goToWindowsLaptops().getLabelText();
+        String actual =  menu.goToWindowsLaptops().getCategoryName();
         String expected = "Windows";
         assertEquals(actual,expected);
     }
     @Test
     public void macsPageTest(){
-        String actual =  menu.goToMacsLaptops().getLabelText();
+        String actual =  menu.goToMacsLaptops().getCategoryName();
         String expected = "Macs";
         assertEquals(actual,expected);
     }
     @Test
     public void showAllLaptopsPageTest(){
-        String actual =  menu.showAllLaptops().getLabelText();
+        String actual =  menu.showAllLaptops().getCategoryName();
         String expected = "Laptops & Notebooks";
         assertEquals(actual,expected);
     }
     @Test
     public void miceAndTrackballsPageTest(){
-        String actual =  menu.goToMiceAndTrackballsComponents().getLabelText();
+        String actual =  menu.goToMiceAndTrackballsComponents().getCategoryName();
         String expected = "Mice and Trackballs";
         assertEquals(actual,expected);
     }
     @Test
     public void monitorsPageTest(){
-        String actual =  menu.goToMonitorsComponents().getLabelText();
+        String actual =  menu.goToMonitorsComponents().getCategoryName();
         String expected = "Monitors";
         assertEquals(actual,expected);
     }
     @Test
     public void scannersPageTest(){
-        String actual =  menu.goToScannersComponents().getLabelText();
+        String actual =  menu.goToScannersComponents().getCategoryName();
         String expected = "Scanners";
         assertEquals(actual,expected);
     }
     @Test
     public void printersPageTest(){
-        String actual =  menu.goToPrintersComponents().getLabelText();
+        String actual =  menu.goToPrintersComponents().getCategoryName();
         String expected = "Printers";
         assertEquals(actual,expected);
     }
     @Test
     public void webCamerasPageTest(){
-        String actual =  menu.goToWebCamerasComponents().getLabelText();
+        String actual =  menu.goToWebCamerasComponents().getCategoryName();
         String expected = "Web Cameras";
         assertEquals(actual,expected);
     }
     @Test
     public void showAllComponentsPageTest(){
-        String actual =  menu.showAllComponents().getLabelText();
+        String actual =  menu.showAllComponents().getCategoryName();
         String expected = "Components";
         assertEquals(actual,expected);
     }
     @Test
     public void tabletsPageTest(){
-        String actual =  menu.goToTablets().getLabelText();
+        String actual =  menu.goToTablets().getCategoryName();
         String expected = "Tablets";
         assertEquals(actual,expected);
     }
     @Test
     public void softwarePageTest(){
-        String actual =  menu.goToSoftware().getLabelText();
+        String actual =  menu.goToSoftware().getCategoryName();
         String expected = "Software";
         assertEquals(actual,expected);
     }
     @Test
     public void phonesPageTest(){
-        String actual =  menu.goToPhonesAndPDAs().getLabelText();
+        String actual =  menu.goToPhonesAndPDAs().getCategoryName();
         String expected = "Phones & PDAs";
         assertEquals(actual,expected);
     }
     @Test
     public void camerasPageTest(){
-        String actual =  menu.goToWebCameras().getLabelText();
+        String actual =  menu.goToWebCameras().getCategoryName();
         String expected = "Cameras";
         assertEquals(actual,expected);
     }
     @Test
     public void mp3PageTest(){
-        String actual =  menu.showAllMP3Players().getLabelText();
+        String actual =  menu.showAllMP3Players().getCategoryName();
         String expected = "MP3 Players";
         assertEquals(actual,expected);
     }

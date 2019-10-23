@@ -18,4 +18,7 @@ public class LinkedLabel extends Label {
         this.element.click();
         return this;
     }
+    public String getAttribute(String attribute){
+        return this.element.getAttribute(attribute);
+    }
 }
