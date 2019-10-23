@@ -7,11 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.*;
-import pageobjects.WishListPageObject.*;
+
 
 import java.util.List;
 
-import static utils.commonconstants.Constants.*;
 
 public class HeaderPageObject extends BasePageObject {
     WebDriverWait wait = new WebDriverWait(driver, 10);
