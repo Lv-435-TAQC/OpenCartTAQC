@@ -25,7 +25,9 @@ public class AddNewProductPageObject extends BasePageObject{
     private Input productPrice;
     private Input productQuantity;
     private Input productManufactures;
+    private Button chooseManufactures;
     private Input productCategories;
+    private Button chooseCategory;
     private Button productPhotoButton;
     private Button selectPhotoButton;
     private Button editPhotoButton;
@@ -88,11 +90,13 @@ public class AddNewProductPageObject extends BasePageObject{
 
     public AddNewProductPageObject setManufactures(String manufactures){
         productManufactures = new Input(driver,AddNewProductsLocators.MANUFACTURES_FIELD_LOC).setText(manufactures);
+        chooseManufactures = new TextButton(driver,AddNewProductsLocators.CHOOSE_MANUFACTURES_BUTTON_LOC).click();
         return new AddNewProductPageObject(driver);
     }
 
     public AddNewProductPageObject setCategories(String categories){
         productCategories = new Input(driver,AddNewProductsLocators.CATEGORIES_FIELD_LOC).setText(categories);
+        chooseCategory = new TextButton(driver,AddNewProductsLocators.CHOOSE_CATEGORY_BUTTON_LOC).click();
         return new AddNewProductPageObject(driver);
     }
 
@@ -111,8 +115,8 @@ public class AddNewProductPageObject extends BasePageObject{
         return new AddNewProductPageObject(driver);
     }
 
-    public AdminProductsList saveNewProduct(){
+    public AdminProductsListPageObject saveNewProduct(){
         saveNewProductButton = new ImageButton(driver,AddNewProductsLocators.SAVE_PRODUCT_BUTTON_LOC).click();
-        return new AdminProductsList(driver);
+        return new AdminProductsListPageObject(driver);
     }
 }

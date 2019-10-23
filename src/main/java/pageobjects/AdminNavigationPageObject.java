@@ -19,26 +19,29 @@ public class AdminNavigationPageObject extends BasePageObject {
         super(driver);
     }
 
-    public AdminNavigationPageObject goToCatalog(){
-            catalog = new TextButton(driver, AdminNavigationLocators.CATALOG_BUTTON_LOC).click();
-            return new AdminNavigationPageObject(driver);
+    public AdminNavigationPageObject goToCatalog() {
+        catalog = new TextButton(driver, AdminNavigationLocators.CATALOG_BUTTON_LOC).click();
+        return new AdminNavigationPageObject(driver);
     }
 
-    public AdminProductsList goToProducts(){
+    public AdminProductsListPageObject goToProducts() {
         products = new TextButton(driver, AdminNavigationLocators.PRODUCTS_PAGE_BUTTON_LOC).click();
-        return new AdminProductsList(driver);
+        return new AdminProductsListPageObject(driver);
     }
-    public AdminCategoriesPageObject goToCategories(){
+
+    public AdminCategoriesPageObject goToCategories() {
         categories = new TextButton(driver, AdminNavigationLocators.CATEGORIES_BUTTON_LOC).click();
         return new AdminCategoriesPageObject(driver);
-    }
-    public AdminGiftVouchersPageObject goToVouchersList(){
-        salesGroup = new Button(driver,AdminNavigationLocators.SALIS_GROUP).click();
-        vouchersCategory = new Button(driver,AdminNavigationLocators.VOUCHERS_CATEGORY).click();
-        vouchrs= new Button(driver,AdminNavigationLocators.VOUCHERS).click();
-        return new AdminGiftVouchersPageObject(driver);
+
+
     }
 
+    public AdminGiftVouchersPageObject goToVouchersList() {
+        salesGroup = new Button(driver, AdminNavigationLocators.SALIS_GROUP).click();
+        vouchersCategory = new Button(driver, AdminNavigationLocators.VOUCHERS_CATEGORY).click();
+        vouchrs = new Button(driver, AdminNavigationLocators.VOUCHERS).click();
+        return new AdminGiftVouchersPageObject(driver);
+    }
 
 
 }
