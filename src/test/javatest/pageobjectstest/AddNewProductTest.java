@@ -41,7 +41,7 @@ public class AddNewProductTest {
     }
     @AfterClass
     public void tearDown() {
-//        driver.quit();
+        driver.quit();
     }
     @Test
     public void addNewProduct(){

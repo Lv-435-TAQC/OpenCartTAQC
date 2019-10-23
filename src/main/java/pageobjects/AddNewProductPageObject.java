@@ -25,7 +25,7 @@ public class AddNewProductPageObject extends BasePageObject{
     private Input productPrice;
     private Input productQuantity;
     private Input productManufactures;
-    private Button chooseMenufactures;
+    private Button chooseManufactures;
     private Input productCategories;
     private Button chooseCategory;
     private Button productPhotoButton;
@@ -90,7 +90,7 @@ public class AddNewProductPageObject extends BasePageObject{
 
     public AddNewProductPageObject setManufactures(String manufactures){
         productManufactures = new Input(driver,AddNewProductsLocators.MANUFACTURES_FIELD_LOC).setText(manufactures);
-        chooseMenufactures = new TextButton(driver,AddNewProductsLocators.CHOOSE_MANUFACTURES_BUTTON_LOC).click();
+        chooseManufactures = new TextButton(driver,AddNewProductsLocators.CHOOSE_MANUFACTURES_BUTTON_LOC).click();
         return new AddNewProductPageObject(driver);
     }
 

@@ -10,7 +10,6 @@ import pageelements.Label;
 public class AdminProductsListPageObject extends BasePageObject{
 
     private Button addNewProduct;
-    private String message;
 
     public AdminProductsListPageObject(WebDriver driver) {
         super(driver);
@@ -22,7 +21,6 @@ public class AdminProductsListPageObject extends BasePageObject{
      }
 
      public String getTextFromMessage(){
-        message = new Label(driver, AdminProductsPageLocators.SUCCESSFUL_ADDING_MESSAGE_LOC).getText();
-        return message;
+        return new Label(driver, AdminProductsPageLocators.SUCCESSFUL_ADDING_MESSAGE_LOC).getText();
      }
 }
