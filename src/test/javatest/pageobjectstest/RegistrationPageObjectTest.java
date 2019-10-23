@@ -25,7 +25,7 @@ public class RegistrationPageObjectTest {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", PATH_TO_DRIVER);
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         registrationPageObject = new RegistrationPageObject(driver);
@@ -141,8 +141,6 @@ public class RegistrationPageObjectTest {
         Pattern fieldEmail = new Pattern("src/main/resources/sikulipatterns/fieldEmail.png");
         Pattern fieldTelephone = new Pattern("src/main/resources/sikulipatterns/fieldTelephone.png");
         Pattern labelYourPassword = new Pattern("src/main/resources/sikulipatterns/labelYourPassword.png");
-        Pattern fieldPassword = new Pattern("src/main/resources/sikulipatterns/fieldPassword.png");
-        Pattern fieldPasswordConfirm = new Pattern("src/main/resources/sikulipatterns/fieldPasswordConfirm.png");
         Pattern checkboxPrivacyPolicy = new Pattern("src/main/resources/sikulipatterns/checkboxPrivacyPolicy.png");
         Pattern buttonContinue = new Pattern("src/main/resources/sikulipatterns/buttonContinue.png");
         Pattern messageOnSuccessfulRegistration = new Pattern(
@@ -154,8 +152,8 @@ public class RegistrationPageObjectTest {
         registrationPageObject.typeTextToPattern(screen, fieldTelephone, "0794852421");
         registrationPageObject.clickOnPattern(screen, labelYourPassword);
         screen.type(Key.PAGE_DOWN);
-        registrationPageObject.typeTextToPattern(screen, fieldPassword.exact(), "12345");
-        registrationPageObject.typeTextToPattern(screen, fieldPasswordConfirm, "12345");
+        registrationPageObject.typeTextToPattern(screen, labelYourPassword.targetOffset(300, 60), "12345");
+        registrationPageObject.typeTextToPattern(screen, labelYourPassword.targetOffset(300, 100), "12345");
         registrationPageObject.clickOnPattern(screen, checkboxPrivacyPolicy);
         registrationPageObject.clickOnPattern(screen, buttonContinue);
         assertNotNull(screen.exists(messageOnSuccessfulRegistration));

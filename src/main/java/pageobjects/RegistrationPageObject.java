@@ -79,6 +79,7 @@ public class RegistrationPageObject extends BasePageObject {
 
     public void typeTextToPattern(Screen screen, Pattern pattern, String text) {
         try {
+            screen.wait(pattern, 20);
             screen.type(pattern, text);
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();

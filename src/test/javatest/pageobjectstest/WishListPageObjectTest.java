@@ -94,11 +94,16 @@ public class WishListPageObjectTest {
     }
     @Test
     public void addItemFromWishListToChoppingCart(){
+<<<<<<< HEAD
         homePageObject
                 .getHeaderPageObject()
                 .clickWishList()
                 .addItemToCart("41");
         WishListPageObject wishList = new WishListPageObject(driver);
+=======
+        headerPageObject.clickWishList().addItemToCart("41");
+        wishList = new WishListPageObject(driver);
+>>>>>>> develop
         String actual = wishList.getTextFromAlertLabel();
         String expected = "Success: You have added to your shopping cart!";
         assertTrue(actual.contains(expected));
@@ -115,7 +120,6 @@ public class WishListPageObjectTest {
     }
     @Test
     public void removeItemFromWishList(){
-        homePageObject = new HomePageObject(driver);
         Boolean expected = homePageObject
                 .getHeaderPageObject()
                 .clickWishList()
