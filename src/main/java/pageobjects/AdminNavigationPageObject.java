@@ -10,6 +10,10 @@ public class AdminNavigationPageObject extends BasePageObject {
     private Button products;
     private Button catalog;
     private Button categories;
+    private Button salesGroup;
+    private Button vouchersCategory;
+    private Button vouchrs;
+
 
     public AdminNavigationPageObject(WebDriver driver) {
         super(driver);
@@ -28,5 +32,13 @@ public class AdminNavigationPageObject extends BasePageObject {
         categories = new TextButton(driver, AdminNavigationLocators.CATEGORIES_BUTTON_LOC).click();
         return new AdminProductsList(driver);
     }
+    public AdminGiftVouchersPageObject goToVouchersList(){
+        salesGroup = new Button(driver,AdminNavigationLocators.SALIS_GROUP).click();
+        vouchersCategory = new Button(driver,AdminNavigationLocators.VOUCHERS_CATEGORY).click();
+        vouchrs= new Button(driver,AdminNavigationLocators.VOUCHERS).click();
+        return new AdminGiftVouchersPageObject(driver);
+    }
+
+
 
 }
