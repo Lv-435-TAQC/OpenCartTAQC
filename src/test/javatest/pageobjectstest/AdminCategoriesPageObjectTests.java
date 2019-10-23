@@ -37,7 +37,7 @@ public class AdminCategoriesPageObjectTests {
 
     }
 
-    //    @AfterClass
+        @AfterClass
     public void closeUp() {
         driver.quit();
     }
@@ -59,7 +59,7 @@ public class AdminCategoriesPageObjectTests {
 
     }
 
-    //    @Test
+        @Test
     public void testDeleteCategoriesFromCategoriesList() {
     }
 }
