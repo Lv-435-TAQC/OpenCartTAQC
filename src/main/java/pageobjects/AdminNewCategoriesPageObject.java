@@ -11,6 +11,9 @@ public class AdminNewCategoriesPageObject extends BasePageObject {
     private Button saveNewCategories;
     private Input  nameOfCategories;
     private Input  metaTag;
+    private Input  descriptionOfCategories;
+    private Input  metaTagDescription;
+    private Input  metaTagKeywords;
 
     public AdminNewCategoriesPageObject(WebDriver driver) {
         super(driver);
@@ -28,6 +31,22 @@ public class AdminNewCategoriesPageObject extends BasePageObject {
     public AdminNewCategoriesPageObject inputMetaTagOfCategories() {
         metaTag = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_TITLE_INPUT_LOC);
         metaTag.setText("justTest");
+        return new AdminNewCategoriesPageObject(this.driver);
+    }
+
+    public AdminNewCategoriesPageObject inputDescriptionOfCategories() {
+        descriptionOfCategories = new Input(this.driver, AdminAddCategoriesLocators.DESCRIPTION_OF_CATEGORIES_INPUT_LOC);
+        descriptionOfCategories.setText("TEST");
+        return new AdminNewCategoriesPageObject(this.driver);
+    }
+    public AdminNewCategoriesPageObject inputMetaTagDescriptionOfCategories() {
+        metaTagDescription = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_DESCRIPTION_INPUT_LOC);
+        metaTagDescription.setText("TEST");
+        return new AdminNewCategoriesPageObject(this.driver);
+    }
+    public AdminNewCategoriesPageObject inputMetaTagKeywordsOfCategories() {
+        metaTagKeywords = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_KEYWORDS_INPUT_LOC);
+        metaTagKeywords.setText("TEST");
         return new AdminNewCategoriesPageObject(this.driver);
     }
 
