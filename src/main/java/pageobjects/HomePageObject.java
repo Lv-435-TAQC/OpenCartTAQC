@@ -46,7 +46,7 @@ public class HomePageObject extends BasePageObject {
     }
 
     public HeaderPageObject getHeaderPageObject() {
-        return this.headerPageObject;
+        return new HeaderPageObject(driver);
     }
     public MenuPageObject getMenuPageObject(){
         return this.menuPageObject;
