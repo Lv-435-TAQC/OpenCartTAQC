@@ -24,13 +24,14 @@ public class AdminNavigationPageObject extends BasePageObject {
             return new AdminNavigationPageObject(driver);
     }
 
-    public AdminProductsList goToProducts(){
+    public AdminProductsListPageObject goToProducts(){
         products = new TextButton(driver, AdminNavigationLocators.PRODUCTS_PAGE_BUTTON_LOC).click();
-        return new AdminProductsList(driver);
+        return new AdminProductsListPageObject(driver);
     }
-    public AdminProductsList goToCategories(){
+
+    public AdminProductsListPageObject goToCategories(){
         categories = new TextButton(driver, AdminNavigationLocators.CATEGORIES_BUTTON_LOC).click();
-        return new AdminProductsList(driver);
+        return new AdminProductsListPageObject(driver);
     }
     public AdminGiftVouchersPageObject goToVouchersList(){
         salesGroup = new Button(driver,AdminNavigationLocators.SALIS_GROUP).click();
