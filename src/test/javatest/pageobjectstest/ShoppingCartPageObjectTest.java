@@ -1,4 +1,4 @@
-package pageobjectstest;
+package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -9,6 +9,7 @@ import org.testng.annotations.*;
 import pageobjects.HomePageObject;
 import pageobjects.ShoppingCartPageObject;
 import patterns.ShoppingCartPatterns;
+import utils.commonconstants.Constants;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -22,7 +23,7 @@ public class ShoppingCartPageObjectTest {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", Constants.PATH_TO_DRIVER);
         driver = new FirefoxDriver();
     }
 
@@ -44,7 +45,7 @@ public class ShoppingCartPageObjectTest {
     @AfterClass
     public void closeUp() {
 
-       driver.quit();
+        driver.quit();
 
     }
 
@@ -53,23 +54,36 @@ public class ShoppingCartPageObjectTest {
         String productID = home.addToCartIphone();
         assertTrue(home.goToShoppingCartPage().getShoppingProductsList().containsKey(productID));
     }
+
     @Test(invocationCount = 1)
-    public void testAddProductToShoppingCartUseSikuli()throws Exception {
-        ShoppingCartPageObject shoppingCartPageObject = new ShoppingCartPageObject(driver);
-        shoppingCartPageObject.addIphoneToShoppingCartSikuly();
-        Match match = shoppingCartPageObject.finedElementInShoppingCart(new Pattern(ShoppingCartPatterns.IPHONE_IN_SHOPPING_CART));
-        System.out.println(match);
+    public void testAddProductToShoppingCartUseSikuli() {
+        Match match = new HomePageObject(driver).
+                addIphoneToShoppingCartSikuly().
+                openShoppingCartSikuly().
+                finedElementInShoppingCartSikuly(new Pattern(ShoppingCartPatterns.IPHONE_IN_SHOPPING_CART));
         assertNotNull(match);
     }
+
     @Test(invocationCount = 1)
-    public void testChangingQuantityProductsUseSikuli()throws Exception {
-       ShoppingCartPageObject shoppingCartPageObject = new ShoppingCartPageObject(driver);
-       shoppingCartPageObject.addIphoneToShoppingCartSikuly();
-       shoppingCartPageObject.changeQuantityProductsSikuly();
-        String actual = shoppingCartPageObject.getTotalCostSikuly().split(" ")[1];
-        String expected ="$246.40";
-        assertEquals(actual,expected);
+    public void testChangingQuantityProductsUseSikuli() {
+        String actual = new HomePageObject(driver).
+                addIphoneToShoppingCartSikuly().
+                openShoppingCartSikuly().
+                changeQuantityProductsSikuly().
+                getTotalCostSikuly().split(" ")[1];
+        String expected = "$246.40";
+        assertEquals(actual, expected);
     }
+
+    @Test
+    public void testRemoveProductFromCartUseSikuli() {
+        String actual = new HomePageObject(driver).
+                addIphoneToShoppingCartSikuly().
+                openShoppingCartSikuly().
+                removeProductSikuly();
+        assertEquals(actual, "Yourshopping cart is empty!");
+    }
+
 
     @Test
     public void testRemoveProductFromCart() {
@@ -77,7 +91,6 @@ public class ShoppingCartPageObjectTest {
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.removeProductFromCart(productID);
         String actual = shoppingCartPageObject.getCartEmptyMassage();
-        ShoppingCartPageObject.makeScreenShotSteps(driver, "correct ID");
         assertEquals(actual, "Your shopping cart is empty!");
     }
 
