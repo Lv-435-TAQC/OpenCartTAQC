@@ -11,8 +11,8 @@ import pageelements.TextButton;
 
 import java.util.List;
 
-import static utils.commonconstants.Constants.ONE;
-import static utils.commonconstants.Constants.TWO;
+import static Constants.ONE;
+import static Constants.TWO;
 
 
 public class AddNewProductPageObject extends BasePageObject{

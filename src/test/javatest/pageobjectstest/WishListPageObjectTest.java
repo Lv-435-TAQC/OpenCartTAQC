@@ -3,12 +3,14 @@ package pageobjectstest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.sikuli.script.*;
-import org.testng.*;
+import org.sikuli.script.Pattern;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.*;
+import pageobjects.WishListPageObject;
 
-import static locators.WishListLocators.*;
+import static locators.WishListLocators.LOGIN_NAME;
+import static locators.WishListLocators.LOGIN_PASSWORD;
 import static org.testng.Assert.assertTrue;
 
 public class WishListPageObjectTest {
@@ -128,7 +130,7 @@ public class WishListPageObjectTest {
         homePageObject
                 .getHeaderPageObject()
                 .clickWishList()
-                .itemImageClick("42");
+                .clickItemImage("42");
         String actual = driver.getCurrentUrl();
         String expected = "product&product_id=42";
         assertTrue(actual.contains(expected));
@@ -138,7 +140,7 @@ public class WishListPageObjectTest {
         homePageObject
                 .getHeaderPageObject()
                 .clickWishList()
-                .itemProductNameClick("42");
+                .clickItemProductName("42");
         String actual = driver.getCurrentUrl();
         String expected = "product&product_id=42";
         assertTrue(actual.contains(expected));

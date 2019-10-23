@@ -2,7 +2,7 @@ package pageobjects;
 
 import org.openqa.selenium.WebDriver;
 
-import static utils.commonconstants.Constants.BASE_URL;
+import static utils.Constants.BASE_URL;
 
 public abstract class BasePageObject {
 

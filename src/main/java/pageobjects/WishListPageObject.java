@@ -29,14 +29,6 @@ public class WishListPageObject extends BasePageObject {
 
     }
 
-    public HeaderPageObject getHeaderPageObject() {
-        return this.headerPageObject;
-    }
-
-    public MenuPageObject getMenuPageObject() {
-        return this.menuPageObject;
-    }
-
     public Label getLabel() {
         return this.label;
     }
@@ -53,13 +45,13 @@ public class WishListPageObject extends BasePageObject {
         }
     }
 
-    public ItemInfoPageObject itemImageClick(String id){
+    public ItemInfoPageObject clickItemImage(String id){
         HashMap<String, WishListItemPageObject> items = getMapOfItems();
         items.get(id).getImage().click();
         return new ItemInfoPageObject(this.driver);
     }
 
-    public ItemInfoPageObject itemProductNameClick(String id){
+    public ItemInfoPageObject clickItemProductName(String id){
         HashMap<String, WishListItemPageObject> items = getMapOfItems();
         items.get(id).getProductName().click();
         return new ItemInfoPageObject(this.driver);
@@ -77,6 +69,7 @@ public class WishListPageObject extends BasePageObject {
         items.get(id).getAddToCart().click();
         String currentUrl = driver.getCurrentUrl();
         if(currentUrl.equals(WISH_LIST_URL)){
+            this.label = new Label(driver, ALERT_LABEL_WISH_LIST);
             return this;
         }else {
             return new ItemInfoPageObject(driver);
@@ -86,8 +79,7 @@ public class WishListPageObject extends BasePageObject {
     public String getTextFromAlertLabel() {
         WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(ALERT_LABEL_WISH_LIST)));
-        label = new Label(this.driver, ALERT_LABEL_WISH_LIST);
-        return label.getText();
+        return this.label.getText();
     }
 
     public HashMap<String, WishListItemPageObject> getMapOfItems(){

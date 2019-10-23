@@ -1,4 +1,4 @@
-package utils.commonconstants;
+package utils;
 
 public class Constants {
 
