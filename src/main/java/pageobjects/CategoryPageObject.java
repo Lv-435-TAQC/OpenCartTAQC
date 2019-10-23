@@ -20,6 +20,7 @@ public class CategoryPageObject extends BasePageObject {
     private ArrayList<Product> products;
     private FilterPageObject filterPageObject;
     private String productsXpath;
+    private NavigationMenuPageObject navigationMenuPageObject;
 
     public CategoryPageObject(WebDriver driver, String productsXpath) {
         super(driver);
@@ -172,4 +173,7 @@ public class CategoryPageObject extends BasePageObject {
         return categoryNameLabel.getText();
     }
 
+    public NavigationMenuPageObject getNavigationMenuPageObject() {
+        return navigationMenuPageObject;
+    }
 }
