@@ -40,7 +40,7 @@ public class AddNewProductTest {
         driver.quit();
     }
     @Test
-    public void addNewProduct(){
+    public void addNewProductTest(){
     String actual = nav.goToCatalog()
                 .goToCatalog()
                 .goToProducts()
@@ -66,7 +66,7 @@ public class AddNewProductTest {
 
     }
     @Test
-    public void addNewProductNegative(){
+    public void addNewProductNegativeTest(){
         String actual = nav.goToCatalog()
                 .goToCatalog()
                 .goToProducts()
@@ -92,7 +92,7 @@ public class AddNewProductTest {
 
     }
     @Test
-    public void delete() throws FindFailed {
+    public void deleteProductTest() throws FindFailed {
         nav.goToCatalog()
                 .goToProducts()
                 .findAddedProduct()
