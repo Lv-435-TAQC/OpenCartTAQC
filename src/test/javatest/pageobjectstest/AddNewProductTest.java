@@ -99,7 +99,7 @@ public class AddNewProductTest {
     }
 
     @Test(priority = 2)
-    public void deleteProductTest() throws FindFailed {
+    public void deleteProductTest(){
         nav.goToCatalog()
                 .goToProducts()
                 .findAddedProduct()
