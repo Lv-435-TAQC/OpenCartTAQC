@@ -33,33 +33,40 @@ public class AdminCategoriesPageObjectTests {
         admin = new AdminLoginPageObject(driver);
         navigation = new AdminNavigationPageObject(driver);
         admin.logIn("admin", "admin").closeModalWindow();
-
-
     }
 
         @AfterClass
     public void closeUp() {
-        driver.quit();
+//        driver.quit();
     }
 
     @Test
     public void testAddNewCategoriesToList() {
-
         navigation.goToCatalog()
                 .goToCategories()
                 .addNewCategories()
-                .inputCategoriesName()
-                .inputMetaTagOfCategories()
-                .inputMetaTagDescriptionOfCategories()
-                .inputMetaTagKeywordsOfCategories()
+                .inputCategoriesName("forTest")
+                .inputMetaTagOfCategories("just test")
+                .inputMetaTagDescriptionOfCategories("Name")
+                .inputMetaTagKeywordsOfCategories("Test")
                 .saveNewCategories();
         String actual = search.getTextFromMessageOfCategories();
-        String expected = ("Success: You have modified categories!\n" + "×");
-        assertEquals(actual, expected);
-
+        String expected = ("Success: You have modified categories!");
+        assertTrue(actual.contains(expected));
     }
 
         @Test
-    public void testDeleteCategoriesFromCategoriesList() {
+    public void testAddNewCategoriesWithFalseData() {
+            navigation.goToCatalog()
+                    .goToCategories()
+                    .addNewCategories()
+                    .inputCategoriesName("")
+                    .inputMetaTagOfCategories("")
+                    .inputMetaTagDescriptionOfCategories("")
+                    .inputMetaTagKeywordsOfCategories("")
+                    .saveNewCategories();
+            String actual = search.getTextFromMessageInNewCategories();
+            String expected = ("Warning: Please check the form carefully for errors!");
+            assertTrue(actual.contains(expected));
     }
 }
