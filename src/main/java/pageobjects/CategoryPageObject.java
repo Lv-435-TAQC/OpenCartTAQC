@@ -25,7 +25,7 @@ public class CategoryPageObject extends BasePageObject {
     public CategoryPageObject(WebDriver driver, String productsXpath) {
         super(driver);
         this.productsXpath = productsXpath;
-        filterPageObject = new FilterPageObject(this.driver);
+        filterPageObject = new FilterPageObject(this.driver, productsXpath);
         generateProductsPageObjects();
     }
 
@@ -106,59 +106,6 @@ public class CategoryPageObject extends BasePageObject {
         return productsPO.get(numberOfProduct - 1).getExTax();
     }
 
-    public CategoryPageObject clickListButton() {
-        filterPageObject.clickListButton(productsXpath);
-        generateProductsPageObjects();
-        return this;
-    }
-
-    public CategoryPageObject clickGridButton() {
-        filterPageObject.clickGridButton(productsXpath);
-        generateProductsPageObjects();
-        return this;
-    }
-
-    public CategoryPageObject clickProductCompere() {
-        filterPageObject.clickProductCompare();
-        generateProductsPageObjects();
-        return this;
-    }
-
-    public CategoryPageObject choseSortBySelectorByParam(String param) {
-        filterPageObject.choseSortBySelectorByParam(param, productsXpath);
-        generateProductsPageObjects();
-        return this;
-    }
-
-    public CategoryPageObject choseSortBySelectorByID(int id) {
-        filterPageObject.choseSortBySelectorByID(id, productsXpath);
-        generateProductsPageObjects();
-        return this;
-    }
-
-    public CategoryPageObject choseShowSelectorByParam(String param) {
-        filterPageObject.choseShowSelectorByParam(param, productsXpath);
-        generateProductsPageObjects();
-        return this;
-    }
-
-    public CategoryPageObject choseShowSelectorByID(int id) {
-        filterPageObject.choseShowSelectorByID(id, productsXpath);
-        generateProductsPageObjects();
-        return this;
-    }
-
-    public String getShowLabelText() {
-        return filterPageObject.getShowLabelText();
-    }
-
-    public String getSortByLabelText() {
-        return filterPageObject.getSortByLabelText();
-    }
-
-    public String getProductCompareText() {
-        return filterPageObject.getProductCompareText();
-    }
 
     public ArrayList<ProductUnitPageObject> getProductsPO() {
         return productsPO;
@@ -298,5 +245,10 @@ public class CategoryPageObject extends BasePageObject {
     public NavigationMenuPageObject getNavigationMenuPageObject() {
         return navigationMenuPageObject;
 
+    }
+
+    public FilterPageObject getFilterPageObject() {
+        filterPageObject = new FilterPageObject(this.driver, productsXpath);
+        return filterPageObject;
     }
 }
