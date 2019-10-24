@@ -1,6 +1,8 @@
 package pageobjects;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
@@ -77,20 +79,36 @@ public class RegistrationPageObject extends BasePageObject {
         return fieldEmail;
     }
 
-    public void typeTextToPattern(Screen screen, Pattern pattern, String text) {
+    public RegistrationPageObject typeTextToPattern(Screen screen, Pattern pattern, String text) {
         try {
-            screen.wait(pattern, 20);
+            waitForPattern(screen, pattern, 20);
             screen.type(pattern, text);
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
         }
+        return this;
     }
 
-    public void clickOnPattern(Screen screen, Pattern pattern) {
+    public RegistrationPageObject clickOnPattern(Screen screen, Pattern pattern) {
         try {
             screen.click(pattern);
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
         }
+        return this;
+    }
+
+    public RegistrationPageObject waitForPattern(Screen screen, Pattern pattern, int duration) {
+        try {
+            screen.wait(pattern, duration);
+        } catch (FindFailed findFailed) {
+            findFailed.printStackTrace();
+        }
+        return this;
+    }
+
+    public RegistrationPageObject waitForUrlToBe(String url) {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlToBe(url));
+        return this;
     }
 }
