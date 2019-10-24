@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 import pageobjects.CategoryPageObject;
 import pageobjects.MenuPageObject;
 import patterns.CategoryPatterns;
-import utils.commonconstants.Constants;
+import utils.Constants;
 
 import java.lang.reflect.Method;
 
@@ -29,7 +29,7 @@ public class CategoryPageObjectTest {
     public void setUp() {
         System.setProperty("webdriver.gecko.driver", Constants.PATH_TO_DRIVER);
         driver = new FirefoxDriver();
-        driver.get("http://192.168.92.128/opencart");
+        driver.get(Constants.BASE_URL);
         menuPageObject = new MenuPageObject(driver);
         menuPageObject.showAllDesktops();
     }

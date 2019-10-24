@@ -1,4 +1,4 @@
-package javatest.pageobjectstest;
+package pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -41,7 +41,7 @@ public class MenuPageObjectTest {
     }
     @Test
     public void macPageTest(){
-        String actual =  menu.goToMacDesktops().getCategoryName();
+        String actual =  menu.clickMacDesktops().getCategoryName();
         String expected = "Mac";
         assertEquals(actual,expected);
     }

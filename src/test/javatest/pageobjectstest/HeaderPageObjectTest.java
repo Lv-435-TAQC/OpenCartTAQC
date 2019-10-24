@@ -1,4 +1,4 @@
-package javatest.pageobjectstest;
+package pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -7,7 +7,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.HeaderPageObject;
-import pageobjects.MenuPageObject;
 
 import java.util.concurrent.TimeUnit;
 
@@ -60,7 +59,7 @@ public class HeaderPageObjectTest {
 
     @Test
     public void testLoginPage() {
-        header.goToLoginPage();
+        header.clickLoginPage();
         String actual = header.getTextFromSecondTape();
         String expected = "Login";
         assertEquals(actual, expected);
@@ -68,7 +67,7 @@ public class HeaderPageObjectTest {
 
     @Test
     public void testRegistrationPage() {
-        header.goToRegistrationPage();
+        header.clickRegistrationPage();
         String actual = header.getTextFromSecondTape();
         String expected = "Register";
         assertEquals(actual, expected);
@@ -76,7 +75,7 @@ public class HeaderPageObjectTest {
 
     @Test
     public void testWishListPage(){
-        header.goToWishList();
+        header.clickWishList();
         String actual = header.getTextFromSecondTape();
         String expected = "Login";
         assertEquals(actual,expected);
@@ -84,7 +83,7 @@ public class HeaderPageObjectTest {
 
     @Test
     public void testShoppingCartPage(){
-    header.goToShoppingCartPage();
+    header.clickShoppingCartPage();
     String actual = header.getTextFromFirstTape();
     String expected = "Shopping Cart";
     assertEquals(actual,expected);

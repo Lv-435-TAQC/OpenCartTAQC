@@ -16,7 +16,9 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
-import static utils.commonconstants.Constants.*;
+import static patterns.RegistrationPatterns.*;
+import static utils.Constants.*;
+
 
 public class RegistrationPageObjectTest {
 
@@ -137,30 +139,23 @@ public class RegistrationPageObjectTest {
     @Test(priority = 1)
     public void successfulRegisterSikuliTest() {
         Screen screen = new Screen();
-        Pattern fieldFirstName = new Pattern("src/main/resources/sikulipatterns/fieldFirstName.png");
-        Pattern fieldLastName = new Pattern("src/main/resources/sikulipatterns/fieldLastName.png");
-        Pattern fieldEmail = new Pattern("src/main/resources/sikulipatterns/fieldEmail.png");
-        Pattern fieldTelephone = new Pattern("src/main/resources/sikulipatterns/fieldTelephone.png");
-        Pattern labelYourPassword = new Pattern("src/main/resources/sikulipatterns/labelYourPassword.png");
-        Pattern checkboxPrivacyPolicy = new Pattern("src/main/resources/sikulipatterns/checkboxPrivacyPolicy.png");
-        Pattern buttonContinue = new Pattern("src/main/resources/sikulipatterns/buttonContinue.png");
-        Pattern messageOnSuccessfulRegistration = new Pattern(
-                "src/main/resources/sikulipatterns/messageOnSuccessfulRegistration.png");
-        Pattern buttonLogout = new Pattern("src/main/resources/sikulipatterns/buttonLogout.png");
-        Pattern messageOnSuccessfulLogout = new Pattern("src/main/resources/sikulipatterns/messageOnSuccessfulLogout.png");
-        registrationPageObject.typeTextToPattern(screen, fieldFirstName, "Paprika")
-                .typeTextToPattern(screen, fieldLastName, "Pepper")
-                .typeTextToPattern(screen, fieldEmail, new Random().nextInt(1000) + "paprika@paprika.com")
-                .typeTextToPattern(screen, fieldTelephone, "0794852421")
+        Pattern buttonLogout = new Pattern(BUTTON_LOGOUT);
+        Pattern labelYourPassword = new Pattern(LABEL_YOUR_PASSWORD);
+        registrationPageObject.typeTextToPattern(screen, new Pattern(FIELD_FIRST_NAME), "Paprika")
+                .typeTextToPattern(screen, new Pattern(FIELD_LAST_NAME), "Pepper")
+                .typeTextToPattern(screen, new Pattern(FIELD_EMAIL),
+                        new Random().nextInt(1000) + "paprika@paprika.com")
+                .typeTextToPattern(screen, new Pattern(FIELD_TELEPHONE), "0794852421")
                 .clickOnPattern(screen, labelYourPassword);
         screen.type(Key.PAGE_DOWN);
         registrationPageObject.typeTextToPattern(screen, labelYourPassword.targetOffset(300, 60), "12345")
                 .typeTextToPattern(screen, labelYourPassword.targetOffset(300, 100), "12345")
-                .clickOnPattern(screen, checkboxPrivacyPolicy)
-                .clickOnPattern(screen, buttonContinue);
-        assertNotNull(screen.exists(messageOnSuccessfulRegistration));
+                .clickOnPattern(screen, new Pattern(CHECKBOX_PRIVACY_POLICY))
+                .clickOnPattern(screen, new Pattern(BUTTON_CONTINUE));
+        assertNotNull(screen.exists(new Pattern(MESSAGE_ON_SUCCESSFUL_REGISTRATION)));
         screen.type(Key.PAGE_DOWN);
-        registrationPageObject.clickOnPattern(screen, buttonLogout)
-                .waitForPattern(screen, messageOnSuccessfulLogout, 10);
+        registrationPageObject.waitForPattern(screen, buttonLogout, 10)
+                .clickOnPattern(screen, buttonLogout)
+                .waitForPattern(screen, new Pattern(MESSAGE_ON_SUCCESSFUL_LOGOUT), 10);
     }
 }
