@@ -11,11 +11,11 @@ public class MyAccountPageObject extends BasePageObject {
         this.menuPageObject = new MenuPageObject(driver);
     }
 
-    public HeaderPageObject goToHeader(){
-        return new HeaderPageObject(driver);
+    public HeaderPageObject getHeaderPageObject(){
+        return this.headerPageObject;
     }
 
     public MenuPageObject getMenuPageObject(){
-        return new MenuPageObject(driver);
+        return this.menuPageObject;
     }
 }
