@@ -26,5 +26,5 @@ public class Constants {
     public static final String ALERT_WISH_LIST_SUCCESS = "Success:";
     public static final String WISH_LIST_ID_41 = "41";
     public static final String WISH_LIST_ID_42 = "42";
-
+    public static final String LOGOUT_URL = "http://localhost/opencart/index.php?route=account/logout";
 }

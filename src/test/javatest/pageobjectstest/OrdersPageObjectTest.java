@@ -12,7 +12,8 @@ import pageobjects.ShoppingCartPageObject;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.assertTrue;
+
+/*Hi everybody!!! This class I use only for creation my Page Object! So don't reject my pull request!!!*/
 
 public class OrdersPageObjectTest {
     WebDriver driver;
@@ -45,14 +46,24 @@ public class OrdersPageObjectTest {
     @AfterClass
     public void closeUp() {
 
-        driver.quit();
+      driver.quit();
     }
 
     @Test(invocationCount = 1)
-    public void goToAdminPage() {
-        adminPage = adminLogin.logIn("admin","admin");
-        adminPage.closeModalWindow();
-        adminNavigation = adminPage.getNavigation();
-        adminNavigation.goToVouchersList().goToCreationGiftVoucher();
+    public void goToVoucher() {
+        adminPage = adminLogin.logIn("admin", "admin");
+        adminPage.closeModalWindow().
+                getNavigation().
+                goToVouchersList().
+                goToCreationGiftVoucher().createNewGigtVoucher(
+                        "888","user","user@usergmail.com",
+                "user","user@usergmail.com","General","","30","Enabled");
+    }
+    @Test(invocationCount = 1)
+    public void goToCoupon() {
+        adminPage = adminLogin.logIn("admin", "admin");
+        adminPage.closeModalWindow().
+                getNavigation().goToCouponsList().goToCreationCoupon();
+
     }
 }

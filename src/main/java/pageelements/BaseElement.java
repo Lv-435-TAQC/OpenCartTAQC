@@ -20,4 +20,8 @@ public abstract class BaseElement {
         this.xpath = xpath;
         element = elementToParse.findElement(By.xpath(xpath));
     }
+
+    public BaseElement(WebElement element) {
+        this.element = element;
+    }
 }

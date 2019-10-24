@@ -1,23 +1,18 @@
 package javatest.pageobjectstest;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.sikuli.script.FindFailed;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.AdminLoginPageObject;
 import pageobjects.AdminNavigationPageObject;
-import pageobjects.AdminPageObject;
-import pageobjects.NavigationPageObject;
-
-import static org.testng.Assert.*;
-
 
 import java.util.concurrent.TimeUnit;
+
+import static org.testng.Assert.assertTrue;
 
 public class AddNewProductTest {
     WebDriver driver;
@@ -44,7 +39,7 @@ public class AddNewProductTest {
         driver.quit();
     }
     @Test
-    public void addNewProduct(){
+    public void addNewProductTest(){
     String actual = nav.goToCatalog()
                 .goToCatalog()
                 .goToProducts()
@@ -70,7 +65,7 @@ public class AddNewProductTest {
 
     }
     @Test
-    public void addNewProductNegative(){
+    public void addNewProductNegativeTest(){
         String actual = nav.goToCatalog()
                 .goToCatalog()
                 .goToProducts()
@@ -94,5 +89,12 @@ public class AddNewProductTest {
         String expected = "Warning: Please check the form carefully for errors!";
         assertTrue(actual.contains(expected));
 
+    }
+    @Test
+    public void deleteProductTest() throws FindFailed {
+        nav.goToCatalog()
+                .goToProducts()
+                .findAddedProduct()
+                .deleteChosenProduct();
     }
 }
