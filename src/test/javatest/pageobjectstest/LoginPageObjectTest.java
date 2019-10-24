@@ -1,4 +1,4 @@
-package javatest.pageobjectstest;
+package pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -31,14 +31,14 @@ public class LoginPageObjectTest {
         driver = new FirefoxDriver();
         headerPageObject = new HeaderPageObject(driver);
         driver.get(HOME_PAGE);
-        headerPageObject.goToLoginPage();
+        headerPageObject.clickLoginPage();
         loginPageObject = new LoginPageObject(this.driver);
     }
 
     @BeforeMethod
     public void getLogin() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        headerPageObject.goToLoginPage();
+        headerPageObject.clickLoginPage();
         loginPageObject = new LoginPageObject(this.driver);
     }
 

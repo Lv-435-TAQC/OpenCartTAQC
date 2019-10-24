@@ -1,4 +1,4 @@
-package javatest.pageobjectstest;
+package pageobjectstest;
 
 import org.junit.After;
 import org.openqa.selenium.WebDriver;

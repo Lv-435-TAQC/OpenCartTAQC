@@ -10,10 +10,9 @@ import org.testng.annotations.Test;
 import pageobjects.AdminLoginPageObject;
 import pageobjects.AdminNavigationPageObject;
 
-import static org.testng.Assert.*;
-
-
 import java.util.concurrent.TimeUnit;
+
+import static org.testng.Assert.assertTrue;
 
 public class AddNewProductTest {
     WebDriver driver;
