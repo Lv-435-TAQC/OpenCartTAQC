@@ -44,7 +44,7 @@ public class AddNewProductTest {
         driver.quit();
     }
 
-    @Test(priority = 0)
+    @Test
     public void addNewProductTest(){
    String actual = nav.goToCatalog()
                 .goToCatalog()
