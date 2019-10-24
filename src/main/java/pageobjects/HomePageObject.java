@@ -14,7 +14,7 @@ import patterns.ShoppingCartPatterns;
 
 public class HomePageObject extends BasePageObject {
     public HeaderPageObject headerPageObject;
-    public HeaderPageObject menuPageObject;
+    public MenuPageObject menuPageObject;
     private Button iphoneAddToCart;
     private WebElement productIphone;
     private Button macBookAddToCart;
@@ -26,6 +26,8 @@ public class HomePageObject extends BasePageObject {
 
     public HomePageObject(WebDriver driver) {
         super(driver);
+        this.headerPageObject = new HeaderPageObject(driver);
+        this.menuPageObject = new MenuPageObject(driver);
         screen = new Screen();
     }
 
@@ -75,8 +77,11 @@ public class HomePageObject extends BasePageObject {
         return new ShoppingCartPageObject(driver);
     }
 
-    public HeaderPageObject goToHeaderPage() {
+    public HeaderPageObject getHeaderPageObject() {
         return new HeaderPageObject(driver);
+    }
+    public MenuPageObject getMenuPageObject(){
+        return this.menuPageObject;
     }
 
     public String getURL() {

@@ -9,7 +9,7 @@ import org.testng.annotations.*;
 import pageobjects.HomePageObject;
 import pageobjects.ShoppingCartPageObject;
 import patterns.ShoppingCartPatterns;
-import utils.commonconstants.Constants;
+import utils.Constants;
 
 import java.io.IOException;
 import java.lang.reflect.Method;

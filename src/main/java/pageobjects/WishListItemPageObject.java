@@ -18,4 +18,20 @@ public class WishListItemPageObject extends BasePageObject{
         this.addToCart = addToCart;
         this.remove = remove;
     }
+
+    public WebElement getImage() {
+        return image;
+    }
+
+    public WebElement getProductName() {
+        return productName;
+    }
+
+    public WebElement getAddToCart() {
+        return addToCart;
+    }
+
+    public WebElement getRemove() {
+        return remove;
+    }
 }

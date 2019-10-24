@@ -17,7 +17,8 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
 import static patterns.RegistrationPatterns.*;
-import static utils.commonconstants.Constants.*;
+import static utils.Constants.*;
+
 
 public class RegistrationPageObjectTest {
 
