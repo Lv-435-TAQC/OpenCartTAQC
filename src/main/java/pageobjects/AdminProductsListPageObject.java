@@ -32,15 +32,13 @@ public class AdminProductsListPageObject extends BasePageObject{
 
      public AdminProductsListPageObject findAddedProduct() throws FindFailed{
         Pattern productsCheckbox = new Pattern(AdminProductsPatterns.productsCheckbox);
-        screen.type(Key.PAGE_DOWN);
-        screen.click(productsCheckbox.targetOffset(-140,0));
+        screen.click(productsCheckbox.targetOffset(-215,0));
                return this;
      }
 
      public AdminProductsListPageObject deleteChosenProduct() throws FindFailed {
          Pattern deleteButton = new Pattern(AdminProductsPatterns.deleteButton);
          Pattern okButton = new Pattern(AdminProductsPatterns.okButton);
-         screen.type(Key.PAGE_UP);
          screen.wait(deleteButton,5);
          screen.click(deleteButton);
          screen.wait(okButton,5);

@@ -7,6 +7,7 @@ public class Constants {
     public static final int TWO = 2;
     public static final int THREE = 3;
     public static final int FOUR = 4;
+    public static final int EIGHT = 8;
     public static final String PATH_TO_DRIVER = "src/main/resources/geckodriver.exe";
     public static final String REGISTRATION_PAGE_URL = "http://localhost/opencart/index.php?route=account/register";
     public static final String FIRST_NAME_INVALID_MESSAGE = "First Name does not appear to be valid!";
