@@ -1,6 +1,7 @@
 package javatest.pageobjectstest;
 
-import javafx.scene.layout.Priority;
+
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.sikuli.script.FindFailed;
@@ -11,10 +12,11 @@ import org.testng.annotations.Test;
 import pageobjects.AdminLoginPageObject;
 import pageobjects.AdminNavigationPageObject;
 
-import static org.testng.Assert.*;
 
 
 import java.util.concurrent.TimeUnit;
+
+import static org.testng.Assert.assertTrue;
 
 public class AddNewProductTest {
     WebDriver driver;
@@ -41,6 +43,7 @@ public class AddNewProductTest {
     public void tearDown() {
         driver.quit();
     }
+
     @Test(priority = 0)
     public void addNewProductTest(){
    String actual = nav.goToCatalog()
@@ -67,6 +70,7 @@ public class AddNewProductTest {
         assertTrue(actual.contains(expected));
 
     }
+
     @Test(priority = 1)
     public void addNewProductNegativeTest(){
         String actual = nav.goToCatalog()
@@ -93,13 +97,13 @@ public class AddNewProductTest {
         assertTrue(actual.contains(expected));
 
     }
+
     @Test(priority = 2)
     public void deleteProductTest() throws FindFailed {
-       nav.goToCatalog()
+        nav.goToCatalog()
                 .goToProducts()
                 .findAddedProduct()
                 .deleteChosenProduct()
                 .closeMessage();
-
     }
 }

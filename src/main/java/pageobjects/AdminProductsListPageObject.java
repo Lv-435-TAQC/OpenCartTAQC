@@ -3,14 +3,13 @@ package pageobjects;
 import locators.AdminProductsPageLocators;
 import org.openqa.selenium.WebDriver;
 import org.sikuli.script.FindFailed;
-import org.sikuli.script.Key;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 import pageelements.Button;
 import pageelements.ImageButton;
 import pageelements.Label;
 import patterns.AdminProductsPatterns;
-import patterns.ShoppingCartPatterns;
+
 
 public class AdminProductsListPageObject extends BasePageObject{
 
