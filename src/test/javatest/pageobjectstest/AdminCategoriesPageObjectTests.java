@@ -42,31 +42,37 @@ public class AdminCategoriesPageObjectTests {
 
     @Test
     public void testAddNewCategoriesToList() {
-        navigation.goToCatalog()
+        String actual =navigation.goToCatalog()
                 .goToCategories()
                 .addNewCategories()
                 .inputCategoriesName("forTest")
                 .inputMetaTagOfCategories("just test")
                 .inputMetaTagDescriptionOfCategories("Name")
                 .inputMetaTagKeywordsOfCategories("Test")
-                .saveNewCategories();
-        String actual = search.getTextFromMessageOfCategories();
+                .saveNewCategories().getTextFromMessageOfCategories();
         String expected = ("Success: You have modified categories!");
         assertTrue(actual.contains(expected));
     }
 
         @Test
     public void testAddNewCategoriesWithFalseData() {
-            navigation.goToCatalog()
+            String actual= navigation
+                    .goToCatalog()
                     .goToCategories()
                     .addNewCategories()
                     .inputCategoriesName("")
                     .inputMetaTagOfCategories("")
                     .inputMetaTagDescriptionOfCategories("")
                     .inputMetaTagKeywordsOfCategories("")
-                    .saveNewCategories();
-            String actual = search.getTextFromMessageInNewCategories();
+                    .saveNewCategories()
+                    .getTextFromMessageInNewCategories();
             String expected = ("Warning: Please check the form carefully for errors!");
             assertTrue(actual.contains(expected));
+    }
+    @Test
+    public  void testDeleteCategories(){
+        navigation.goToCategories()
+                .chooseCategoriesFromCategoriesList()
+                .deleteCategoriesFromCategoriesList();
     }
 }
