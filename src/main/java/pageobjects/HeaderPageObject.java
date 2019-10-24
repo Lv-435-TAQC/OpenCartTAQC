@@ -8,10 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.*;
 
-import static utils.Constants.*;
-
-
 import java.util.List;
+
+import static utils.Constants.*;
 
 
 public class HeaderPageObject extends BasePageObject {
@@ -29,6 +28,13 @@ public class HeaderPageObject extends BasePageObject {
     private Button currencyListButton;
     private String buttonText;
 
+    public void setWishPageButton(Button wishPageButton) {
+        this.wishPageButton = wishPageButton;
+    }
+
+    public Button getWishPageButton() {
+        return wishPageButton;
+    }
 
     public HeaderPageObject(WebDriver driver) {
         super(driver);
@@ -50,7 +56,8 @@ public class HeaderPageObject extends BasePageObject {
     }
 
     public WishListPageObject clickWishList() {
-        wishPageButton = new ImageTextButton(driver, HeaderLocators.WISH_LIST_PAGE_BUTTON_LOC).click();
+        this.setWishPageButton(new ImageTextButton(driver, HeaderLocators.WISH_LIST_PAGE_BUTTON_LOC));
+        this.getWishPageButton().click();
         return new WishListPageObject(driver);
     }
 

@@ -4,8 +4,10 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
 import pageelements.Label;
-import org.sikuli.script.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import static locators.WishListLocators.*;
 
 
 public class WishListPageObject extends BasePageObject {
+
     private HeaderPageObject headerPageObject;
     private MenuPageObject menuPageObject;
     private Label label;
@@ -25,8 +28,7 @@ public class WishListPageObject extends BasePageObject {
         super(driver);
         this.headerPageObject = new HeaderPageObject(driver);
         this.menuPageObject = new MenuPageObject(driver);
-        this.items = new HashMap<>();
-
+        this.label = new Label(driver, ALERT_LABEL_WISH_LIST);
     }
 
     public Label getLabel() {
@@ -69,7 +71,6 @@ public class WishListPageObject extends BasePageObject {
         items.get(id).getAddToCart().click();
         String currentUrl = driver.getCurrentUrl();
         if(currentUrl.equals(WISH_LIST_URL)){
-            this.label = new Label(driver, ALERT_LABEL_WISH_LIST);
             return this;
         }else {
             return new ItemInfoPageObject(driver);
@@ -79,10 +80,11 @@ public class WishListPageObject extends BasePageObject {
     public String getTextFromAlertLabel() {
         WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(ALERT_LABEL_WISH_LIST)));
-        return this.label.getText();
+        return this.getLabel().getText();
     }
 
     public HashMap<String, WishListItemPageObject> getMapOfItems(){
+        this.items = new HashMap<>();
         List<WebElement> listTr = driver.findElement(By.xpath(WISH_LIST_TABLE)).findElements(By.xpath("tr"));
 
         for (WebElement element: listTr ) {
@@ -93,14 +95,12 @@ public class WishListPageObject extends BasePageObject {
             WebElement remove = element.findElement(By.xpath("td[6]/a"));
             this.items.put(id,new WishListItemPageObject(driver, image, productName, addToCart, remove));
         }
-        return this.items;
+        return items;
     }
 
-    public  Screen doScreen(){
-        return new Screen();
-    }
-
-    public static Boolean findImageInScreen(Screen screen, Pattern pattern){
+    public Boolean findImageInScreen(String wayToImage){
+        Pattern pattern = new Pattern(wayToImage);
+        Screen screen = new Screen();
         try {
             screen.find(pattern);
             return true;

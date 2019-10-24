@@ -2,35 +2,41 @@ package pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.sikuli.script.Pattern;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-import pageobjects.*;
+import pageobjects.HomePageObject;
 import pageobjects.WishListPageObject;
 
 import static locators.WishListLocators.LOGIN_NAME;
 import static locators.WishListLocators.LOGIN_PASSWORD;
 import static org.testng.Assert.assertTrue;
+import static utils.Constants.*;
 
 public class WishListPageObjectTest {
     WebDriver driver;
-    WebDriverWait wait;
     HomePageObject homePageObject;
 
-
     /**
-    *
-    *
-    *
-    *
+     * <b> Description of Precondition.</b>
+     *
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open Home Page on OpenCart.com;
+     * <li>3. Click on Login Tab;
+     * <li>4. Enter username, password and Click Login Tab;
+     * <li>5. Click on Home Tab;
+     * <li>6. Click on Menu/MacDesktops Tab;
+     * <li>7. Add IMac Item to Wish List;
+     * <li>8. Click on Menu/AllDesktops Tab;
+     * <li>9. Add Apple Item to Wish List;
+     * <li>10. Click on Home Tab;
+     * </ul>
+     * <p>
      */
 
     @BeforeClass
     public void setUp() {
-        //remove magic string
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
-
+        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
         driver = new FirefoxDriver();
         homePageObject = new HomePageObject(driver);
         homePageObject.goToHomePage()
@@ -40,33 +46,64 @@ public class WishListPageObjectTest {
                 .getMenuPageObject()
                 .clickMacDesktops()
                 .generateProductsPageObjects()
+                .clickAddToWishListByNumberOfProduct(1)
+                .goToHomePage()
+                .getMenuPageObject()
+                .showAllDesktops()
+                .generateProductsPageObjects()
                 .clickAddToWishListByNumberOfProduct(1);
     }
     @BeforeMethod
     public void getHome() {
         homePageObject.goToHomePage();
     }
+
     @AfterMethod
     public void makeScreenshots(ITestResult result) {
         if (result.getStatus() == ITestResult.FAILURE) {
             WishListPageObject.makeScreenShotSteps(driver, result.getName());
         }
     }
+
     @AfterClass
     public void tearDown() {
         driver.close();
     }
 
+    /**
+     * <b>TC-01: Test Wish List Item's Image.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Wish List Tab;
+     * <li>2. Open Wish List Page;
+     * <li>3. Verify that Image Apple couldn't be empty;
+     * </ul>
+     * <p>
+     * Expected Result: Item's image IMac is present in Wish List.
+     */
+
     @Test
     public void findIMacImgInWishList(){
-        Pattern pattern = new Pattern("E:\\Папка для sikuli/imac.png");
-        Boolean isFound = WishListPageObject
-                .findImageInScreen(homePageObject
-                        .getHeaderPageObject()
-                        .clickWishList()
-                        .doScreen(), pattern);
+        Boolean isFound = homePageObject
+                .getHeaderPageObject()
+                .clickWishList().findImageInScreen(SIKULI_IMAGE_WISH_LIST_APPLE);
         assertTrue(isFound);
     }
+
+    /**
+     * <b>TC-02: Test Wish List Alert on Category Page.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Menu/AllDesktops Tab;
+     * <li>2. Add Apple Item to Wish List;
+     * <li>3. Verify that Alert is displayed;
+     * </ul>
+     * <p>
+     * Expected Result: Alert is displayed with text "Success: Added to Wish List".
+     */
+
     @Test
     public void addItemToWishListFromMenu(){
         String actual = homePageObject
@@ -75,78 +112,151 @@ public class WishListPageObjectTest {
                 .generateProductsPageObjects()
                 .clickAddToWishListByNumberOfProduct(1)
                 .getTextFromAlertLabel();
-        String expected = "Success: You have added to your wish list!";
-        assertTrue(actual.contains(expected));
+        assertTrue(actual.contains(ALERT_WISH_LIST_SUCCESS));
     }
+
+    /**
+     * <b>TC-03: Test Wish List Alert on Item Page.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Menu/AllDesktops Tab;
+     * <li>2. Click on Apple Name Tab;
+     * <li>3. Add Apple Item to Wish List;
+     * <li>4. Verify that Alert is displayed;
+     * </ul>
+     * <p>
+     * Expected Result: Alert is displayed with text "Success: Added to Wish List".
+     */
+
     @Test
     public void addItemToWishListFromItemObject(){
         String actual = homePageObject
                 .getMenuPageObject()
                 .showAllDesktops()
                 .generateProductsPageObjects()
-                .clickAddToWishListByNumberOfProduct(1)
                 .clickToLinkedNameByNumberOfProduct(1)
                 .addToWishList()
                 .verifySuccessNotification()
                 .getTextSuccessNotification();
-        String expected = "Success: You have added to your wish list!";
-        assertTrue(actual.contains(expected));
+        assertTrue(actual.contains(ALERT_WISH_LIST_SUCCESS));
     }
+
+    /**
+     * <b>TC-04: Test Wish List Alert on Wish List Page.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Wish List Tab;
+     * <li>2. Add IMac Item to Shopping Cart;
+     * <li>3. Verify that Alert is displayed;
+     * </ul>
+     * <p>
+     * Expected Result: Alert is displayed with text "Success: Added to Shopping Cart".
+     */
+
     @Test
     public void addItemFromWishListToChoppingCart(){
-<<<<<<< HEAD
         homePageObject
                 .getHeaderPageObject()
                 .clickWishList()
-                .addItemToCart("41");
+                .addItemToCart(WISH_LIST_ID_41);
         WishListPageObject wishList = new WishListPageObject(driver);
-=======
-        headerPageObject.clickWishList().addItemToCart("41");
-        wishList = new WishListPageObject(driver);
->>>>>>> develop
         String actual = wishList.getTextFromAlertLabel();
-        String expected = "Success: You have added to your shopping cart!";
-        assertTrue(actual.contains(expected));
+        assertTrue(actual.contains(ALERT_WISH_LIST_SUCCESS));
     }
+
+    /**
+     * <b>TC-05: Test Adding Item With Parameters to Shopping Cart.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Wish List Tab;
+     * <li>2. Add Apple Item to Shopping Cart;
+     * <li>3. Verify that Current URL is on Item Page;
+     * </ul>
+     * <p>
+     * Expected Result: Current URL is with Item's ID = 42.
+     */
+
     @Test
     public void addItemWithParametersFromWishListToChoppingCart(){
         homePageObject
                 .getHeaderPageObject()
                 .clickWishList()
-                .addItemToCart("42");
+                .addItemToCart(WISH_LIST_ID_42);
         String actual = driver.getCurrentUrl();
-        String expected = "product&product_id=42";
-        assertTrue(actual.contains(expected));
+        assertTrue(actual.contains(WISH_LIST_ID_42));
     }
+
+    /**
+     * <b>TC-06: Test Removing Item from Wish List.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Wish List Tab;
+     * <li>2. Remove IMac Item from Wish List;
+     * <li>3. Verify that Item with ID = 41 isn't in Wish List;
+     * </ul>
+     * <p>
+     * Expected Result: Item with ID = 41 isn't in Wish List.
+     */
+
     @Test
     public void removeItemFromWishList(){
         Boolean expected = homePageObject
                 .getHeaderPageObject()
                 .clickWishList()
-                .removeItemFromWishList("41")
+                .removeItemFromWishList(WISH_LIST_ID_41)
                 .getMapOfItems()
-                .containsKey("41")
+                .containsKey(WISH_LIST_ID_41)
                 ? Boolean.FALSE : Boolean.TRUE;
         assertTrue(expected);
     }
+
+    /**
+     * <b>TC-07: Test Transition from Wish List to Item Page by Image.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Wish List Tab;
+     * <li>2. Click Apple's Image Tab;
+     * <li>3. Verify that Current URL is with ID = 42;
+     * </ul>
+     * <p>
+     * Expected Result: Current URL is with Item's ID = 42.
+     */
+
     @Test
     public void goToItemByImageFromWishList(){
         homePageObject
                 .getHeaderPageObject()
                 .clickWishList()
-                .clickItemImage("42");
+                .clickItemImage(WISH_LIST_ID_42);
         String actual = driver.getCurrentUrl();
-        String expected = "product&product_id=42";
-        assertTrue(actual.contains(expected));
+        assertTrue(actual.contains(WISH_LIST_ID_42));
     }
+
+    /**
+     * <b>TC-08: Test Transition from Wish List to Item Page by Name.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Wish List Tab;
+     * <li>2. Click Apple's Name Tab;
+     * <li>3. Verify that Current URL is with ID = 42;
+     * </ul>
+     * <p>
+     * Expected Result: Current URL is with Item's ID = 42.
+     */
+
     @Test
     public void goToItemByProductNameFromWishList(){
         homePageObject
                 .getHeaderPageObject()
                 .clickWishList()
-                .clickItemProductName("42");
+                .clickItemProductName(WISH_LIST_ID_42);
         String actual = driver.getCurrentUrl();
-        String expected = "product&product_id=42";
-        assertTrue(actual.contains(expected));
+        assertTrue(actual.contains(WISH_LIST_ID_42));
     }
 }

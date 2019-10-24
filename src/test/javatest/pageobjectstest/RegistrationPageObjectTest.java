@@ -16,7 +16,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
-import static Constants.*;
+import static utils.Constants.*;
 
 public class RegistrationPageObjectTest {
 

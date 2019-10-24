@@ -9,7 +9,7 @@ import pageelements.Button;
 import pageelements.TextButton;
 
 import java.util.List;
-import static Constants.*;
+import static utils.Constants.*;
 
 public class MenuPageObject extends BasePageObject {
     private List<WebElement> listOfOptions;
