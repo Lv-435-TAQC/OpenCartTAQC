@@ -16,7 +16,7 @@ public class LoginPageObject extends BasePageObject {
     private Input loginField;
     private Input passwordField;
     private Button nextButton;
-    private Button registetionButton;
+    private Button registrationButton;
     private LinkedLabel forgottenPassword;
     private Label warningMessage;
     private Label successfulMessage;
@@ -25,6 +25,12 @@ public class LoginPageObject extends BasePageObject {
         super(driver);
     }
 
+    /**
+     * This method is for log in person on website
+     * @param loginName
+     * @param password
+     * @return My account pageObject
+     */
     public MyAccountPageObject logIn(String loginName, String password) {
         this
                 .setLogInField(loginName)
@@ -34,7 +40,11 @@ public class LoginPageObject extends BasePageObject {
         return new MyAccountPageObject(driver);
     }
 
-
+    /**
+     *
+     * @param loginName
+     * @return
+     */
     public LoginPageObject setLogInField(String loginName) {
         loginField = new Input(this.driver, LoginLocators.INPUT_EMAIL_FIELD);
         loginField.setText(loginName);
@@ -54,9 +64,9 @@ public class LoginPageObject extends BasePageObject {
     }
 
 
-    public RegistrationPageObject clickToGoToRegistation() {
-        registetionButton = new Button(this.driver, LoginLocators.NEW_USER_CONTINUE_BUTTON);
-        registetionButton.click();
+    public RegistrationPageObject clickToGoToRegistration() {
+        registrationButton = new Button(this.driver, LoginLocators.NEW_USER_CONTINUE_BUTTON);
+        registrationButton.click();
         return new RegistrationPageObject(driver);
     }
 

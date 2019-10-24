@@ -49,7 +49,7 @@ public class LoginPageObjectTest {
 
     @Test
     public void clickButtonToGoToRegistrationPage() {
-        loginPageObject.clickToGoToRegistation();
+        loginPageObject.clickToGoToRegistration();
         String actual = driver.getCurrentUrl();
         String expected = REGISTRATION_PAGE;
         assertEquals(actual, expected);
