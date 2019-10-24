@@ -114,14 +114,28 @@ public class LoginPageObjectTest {
     /**
      * @throws FindFailed
      */
-    @Test(priority = 3)
-    public void sikuliTest() throws FindFailed {
+    @Test(priority = 4)
+    public void sikuliTestValidData() throws FindFailed {
         Screen screen = new Screen();
         String email = "src/main/resources/sikulipatterns/InputEmail.png";
         String password = "src/main/resources/sikulipatterns/password.png";
         String button = "src/main/resources/sikulipatterns/loginButton.png";
-        screen.type(email, "orysita.lviv@gmail.com");
+        String account = "src/main/resources/sikulipatterns/MyAccount.png";
+        screen.type(email, "orysia.benko@gmail.com");
         screen.type(password, "orysia");
         screen.click(button);
+        screen.find(account);
+    }
+    @Test(priority = 3)
+    public void sikuliTestNotValidData() throws FindFailed {
+        Screen screen = new Screen();
+        String email = "src/main/resources/sikulipatterns/InputEmail.png";
+        String password = "src/main/resources/sikulipatterns/password.png";
+        String button = "src/main/resources/sikulipatterns/loginButton.png";
+        String date = "src/main/resources/sikulipatterns/NotCorrectEmail.png";
+        screen.type(email, "orysita.benko@gmail.com");
+        screen.type(password, "orysia");
+        screen.click(button);
+        screen.find(date);
     }
 }
