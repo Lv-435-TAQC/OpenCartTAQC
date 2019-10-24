@@ -9,6 +9,7 @@ import pageobjects.WishListPageObject;
 
 import static locators.WishListLocators.LOGIN_NAME;
 import static locators.WishListLocators.LOGIN_PASSWORD;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static utils.Constants.*;
 
@@ -209,9 +210,8 @@ public class WishListPageObjectTest {
                 .clickWishList()
                 .removeItemFromWishList(WISH_LIST_ID_41)
                 .getMapOfItems()
-                .containsKey(WISH_LIST_ID_41)
-                ? Boolean.FALSE : Boolean.TRUE;
-        assertTrue(expected);
+                .containsKey(WISH_LIST_ID_41);
+        assertFalse(expected);
     }
 
     /**

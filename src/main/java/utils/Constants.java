@@ -21,8 +21,8 @@ public class Constants {
     public static final String PASSWORD_INVALID_LENGTH_MESSAGE = "Password must be between 4 and 20 characters!";
     public static final String PASSWORD_CONFIRMATION_MATCH_ERROR_MESSAGE = "Password confirmation does not match password!";
     public static final String PRIVACY_POLICY_AGREE_WARNING_MESSAGE = "Warning: You must agree to the Privacy Policy!";
-    public static final String SIKULI_IMAGE_WISH_LIST_IMAC = "E:\\Папка для sikuli/IMacWishList.png";
-    public static final String SIKULI_IMAGE_WISH_LIST_APPLE = "E:\\Папка для sikuli/Apple.png";
+    public static final String SIKULI_IMAGE_WISH_LIST_IMAC = "E:\\Folder_for_sikuli/IMacWishList.png";
+    public static final String SIKULI_IMAGE_WISH_LIST_APPLE = "E:\\Folder_for_sikuli/Apple.png";
     public static final String ALERT_WISH_LIST_SUCCESS = "Success:";
     public static final String WISH_LIST_ID_41 = "41";
     public static final String WISH_LIST_ID_42 = "42";
