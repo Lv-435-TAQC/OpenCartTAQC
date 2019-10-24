@@ -2,9 +2,7 @@ package pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
 import org.sikuli.script.FindFailed;
-import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -13,8 +11,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.HeaderPageObject;
 import pageobjects.LoginPageObject;
-
-
 
 import java.util.concurrent.TimeUnit;
 
@@ -50,7 +46,7 @@ public class LoginPageObjectTest {
 
     @AfterClass
     public void closeUp() {
-     driver.quit();
+        driver.quit();
     }
 
     @Test
@@ -116,13 +112,16 @@ public class LoginPageObjectTest {
     }
 
     /**
-     *
      * @throws FindFailed
      */
-    @Test
-    public void validateLinkedTextByImageTest() throws FindFailed {
+    @Test(priority = 3)
+    public void sikuliTest() throws FindFailed {
         Screen screen = new Screen();
-        Pattern text = new Pattern("src/main/resources/sikulipatterns/forgottenPass.png");
-        screen.find(text);
+        String email = "src/main/resources/sikulipatterns/InputEmail.png";
+        String password = "src/main/resources/sikulipatterns/password.png";
+        String button = "src/main/resources/sikulipatterns/loginButton.png";
+        screen.type(email, "orysita.lviv@gmail.com");
+        screen.type(password, "orysia");
+        screen.click(button);
     }
 }
