@@ -19,4 +19,5 @@ public class Constants {
     public static final String PASSWORD_CONFIRMATION_MATCH_ERROR_MESSAGE = "Password confirmation does not match password!";
     public static final String PRIVACY_POLICY_AGREE_WARNING_MESSAGE = "Warning: You must agree to the Privacy Policy!";
     public static final String SUCCESSFUL_REGISTRATION_URL = "http://localhost/opencart/index.php?route=account/success";
+    public static final String LOGOUT_URL = "http://localhost/opencart/index.php?route=account/logout";
 }
