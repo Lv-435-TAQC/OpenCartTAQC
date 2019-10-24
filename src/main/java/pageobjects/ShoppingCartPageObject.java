@@ -3,25 +3,24 @@ package pageobjects;
 
 import locators.ShoppingCartLocators;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
-
-import org.sikuli.script.*;
+import org.sikuli.script.Key;
+import org.sikuli.script.Match;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
 import pageelements.*;
-import pageelements.Button;
-import pageelements.Label;
 import patterns.ShoppingCartPatterns;
-
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-
-
 
 
 public class ShoppingCartPageObject extends BasePageObject {
@@ -50,14 +49,12 @@ public class ShoppingCartPageObject extends BasePageObject {
     private Label giftCertificate;
     private Label totalCost;
     private Label shoppingCartEmptyMassage;
-    Screen screen;
-    Pattern iphoneAddToCartButton;
-    Pattern scroll;
-    Pattern openShoppingCartButton;
-    Pattern quantityUpdate;
-    Pattern quantityForm;
-    Pattern message;
-    Pattern totalCostProduct;
+    private Screen screen;
+    private Pattern quantityUpdate;
+    private Pattern quantityForm;
+    private Pattern message;
+    private Pattern totalCostProduct;
+    private Pattern messageEmptyCart;
 
     public ShoppingCartPageObject(WebDriver driver) {
         super(driver);
@@ -240,38 +237,57 @@ public class ShoppingCartPageObject extends BasePageObject {
         return massageSuccessOperation.getText();
     }
 
-    public ShoppingCartPageObject addIphoneToShoppingCartSikuly() throws Exception {
-        iphoneAddToCartButton = new Pattern(ShoppingCartPatterns.IPHONE_ADD_TO_CART_BUTTON).targetOffset(10, 180);
-        scroll = new Pattern(ShoppingCartPatterns.SCROLL);
-        openShoppingCartButton = new Pattern(ShoppingCartPatterns.OPEN_SHOPPIN_CART_BUTTON);
-        screen.wait(scroll, 20);
-        screen.type(Key.PAGE_DOWN);
-        screen.find(iphoneAddToCartButton).click();
-        screen.wait(openShoppingCartButton, 20).click();
-        return this;
+
+    public Match finedElementInShoppingCartSikuly(Pattern pattern) {
+        Match match = null;
+        try {
+            match = screen.wait(pattern, 20);
+        } catch (Exception ex) {
+            System.out.println("Exception in finedElementInShoppingCartSikuly");
+        }
+        return match;
     }
 
-    public Match finedElementInShoppingCart (Pattern pattern) throws  Exception{
-        return screen.wait(pattern,20);
-    }
-
-    public ShoppingCartPageObject changeQuantityProductsSikuly() throws Exception{
+    public ShoppingCartPageObject changeQuantityProductsSikuly() {
         quantityUpdate = new Pattern(ShoppingCartPatterns.QUANTITY_UPDATE);
         quantityForm = new Pattern(ShoppingCartPatterns.QUANTITY_FORM);
         message = new Pattern(ShoppingCartPatterns.MESSAGE);
         totalCostProduct = new Pattern(ShoppingCartPatterns.TOTAL_COST_PRODUCT);
-        screen.wait(quantityForm.targetOffset(-100,0),20).click();
-        Keyboard keyboard = new DesktopKeyboard();
-        keyboard.type(Key.BACKSPACE);
-        keyboard.type("2");
-        screen.find(quantityUpdate).click();
-        screen.wait(message,20);
+        try {
+            screen.wait(quantityForm.targetOffset(-100, 0), 20).click();
+            Keyboard keyboard = new DesktopKeyboard();
+            keyboard.type(Key.BACKSPACE);
+            keyboard.type("2");
+            screen.find(quantityUpdate).click();
+            screen.wait(message, 20);
+        } catch (Exception ex) {
+            System.out.println("Exception in changeQuantityProductsSikuly()");
+        }
         return this;
     }
 
-    public String getTotalCostSikuly()throws Exception{
-        screen.wait(totalCostProduct,20);
-        String text = screen.find( ShoppingCartPatterns.TEXT).text();
+    public String removeProductSikuly() {
+        String messageCart = null;
+        quantityForm = new Pattern(ShoppingCartPatterns.QUANTITY_FORM);
+        messageEmptyCart = new Pattern(ShoppingCartPatterns.EMPTY_CART_MESSAGE);
+        try {
+            screen.wait(quantityForm.targetOffset(50, 0), 20).click();
+            messageCart = screen.wait(messageEmptyCart, 20).text();
+        } catch (Exception ex) {
+            System.out.println("Exception in removeProductSikuly() ");
+        }
+        return messageCart;
+    }
+
+    public String getTotalCostSikuly() {
+        String text = null;
+        try {
+            screen.wait(totalCostProduct, 20);
+            text = screen.find(ShoppingCartPatterns.TEXT).text();
+        } catch (Exception ex) {
+            System.out.println("Exception in getTotalCostSikuly()");
+        }
+
         String finalCost = text.trim();
         return finalCost;
     }

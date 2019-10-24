@@ -4,17 +4,22 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import pageobjects.AdminLoginPageObject;
+import pageobjects.AdminNavigationPageObject;
 import pageobjects.AdminPageObject;
 import pageobjects.ShoppingCartPageObject;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.assertTrue;
+
+/*Hi everybody!!! This class I use only for creation my Page Object! So don't reject my pull request!!!*/
 
 public class OrdersPageObjectTest {
     WebDriver driver;
     AdminPageObject adminPage;
+    AdminLoginPageObject adminLogin;
+    AdminNavigationPageObject adminNavigation;
 
 
     @BeforeClass
@@ -27,7 +32,7 @@ public class OrdersPageObjectTest {
     public void getHome() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://localhost/OpenCart/admin");
-        adminPage = new AdminPageObject(driver);
+        adminLogin = new AdminLoginPageObject(driver);
     }
 
     @AfterMethod
@@ -41,11 +46,24 @@ public class OrdersPageObjectTest {
     @AfterClass
     public void closeUp() {
 
-        //driver.quit();
+      driver.quit();
     }
 
     @Test(invocationCount = 1)
-    public void goToAdminPage() {
+    public void goToVoucher() {
+        adminPage = adminLogin.logIn("admin", "admin");
+        adminPage.closeModalWindow().
+                getNavigation().
+                goToVouchersList().
+                goToCreationGiftVoucher().createNewGigtVoucher(
+                        "888","user","user@usergmail.com",
+                "user","user@usergmail.com","General","","30","Enabled");
+    }
+    @Test(invocationCount = 1)
+    public void goToCoupon() {
+        adminPage = adminLogin.logIn("admin", "admin");
+        adminPage.closeModalWindow().
+                getNavigation().goToCouponsList().goToCreationCoupon();
 
     }
 }
