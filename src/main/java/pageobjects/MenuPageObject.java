@@ -9,7 +9,7 @@ import pageelements.Button;
 import pageelements.TextButton;
 
 import java.util.List;
-import static utils.commonconstants.Constants.*;
+import static utils.Constants.*;
 
 public class MenuPageObject extends BasePageObject {
     private List<WebElement> listOfOptions;
@@ -42,7 +42,7 @@ public class MenuPageObject extends BasePageObject {
         return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
     }
 
-    public CategoryPageObject goToMacDesktops() {
+    public CategoryPageObject clickMacDesktops() {
         desktopsOptionsButton = new TextButton(driver, MenuLocators.DESKTOP_BUTTON_LOC).click();
         this.createListOfOptions(MenuLocators.DESKTOP_OPTIONS_LOC).get(ONE).click();
         return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);

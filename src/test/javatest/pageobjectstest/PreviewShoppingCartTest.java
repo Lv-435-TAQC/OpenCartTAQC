@@ -1,4 +1,4 @@
-package javatest.pageobjectstest;
+package pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -40,7 +40,7 @@ public class PreviewShoppingCartTest {
     @Test
     public void testGetMapProductInCart() {
         String productID = home.addToCartIphone();
-        HeaderPageObject header = home.goToHeaderPage();
+        HeaderPageObject header = home.getHeaderPageObject();
         PreviewShoppingCart shoppingCartPageObject = header.getPreviewShoppingCart();
         assertTrue(shoppingCartPageObject.getMapProductInCart().containsKey(productID));
     }
@@ -49,7 +49,7 @@ public class PreviewShoppingCartTest {
     public void testRemoveProductFromShoppingCart() {
         home.addToCartIphone();
         String productID = home.addToCartMacBook();
-        HeaderPageObject header = home.goToHeaderPage();
+        HeaderPageObject header = home.getHeaderPageObject();
         PreviewShoppingCart previewShoppingCart = header.getPreviewShoppingCart();
         previewShoppingCart.removeProductFromShoppingCart(productID);
         previewShoppingCart = header.getPreviewShoppingCart();
