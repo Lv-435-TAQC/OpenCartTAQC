@@ -14,8 +14,16 @@ public class LinkedLabel extends Label {
         super(elementToParse, xpath);
     }
 
-    public Label click(){
+    public LinkedLabel(WebElement element) {
+        super(element);
+    }
+
+    public Label click() {
         this.element.click();
         return this;
+    }
+
+    public String getAttribute(String attribute) {
+        return this.element.getAttribute(attribute);
     }
 }

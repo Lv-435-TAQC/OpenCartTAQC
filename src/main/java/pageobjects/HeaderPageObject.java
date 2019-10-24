@@ -10,7 +10,8 @@ import pageelements.*;
 
 import java.util.List;
 
-import static utils.commonconstants.Constants.*;
+import static utils.Constants.*;
+
 
 public class HeaderPageObject extends BasePageObject {
     WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -27,6 +28,13 @@ public class HeaderPageObject extends BasePageObject {
     private Button currencyListButton;
     private String buttonText;
 
+    public void setWishPageButton(Button wishPageButton) {
+        this.wishPageButton = wishPageButton;
+    }
+
+    public Button getWishPageButton() {
+        return wishPageButton;
+    }
 
     public HeaderPageObject(WebDriver driver) {
         super(driver);
@@ -47,33 +55,34 @@ public class HeaderPageObject extends BasePageObject {
         return new ItemInfoPageObject(driver);
     }
 
-    public WishListPageObject goToWishList() {
-        wishPageButton = new ImageTextButton(driver, HeaderLocators.WISH_LIST_PAGE_BUTTON_LOC).click();
+    public WishListPageObject clickWishList() {
+        this.setWishPageButton(new ImageTextButton(driver, HeaderLocators.WISH_LIST_PAGE_BUTTON_LOC));
+        this.getWishPageButton().click();
         return new WishListPageObject(driver);
     }
 
-    public LoginPageObject goToLoginPage() {
+    public LoginPageObject clickLoginPage() {
         myAccountButton = new ImageTextButton(driver, HeaderLocators.MY_ACCOUNT_BUTTON_LOC).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(HeaderLocators.LOGIN_PAGE_BUTTON_LOC)));
         loginPageButton = new TextButton(driver, HeaderLocators.LOGIN_PAGE_BUTTON_LOC).click();
         return new LoginPageObject(driver);
     }
 
-    public RegistrationPageObject goToRegistrationPage() {
+    public RegistrationPageObject clickRegistrationPage() {
         myAccountButton = new ImageTextButton(driver, HeaderLocators.MY_ACCOUNT_BUTTON_LOC).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(HeaderLocators.REGISTRATION_PAGE_BUTTON_LOC)));
         registrationPageButton = new TextButton(driver, HeaderLocators.REGISTRATION_PAGE_BUTTON_LOC).click();
         return new RegistrationPageObject(driver);
     }
 
-    public ShoppingCartPageObject goToShoppingCartPage() {
+    public ShoppingCartPageObject clickShoppingCartPage() {
         shoppingCartButton = new ImageTextButton(driver, HeaderLocators.SHOPPING_CART_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
     }
 
 
-    public ShoppingCartPageObject goToCheckoutCartPage(){
-        checkoutButton = new ImageTextButton(driver,HeaderLocators.CHECKOUT_PAGE_BUTTON_LOC).click();
+    public ShoppingCartPageObject goToCheckoutCartPage() {
+        checkoutButton = new ImageTextButton(driver, HeaderLocators.CHECKOUT_PAGE_BUTTON_LOC).click();
         return new ShoppingCartPageObject(driver);
     }
 

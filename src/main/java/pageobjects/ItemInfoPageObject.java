@@ -58,13 +58,13 @@ public class ItemInfoPageObject extends BasePageObject {
 
 
     public ItemInfoPageObject enterName() {
-        nameField = new Input(this.driver, NAME_INPUT_FIELD).setTextForField("TEST NAME");
+        nameField = new Input(this.driver, NAME_INPUT_FIELD).setText("TEST NAME");
         return new ItemInfoPageObject(this.driver);
     }
 
 
     public ItemInfoPageObject enterReview() {
-        reviewField = new Input(this.driver, REVIEW_INPUT_FIELD).setTextForField("TEST REVIEW TEXT ");
+        reviewField = new Input(this.driver, REVIEW_INPUT_FIELD).setText("TEST REVIEW TEXT ");
         return new ItemInfoPageObject(this.driver);
     }
 
@@ -101,7 +101,7 @@ public class ItemInfoPageObject extends BasePageObject {
 
 
     public ItemInfoPageObject enterItemsQuantity(){
-        quantityInputField = new Input(this.driver, QUANTITY_INPUT_FIELD).setTextForField("2");
+        quantityInputField = new Input(this.driver, QUANTITY_INPUT_FIELD).setText("2");
         return new ItemInfoPageObject(driver);
     }
 
@@ -115,13 +115,17 @@ public class ItemInfoPageObject extends BasePageObject {
         return new ItemInfoPageObject(this.driver);
     }
 
-    public ItemInfoPageObject goToHomePage(){
+    public HomePageObject goToHomePage(){
         homePageButton = new Button(this.driver, HOME_BUTTON).click();
-        return new ItemInfoPageObject(this.driver);
+        return new HomePageObject(this.driver);
     }
 
     public ItemInfoPageObject verifySuccessNotification(){
         successNotificationMessage = new NotificationMeassage(this.driver,SUCCESS_NOTIFICATION_MESSAGE).isDisplayed();
         return new ItemInfoPageObject(this.driver);
     }
+    public String getTextSuccessNotification(){
+        return new NotificationMeassage(this.driver,SUCCESS_NOTIFICATION_MESSAGE).getText();
+    }
+
 }

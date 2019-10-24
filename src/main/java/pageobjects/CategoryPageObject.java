@@ -1,5 +1,6 @@
 package pageobjects;
 
+import entity.Product;
 import locators.CategoryLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,136 +13,102 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryPageObject extends BasePageObject {
+    private Label categoryNameLabel;
     private List<WebElement> elements;
     private Label alertLabel;
-    private ArrayList<ProductUnitPageObject> products;
+    private ArrayList<ProductUnitPageObject> productsPO;
+    private ArrayList<Product> products;
     private FilterPageObject filterPageObject;
+    private String productsXpath;
+    private NavigationMenuPageObject navigationMenuPageObject;
 
-
-    public CategoryPageObject(WebDriver driver) {
+    public CategoryPageObject(WebDriver driver, String productsXpath) {
         super(driver);
-        filterPageObject = new FilterPageObject(this.driver);
-        generateProductsPageObject();
+        this.productsXpath = productsXpath;
+        filterPageObject = new FilterPageObject(this.driver, productsXpath);
+        generateProductsPageObjects();
     }
 
 
     private List<WebElement> getAllProductsElementsFromPage() {
-        elements = driver.findElements(By.xpath(CategoryLocators.ALL_PRODUCTS_DIV_LOC));
+        elements = driver.findElements(By.xpath(productsXpath));
         return elements;
     }
 
-    public CategoryPageObject generateProductsPageObject() {
+    public CategoryPageObject generateProductsPageObjects() {
         WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CategoryLocators.FIRST_PRODUCT_LOC)));
-        products = new ArrayList<ProductUnitPageObject>();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(productsXpath)));
+        productsPO = new ArrayList<ProductUnitPageObject>();
         getAllProductsElementsFromPage();
         for (int i = 0; i < elements.size(); i++) {
-            products.add(new ProductUnitPageObject(this.driver, elements.get(i)));
+            productsPO.add(new ProductUnitPageObject(this.driver, elements.get(i)));
+        }
+        return this;
+    }
+
+    public CategoryPageObject generateProductsList() {
+        Product product;
+        generateProductsPageObjects();
+        products.clear();
+        for (int i = 0; i < productsPO.size(); i++) {
+            product = new Product();
+            product.setId(productsPO.get(i).getIdOfProduct());
+            product.setProductName(productsPO.get(i).getNameOfProduct());
+            product.setDimensions(productsPO.get(i).getDescriptionOfProduct());
+            product.setPrise(Double.parseDouble(productsPO.get(i).getNewPrice()));
+            products.add(product);
         }
         return this;
     }
 
     public ItemInfoPageObject clickToImageByNumberOfProduct(int numberOfProduct) {
-        products.get(numberOfProduct - 1).clickProductImage();
+        productsPO.get(numberOfProduct - 1).clickProductImage();
         return new ItemInfoPageObject(this.driver);
     }
 
-    public ItemInfoPageObject clickToLinkedNameOfProduct(int numberOfProduct) {
-        products.get(numberOfProduct - 1).clickLinkedProductName();
+    public ItemInfoPageObject clickToLinkedNameByNumberOfProduct(int numberOfProduct) {
+        productsPO.get(numberOfProduct - 1).clickLinkedProductName();
         return new ItemInfoPageObject(this.driver);
     }
 
-    public ItemInfoPageObject clickToAddToCard(int numberOfProduct) {
-        products.get(numberOfProduct - 1).clickAddToCardButton();
+    public ItemInfoPageObject clickToAddToCardByNumberOfProduct(int numberOfProduct) {
+        productsPO.get(numberOfProduct - 1).clickAddToCardButton();
         return new ItemInfoPageObject(this.driver);
     }
 
-    public CategoryPageObject clickAddToWishList(int numberOfProduct) {
-        products.get(numberOfProduct - 1).clickAddToWishList();
+    public CategoryPageObject clickAddToWishListByNumberOfProduct(int numberOfProduct) {
+        productsPO.get(numberOfProduct - 1).clickAddToWishList(productsXpath);
         return this;
     }
 
-    public CategoryPageObject clickCompareThisProduct(int numberOfProduct) {
-        products.get(numberOfProduct - 1).clickCompareThisProduct();
+    public CategoryPageObject clickCompareThisProductByNumberOfProduct(int numberOfProduct) {
+        productsPO.get(numberOfProduct - 1).clickCompareThisProduct(productsXpath);
         return this;
     }
 
-    public String getNameOfProduct(int numberOfProduct) {
-        return products.get(numberOfProduct-1).getNameOfProduct();
+    public String getNameOfProductByNumberOfProduct(int numberOfProduct) {
+        return productsPO.get(numberOfProduct - 1).getNameOfProduct();
     }
 
-    public String getDescriptionOfProduct(int numberOfProduct) {
-        return products.get(numberOfProduct - 1).getDescriptionOfProduct();
+    public String getDescriptionOfProductByNumberOfProduct(int numberOfProduct) {
+        return productsPO.get(numberOfProduct - 1).getDescriptionOfProduct();
     }
 
-    public String getOldPrice(int numberOfProduct) {
-        return products.get(numberOfProduct - 1).getOldPrice();
+    public String getOldPriceByNumberOfProduct(int numberOfProduct) {
+        return productsPO.get(numberOfProduct - 1).getOldPrice();
     }
 
-    public String getNewPrice(int numberOfProduct) {
-        return products.get(numberOfProduct - 1).getNewPrice();
+    public String getNewPriceByNumberOfProduct(int numberOfProduct) {
+        return productsPO.get(numberOfProduct - 1).getNewPrice();
     }
 
-    public String getExTax(int numberOfProduct) {
-        return products.get(numberOfProduct - 1).getExTax();
+    public String getExTaxByNumberOfProduct(int numberOfProduct) {
+        return productsPO.get(numberOfProduct - 1).getExTax();
     }
 
-    public CategoryPageObject clickListButton() {
-        filterPageObject.clickListButton();
-        generateProductsPageObject();
-        return this;
-    }
 
-    public CategoryPageObject clickGridButton() {
-        filterPageObject.clickGridButton();
-        generateProductsPageObject();
-        return this;
-    }
-
-    public CategoryPageObject clickProductCompere() {
-        filterPageObject.clickProductCompare();
-        generateProductsPageObject();
-        return this;
-    }
-
-    public CategoryPageObject choseSortBySelectorByParam(String param) {
-        filterPageObject.choseSortBySelectorByParam(param);
-        generateProductsPageObject();
-        return this;
-    }
-
-    public CategoryPageObject choseSortBySelectorByID(int id) {
-        filterPageObject.choseSortBySelectorByID(id);
-        generateProductsPageObject();
-        return this;
-    }
-
-    public CategoryPageObject choseShowSelectorByParam(String param) {
-        filterPageObject.choseShowSelectorByParam(param);
-        generateProductsPageObject();
-        return this;
-    }
-
-    public CategoryPageObject choseShowSelectorByID(int id) {
-        filterPageObject.choseShowSelectorByID(id);
-        generateProductsPageObject();
-        return this;
-    }
-
-    public String getShowLabelText() {
-        return filterPageObject.getShowLabelText();
-    }
-
-    public String getSortByLabelText() {
-        return filterPageObject.getSortByLabelText();
-    }
-
-    public String getProductCompareText() {
-        return filterPageObject.getProductCompareText();
-    }
-
-    public ArrayList<ProductUnitPageObject> getProducts() {
-        return products;
+    public ArrayList<ProductUnitPageObject> getProductsPO() {
+        return productsPO;
     }
 
     public String getTextFromAlertLabel() {
@@ -149,5 +116,139 @@ public class CategoryPageObject extends BasePageObject {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CategoryLocators.ALERT_LABEL_LOC)));
         alertLabel = new Label(this.driver, CategoryLocators.ALERT_LABEL_LOC);
         return alertLabel.getText();
+    }
+
+    public String getCategoryName() {
+        categoryNameLabel = new Label(driver, CategoryLocators.CATEGORY_NAME_LABEL_LOC);
+        return categoryNameLabel.getText();
+    }
+
+    public CategoryPageObject clickAddToWishListByID(Integer id) {
+        for (int i = 0; i < productsPO.size(); i++) {
+            if (productsPO.get(i).getIdOfProduct() == id) {
+                productsPO.get(i).clickAddToWishList(productsXpath);
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickAddToWishListByNameOfProduct(String nameOfProduct) {
+        generateProductsList();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(nameOfProduct)) {
+                productsPO.get(i).clickAddToWishList(productsXpath);
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickAddToWishListByProduct(Product product) {
+        generateProductsList();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(product.getProductName())) {
+                productsPO.get(i).clickAddToWishList(productsXpath);
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickAddToCardByID(Integer id) {
+        for (int i = 0; i < productsPO.size(); i++) {
+            if (productsPO.get(i).getIdOfProduct() == id) {
+                productsPO.get(i).clickAddToCardButton();
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickAddToCardByNameOfProduct(String nameOfProduct) {
+        generateProductsList();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(nameOfProduct)) {
+                productsPO.get(i).clickAddToCardButton();
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickAddToCardByProduct(Product product) {
+        generateProductsList();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(product.getProductName())) {
+                productsPO.get(i).clickAddToCardButton();
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickCompareThisProductByID(Integer id) {
+        for (int i = 0; i < productsPO.size(); i++) {
+            if (productsPO.get(i).getIdOfProduct() == id) {
+                productsPO.get(i).clickCompareThisProduct(productsXpath);
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickCompareThisProductByNameOfProduct(String nameOfProduct) {
+        generateProductsList();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(nameOfProduct)) {
+                productsPO.get(i).clickCompareThisProduct(productsXpath);
+            }
+        }
+        return this;
+    }
+
+    public CategoryPageObject clickCompareThisProductByProduct(Product product) {
+        generateProductsList();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(product.getProductName())) {
+                productsPO.get(i).clickCompareThisProduct(productsXpath);
+            }
+        }
+        return this;
+    }
+
+    public Product getProductByID(Integer id) {
+        generateProductsList();
+        Product product = new Product();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getId() == id) {
+                product = products.get(i);
+            }
+        }
+        return product;
+    }
+
+    public Product getProductByPosition(Integer position) {
+        return products.get(position);
+
+    }
+
+    public Product getProductByName(String name) {
+        generateProductsList();
+        Product product = new Product();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getProductName().contains(name)) {
+                product = products.get(i);
+            }
+        }
+        return product;
+    }
+
+    public ArrayList<Product> getProducts() {
+        generateProductsList();
+        return products;
+    }
+
+    public NavigationMenuPageObject getNavigationMenuPageObject() {
+        return navigationMenuPageObject;
+
+    }
+
+    public FilterPageObject getFilterPageObject() {
+        filterPageObject = new FilterPageObject(this.driver, productsXpath);
+        return filterPageObject;
     }
 }

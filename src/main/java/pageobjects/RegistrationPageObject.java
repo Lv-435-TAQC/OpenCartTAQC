@@ -1,6 +1,11 @@
 package pageobjects;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
 import pageelements.Button;
 import pageelements.Checkbox;
 import pageelements.Input;
@@ -24,37 +29,37 @@ public class RegistrationPageObject extends BasePageObject {
 
     public RegistrationPageObject setDataToFirstNameField(String firstName) {
         this.fieldFirstName = new Input(driver, FIRST_NAME_FIELD_XPATH);
-        this.fieldFirstName.setTextForField(firstName);
+        this.fieldFirstName.setText(firstName);
         return this;
     }
 
     public RegistrationPageObject setDataToLastNameField(String lastName) {
         this.fieldLastName = new Input(driver, LAST_NAME_FIELD_XPATH);
-        this.fieldLastName.setTextForField(lastName);
+        this.fieldLastName.setText(lastName);
         return this;
     }
 
     public RegistrationPageObject setDataToEmailField(String email) {
         this.fieldEmail = new Input(driver, EMAIL_FIELD_XPATH);
-        this.fieldEmail.setTextForField(email);
+        this.fieldEmail.setText(email);
         return this;
     }
 
     public RegistrationPageObject setDataToTelephoneField(String telephone) {
         this.fieldTelephone = new Input(driver, TELEPHONE_FIELD_XPATH);
-        this.fieldTelephone.setTextForField(telephone);
+        this.fieldTelephone.setText(telephone);
         return this;
     }
 
     public RegistrationPageObject setDataToPasswordField(String password) {
         this.fieldPassword = new Input(driver, PASSWORD_FIELD_XPATH);
-        this.fieldPassword.setTextForField(password);
+        this.fieldPassword.setText(password);
         return this;
     }
 
     public RegistrationPageObject setDataToPasswordConfirmField(String passwordConfirm) {
         this.fieldPasswordConfirm = new Input(driver, PASSWORD_CONFIRM_FIELD_XPATH);
-        this.fieldPasswordConfirm.setTextForField(passwordConfirm);
+        this.fieldPasswordConfirm.setText(passwordConfirm);
         return this;
     }
 
@@ -72,5 +77,38 @@ public class RegistrationPageObject extends BasePageObject {
 
     public Input getFieldEmail() {
         return fieldEmail;
+    }
+
+    public RegistrationPageObject typeTextToPattern(Screen screen, Pattern pattern, String text) {
+        try {
+            waitForPattern(screen, pattern, 20);
+            screen.type(pattern, text);
+        } catch (FindFailed findFailed) {
+            findFailed.printStackTrace();
+        }
+        return this;
+    }
+
+    public RegistrationPageObject clickOnPattern(Screen screen, Pattern pattern) {
+        try {
+            screen.click(pattern);
+        } catch (FindFailed findFailed) {
+            findFailed.printStackTrace();
+        }
+        return this;
+    }
+
+    public RegistrationPageObject waitForPattern(Screen screen, Pattern pattern, int duration) {
+        try {
+            screen.wait(pattern, duration);
+        } catch (FindFailed findFailed) {
+            findFailed.printStackTrace();
+        }
+        return this;
+    }
+
+    public RegistrationPageObject waitForUrlToBe(String url) {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.urlToBe(url));
+        return this;
     }
 }

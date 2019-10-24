@@ -9,4 +9,5 @@ public class SearchLocators {
     public static final String RETURN_TEXT_WITH_FALSE_DATA_XPATH = "//*[@id=\"content\"]/p[2]";
     public static final String RETURN_FIRST_ELEMENT_NAME_XPATH ="//*[@id=\"content\"]/div[3]/div[1]/div/div[2]/div[1]/h4/a";
     public static final String SEARCH_IN_PRODUCT_DESCRIPTION_BUTTON_XPATH ="//*[@id=\"description\"]";
+    public static final String FIFTH_ELEMENT_OF_CATEGORIES = "//*[@id=\"content\"]/div/div[2]/select/option[5]";
 }

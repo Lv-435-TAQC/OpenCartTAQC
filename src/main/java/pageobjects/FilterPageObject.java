@@ -16,21 +16,23 @@ public class FilterPageObject extends BasePageObject {
     private DropDown sortByDropDown;
     private Label showLabel;
     private DropDown showDropDown;
+    private String xpath;
 
-    public FilterPageObject(WebDriver driver) {
+    public FilterPageObject(WebDriver driver, String xpath) {
         super(driver);
+        this.xpath = xpath;
     }
 
     public CategoryPageObject clickListButton() {
         listButton = new ImageTextButton(this.driver, FilterLocators.SHOW_LIST_BUTTON_LOC);
         listButton.click();
-        return new CategoryPageObject(this.driver);
+        return new CategoryPageObject(this.driver, xpath);
     }
 
     public CategoryPageObject clickGridButton() {
         gridButton = new ImageTextButton(this.driver, FilterLocators.SHOW_GRID_BUTTON_LOC);
         gridButton.click();
-        return new CategoryPageObject(this.driver);
+        return new CategoryPageObject(this.driver, xpath);
     }
 
     public ProductComparePageObject clickProductCompare() {
@@ -52,13 +54,13 @@ public class FilterPageObject extends BasePageObject {
     public CategoryPageObject choseSortBySelectorByParam(String param) {
         sortByDropDown = new DropDown(driver, FilterLocators.SORT_BY_SELECTOR_LOC);
         sortByDropDown.writeOptionParameter(param);
-        return new CategoryPageObject(this.driver);
+        return new CategoryPageObject(this.driver, xpath);
     }
 
-    public CategoryPageObject choseSortBySelectorByID(int id) {
+    public CategoryPageObject choseSortBySelectorByID(int id, String xpath) {
         sortByDropDown = new DropDown(driver, FilterLocators.SORT_BY_SELECTOR_LOC);
         sortByDropDown.writeOrdinalIndex(id);
-        return new CategoryPageObject(this.driver);
+        return new CategoryPageObject(this.driver, xpath);
     }
 
     public String getShowLabelText() {
@@ -69,13 +71,13 @@ public class FilterPageObject extends BasePageObject {
     public CategoryPageObject choseShowSelectorByParam(String param) {
         showDropDown = new DropDown(driver, FilterLocators.SHOW_SELECTOR_LOC);
         showDropDown.writeOptionParameter(param);
-        return new CategoryPageObject(this.driver);
+        return new CategoryPageObject(this.driver, xpath);
     }
 
     public CategoryPageObject choseShowSelectorByID(int id) {
         showDropDown = new DropDown(driver, FilterLocators.SHOW_SELECTOR_LOC);
         showDropDown.writeOrdinalIndex(id);
-        return new CategoryPageObject(this.driver);
+        return new CategoryPageObject(this.driver, xpath);
     }
 
 }

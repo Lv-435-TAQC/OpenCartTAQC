@@ -1,4 +1,4 @@
-package javatest.pageobjectstest;
+package pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -21,10 +21,10 @@ import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.assertEquals;
 
 public class LoginPageObjectTest {
-    public static final String HOME_PAGE = "http://192.168.184.130/opencart/index.php?route=common/home";
-    public static final String REGISTRATION_PAGE = "http://192.168.184.130/opencart/index.php?route=account/register";
-    public static final String FORGOTTEN_PAGE = "http://192.168.184.130/opencart/index.php?route=account/forgotten";
-    public static final String ACCOUNT_PAGE = "http://192.168.184.130/opencart/index.php?route=account/account";
+    public static final String HOME_PAGE = "http://localhost/opencart/index.php?route=common/home";
+    public static final String REGISTRATION_PAGE = "http://localhost/opencart/index.php?route=account/register";
+    public static final String FORGOTTEN_PAGE = "http://localhost/opencart/index.php?route=account/forgotten";
+    public static final String ACCOUNT_PAGE = "http://localhost/opencart/index.php?route=account/account";
     WebDriver driver;
     HeaderPageObject headerPageObject;
     LoginPageObject loginPageObject;
@@ -37,14 +37,14 @@ public class LoginPageObjectTest {
         driver = new FirefoxDriver();
         headerPageObject = new HeaderPageObject(driver);
         driver.get(HOME_PAGE);
-        headerPageObject.goToLoginPage();
+        headerPageObject.clickLoginPage();
         loginPageObject = new LoginPageObject(this.driver);
     }
 
     @BeforeMethod
     public void getLogin() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        headerPageObject.goToLoginPage();
+        headerPageObject.clickLoginPage();
         loginPageObject = new LoginPageObject(this.driver);
     }
 

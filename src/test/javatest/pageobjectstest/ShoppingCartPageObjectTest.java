@@ -2,10 +2,14 @@ package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.sikuli.script.Match;
+import org.sikuli.script.Pattern;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.HomePageObject;
 import pageobjects.ShoppingCartPageObject;
+import patterns.ShoppingCartPatterns;
+import utils.Constants;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -19,7 +23,7 @@ public class ShoppingCartPageObjectTest {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", Constants.PATH_TO_DRIVER);
         driver = new FirefoxDriver();
     }
 
@@ -41,7 +45,7 @@ public class ShoppingCartPageObjectTest {
     @AfterClass
     public void closeUp() {
 
-       driver.quit();
+        driver.quit();
 
     }
 
@@ -50,12 +54,36 @@ public class ShoppingCartPageObjectTest {
         String productID = home.addToCartIphone();
         assertTrue(home.goToShoppingCartPage().getShoppingProductsList().containsKey(productID));
     }
+
     @Test(invocationCount = 1)
-    public void testAddProductToShoppingCartUseSikuli()throws Exception {
-       ShoppingCartPageObject shoppingCartPageObject = new ShoppingCartPageObject(driver);
-       shoppingCartPageObject.addIphoneToShoppingCart();
-        assertEquals("","");
+    public void testAddProductToShoppingCartUseSikuli() {
+        Match match = new HomePageObject(driver).
+                addIphoneToShoppingCartSikuly().
+                openShoppingCartSikuly().
+                finedElementInShoppingCartSikuly(new Pattern(ShoppingCartPatterns.IPHONE_IN_SHOPPING_CART));
+        assertNotNull(match);
     }
+
+    @Test(invocationCount = 1)
+    public void testChangingQuantityProductsUseSikuli() {
+        String actual = new HomePageObject(driver).
+                addIphoneToShoppingCartSikuly().
+                openShoppingCartSikuly().
+                changeQuantityProductsSikuly().
+                getTotalCostSikuly().split(" ")[1];
+        String expected = "$246.40";
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    public void testRemoveProductFromCartUseSikuli() {
+        String actual = new HomePageObject(driver).
+                addIphoneToShoppingCartSikuly().
+                openShoppingCartSikuly().
+                removeProductSikuly();
+        assertEquals(actual, "Yourshopping cart is empty!");
+    }
+
 
     @Test
     public void testRemoveProductFromCart() {
@@ -63,12 +91,11 @@ public class ShoppingCartPageObjectTest {
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.removeProductFromCart(productID);
         String actual = shoppingCartPageObject.getCartEmptyMassage();
-        ShoppingCartPageObject.makeScreenShotSteps(driver, "correct ID");
         assertEquals(actual, "Your shopping cart is empty!");
     }
 
     @Test
-    public void testChangingQuantityProducts() {
+    public void testChangingQuantityProducts() throws InterruptedException {
         String productID = home.addToCartIphone();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         String expected = "$246.40";
@@ -76,6 +103,7 @@ public class ShoppingCartPageObjectTest {
         shoppingCartPageObject.updateProductQuantityInCart(productID);
         String actual = shoppingCartPageObject.getTotalCostProductInCart(productID);
         assertEquals(actual, expected);
+
     }
 
     @DataProvider(name = "invalidDataQuantityProducts")

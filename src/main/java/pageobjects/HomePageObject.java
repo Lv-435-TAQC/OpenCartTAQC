@@ -6,18 +6,29 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.sikuli.script.Key;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
 import pageelements.Button;
+import patterns.ShoppingCartPatterns;
 
 public class HomePageObject extends BasePageObject {
     public HeaderPageObject headerPageObject;
-    public HeaderPageObject menuPageObject;
-    Button iphoneAddToCart;
-    WebElement productIphone;
-    Button macBookAddToCart;
-    WebElement productMacBook;
+    public MenuPageObject menuPageObject;
+    private Button iphoneAddToCart;
+    private WebElement productIphone;
+    private Button macBookAddToCart;
+    private WebElement productMacBook;
+    private Screen screen;
+    private Pattern iphoneAddToCartButton;
+    private Pattern scroll;
+    private Pattern openShoppingCartButton;
 
     public HomePageObject(WebDriver driver) {
         super(driver);
+        this.headerPageObject = new HeaderPageObject(driver);
+        this.menuPageObject = new MenuPageObject(driver);
+        screen = new Screen();
     }
 
     public String addToCartIphone() {
@@ -42,9 +53,35 @@ public class HomePageObject extends BasePageObject {
         driver.navigate().to("http://localhost/OpenCart/index.php?route=checkout/cart");
         return new ShoppingCartPageObject(driver);
     }
+    public HomePageObject addIphoneToShoppingCartSikuly() {
+        iphoneAddToCartButton = new Pattern(ShoppingCartPatterns.IPHONE_ADD_TO_CART_BUTTON).targetOffset(10, 180);
+        scroll = new Pattern(ShoppingCartPatterns.SCROLL);
 
-    public HeaderPageObject goToHeaderPage() {
+        try {
+            screen.wait(scroll, 20);
+            screen.type(Key.PAGE_DOWN);
+            screen.find(iphoneAddToCartButton).click();
+        } catch (Exception ex) {
+            System.out.println("Exception in addIphoneToShoppingCartSikuly()");
+        }
+
+        return this;
+    }
+    public ShoppingCartPageObject openShoppingCartSikuly(){
+        openShoppingCartButton = new Pattern(ShoppingCartPatterns.OPEN_SHOPPIN_CART_BUTTON);
+        try {
+        screen.wait(openShoppingCartButton, 20).click();
+        } catch (Exception ex) {
+            System.out.println("Exception in openShoppingCartSikuly()");
+        }
+        return new ShoppingCartPageObject(driver);
+    }
+
+    public HeaderPageObject getHeaderPageObject() {
         return new HeaderPageObject(driver);
+    }
+    public MenuPageObject getMenuPageObject(){
+        return this.menuPageObject;
     }
 
     public String getURL() {

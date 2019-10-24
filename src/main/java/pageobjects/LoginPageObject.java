@@ -37,13 +37,13 @@ public class LoginPageObject extends BasePageObject {
 
     public LoginPageObject setLogInField(String loginName) {
         loginField = new Input(this.driver, LoginLocators.INPUT_EMAIL_FIELD);
-        loginField.setTextForField(loginName);
+        loginField.setText(loginName);
         return this;
     }
 
     public LoginPageObject setPasswordField(String password) {
         passwordField = new Input(this.driver, LoginLocators.INPUT_PASSWORD_FIELD);
-        passwordField.setTextForField(password);
+        passwordField.setText(password);
         return this;
     }
 
