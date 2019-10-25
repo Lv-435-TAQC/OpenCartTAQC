@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.sikuli.script.Screen;
+import org.sikuli.script.FindFailed;
 import pageelements.Button;
 import pageelements.Input;
 import pageelements.Label;
@@ -20,6 +22,12 @@ public class LoginPageObject extends BasePageObject {
     private LinkedLabel forgottenPassword;
     private Label warningMessage;
     private Label successfulMessage;
+    Screen screen = new Screen();
+    String email = "src/main/resources/sikulipatterns/InputEmail.png";
+    String password = "src/main/resources/sikulipatterns/password.png";
+    String button = "src/main/resources/sikulipatterns/loginButton.png";
+    String date = "src/main/resources/sikulipatterns/NotCorrectEmail.png";
+    String account = "src/main/resources/sikulipatterns/MyAccount.png";
 
     public LoginPageObject(WebDriver driver) {
         super(driver);
@@ -33,7 +41,6 @@ public class LoginPageObject extends BasePageObject {
 
         return new MyAccountPageObject(driver);
     }
-
 
     public LoginPageObject setLogInField(String loginName) {
         loginField = new Input(this.driver, LoginLocators.INPUT_EMAIL_FIELD);
@@ -85,5 +92,31 @@ public class LoginPageObject extends BasePageObject {
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ForgottenPasswordLocators.SENT_INFORMATION_FOR_FORGOTTEN_PASSWORD)));
         successfulMessage = new Label(this.driver, ForgottenPasswordLocators.SENT_INFORMATION_FOR_FORGOTTEN_PASSWORD);
         return this.successfulMessage.getText();
+    }
+    public Boolean testSikuliBad()
+    {
+        screen.type(email, "orysita.benko@gmail.com");
+        screen.type(password, "orysia");
+        try {
+            screen.click(button);
+            screen.find(date);
+            return true;
+        } catch (FindFailed findFailed) {
+            findFailed.printStackTrace();
+            return false;
+        }
+    }
+    public Boolean testSikuliGood()
+    {
+        screen.type(email, "orysia.benko@gmail.com");
+        screen.type(password, "orysia");
+        try {
+            screen.click(button);
+            screen.find(account);
+            return true;
+        } catch (FindFailed findFailed) {
+            findFailed.printStackTrace();
+            return false;
+        }
     }
 }

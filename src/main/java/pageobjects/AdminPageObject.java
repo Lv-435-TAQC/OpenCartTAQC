@@ -16,6 +16,10 @@ public class AdminPageObject extends BasePageObject {
     private AdminNavigationPageObject navigationPageObject;
     private Button closeButton;
 
+    /**
+     *
+     * @param driver
+     */
     public AdminPageObject(WebDriver driver) {
         super(driver);
         navigationPageObject = new AdminNavigationPageObject(driver);

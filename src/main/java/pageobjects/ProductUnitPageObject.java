@@ -77,8 +77,8 @@ public class ProductUnitPageObject extends BasePageObject {
         return linkedProductName.getText();
     }
 
-    public String getIdOfProduct() {
+    public Integer getIdOfProduct() {
         linkedProductName = new LinkedLabel(elementToParse, ProductUnitLocators.HREF_NAME_LOC);
-        return linkedProductName.getAttribute("href").split("=")[2];
+        return Integer.parseInt(linkedProductName.getAttribute("href").split("=")[2]);
     }
 }
