@@ -29,7 +29,6 @@ public class AdminCategoriesPageObjectTests {
     public void getHome() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://192.168.186.129/opencart/admin/index.php?route=common/dashboard&user_token=ZMuBLJtL0IzVqWvTS8J1UUvWCEwiVh2s");
-        search = new AdminCategoriesPageObject(driver);
         admin = new AdminLoginPageObject(driver);
         navigation = new AdminNavigationPageObject(driver);
         admin.logIn("admin", "admin").closeModalWindow();
@@ -37,7 +36,7 @@ public class AdminCategoriesPageObjectTests {
 
         @AfterClass
     public void closeUp() {
-//        driver.quit();
+        driver.quit();
     }
 
     @Test
@@ -72,7 +71,6 @@ public class AdminCategoriesPageObjectTests {
     @Test
     public  void testDeleteCategories(){
         navigation.goToCategories()
-                .chooseCategoriesFromCategoriesList()
-                .deleteCategoriesFromCategoriesList();
+                .changeSomethingInCategories();
     }
 }
