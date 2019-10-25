@@ -2,8 +2,6 @@ package pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.sikuli.script.FindFailed;
-import org.sikuli.script.Screen;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -15,6 +13,7 @@ import pageobjects.LoginPageObject;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class LoginPageObjectTest {
     public static final String HOME_PAGE = "http://localhost/opencart/index.php?route=common/home";
@@ -111,31 +110,14 @@ public class LoginPageObjectTest {
         assertEquals(actual, expected);
     }
 
-    /**
-     * @throws FindFailed
-     */
     @Test(priority = 4)
-    public void sikuliTestValidData() throws FindFailed {
-        Screen screen = new Screen();
-        String email = "src/main/resources/sikulipatterns/InputEmail.png";
-        String password = "src/main/resources/sikulipatterns/password.png";
-        String button = "src/main/resources/sikulipatterns/loginButton.png";
-        String account = "src/main/resources/sikulipatterns/MyAccount.png";
-        screen.type(email, "orysia.benko@gmail.com");
-        screen.type(password, "orysia");
-        screen.click(button);
-        screen.find(account);
+    public void SikuliTestValidData(){
+        Boolean isFound=  loginPageObject.testSikuliGood();
+        assertTrue(isFound);
     }
     @Test(priority = 3)
-    public void sikuliTestNotValidData() throws FindFailed {
-        Screen screen = new Screen();
-        String email = "src/main/resources/sikulipatterns/InputEmail.png";
-        String password = "src/main/resources/sikulipatterns/password.png";
-        String button = "src/main/resources/sikulipatterns/loginButton.png";
-        String date = "src/main/resources/sikulipatterns/NotCorrectEmail.png";
-        screen.type(email, "orysita.benko@gmail.com");
-        screen.type(password, "orysia");
-        screen.click(button);
-        screen.find(date);
+    public void SikuliTestNotValidData() {
+        Boolean isFound=  loginPageObject.testSikuliBad();
+        assertTrue(isFound);
     }
 }
