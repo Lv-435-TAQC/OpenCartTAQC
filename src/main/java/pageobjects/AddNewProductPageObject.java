@@ -101,17 +101,9 @@ public class AddNewProductPageObject extends BasePageObject{
         return this;
     }
 
-    public AddNewProductPageObject clickPhoto(){
+    public AddNewProductPageObject setPhoto(){
         productPhotoButton = new ImageButton(driver,AddNewProductsLocators.PHOTO_LOC).click();
-        return this;
-    }
-
-    public AddNewProductPageObject editPhoto(){
         editPhotoButton = new ImageButton(driver,AddNewProductsLocators.EDIT_PHOTO_BUTTON_LOC).click();
-        return this;
-    }
-
-    public AddNewProductPageObject selectPhoto(){
         selectPhotoButton = new TextButton(driver,AddNewProductsLocators.SELECT_PHOTO_LOC).click();
         return this;
     }

@@ -61,9 +61,7 @@ public class AddNewProductTest {
                 .setManufactures("Apple")
                 .setCategories("Tablets")
                 .clickImage()
-                .clickPhoto()
-                .editPhoto()
-                .selectPhoto()
+                .setPhoto()
                 .saveNewProduct()
                 .getTextFromMessage();
         String expected = "Success: You have modified products!";
@@ -88,22 +86,11 @@ public class AddNewProductTest {
                 .setManufactures("Sony")
                 .setCategories("Tablets")
                 .clickImage()
-                .clickPhoto()
-                .editPhoto()
-                .selectPhoto()
+                .setPhoto()
                 .saveNewProduct()
                 .getTextFromMessage();
         String expected = "Warning: Please check the form carefully for errors!";
         assertTrue(actual.contains(expected));
 
-    }
-
-    @Test(priority = 2)
-    public void deleteProductTest(){
-        nav.goToCatalog()
-                .goToProducts()
-                .findAddedProduct()
-                .deleteChosenProduct()
-                .closeMessage();
     }
 }

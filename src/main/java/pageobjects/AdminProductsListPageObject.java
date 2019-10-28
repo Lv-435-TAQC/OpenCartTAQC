@@ -1,7 +1,9 @@
 package pageobjects;
 
 import locators.AdminProductsPageLocators;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
@@ -10,18 +12,27 @@ import pageelements.ImageButton;
 import pageelements.Label;
 import patterns.AdminProductsPatterns;
 
+import java.util.List;
+
 
 public class AdminProductsListPageObject extends BasePageObject{
 
-    private Button addNewProduct;
+    private Button addNewProductButton;
+    private List<WebElement> list;
+    private Button copyProductButton;
     Screen screen = new Screen();
 
     public AdminProductsListPageObject(WebDriver driver) {
         super(driver);
     }
 
+    private List<WebElement> createList(String xpath){
+        list = driver.findElements(By.xpath(xpath));
+        return list;
+    }
+
      public AddNewProductPageObject goToAddNewProduct(){
-        addNewProduct = new ImageButton(driver, AdminProductsPageLocators.ADD_NEW_PRODUCT_BUTTON_LOC).click();
+        addNewProductButton = new ImageButton(driver, AdminProductsPageLocators.ADD_NEW_PRODUCT_BUTTON_LOC).click();
         return new AddNewProductPageObject(driver);
      }
 
@@ -63,4 +74,15 @@ public class AdminProductsListPageObject extends BasePageObject{
          }
         return this;
      }
+
+     public AdminProductsListPageObject markCheckbox(){
+        this.createList(AdminProductsPageLocators.CHECKBOXES_LOC).get(1).click();
+        return this;
+     }
+
+     public AdminProductsListPageObject clickCopyButton(){
+        copyProductButton = new Button(driver,AdminProductsPageLocators.COPY_BUTTON_LOC).click();
+        return this;
+     }
+
 }
