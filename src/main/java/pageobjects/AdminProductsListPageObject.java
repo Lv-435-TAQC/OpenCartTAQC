@@ -12,6 +12,9 @@ import patterns.AdminProductsPatterns;
 
 import java.util.List;
 
+import static utils.Constants.ONE;
+import static utils.Constants.TWO;
+
 
 public class AdminProductsListPageObject extends BasePageObject{
 
@@ -117,12 +120,12 @@ public class AdminProductsListPageObject extends BasePageObject{
     }
 
     public AdminProductsListPageObject chooseEnabledOption(){
-        statusSelect = new DropDown(driver,AdminProductsPageLocators.FILTER_SELECT_LOC).writeOrdinalIndex(1);
+        statusSelect = new DropDown(driver,AdminProductsPageLocators.FILTER_SELECT_LOC).writeOrdinalIndex(ONE);
         return this;
     }
 
     public AdminProductsListPageObject chooseDisabledOption(){
-        statusSelect = new DropDown(driver,AdminProductsPageLocators.FILTER_SELECT_LOC).writeOrdinalIndex(2);
+        statusSelect = new DropDown(driver,AdminProductsPageLocators.FILTER_SELECT_LOC).writeOrdinalIndex(TWO);
         return this;
     }
 
