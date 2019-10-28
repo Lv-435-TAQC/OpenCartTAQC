@@ -1,6 +1,7 @@
 package pageobjects;
 
 
+import locators.AdminAddCategoriesLocators;
 import org.openqa.selenium.WebDriver;
 import locators.AdminCategoriesLocators;
 import pageelements.Button;
@@ -16,8 +17,12 @@ public class AdminCategoriesPageObject extends BasePageObject {
     private Label returnTextFromCategoriesListElement;
     private Label getTextFromMessageInCategories;
 
+
     public AdminCategoriesPageObject(WebDriver driver) {
         super(driver);
+    }
+    public String getTextFromMessageInNewCategories() {
+        return new Label(driver, AdminAddCategoriesLocators.RETURN_TEXT_FROM_MESSAGE_IN_NEW_CATEGORIES_LOC).getText();
     }
 
     public AdminNewCategoriesPageObject addNewCategories() {
