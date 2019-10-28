@@ -7,4 +7,5 @@ public class AdminAddCategoriesLocators {
     public static final String DESCRIPTION_OF_CATEGORIES_INPUT_LOC="//*[@id=\"language1\"]/div[2]/div/div/div[3]/div[2]";
     public static final String META_TAG_DESCRIPTION_INPUT_LOC="//*[@id=\"input-meta-description1\"]";
     public static final String META_TAG_KEYWORDS_INPUT_LOC = "//*[@id=\"input-meta-keyword1\"]";
+    public static final String RETURN_TEXT_FROM_MESSAGE_IN_NEW_CATEGORIES_LOC="//*[@id=\"content\"]/div[2]/div[1]";
 }

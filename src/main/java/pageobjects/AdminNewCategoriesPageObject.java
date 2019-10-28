@@ -4,6 +4,7 @@ import locators.AdminAddCategoriesLocators;
 import org.openqa.selenium.WebDriver;
 import pageelements.Button;
 import pageelements.Input;
+import pageelements.Label;
 
 
 public class AdminNewCategoriesPageObject extends BasePageObject {
@@ -14,25 +15,24 @@ public class AdminNewCategoriesPageObject extends BasePageObject {
     private Input descriptionOfCategories;
     private Input metaTagDescription;
     private Input metaTagKeywords;
+    private Label getTextFromMessageInNewCategories;
 
     public AdminNewCategoriesPageObject(WebDriver driver) {
         super(driver);
     }
 
-    public AdminNewCategoriesPageObject saveNewCategories() {
+    public AdminCategoriesPageObject saveNewCategories() {
         saveNewCategories = new Button(driver, AdminAddCategoriesLocators.SAVE_NEW_CATEGORIES_BUTTON_LOC).click();
-        return new AdminNewCategoriesPageObject(driver);
+        return new AdminCategoriesPageObject(driver);
     }
 
-    public AdminNewCategoriesPageObject inputCategoriesName() {
-        nameOfCategories = new Input(this.driver, AdminAddCategoriesLocators.NAME_OF_CATEGORIES_INPUT_LOC);
-        nameOfCategories.setText("forTest");
+    public AdminNewCategoriesPageObject inputCategoriesName(String name) {
+        nameOfCategories = new Input(this.driver, AdminAddCategoriesLocators.NAME_OF_CATEGORIES_INPUT_LOC).setText(name);
         return this;
     }
 
-    public AdminNewCategoriesPageObject inputMetaTagOfCategories() {
-        metaTag = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_TITLE_INPUT_LOC);
-        metaTag.setText("justTest");
+    public AdminNewCategoriesPageObject inputMetaTagOfCategories(String name) {
+        metaTag = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_TITLE_INPUT_LOC).setText(name);
         return this;
     }
 
@@ -42,15 +42,13 @@ public class AdminNewCategoriesPageObject extends BasePageObject {
         return this;
     }
 
-    public AdminNewCategoriesPageObject inputMetaTagDescriptionOfCategories() {
-        metaTagDescription = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_DESCRIPTION_INPUT_LOC);
-        metaTagDescription.setText("TEST");
+    public AdminNewCategoriesPageObject inputMetaTagDescriptionOfCategories(String name) {
+        metaTagDescription = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_DESCRIPTION_INPUT_LOC).setText(name);
         return this;
     }
 
-    public AdminNewCategoriesPageObject inputMetaTagKeywordsOfCategories() {
-        metaTagKeywords = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_KEYWORDS_INPUT_LOC);
-        metaTagKeywords.setText("TEST");
+    public AdminNewCategoriesPageObject inputMetaTagKeywordsOfCategories(String name) {
+        metaTagKeywords = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_KEYWORDS_INPUT_LOC).setText(name);
         return this;
     }
 

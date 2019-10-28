@@ -13,6 +13,7 @@ import pageobjects.LoginPageObject;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class LoginPageObjectTest {
     public static final String HOME_PAGE = "http://localhost/opencart/index.php?route=common/home";
@@ -107,5 +108,16 @@ public class LoginPageObjectTest {
         String actual = loginPageObject.forgottenPassword("hahahaha@gmail.com").warningMessage();
         String expected = "Warning: The E-Mail Address was not found in our records, please try again!";
         assertEquals(actual, expected);
+    }
+
+    @Test(priority = 4)
+    public void SikuliTestValidData(){
+        Boolean isFound=  loginPageObject.testSikuliGood();
+        assertTrue(isFound);
+    }
+    @Test(priority = 3)
+    public void SikuliTestNotValidData() {
+        Boolean isFound=  loginPageObject.testSikuliBad();
+        assertTrue(isFound);
     }
 }
