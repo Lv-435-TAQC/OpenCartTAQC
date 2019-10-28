@@ -1,7 +1,6 @@
 package locators;
 
 public class WishListLocators {
-    public static final String LOGIN_PAGE_URL = "http://192.168.152.128/opencart";
     public static final String WISH_LIST_TABLE = "//*[@id=\"content\"]/div[1]/table/tbody";
     public static final String LOGIN_NAME = "ngardzhalo@gmail.com";
     public static final String LOGIN_PASSWORD = "vmnataliia";
