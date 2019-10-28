@@ -7,9 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
-import pageelements.Button;
-import pageelements.ImageButton;
-import pageelements.Label;
+import pageelements.*;
 import patterns.AdminProductsPatterns;
 
 import java.util.List;
@@ -17,9 +15,17 @@ import java.util.List;
 
 public class AdminProductsListPageObject extends BasePageObject{
 
-    private Button addNewProductButton;
     private List<WebElement> list;
+    private Button addNewProductButton;
     private Button copyProductButton;
+    private Button editProductButton;
+    private Input filterNameField;
+    private Input filterModelField;
+    private Input filterPriceField;
+    private Input filterQuantityField;
+    private DropDown statusSelect;
+    private Button submitFilterButton;
+    private String productLabel;
     Screen screen = new Screen();
 
     public AdminProductsListPageObject(WebDriver driver) {
@@ -85,4 +91,48 @@ public class AdminProductsListPageObject extends BasePageObject{
         return this;
      }
 
+     public AddNewProductPageObject clickEditButton(){
+        editProductButton = new Button(driver,AdminProductsPageLocators.EDIT_BUTTON_LOC).click();
+        return new AddNewProductPageObject(driver);
+     }
+
+     public AdminProductsListPageObject setFilterName(String name){
+        filterNameField = new Input(driver,AdminProductsPageLocators.FILTER_NAME_FIELD_LOC).setText(name);
+        return this;
+     }
+
+    public AdminProductsListPageObject setFilterModel(String model){
+        filterModelField = new Input(driver,AdminProductsPageLocators.FILTER_MODEL_FIELD_LOC).setText(model);
+        return this;
+    }
+
+    public AdminProductsListPageObject setFilterPrice(String price){
+        filterPriceField = new Input(driver,AdminProductsPageLocators.FILTER_PRICE_FIELD_LOC).setText(price);
+        return this;
+    }
+
+    public AdminProductsListPageObject setFilterQuantity(String quantity){
+        filterQuantityField = new Input(driver,AdminProductsPageLocators.FILTER_QUANTITY_FIELD_LOC).setText(quantity);
+        return this;
+    }
+
+    public AdminProductsListPageObject chooseEnabledOption(){
+        statusSelect = new DropDown(driver,AdminProductsPageLocators.FILTER_SELECT_LOC).writeOrdinalIndex(1);
+        return this;
+    }
+
+    public AdminProductsListPageObject chooseDisabledOption(){
+        statusSelect = new DropDown(driver,AdminProductsPageLocators.FILTER_SELECT_LOC).writeOrdinalIndex(2);
+        return this;
+    }
+
+    public AdminProductsListPageObject clickFilterSubmit(){
+        submitFilterButton = new Button(driver,AdminProductsPageLocators.FILTER_SUBMIT_BUTTON_LOC).click();
+        return this;
+    }
+
+    public String getTextOfProductsModelLabel(){
+        productLabel = new Label(driver,AdminProductsPageLocators.NAME_OF_ADDED_PRODUCTS).getText();
+        return productLabel;
+    }
 }

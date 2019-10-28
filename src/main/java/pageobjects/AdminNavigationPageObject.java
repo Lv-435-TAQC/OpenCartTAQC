@@ -34,8 +34,6 @@ public class AdminNavigationPageObject extends BasePageObject {
     public AdminCategoriesPageObject goToCategories() {
         categories = new TextButton(driver, AdminNavigationLocators.CATEGORIES_BUTTON_LOC).click();
         return new AdminCategoriesPageObject(driver);
-
-
     }
 
     public AdminGiftVouchersPageObject goToVouchersList() {

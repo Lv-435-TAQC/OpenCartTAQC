@@ -13,6 +13,7 @@ import pageobjects.NavigationPageObject;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class AdminProductsListTest {
@@ -20,7 +21,6 @@ public class AdminProductsListTest {
     WebDriver driver;
     AdminLoginPageObject admin;
     AdminProductsListPageObject list;
-    AdminNavigationPageObject nav;
 
     @BeforeClass
     public void setUp() {
@@ -34,27 +34,42 @@ public class AdminProductsListTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://localhost/shop/admin/index.php?route=common/login");
         admin = new AdminLoginPageObject(driver);
-        admin.logIn("admin","123456").closeModalWindow();
-        nav.goToCatalog().goToProducts();
-
+        list = new AdminProductsListPageObject(driver);
+        admin.logIn("admin","123456").closeModalWindow().getNavigation().goToCatalog().goToProducts();
     }
+
     @AfterClass
     public void tearDown() {
-//        driver.quit();
+        driver.quit();
     }
 
     @Test
-    public void deleteProductTest(){
+    public void deleteProductBySikuliTest(){
         list.findAddedProduct()
                 .deleteChosenProduct()
                 .closeMessage();
     }
     @Test
-    public void checkBox(){
+    public void deleteProductTest(){
       String actual =  list.markCheckbox()
               .clickCopyButton()
               .getTextFromMessage();
       String expected = "Success: You have modified products!";
-    assertTrue(actual.contains(expected));
+      assertTrue(actual.contains(expected));
+    }
+
+    @Test
+    public void filterTest(){
+      String actual = list
+                .setFilterName("Apple Cinema 30")
+                .setFilterModel("Product 15")
+                .setFilterPrice("100")
+                .setFilterQuantity("990")
+                .chooseEnabledOption()
+                .clickFilterSubmit()
+              .getTextOfProductsModelLabel();
+      String expected = "Apple Cinema 30";
+      assertTrue(actual.contains(expected));
+
     }
 }
