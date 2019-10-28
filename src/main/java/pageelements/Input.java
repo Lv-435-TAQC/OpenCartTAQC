@@ -16,4 +16,9 @@ public class Input extends BaseElement {
     public String getText() {
         return this.element.getText();
     }
+
+    public Input clearField() {
+        this.element.clear();
+        return this;
+    }
 }

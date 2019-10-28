@@ -1,5 +1,7 @@
 package javatest.pageobjectstest;
 
+
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.sikuli.script.FindFailed;
@@ -9,6 +11,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.AdminLoginPageObject;
 import pageobjects.AdminNavigationPageObject;
+
+
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +31,7 @@ public class AddNewProductTest {
 
     @BeforeMethod
     public void getHome() {
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://localhost/shop/admin/index.php?route=common/login");
         admin = new AdminLoginPageObject(driver);
@@ -38,21 +43,22 @@ public class AddNewProductTest {
     public void tearDown() {
         driver.quit();
     }
+
     @Test
     public void addNewProductTest(){
-    String actual = nav.goToCatalog()
+   String actual = nav.goToCatalog()
                 .goToCatalog()
                 .goToProducts()
                 .goToAddNewProduct()
-                .setProductName("PC")
-                .setMetaTagTitle("pc")
-                .setDescription("Great product!!!")
+                .setProductName("Apple iPad Pro")
+                .setMetaTagTitle("tablet")
+                .setDescription("Apple iPad Pro 12.9 64Gb Wi-Fi+4G (Space Gray) 2018")
                 .clickData()
-                .setProductModel("N-234s")
-                .setPrice("199")
-                .setQuantity("100")
+                .setProductModel("iPad Pro")
+                .setPrice("999")
+                .setQuantity("50")
                 .clickLinks()
-                .setManufactures("Sony")
+                .setManufactures("Apple")
                 .setCategories("Tablets")
                 .clickImage()
                 .clickPhoto()
@@ -64,14 +70,15 @@ public class AddNewProductTest {
         assertTrue(actual.contains(expected));
 
     }
-    @Test
+
+    @Test(priority = 1)
     public void addNewProductNegativeTest(){
         String actual = nav.goToCatalog()
                 .goToCatalog()
                 .goToProducts()
                 .goToAddNewProduct()
                 .setProductName("")
-                .setMetaTagTitle("pc")
+                .setMetaTagTitle("Xiaomi")
                 .setDescription("Great product!!!")
                 .clickData()
                 .setProductModel("N-234s")
@@ -90,11 +97,13 @@ public class AddNewProductTest {
         assertTrue(actual.contains(expected));
 
     }
-    @Test
-    public void deleteProductTest() throws FindFailed {
+
+    @Test(priority = 2)
+    public void deleteProductTest(){
         nav.goToCatalog()
                 .goToProducts()
                 .findAddedProduct()
-                .deleteChosenProduct();
+                .deleteChosenProduct()
+                .closeMessage();
     }
 }

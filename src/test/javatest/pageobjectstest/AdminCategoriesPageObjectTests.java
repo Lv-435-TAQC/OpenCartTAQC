@@ -29,12 +29,9 @@ public class AdminCategoriesPageObjectTests {
     public void getHome() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://192.168.186.129/opencart/admin/index.php?route=common/dashboard&user_token=ZMuBLJtL0IzVqWvTS8J1UUvWCEwiVh2s");
-        search = new AdminCategoriesPageObject(driver);
         admin = new AdminLoginPageObject(driver);
         navigation = new AdminNavigationPageObject(driver);
         admin.logIn("admin", "admin").closeModalWindow();
-
-
     }
 
         @AfterClass
@@ -44,22 +41,36 @@ public class AdminCategoriesPageObjectTests {
 
     @Test
     public void testAddNewCategoriesToList() {
-
-        navigation.goToCatalog()
+        String actual =navigation.goToCatalog()
                 .goToCategories()
                 .addNewCategories()
-                .inputCategoriesName()
-                .inputMetaTagOfCategories()
-                .inputMetaTagDescriptionOfCategories()
-                .inputMetaTagKeywordsOfCategories()
-                .saveNewCategories();
-        String actual = search.getTextFromMessageOfCategories();
-        String expected = ("Success: You have modified categories!\n" + "×");
-        assertEquals(actual, expected);
-
+                .inputCategoriesName("forTest")
+                .inputMetaTagOfCategories("just test")
+                .inputMetaTagDescriptionOfCategories("Name")
+                .inputMetaTagKeywordsOfCategories("Test")
+                .saveNewCategories().getTextFromMessageOfCategories();
+        String expected = ("Success: You have modified categories!");
+        assertTrue(actual.contains(expected));
     }
 
         @Test
-    public void testDeleteCategoriesFromCategoriesList() {
+    public void testAddNewCategoriesWithFalseData() {
+            String actual= navigation
+                    .goToCatalog()
+                    .goToCategories()
+                    .addNewCategories()
+                    .inputCategoriesName("")
+                    .inputMetaTagOfCategories("")
+                    .inputMetaTagDescriptionOfCategories("")
+                    .inputMetaTagKeywordsOfCategories("")
+                    .saveNewCategories()
+                    .getTextFromMessageInNewCategories();
+            String expected = ("Warning: Please check the form carefully for errors!");
+            assertTrue(actual.contains(expected));
+    }
+    @Test
+    public  void testDeleteCategories(){
+        navigation.goToCategories()
+                .changeSomethingInCategories();
     }
 }

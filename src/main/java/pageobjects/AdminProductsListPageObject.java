@@ -3,13 +3,13 @@ package pageobjects;
 import locators.AdminProductsPageLocators;
 import org.openqa.selenium.WebDriver;
 import org.sikuli.script.FindFailed;
-import org.sikuli.script.Key;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 import pageelements.Button;
 import pageelements.ImageButton;
 import pageelements.Label;
 import patterns.AdminProductsPatterns;
+
 
 public class AdminProductsListPageObject extends BasePageObject{
 
@@ -29,19 +29,38 @@ public class AdminProductsListPageObject extends BasePageObject{
         return new Label(driver, AdminProductsPageLocators.SUCCESSFUL_ADDING_MESSAGE_LOC).getText();
      }
 
-     public AdminProductsListPageObject findAddedProduct() throws FindFailed{
+     public AdminProductsListPageObject findAddedProduct(){
         Pattern productsCheckbox = new Pattern(AdminProductsPatterns.productsCheckbox);
-        screen.type(Key.PAGE_DOWN);
-        screen.click(productsCheckbox.targetOffset(-140,0));
-               return new AdminProductsListPageObject(driver);
+         try {
+             screen.click(productsCheckbox.targetOffset(-215,0));
+         } catch (FindFailed findFailed) {
+             findFailed.printStackTrace();
+         }
+         return this;
      }
 
-     public AdminProductsListPageObject deleteChosenProduct() throws FindFailed {
+     public AdminProductsListPageObject deleteChosenProduct(){
          Pattern deleteButton = new Pattern(AdminProductsPatterns.deleteButton);
-         screen.type(Key.PAGE_UP);
-         screen.wait(deleteButton,5);
-         screen.click(deleteButton);
-        return new AdminProductsListPageObject(driver);
+         Pattern okButton = new Pattern(AdminProductsPatterns.okButton);
+         try {
+             screen.wait(deleteButton,5);
+             screen.click(deleteButton);
+             screen.wait(okButton,5);
+             screen.click();
+         } catch (FindFailed findFailed) {
+             findFailed.printStackTrace();
+         }
+         return this;
+     }
 
+     public AdminProductsListPageObject closeMessage(){
+        Pattern close = new Pattern(AdminProductsPatterns.closeButton);
+         try {
+             screen.wait(close,5);
+             screen.click(close);
+         } catch (FindFailed findFailed) {
+             findFailed.printStackTrace();
+         }
+        return this;
      }
 }

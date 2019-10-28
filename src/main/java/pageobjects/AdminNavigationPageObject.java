@@ -39,7 +39,7 @@ public class AdminNavigationPageObject extends BasePageObject {
 
     public AdminNavigationPageObject goToCatalog() {
         catalog = new TextButton(driver, AdminNavigationLocators.CATALOG_BUTTON_LOC).click();
-        return new AdminNavigationPageObject(driver);
+        return this;
     }
 
     public AdminProductsListPageObject goToProducts() {
