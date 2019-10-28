@@ -72,23 +72,24 @@ public class WishListPageObjectTest {
     }
 
     /**
-     * <b>TC-01: Test Wish List Item's Image.</b>
+     * <b>TC-01: Test Wish List Item's Image Apple.</b>
      *
      * Scenario:
      * <ul>
      * <li>1. Click on Wish List Tab;
      * <li>2. Open Wish List Page;
-     * <li>3. Verify that Image Apple couldn't be empty;
+     * <li>3. Verify that Item Apple is in Wish List;
      * </ul>
      * <p>
-     * Expected Result: Item's image IMac is present in Wish List.
+     * Expected Result: Item's image Apple is present in Wish List.
      */
 
     @Test
-    public void findIMacImgInWishList(){
+    public void findItemImgInWishList(){
         Boolean isFound = homePageObject
                 .getHeaderPageObject()
-                .clickWishList().findImageInScreen(SIKULI_IMAGE_WISH_LIST_APPLE);
+                .clickWishList()
+                .findImageInScreen(SIKULI_IMAGE_WISH_LIST_APPLE);
         assertTrue(isFound);
     }
 
