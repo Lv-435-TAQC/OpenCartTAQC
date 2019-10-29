@@ -7,20 +7,18 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.AdminLoginPageObject;
-import pageobjects.AdminNavigationPageObject;
 import pageobjects.AdminProductsListPageObject;
-import pageobjects.NavigationPageObject;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static utils.Constants.*;
 
 public class AdminProductsListTest {
 
     WebDriver driver;
     AdminLoginPageObject admin;
-    AdminProductsListPageObject list;
+    AdminProductsListPageObject adminProductsList;
 
     @BeforeClass
     public void setUp() {
@@ -32,10 +30,15 @@ public class AdminProductsListTest {
     public void getHome() {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://localhost/shop/admin/index.php?route=common/login");
         admin = new AdminLoginPageObject(driver);
-        list = new AdminProductsListPageObject(driver);
-        admin.logIn("admin","123456").closeModalWindow().getNavigation().goToCatalog().goToProducts();
+        admin.goToUrl(ADMIN_LOGIN_URL);
+        adminProductsList = new AdminProductsListPageObject(driver);
+        admin
+                .logIn("admin","123456")
+                .closeModalWindow()
+                .getNavigation()
+                .goToCatalog()
+                .goToProducts();
     }
 
     @AfterClass
@@ -45,22 +48,24 @@ public class AdminProductsListTest {
 
     @Test
     public void deleteProductBySikuliTest(){
-        list.findAddedProduct()
+        adminProductsList
+                .findAddedProduct()
                 .deleteChosenProduct()
                 .closeMessage();
     }
+
     @Test
-    public void deleteProductTest(){
-      String actual =  list.markCheckbox()
-              .clickCopyButton()
-              .getTextFromMessage();
-      String expected = "Success: You have modified products!";
-      assertTrue(actual.contains(expected));
+    public void copyProductTest(){
+        String actual =  adminProductsList
+                .markCheckbox()
+                .clickCopyButton()
+                .getTextFromMessage();
+        assertTrue(actual.contains(SUCCESS_CHANGING_PRODUCT));
     }
 
     @Test
     public void filterTest(){
-      String actual = list
+      String actual = adminProductsList
                 .setFilterName("Apple Cinema 30")
                 .setFilterModel("Product 15")
                 .setFilterPrice("100")
@@ -68,8 +73,6 @@ public class AdminProductsListTest {
                 .chooseEnabledOption()
                 .clickFilterSubmit()
               .getTextOfProductsModelLabel();
-      String expected = "Apple Cinema 30";
-      assertTrue(actual.contains(expected));
-
+      assertTrue(actual.contains(MODEL_OF_FILTERED_PRODUCT));
     }
 }

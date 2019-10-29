@@ -116,10 +116,27 @@ public class AddNewProductPageObject extends BasePageObject {
         return this;
     }
 
-    public AddNewProductPageObject setPhoto() {
+    public AddNewProductPageObject clickPhoto(){
         productPhotoButton = new ImageButton(driver, AddNewProductsLocators.PHOTO_LOC).click();
+        return this;
+    }
+
+    public AddNewProductPageObject editPhoto(){
         editPhotoButton = new ImageButton(driver, AddNewProductsLocators.EDIT_PHOTO_BUTTON_LOC).click();
+        return this;
+    }
+
+    public AddNewProductPageObject selectPhoto(){
         selectPhotoButton = new TextButton(driver, AddNewProductsLocators.SELECT_PHOTO_LOC).click();
+        return this;
+    }
+
+    public AddNewProductPageObject setPhoto() {
+       this
+               .clickImage()
+               .clickPhoto()
+               .editPhoto()
+               .selectPhoto();
         return this;
     }
 
@@ -128,10 +145,10 @@ public class AddNewProductPageObject extends BasePageObject {
         return new AdminProductsListPageObject(driver);
     }
 
-    public AddNewProductPageObject fillGeneralFields(String productName, String desc, String megaTag) {
+    public AddNewProductPageObject fillGeneralFields(String productName, String description, String megaTag) {
         this
                 .setProductName(productName)
-                .setDescription(desc)
+                .setDescription(description)
                 .setMetaTagTitle(megaTag);
     return this;
     }

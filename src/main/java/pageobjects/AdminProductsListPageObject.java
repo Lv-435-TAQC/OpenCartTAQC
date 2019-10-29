@@ -22,6 +22,7 @@ public class AdminProductsListPageObject extends BasePageObject{
     private Button addNewProductButton;
     private Button copyProductButton;
     private Button editProductButton;
+    private Button deleteProductButton;
     private Input filterNameField;
     private Input filterModelField;
     private Input filterPriceField;
@@ -29,6 +30,7 @@ public class AdminProductsListPageObject extends BasePageObject{
     private DropDown statusSelect;
     private Button submitFilterButton;
     private String productLabel;
+    private Button confirmButton;
     Screen screen = new Screen();
 
     public AdminProductsListPageObject(WebDriver driver) {
@@ -90,12 +92,12 @@ public class AdminProductsListPageObject extends BasePageObject{
      }
 
      public AdminProductsListPageObject clickCopyButton(){
-        copyProductButton = new Button(driver,AdminProductsPageLocators.COPY_BUTTON_LOC).click();
+        copyProductButton = new ImageButton(driver,AdminProductsPageLocators.COPY_BUTTON_LOC).click();
         return this;
      }
 
      public AddNewProductPageObject clickEditButton(){
-        editProductButton = new Button(driver,AdminProductsPageLocators.EDIT_BUTTON_LOC).click();
+        editProductButton = new ImageButton(driver,AdminProductsPageLocators.EDIT_BUTTON_LOC).click();
         return new AddNewProductPageObject(driver);
      }
 
@@ -130,7 +132,7 @@ public class AdminProductsListPageObject extends BasePageObject{
     }
 
     public AdminProductsListPageObject clickFilterSubmit(){
-        submitFilterButton = new Button(driver,AdminProductsPageLocators.FILTER_SUBMIT_BUTTON_LOC).click();
+        submitFilterButton = new ImageButton(driver,AdminProductsPageLocators.FILTER_SUBMIT_BUTTON_LOC).click();
         return this;
     }
 
