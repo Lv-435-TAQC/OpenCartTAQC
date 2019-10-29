@@ -15,7 +15,6 @@ import static org.testng.Assert.*;
 public class AdminCategoriesPageObjectTests {
     WebDriver driver;
     AdminLoginPageObject admin;
-    AdminCategoriesPageObject search;
     AdminNavigationPageObject navigation;
 
 
@@ -54,7 +53,7 @@ public class AdminCategoriesPageObjectTests {
     }
 
         @Test
-    public void testAddNewCategoriesWithFalseData() {
+    public void testAddNewCategoriesWithAllFalseData() {
             String actual= navigation
                     .goToCatalog()
                     .goToCategories()
@@ -69,8 +68,33 @@ public class AdminCategoriesPageObjectTests {
             assertTrue(actual.contains(expected));
     }
     @Test
-    public  void testDeleteCategories(){
-        navigation.goToCategories()
-                .changeSomethingInCategories();
+    public void testAddNewCategoriesWithFalseName() {
+        String actual= navigation
+                .goToCatalog()
+                .goToCategories()
+                .addNewCategories()
+                .inputCategoriesName("")
+                .inputMetaTagOfCategories("fsf")
+                .inputMetaTagDescriptionOfCategories("")
+                .inputMetaTagKeywordsOfCategories("")
+                .saveNewCategories()
+                .getTextFromMessageInNewCategories();
+        String expected = ("Warning: Please check the form carefully for errors!");
+        assertTrue(actual.contains(expected));
     }
-}
+    @Test
+    public void testAddNewCategoriesWithFalseTag() {
+        String actual= navigation
+                .goToCatalog()
+                .goToCategories()
+                .addNewCategories()
+                .inputCategoriesName("gfasf")
+                .inputMetaTagOfCategories("")
+                .inputMetaTagDescriptionOfCategories("")
+                .inputMetaTagKeywordsOfCategories("")
+                .saveNewCategories()
+                .getTextFromMessageInNewCategories();
+        String expected = ("Warning: Please check the form carefully for errors!");
+        assertTrue(actual.contains(expected));
+    }
+    }
