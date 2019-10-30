@@ -2,13 +2,7 @@ package pageobjects;
 
 import locators.AdminPageLocators;
 import org.openqa.selenium.WebDriver;
-
-import org.stringtemplate.v4.ST;
 import pageelements.Button;
-
-import pageelements.Input;
-import pageobjects.BasePageObject;
-import pageobjects.NavigationPageObject;
 
 
 public class AdminPageObject extends BasePageObject {
@@ -22,7 +16,7 @@ public class AdminPageObject extends BasePageObject {
      */
     public AdminPageObject(WebDriver driver) {
         super(driver);
-        navigationPageObject = new AdminNavigationPageObject(driver);
+        this.navigationPageObject = new AdminNavigationPageObject(driver);
     }
 
     public AdminPageObject closeModalWindow() {
@@ -31,8 +25,7 @@ public class AdminPageObject extends BasePageObject {
     }
 
     public AdminNavigationPageObject getNavigation(){
-        navigationPageObject = new AdminNavigationPageObject(driver);
-        return navigationPageObject;
+        return this.navigationPageObject;
     }
 
 }

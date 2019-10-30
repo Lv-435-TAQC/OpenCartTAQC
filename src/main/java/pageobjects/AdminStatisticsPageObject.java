@@ -7,18 +7,32 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static locators.AdminCategoriesLocators.STATISTICS_TABLE;
+import static locators.AdminNavigationLocators.STATISTICS_TABLE;
 
 public class AdminStatisticsPageObject extends BasePageObject {
-
+    private AdminPageObject adminPageObject;
     private List<AdminStatisticsItemPageObject> statistics;
 
     public AdminStatisticsPageObject(WebDriver driver) {
         super(driver);
+        this.adminPageObject = new AdminPageObject(driver);
+        this.statistics = new ArrayList<>();
+    }
+
+    public void setStatistics() {
+        this.statistics = this.getListOfItems();
+    }
+
+    public List<AdminStatisticsItemPageObject> getStatistics() {
+        this.setStatistics();
+        return statistics;
+    }
+
+    public AdminPageObject getAdminPageObject() {
+        return this.adminPageObject;
     }
 
     public List<AdminStatisticsItemPageObject> getListOfItems(){
-    this.statistics = new ArrayList<>();
     List<WebElement> list = driver.findElement(By.xpath(STATISTICS_TABLE)).findElements(By.xpath("tr"));
 
     for (WebElement element: list) {
