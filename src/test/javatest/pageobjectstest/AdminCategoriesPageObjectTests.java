@@ -10,14 +10,15 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.AdminNewCategoriesPageObject;
 import pageobjects.AdminCategoriesPageObject;
-import pageobjects.AdminLoginPageObject;
+
 import pageobjects.*;
 
 
 import java.util.concurrent.TimeUnit;
-import static org.testng.Assert.assertTrue;
-import static utils.Constants.*;
+
 import static org.testng.Assert.*;
+import static utils.Constants.ADMIN_LOGIN2_URL;
+import static utils.Constants.ADMIN_LOGIN_URL;
 
 public class AdminCategoriesPageObjectTests {
     WebDriver driver;
@@ -33,10 +34,10 @@ public class AdminCategoriesPageObjectTests {
         @BeforeMethod
         public void getHome() {
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            driver.get("http://192.168.186.129/opencart/admin/");
             admin = new AdminLoginPageObject(driver);
-            navigation = new AdminNavigationPageObject(driver);
+            admin.goToUrl(ADMIN_LOGIN2_URL);
             admin.logIn("admin", "admin").closeModalWindow();
+            navigation = new AdminNavigationPageObject(driver);
         }
 
         @AfterClass
