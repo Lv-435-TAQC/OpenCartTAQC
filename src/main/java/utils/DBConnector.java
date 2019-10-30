@@ -11,7 +11,7 @@ public class DBConnector {
     private Connection connection;
     private Statement statement;
 
-    public Boolean getConnectionMariaDB(){
+    public Statement getConnectionMariaDB(){
         try {
             Class.forName(MARIA_DB_DRIVER);
             connection = DriverManager.getConnection(MARIA_DB_URL, MARIA_DB_USER_NAME, MARIA_DB_PASSWORD);
@@ -25,7 +25,7 @@ public class DBConnector {
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return isConnected;
+        return statement;
     }
     public Boolean closeConnectionMariaDB(){
         Boolean isClosed = true;
