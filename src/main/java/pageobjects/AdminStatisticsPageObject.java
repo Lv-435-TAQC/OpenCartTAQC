@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static locators.AdminCategoriesLocators.STATISTICS_TABLE;
+import static locators.AdminNavigationLocators.STATISTICS_TABLE;
 
 public class AdminStatisticsPageObject extends BasePageObject {
 
