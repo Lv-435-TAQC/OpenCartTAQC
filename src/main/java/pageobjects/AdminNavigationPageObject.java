@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import pageelements.Button;
 import pageelements.TextButton;
 
+import static locators.AdminCategoriesLocators.STATISTICS;
+import static locators.AdminCategoriesLocators.REPORTS_NAVIGATION;
+
 public class AdminNavigationPageObject extends BasePageObject {
 
     private Button products;
@@ -15,10 +18,23 @@ public class AdminNavigationPageObject extends BasePageObject {
     private Button vouchrs;
     private Button marketing;
     private Button coupons;
+    private Button reports;
+    private Button statistics;
 
 
     public AdminNavigationPageObject(WebDriver driver) {
         super(driver);
+        this.reports = new Button(driver, REPORTS_NAVIGATION);
+    }
+
+    public void clickReports() {
+        this.reports.click();
+    }
+
+    public AdminStatisticsPageObject clickStatistics(){
+        this.clickReports();
+        this.statistics = new Button(driver, STATISTICS).click();
+        return new AdminStatisticsPageObject(driver);
     }
 
     public AdminNavigationPageObject goToCatalog() {
@@ -34,8 +50,6 @@ public class AdminNavigationPageObject extends BasePageObject {
     public AdminCategoriesPageObject goToCategories() {
         categories = new TextButton(driver, AdminNavigationLocators.CATEGORIES_BUTTON_LOC).click();
         return new AdminCategoriesPageObject(driver);
-
-
     }
 
     public AdminGiftVouchersPageObject goToVouchersList() {
