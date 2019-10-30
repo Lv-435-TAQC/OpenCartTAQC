@@ -10,15 +10,24 @@ import java.util.List;
 import static locators.AdminNavigationLocators.STATISTICS_TABLE;
 
 public class AdminStatisticsPageObject extends BasePageObject {
-
+    private AdminPageObject adminPageObject;
     private List<AdminStatisticsItemPageObject> statistics;
 
     public AdminStatisticsPageObject(WebDriver driver) {
         super(driver);
+        this.adminPageObject = new AdminPageObject(driver);
+        this.statistics = new ArrayList<>();
+    }
+
+    public AdminPageObject getAdminPageObject() {
+        return this.adminPageObject;
+    }
+
+    public List<AdminStatisticsItemPageObject> getStatistics() {
+        return this.statistics;
     }
 
     public List<AdminStatisticsItemPageObject> getListOfItems(){
-    this.statistics = new ArrayList<>();
     List<WebElement> list = driver.findElement(By.xpath(STATISTICS_TABLE)).findElements(By.xpath("tr"));
 
     for (WebElement element: list) {
