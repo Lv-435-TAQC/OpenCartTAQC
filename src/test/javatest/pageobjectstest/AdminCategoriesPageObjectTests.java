@@ -8,11 +8,15 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageobjects.AdminNewCategoriesPageObject;
+import pageobjects.AdminCategoriesPageObject;
+import pageobjects.AdminLoginPageObject;
 import pageobjects.*;
 
 
 import java.util.concurrent.TimeUnit;
-
+import static org.testng.Assert.assertTrue;
+import static utils.Constants.*;
 import static org.testng.Assert.*;
 
 public class AdminCategoriesPageObjectTests {
