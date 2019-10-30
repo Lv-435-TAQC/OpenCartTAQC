@@ -24,11 +24,10 @@ public class AdminNavigationPageObject extends BasePageObject {
 
     public AdminNavigationPageObject(WebDriver driver) {
         super(driver);
-        this.reportsNavigation = new Button(driver, REPORTS_NAVIGATION);
     }
 
     public void clickReports() {
-        this.reportsNavigation.click();
+        this.reportsNavigation = new Button(driver, REPORTS_NAVIGATION).click();
     }
 
     public AdminStatisticsPageObject goToStatistics(){
@@ -38,7 +37,7 @@ public class AdminNavigationPageObject extends BasePageObject {
     }
     public AdminReportsPageObject goToReports(){
         this.clickReports();
-        this.reports = new Button(driver, REPORTS);
+        this.reports = new Button(driver, REPORTS).click();
         return new AdminReportsPageObject(driver);
     }
 

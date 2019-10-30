@@ -14,13 +14,23 @@ import static locators.AdminReportsLocators.PRODUCT_VIEWED_TABLE;
 public class AdminReportsPageObject extends BasePageObject {
     private AdminPageObject adminPageObject;
     private DropDown filter;
-    private List<AdminReportsProductViewedItemPO> items;
+    private AdminNavigationPageObject adminNavigationPageObject;
+    private List<AdminReportsProductViewedItemPO> viewedItemPOS;
 
     public AdminReportsPageObject(WebDriver driver) {
         super(driver);
         this.adminPageObject = new AdminPageObject(driver);
         this.filter = new DropDown(driver, FILTER);
-        this.items = new ArrayList<>();
+        this.adminNavigationPageObject = new AdminNavigationPageObject(driver);
+        this.viewedItemPOS = new ArrayList<>();
+    }
+
+    public void setItems() {
+        this.viewedItemPOS = this.getListOfViewedItems();
+    }
+
+    public AdminNavigationPageObject getAdminNavigationPageObject() {
+        return adminNavigationPageObject;
     }
 
     public AdminPageObject getAdminPageObject() {
@@ -31,13 +41,15 @@ public class AdminReportsPageObject extends BasePageObject {
         return filter;
     }
 
-    public List<AdminReportsProductViewedItemPO> getItems() {
-        return this.getListOfViewedItems();
+    public List<AdminReportsProductViewedItemPO> getViewedItemPOS() {
+         this.setItems();
+         return viewedItemPOS;
     }
 
-    public List<AdminReportsProductViewedItemPO> clickProductsViewedReport() {
+    public AdminReportsPageObject clickProductsViewedReport() {
         this.filter.writeOptionParameter("Products Viewed Report");
-        return this.getItems();
+        this.getViewedItemPOS();
+        return new AdminReportsPageObject(driver);
     }
 
     public List<AdminReportsProductViewedItemPO> getListOfViewedItems() {
@@ -47,8 +59,8 @@ public class AdminReportsPageObject extends BasePageObject {
             String model = element.findElement(By.xpath("td[2]")).getText();
             String viewed = element.findElement(By.xpath("td[3]")).getText();
             String percent = element.findElement(By.xpath("td[4]")).getText();
-            this.items.add(new AdminReportsProductViewedItemPO(driver, name, model, viewed, percent));
+            this.viewedItemPOS.add(new AdminReportsProductViewedItemPO(driver, name, model, viewed, percent));
         }
-        return items;
+        return viewedItemPOS;
     }
 }

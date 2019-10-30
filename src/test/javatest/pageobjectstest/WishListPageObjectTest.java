@@ -7,13 +7,13 @@ import org.testng.annotations.*;
 import pageobjects.HomePageObject;
 import pageobjects.WishListPageObject;
 
-import static locators.WishListLocators.LOGIN_NAME;
-import static locators.WishListLocators.LOGIN_PASSWORD;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static utils.Constants.*;
 
 public class WishListPageObjectTest {
+    public static final String LOGIN_NAME = "ngardzhalo@gmail.com";
+    public static final String LOGIN_PASSWORD = "vmnataliia";
     WebDriver driver;
     HomePageObject homePageObject;
 
