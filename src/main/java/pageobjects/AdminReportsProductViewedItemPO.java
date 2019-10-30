@@ -8,12 +8,12 @@ public class AdminReportsProductViewedItemPO extends BasePageObject {
     private String viewed;
     private String percent;
 
-    public AdminReportsProductViewedItemPO(WebDriver driver, String n, String m, String v, String p) {
+    public AdminReportsProductViewedItemPO(WebDriver driver, String name, String model, String viewed, String percent) {
         super(driver);
-        this.name = n;
-        this.model = m;
-        this.viewed = v;
-        this.percent = p;
+        this.name = name;
+        this.model = model;
+        this.viewed = viewed;
+        this.percent = percent;
     }
 
     public String getName() {
