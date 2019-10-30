@@ -19,12 +19,17 @@ public class AdminStatisticsPageObject extends BasePageObject {
         this.statistics = new ArrayList<>();
     }
 
-    public AdminPageObject getAdminPageObject() {
-        return this.adminPageObject;
+    public void setStatistics() {
+        this.statistics = this.getListOfItems();
     }
 
     public List<AdminStatisticsItemPageObject> getStatistics() {
-        return this.statistics;
+        this.setStatistics();
+        return statistics;
+    }
+
+    public AdminPageObject getAdminPageObject() {
+        return this.adminPageObject;
     }
 
     public List<AdminStatisticsItemPageObject> getListOfItems(){
