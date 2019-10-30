@@ -9,9 +9,7 @@ public class ProductUnitPageObject extends BasePageObject {
     private LinkedImage productImage;
     private LinkedLabel linkedProductName;
     private Label descriptionOfProduct;
-    private Label priceNew;
-    private Label priceOld;
-    private Label exTax;
+    private Label priceOfProduct;
     private ImageTextButton addToCartButton;
     private ImageButton addToWishListButton;
     private ImageButton compareThisProductButton;
@@ -45,19 +43,11 @@ public class ProductUnitPageObject extends BasePageObject {
         return descriptionOfProduct.getText();
     }
 
-    public String getNewPrice() {
-        priceNew = new Label(elementToParse, ProductUnitLocators.NEW_PRICE_LOC);
-        return priceNew.getText();
-    }
-
-    public String getOldPrice() {
-        priceOld = new Label(elementToParse, ProductUnitLocators.OLD_PRICE_LOC);
-        return priceOld.getText();
-    }
-
-    public String getExTax() {
-        exTax = new Label(elementToParse, ProductUnitLocators.EX_TAX_LOC);
-        return exTax.getText();
+    public String getPrice() {
+        priceOfProduct = new Label(elementToParse, ProductUnitLocators.NEW_PRICE_LOC);
+        String price = priceOfProduct.getText();
+        price = price.replaceAll("Ex Tax:", "").replaceAll(",", "");
+        return price.substring(1, price.indexOf(" "));
     }
 
     public CategoryPageObject clickAddToWishList(String xpath) {
@@ -79,6 +69,6 @@ public class ProductUnitPageObject extends BasePageObject {
 
     public Integer getIdOfProduct() {
         linkedProductName = new LinkedLabel(elementToParse, ProductUnitLocators.HREF_NAME_LOC);
-        return Integer.parseInt(linkedProductName.getAttribute("href").split("=")[2]);
+        return Integer.parseInt(linkedProductName.getAttribute("href").split("=")[3]);
     }
 }

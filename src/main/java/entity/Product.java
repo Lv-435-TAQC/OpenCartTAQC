@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.Objects;
+
 public class Product {
     private Integer id;
     private String productName;
@@ -103,4 +105,32 @@ public class Product {
     public void setDimensions(String dimensions) {
         this.dimensions = dimensions;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", productName='" + productName + '\'' +
+                ", prise=" + prise +
+                ", model='" + model + '\'' +
+                ", brands='" + brands + '\'' +
+                ", availability='" + availability + '\'' +
+                ", rating='" + rating + '\'' +
+                ", summary='" + summary + '\'' +
+                ", weight=" + weight +
+                ", dimensions='" + dimensions + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id.equals(product.id) &&
+                productName.contains(product.productName) &&
+                prise.equals(product.prise) &&
+                summary.contains(product.summary);
+    }
+
 }
