@@ -1,9 +1,6 @@
 package javatest.pageobjectstest;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -12,6 +9,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.*;
+
+
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
@@ -20,7 +19,6 @@ public class AdminCategoriesPageObjectTests {
     WebDriver driver;
     AdminLoginPageObject admin;
     AdminNavigationPageObject navigation;
-
 
         @BeforeClass
         public void setUp() {
@@ -104,4 +102,3 @@ public class AdminCategoriesPageObjectTests {
             assertTrue(actual.contains(expected));
         }
     }
-}
