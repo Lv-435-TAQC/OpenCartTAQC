@@ -9,6 +9,7 @@ public class Constants {
     public static final int FOUR = 4;
     public static final int EIGHT = 8;
     public static final String BASE_URL = "http://192.168.152.128/opencart/";
+    public static final String BASE_ADMIN_URL = "http://192.168.152.128/opencart/admin";
     public static final String PATH_TO_DRIVER = "src/main/resources/geckodriver.exe";
     public static final String KEY_TO_DRIVER = "webdriver.gecko.driver";
     public static final String REGISTRATION_PAGE_URL = BASE_URL + "index.php?route=account/register";
@@ -28,4 +29,10 @@ public class Constants {
     public static final String WISH_LIST_ID_41 = "41";
     public static final String WISH_LIST_ID_42 = "42";
     public static final String LOGOUT_URL = "http://localhost/opencart/index.php?route=account/logout";
+    public static final String ADMIN_LOGIN_URL = "http://localhost/shop/admin/index.php?route=common/login";
+    public static final String SUCCESS_CHANGING_PRODUCT = "Success: You have modified products!";
+    public static final String UNSUCCESSFUL_CHANGING_PRODUCT = "Warning: Please check the form carefully for errors!";
+    public static final String MODEL_OF_FILTERED_PRODUCT = "Apple Cinema 30";
+    public static final String APPLE_DESCRIPTION = "Apple iPad Pro 12.9 64Gb Wi-Fi+4G (Space Gray) 2018";
+    public static final String ADMIN_LOGIN2_URL = "http://192.168.186.129/opencart/admin/index.php?route=common/dashboard&user_token=ZMuBLJtL0IzVqWvTS8J1UUvWCEwiVh2s";
 }
