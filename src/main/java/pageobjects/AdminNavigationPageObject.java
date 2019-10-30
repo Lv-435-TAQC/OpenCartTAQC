@@ -18,6 +18,7 @@ public class AdminNavigationPageObject extends BasePageObject {
     private Button marketing;
     private Button coupons;
     private Button reportsNavigation;
+    private Button orders;
     private Button statistics;
     private Button reports;
 
@@ -57,7 +58,7 @@ public class AdminNavigationPageObject extends BasePageObject {
     }
 
     public AdminGiftVouchersPageObject goToVouchersList() {
-        salesGroup = new Button(driver, AdminNavigationLocators.SALIS_GROUP).click();
+        salesGroup = new Button(driver, AdminNavigationLocators.SALES_GROUP).click();
         vouchersCategory = new Button(driver, AdminNavigationLocators.VOUCHERS_CATEGORY).click();
         vouchrs = new Button(driver, AdminNavigationLocators.VOUCHERS).click();
         return new AdminGiftVouchersPageObject(driver);
@@ -69,5 +70,9 @@ public class AdminNavigationPageObject extends BasePageObject {
         return new AdminCouponsPageObject(driver);
     }
 
-
+    public AdminOrdersPageObject goToOrdersList() {
+        salesGroup = new Button(driver, AdminNavigationLocators.SALES_GROUP).click();
+        orders = new Button(driver, AdminNavigationLocators.ORDERS).click();
+        return new AdminOrdersPageObject(driver);
+    }
 }
