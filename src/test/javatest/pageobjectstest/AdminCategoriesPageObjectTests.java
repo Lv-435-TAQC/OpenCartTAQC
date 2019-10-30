@@ -12,10 +12,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.*;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
@@ -25,11 +21,6 @@ public class AdminCategoriesPageObjectTests {
     AdminLoginPageObject admin;
     AdminNavigationPageObject navigation;
 
-    public class DataDrivenTest {
-        WebDriver driver;
-        XSSFWorkbook workbook;
-        XSSFSheet sheet;
-        XSSFCell cell;
 
         @BeforeClass
         public void setUp() {
