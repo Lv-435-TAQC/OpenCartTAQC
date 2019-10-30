@@ -6,7 +6,6 @@ import pageelements.Button;
 import pageelements.Input;
 import pageelements.Label;
 
-
 public class AdminNewCategoriesPageObject extends BasePageObject {
 
     private Button saveNewCategories;
@@ -21,14 +20,14 @@ public class AdminNewCategoriesPageObject extends BasePageObject {
         super(driver);
     }
 
-    public AdminCategoriesPageObject saveNewCategories() {
-        saveNewCategories = new Button(driver, AdminAddCategoriesLocators.SAVE_NEW_CATEGORIES_BUTTON_LOC).click();
-        return new AdminCategoriesPageObject(driver);
-    }
-
-    public AdminNewCategoriesPageObject inputCategoriesName(String name) {
+    public AdminNewCategoriesPageObject inputCategoriesName(String name ) {
         nameOfCategories = new Input(this.driver, AdminAddCategoriesLocators.NAME_OF_CATEGORIES_INPUT_LOC).setText(name);
         return this;
+    }
+
+        public AdminCategoriesPageObject saveNewCategories() {
+        saveNewCategories = new Button(driver, AdminAddCategoriesLocators.SAVE_NEW_CATEGORIES_BUTTON_LOC).click();
+        return new AdminCategoriesPageObject(driver);
     }
 
     public AdminNewCategoriesPageObject inputMetaTagOfCategories(String name) {
@@ -51,6 +50,4 @@ public class AdminNewCategoriesPageObject extends BasePageObject {
         metaTagKeywords = new Input(this.driver, AdminAddCategoriesLocators.META_TAG_KEYWORDS_INPUT_LOC).setText(name);
         return this;
     }
-
-
 }
