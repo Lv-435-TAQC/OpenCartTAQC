@@ -242,7 +242,7 @@ public class ShoppingCartPageObject extends BasePageObject {
         Match match = null;
         try {
             match = screen.wait(pattern, 20);
-        } catch (Exception ex) {
+        } catch (org.sikuli.script.FindFailed ex) {
             System.out.println("Exception in finedElementInShoppingCartSikuly");
         }
         return match;
@@ -260,7 +260,7 @@ public class ShoppingCartPageObject extends BasePageObject {
             keyboard.type("2");
             screen.find(quantityUpdate).click();
             screen.wait(message, 20);
-        } catch (Exception ex) {
+        } catch (org.sikuli.script.FindFailed ex) {
             System.out.println("Exception in changeQuantityProductsSikuly()");
         }
         return this;
@@ -273,7 +273,7 @@ public class ShoppingCartPageObject extends BasePageObject {
         try {
             screen.wait(quantityForm.targetOffset(50, 0), 20).click();
             messageCart = screen.wait(messageEmptyCart, 20).text();
-        } catch (Exception ex) {
+        } catch (org.sikuli.script.FindFailed ex) {
             System.out.println("Exception in removeProductSikuly() ");
         }
         return messageCart;
@@ -284,7 +284,7 @@ public class ShoppingCartPageObject extends BasePageObject {
         try {
             screen.wait(totalCostProduct, 20);
             text = screen.find(ShoppingCartPatterns.TEXT).text();
-        } catch (Exception ex) {
+        } catch (org.sikuli.script.FindFailed ex) {
             System.out.println("Exception in getTotalCostSikuly()");
         }
 

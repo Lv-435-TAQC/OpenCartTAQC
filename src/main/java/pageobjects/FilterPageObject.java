@@ -35,10 +35,10 @@ public class FilterPageObject extends BasePageObject {
         return new CategoryPageObject(this.driver, xpath);
     }
 
-    public ProductComparePageObject clickProductCompare() {
+    public CompareProductPageObject clickProductCompare() {
         productCompareLabel = new LinkedLabel(this.driver, FilterLocators.PRODUCT_COMPARE_LABEL_LOC);
         productCompareLabel.click();
-        return new ProductComparePageObject(this.driver);
+        return new CompareProductPageObject(this.driver);
     }
 
     public String getProductCompareText() {
