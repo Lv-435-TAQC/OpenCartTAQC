@@ -9,6 +9,10 @@ public class DBConnector {
     private Connection connection;
     private Statement statement;
 
+    public Statement getStatement() {
+        return statement;
+    }
+
     public Statement getConnectionMariaDB(String DBdriver, String DBurl, String DBname, String DBpassword){
         try {
             Class.forName(DBdriver);
