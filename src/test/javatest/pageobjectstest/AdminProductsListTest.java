@@ -20,6 +20,19 @@ public class AdminProductsListTest {
     AdminLoginPageObject admin;
     AdminProductsListPageObject adminProductsList;
 
+    /**
+     * <b> Description of Precondition.</b>
+     *
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open Admin Login page on OpenCart.com;
+     * <li>3. Click on Login button;
+     * <li>4. Click Category button;
+     * <li>5. Choose Product option;
+     * </ul>
+     * <p>
+     */
+
     @BeforeClass
     public void setUp() {
         System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
@@ -42,6 +55,19 @@ public class AdminProductsListTest {
 //        driver.quit();
     }
 
+    /**
+     * <b>TC-01: Positive Test Copy Product.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Mark Products Checkbox;
+     * <li>2. Click Copy Product Button;
+     * <li>3. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Success: You have modified products.
+     */
+
     @Test(priority = 1)
     public void copyProductTest(){
         String actual =  adminProductsList
@@ -50,6 +76,22 @@ public class AdminProductsListTest {
                 .getTextFromMessage();
         assertTrue(actual.contains(SUCCESS_CHANGING_PRODUCT));
     }
+
+    /**
+     * <b>TC-02: Positive Test Copy Product.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Set Name in Filter;
+     * <li>2. Set Model in Filter;
+     * <li>3. Set Price in Filter;
+     * <li>4. Set Quantity in Filter;
+     * <li>5. Click Filter button;
+     * <li>6. Compare actual and expected Products model;
+     * </ul>
+     * <p>
+     * Expected Result: Apple Cinema 30.
+     */
 
     @Test(priority = 2)
     public void filterTest(){
@@ -63,6 +105,20 @@ public class AdminProductsListTest {
               .getTextOfProductsModelLabel();
       assertTrue(actual.contains(MODEL_OF_FILTERED_PRODUCT));
     }
+
+    /**
+     * <b>TC-03: Positive Test Copy Product.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Mark Products checkbox;
+     * <li>2. Click Delete button;
+     * <li>3. Click Yes button;
+     * <li>4. Set Quantity in Filter;
+     * </ul>
+     * <p>
+     * Expected Result: Success: You have modified products.
+     */
 
     @Test
     public void deleteProductBySikuliTest(){

@@ -1,4 +1,4 @@
-package pageobjectstest;
+package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -10,6 +10,7 @@ import pageobjects.MenuPageObject;
 
 import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.*;
+import static utils.ConstantsForMenu.*;
 
 public class MenuPageObjectTest {
     WebDriver driver;
@@ -22,6 +23,7 @@ public class MenuPageObjectTest {
         driver = new FirefoxDriver();
     }
 
+
     @BeforeMethod
     public void getHome() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -33,106 +35,310 @@ public class MenuPageObjectTest {
     public void tearDown() {
         driver.quit();
     }
+
+    /**
+     * <b>TC-01: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result:PC.
+     */
+
     @Test
     public void pcPageTest(){
        String actual =  menu.goToPcDesktops().getCategoryName();
-        String expected = "PC";
-        assertEquals(actual,expected);
+        assertEquals(actual,PC_TITLE_LOC);
     }
+
+    /**
+     * <b>TC-02: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Mac.
+     */
+
     @Test
     public void macPageTest(){
         String actual =  menu.clickMacDesktops().getCategoryName();
-        String expected = "Mac";
-        assertEquals(actual,expected);
+        assertEquals(actual,MAC_TITLE_LOC);
     }
+
+    /**
+     * <b>TC-03: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Desktops.
+     */
+
     @Test
     public void showAllDesktopsPageTest(){
         String actual =  menu.showAllDesktops().getCategoryName();
-        String expected = "Desktops";
-        assertEquals(actual,expected);
+        assertEquals(actual,DESKTOPS_TITLE_LOC);
     }
+
+    /**
+     * <b>TC-04: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Windows.
+     */
+
     @Test
     public void windowsPageTest(){
         String actual =  menu.goToWindowsLaptops().getCategoryName();
-        String expected = "Windows";
-        assertEquals(actual,expected);
+        assertEquals(actual,WINDOWS_TITLE_LOC);
     }
-    @Test
-    public void macsPageTest(){
-        String actual =  menu.goToMacsLaptops().getCategoryName();
-        String expected = "Macs";
-        assertEquals(actual,expected);
-    }
+
+    /**
+     * <b>TC-05: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Macs.
+     */
+
+//    @Test
+//    public void macsPageTest(){
+//        String actual =  menu.goToMacsLaptops().getCategoryName();
+//        assertEquals(actual,MACS_TITLE_LOC);
+//    }
+
+    /**
+     * <b>TC-06: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Laptops & Notebooks.
+     */
+
     @Test
     public void showAllLaptopsPageTest(){
         String actual =  menu.showAllLaptops().getCategoryName();
-        String expected = "Laptops & Notebooks";
-        assertEquals(actual,expected);
+        assertEquals(actual,LAPTOPS_TITLE_LOC);
     }
-    @Test
-    public void miceAndTrackballsPageTest(){
-        String actual =  menu.goToMiceAndTrackballsComponents().getCategoryName();
-        String expected = "Mice and Trackballs";
-        assertEquals(actual,expected);
-    }
+
+    /**
+     * <b>TC-07: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Mice and Trackballs.
+     */
+
+//    @Test
+//    public void miceAndTrackballsPageTest(){
+//        String actual =  menu.goToMiceAndTrackballsComponents().getCategoryName();
+//        assertEquals(actual,MICE_TITLE_LOC);
+//    }
+
+    /**
+     * <b>TC-08: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result:Monitors.
+     */
+
     @Test
     public void monitorsPageTest(){
         String actual =  menu.goToMonitorsComponents().getCategoryName();
-        String expected = "Monitors";
-        assertEquals(actual,expected);
+        assertEquals(actual,MONITORS_TITLE_LOC);
     }
+
+    /**
+     * <b>TC-09: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result:Scanners.
+     */
+
     @Test
     public void scannersPageTest(){
         String actual =  menu.goToScannersComponents().getCategoryName();
-        String expected = "Scanners";
-        assertEquals(actual,expected);
+        assertEquals(actual,SCANNERS_TITLE_LOC);
     }
+
+    /**
+     * <b>TC-10: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result:Printers.
+     */
+
     @Test
     public void printersPageTest(){
         String actual =  menu.goToPrintersComponents().getCategoryName();
-        String expected = "Printers";
-        assertEquals(actual,expected);
+        assertEquals(actual,PRINTERS_TITLE_LOC);
     }
+
+    /**
+     * <b>TC-11: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result:Web Cameras.
+     */
+
     @Test
     public void webCamerasPageTest(){
         String actual =  menu.goToWebCamerasComponents().getCategoryName();
-        String expected = "Web Cameras";
-        assertEquals(actual,expected);
+        assertEquals(actual,WEB_CAMERAS_TITLE_LOC);
     }
+
+    /**
+     * <b>TC-12: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result:Components.
+     */
+
     @Test
     public void showAllComponentsPageTest(){
         String actual =  menu.showAllComponents().getCategoryName();
-        String expected = "Components";
-        assertEquals(actual,expected);
+        assertEquals(actual,COMPONENTS_TITLE_LOC);
     }
+
+    /**
+     * <b>TC-13: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result:Tablets.
+     */
+
     @Test
     public void tabletsPageTest(){
         String actual =  menu.goToTablets().getCategoryName();
-        String expected = "Tablets";
-        assertEquals(actual,expected);
+        assertEquals(actual,TABLETS_TITLE_LOC);
     }
+
+    /**
+     * <b>TC-14: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result:Software.
+     */
+
     @Test
     public void softwarePageTest(){
         String actual =  menu.goToSoftware().getCategoryName();
-        String expected = "Software";
-        assertEquals(actual,expected);
+        assertEquals(actual,SOFTWARE_TITLE_LOC);
     }
+
+    /**
+     * <b>TC-15: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Phones & PDAs.
+     */
+
     @Test
     public void phonesPageTest(){
         String actual =  menu.goToPhonesAndPDAs().getCategoryName();
-        String expected = "Phones & PDAs";
-        assertEquals(actual,expected);
+        assertEquals(actual,PHONES_PDAS_TITLE_LOC);
     }
+
+    /**
+     * <b>TC-16: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result:Cameras.
+     */
+
     @Test
     public void camerasPageTest(){
         String actual =  menu.goToWebCameras().getCategoryName();
-        String expected = "Cameras";
-        assertEquals(actual,expected);
+        assertEquals(actual,CAMERAS_TITLE_LOC);
     }
+
+    /**
+     * <b>TC-17: Menu options tests.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Option button;
+     * <li>2. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result:MP3 Players.
+     */
+
     @Test
     public void mp3PageTest(){
         String actual =  menu.showAllMP3Players().getCategoryName();
-        String expected = "MP3 Players";
-        assertEquals(actual,expected);
+        assertEquals(actual,MP3PLAYERS_TITLE_LOC);
     }
 }
