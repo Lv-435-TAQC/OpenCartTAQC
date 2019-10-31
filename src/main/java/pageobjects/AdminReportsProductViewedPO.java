@@ -3,8 +3,6 @@ package pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Button;
 
 import java.util.ArrayList;
@@ -21,8 +19,6 @@ public class AdminReportsProductViewedPO extends BasePageObject {
     public AdminReportsProductViewedPO(WebDriver driver) {
         super(driver);
         this.viewedItemPOS = new ArrayList<>();
-        WebDriverWait wait = new WebDriverWait(driver, 100);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(PRODUCT_VIEWED_REPORT_RESET_BUTTON)));
         this.reset = new Button(driver, PRODUCT_VIEWED_REPORT_RESET_BUTTON);
     }
 
@@ -31,8 +27,6 @@ public class AdminReportsProductViewedPO extends BasePageObject {
     }
 
     public AdminReportsPageObject clickResetAndDeleteItemsFromList(){
-//        WebDriverWait wait = new WebDriverWait(driver, 100);
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(PRODUCT_VIEWED_REPORT_RESET_BUTTON)));
         this.getReset().click();
         this.viewedItemPOS.clear();
         return new AdminReportsPageObject(driver);
