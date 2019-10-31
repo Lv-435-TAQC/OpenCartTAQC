@@ -39,6 +39,22 @@ public class SearchPageObjectTest {
        driver.quit();
     }
 
+    /**
+     * <b> Description of Precondition.</b>
+     *
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open  Page on OpenCart.com;
+     * <li>3. Go to Search;
+     * <li>4. Input Product Name;
+     * <li>5. Click Search Button;
+     * <li>6. Get Text from Message;
+     * <li>7. Compare Expected with Text from Message;
+     * </ul>
+     * <p>
+     *  Expected Result: "Search - Mac";
+     */
+
     @Test
     public void testInputValidProductName() {
         String actual = search
@@ -48,6 +64,22 @@ public class SearchPageObjectTest {
         String expected = ("Search - Mac");
         assertEquals(actual, expected);
     }
+    /**
+     * <b> Description of Precondition.</b>
+     *
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open  Page on OpenCart.com;
+     * <li>3. Go to Search;
+     * <li>4. Input False in Product Name;
+     * <li>5. Click Search Button;
+     * <li>6. Get Text from Message;
+     * <li>7. Compare Expected with Text from Message;
+     * </ul>
+     * <p>
+     *  Expected Result: "Your shopping cart is empty!";
+     */
+
     @Test
     public void testInputFalseData() {
         String actual = search
@@ -57,6 +89,23 @@ public class SearchPageObjectTest {
         String expected = ("Your shopping cart is empty!");
         assertEquals(actual, expected);
     }
+    /**
+     * <b> Description of Precondition.</b>
+     *
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open  Page on OpenCart.com;
+     * <li>3. Go to Search;
+     * <li>4. Input Data in Product Name;
+     * <li>5. Select Category;
+     * <li>6. Click Search Button;
+     * <li>7. Get Text from First Element of Search;
+     * <li>8. Compare Expected with Text from Message;
+     * </ul>
+     * <p>
+     *  Expected Result: "MacBook";
+     */
+
     @Test
     public void testUseInSubcategories() {
         String actual = search
@@ -67,6 +116,24 @@ public class SearchPageObjectTest {
         String expected = ("MacBook");
         assertEquals(actual, expected);
     }
+
+    /**
+     * <b> Description of Precondition.</b>
+     *
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open  Page on OpenCart.com;
+     * <li>3. Go to Search;
+     * <li>4. Input Data in Product Name;
+     * <li>5. Click Description Button;
+     * <li>6. Click Search Button;
+     * <li>7. Get Text from First Element of Search;
+     * <li>8. Compare Expected with Text from Message;
+     * </ul>
+     * <p>
+     *  Expected Result: "Canon EOS 5D";
+     */
+
     @Test
     public void testUseSearchWithDescription() {
         String actual = search
@@ -77,6 +144,23 @@ public class SearchPageObjectTest {
         String expected = ("Canon EOS 5D");
         assertEquals(actual, expected);
     }
+    /**
+     * <b> Description of Precondition.</b>
+     *
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open  Page on OpenCart.com;
+     * <li>3. Go to Search;
+     * <li>4. Input Data in Product Name;
+     * <li>5. Click Search With Subcategory  Button;
+     * <li>6. Click Search Button;
+     * <li>7. Get Text from First Element of Search;
+     * <li>8. Compare Expected with Text from Message;
+     * </ul>
+     * <p>
+     *  Expected Result: "iMac";
+     */
+
     @Test
     public void testSearchWithSubcategoriesButton() {
         String actual = search
@@ -88,21 +172,20 @@ public class SearchPageObjectTest {
         String expected = ("iMac");
         assertEquals(actual, expected);
     }
-    @Test(priority = 1)
-    public void testSikuli() throws FindFailed {
-        Screen screen = new Screen();
-        String categoriesSelect = "D:\\sikuliScreenshot\\categories.PNG";
-        String laptopsAndNote = "D:\\sikuliScreenshot\\Mac.PNG";
-        String inputNameOfProduct = "D:\\sikuliScreenshot\\inputNameProduct.PNG";
-        String searchButton = "D:\\sikuliScreenshot\\searchButton.PNG";
-        String firstElementOfSearch = "D:\\sikuliScreenshot\\MacBook.PNG";
-        screen.type(inputNameOfProduct, "mac");
-        screen.click(categoriesSelect);
-        screen.click(laptopsAndNote);
-        screen.click(searchButton);
-        screen.find(firstElementOfSearch);
+    /**
+     * <b> Description of Precondition.</b>
+     *
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open  Page on OpenCart.com;
+     * <li>3. Go to Search;
+     * <li>4. Get Text from First Element of Search;
+     * <li>5. Compare Expected with Text Categories;
+     * </ul>
+     * <p>
+     *  Expected Result: "forTest";
+     */
 
-    }
     @Test
     public void testFindCategoriesInSearch() {
         Assert.assertTrue(search.returnTextFromFifthElementOfCategories().contentEquals("forTest"));
