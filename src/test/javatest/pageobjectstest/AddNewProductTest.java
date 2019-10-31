@@ -8,6 +8,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageobjects.AddNewProductPageObject;
 import pageobjects.AdminLoginPageObject;
 import pageobjects.AdminProductsListPageObject;
 
@@ -21,18 +22,16 @@ public class AddNewProductTest {
     WebDriver driver;
     AdminLoginPageObject admin;
     AdminProductsListPageObject adminProductsList;
+    AddNewProductPageObject addProduct;
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
         driver = new FirefoxDriver();
-    }
-
-    @BeforeMethod
-    public void getHome() {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         adminProductsList = new AdminProductsListPageObject(driver);
+        addProduct = new AddNewProductPageObject(driver);
         admin = new AdminLoginPageObject(driver);
         admin.goToUrl(ADMIN_LOGIN_URL);
         admin
@@ -72,82 +71,7 @@ public class AddNewProductTest {
                 .setPhoto()
                 .saveNewProduct()
                 .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
-    }
-
-
-    @Test
-     public void editProduct(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .saveNewProduct()
-                .getTextFromMessage();
-        assertTrue(actual.contains(SUCCESS_CHANGING_PRODUCT));
-     }
-
-    @Test
-     public void editWithoutName(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .clearProductName()
-                .saveNewProduct()
-                .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
-     }
-
-    @Test
-    public void editWithoutMegaTag(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .clearMetaTagTitle()
-                .saveNewProduct()
-                .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
-    }
-
-    @Test
-    public void editWithoutModel(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .clickData()
-                .clearProductModel()
-                .saveNewProduct()
-                .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
-    }
-
-    @Test
-    public void editWithoutNameAndMegaTag(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .clearProductName()
-                .clearMetaTagTitle()
-                .saveNewProduct()
-                .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
-    }
-
-    @Test
-    public void editWithoutNameAndModel(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .clearProductName()
-                .clickData()
-                .clearProductModel()
-                .saveNewProduct()
-                .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
-    }
-
-    @Test
-    public void editWithoutMegaTagAndModel(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .clearMetaTagTitle()
-                .clickData()
-                .clearProductModel()
-                .saveNewProduct()
-                .getTextFromMessage();
+        addProduct.goBackToList();
         assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
     }
 
@@ -161,6 +85,88 @@ public class AddNewProductTest {
                 .clearProductModel()
                 .saveNewProduct()
                 .getTextFromMessage();
+        addProduct.goBackToList();
         assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
     }
+
+    @Test
+    public void editWithoutMegaTagAndModel(){
+        String actual = adminProductsList
+                .clickEditButton()
+                .clearMetaTagTitle()
+                .clickData()
+                .clearProductModel()
+                .saveNewProduct()
+                .getTextFromMessage();
+        addProduct.goBackToList();
+        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
+    }
+
+    @Test
+    public void editWithoutNameAndModel(){
+        String actual = adminProductsList
+                .clickEditButton()
+                .clearProductName()
+                .clickData()
+                .clearProductModel()
+                .saveNewProduct()
+                .getTextFromMessage();
+        addProduct.goBackToList();
+        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
+    }
+
+    @Test
+    public void editWithoutNameAndMegaTag(){
+        String actual = adminProductsList
+                .clickEditButton()
+                .clearProductName()
+                .clearMetaTagTitle()
+                .saveNewProduct()
+                .getTextFromMessage();
+        addProduct.goBackToList();
+        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
+    }
+
+    @Test
+    public void editWithoutModel(){
+        String actual = adminProductsList
+                .clickEditButton()
+                .clickData()
+                .clearProductModel()
+                .saveNewProduct()
+                .getTextFromMessage();
+        addProduct.goBackToList();
+        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
+    }
+
+    @Test
+    public void editWithoutMegaTag(){
+        String actual = adminProductsList
+                .clickEditButton()
+                .clearMetaTagTitle()
+                .saveNewProduct()
+                .getTextFromMessage();
+        addProduct.goBackToList();
+        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
+    }
+
+    @Test
+    public void editWithoutName(){
+        String actual = adminProductsList
+                .clickEditButton()
+                .clearProductName()
+                .saveNewProduct()
+                .getTextFromMessage();
+        addProduct.goBackToList();
+        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
+    }
+
+    @Test
+     public void editProduct(){
+        String actual = adminProductsList
+                .clickEditButton()
+                .saveNewProduct()
+                .getTextFromMessage();
+        assertTrue(actual.contains(SUCCESS_CHANGING_PRODUCT));
+     }
 }

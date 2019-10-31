@@ -1,4 +1,4 @@
-package pageobjectstest;
+package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -22,12 +22,8 @@ public class AdminProductsListTest {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
         driver = new FirefoxDriver();
-    }
-
-    @BeforeMethod
-    public void getHome() {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         admin = new AdminLoginPageObject(driver);
@@ -43,18 +39,10 @@ public class AdminProductsListTest {
 
     @AfterClass
     public void tearDown() {
-        driver.quit();
+//        driver.quit();
     }
 
-    @Test
-    public void deleteProductBySikuliTest(){
-        adminProductsList
-                .findAddedProduct()
-                .deleteChosenProduct()
-                .closeMessage();
-    }
-
-    @Test
+    @Test(priority = 1)
     public void copyProductTest(){
         String actual =  adminProductsList
                 .markCheckbox()
@@ -63,16 +51,24 @@ public class AdminProductsListTest {
         assertTrue(actual.contains(SUCCESS_CHANGING_PRODUCT));
     }
 
-    @Test
+    @Test(priority = 2)
     public void filterTest(){
       String actual = adminProductsList
                 .setFilterName("Apple Cinema 30")
                 .setFilterModel("Product 15")
                 .setFilterPrice("100")
                 .setFilterQuantity("990")
-                .chooseEnabledOption()
+                .chooseDisabledOption()
                 .clickFilterSubmit()
               .getTextOfProductsModelLabel();
       assertTrue(actual.contains(MODEL_OF_FILTERED_PRODUCT));
+    }
+
+    @Test
+    public void deleteProductBySikuliTest(){
+        adminProductsList
+                .findAddedProduct()
+                .deleteChosenProduct()
+                .closeMessage();
     }
 }
