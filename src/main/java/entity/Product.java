@@ -1,6 +1,6 @@
 package entity;
 
-public class Product {
+public class Product implements Comparable {
     private Integer id;
     private String productName;
     private String imageLink;
@@ -102,5 +102,40 @@ public class Product {
 
     public void setDimensions(String dimensions) {
         this.dimensions = dimensions;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", productName='" + productName + '\'' +
+                ", prise=" + prise +
+                ", model='" + model + '\'' +
+                ", brands='" + brands + '\'' +
+                ", availability='" + availability + '\'' +
+                ", rating='" + rating + '\'' +
+                ", summary='" + summary + '\'' +
+                ", weight=" + weight +
+                ", dimensions='" + dimensions + '\'' +
+                '}';
+    }
+
+    public boolean equals(Product product) {
+        if (this == product) return true;
+        if (product == null || getClass() != product.getClass()) return false;
+        return id.equals(product.id) &&
+                productName.contains(product.productName) &&
+                prise.equals(product.prise) &&
+                summary.contains(product.summary);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Product product = (Product) o;
+        int result = this.productName.compareTo(product.getProductName());
+        if (result == 0) {
+            result = this.prise.compareTo(product.getPrise());
+        }
+        return result;
     }
 }

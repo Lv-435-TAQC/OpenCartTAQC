@@ -49,13 +49,13 @@ public class CategoryPageObject extends BasePageObject {
     public CategoryPageObject generateProductsList() {
         Product product;
         generateProductsPageObjects();
-        products.clear();
+        products = new ArrayList<>();
         for (int i = 0; i < productsPO.size(); i++) {
             product = new Product();
             product.setId(productsPO.get(i).getIdOfProduct());
             product.setProductName(productsPO.get(i).getNameOfProduct());
-            product.setDimensions(productsPO.get(i).getDescriptionOfProduct());
-            product.setPrise(Double.parseDouble(productsPO.get(i).getNewPrice()));
+            product.setSummary(productsPO.get(i).getDescriptionOfProduct());
+            product.setPrise(Double.parseDouble(productsPO.get(i).getPrice()));
             products.add(product);
         }
         return this;
@@ -94,19 +94,11 @@ public class CategoryPageObject extends BasePageObject {
         return productsPO.get(numberOfProduct - 1).getDescriptionOfProduct();
     }
 
-    public String getOldPriceByNumberOfProduct(int numberOfProduct) {
-        return productsPO.get(numberOfProduct - 1).getOldPrice();
-    }
+
 
     public String getNewPriceByNumberOfProduct(int numberOfProduct) {
-        return productsPO.get(numberOfProduct - 1).getNewPrice();
+        return productsPO.get(numberOfProduct - 1).getPrice();
     }
-
-    public String getExTaxByNumberOfProduct(int numberOfProduct) {
-        return productsPO.get(numberOfProduct - 1).getExTax();
-    }
-
-
     public ArrayList<ProductUnitPageObject> getProductsPO() {
         return productsPO;
     }
