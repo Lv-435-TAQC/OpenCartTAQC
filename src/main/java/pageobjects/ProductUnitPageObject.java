@@ -45,8 +45,7 @@ public class ProductUnitPageObject extends BasePageObject {
 
     public String getPrice() {
         priceOfProduct = new Label(elementToParse, ProductUnitLocators.NEW_PRICE_LOC);
-        String price = priceOfProduct.getText();
-        price = price.replaceAll("Ex Tax:", "").replaceAll(",", "");
+        String price = priceOfProduct.getText().replaceAll("Ex Tax:", "").replaceAll(",", "");
         return price.substring(1, price.indexOf(" "));
     }
 

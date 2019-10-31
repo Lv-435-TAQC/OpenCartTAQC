@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.Objects;
-
 public class Product {
     private Integer id;
     private String productName;
@@ -122,15 +120,12 @@ public class Product {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
+    public boolean equals(Product product) {
+        if (this == product) return true;
+        if (product == null || getClass() != product.getClass()) return false;
         return id.equals(product.id) &&
                 productName.contains(product.productName) &&
                 prise.equals(product.prise) &&
                 summary.contains(product.summary);
     }
-
 }
