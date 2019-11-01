@@ -35,4 +35,7 @@ public class Constants {
     public static final String MODEL_OF_FILTERED_PRODUCT = "Apple Cinema 30";
     public static final String APPLE_DESCRIPTION = "Apple iPad Pro 12.9 64Gb Wi-Fi+4G (Space Gray) 2018";
     public static final String ADMIN_LOGIN2_URL = "http://192.168.186.129/opencart/admin/index.php?route=common/dashboard&user_token=ZMuBLJtL0IzVqWvTS8J1UUvWCEwiVh2s";
+    public static final String SEARCH_URL="http://192.168.186.129/opencart/index.php?route=product/search";
+    public static final String ADMIN_CATEGORIES_SUCCESSFUL_MESSAGE = "Success: You have modified categories!";
+    public static final String ADMIN_CATEGORIES_UNSUCCESSFUL_MESSAGE = "Warning: Please check the form carefully for errors!";
 }
