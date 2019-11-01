@@ -1,11 +1,7 @@
 package pageobjectstest;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.sikuli.script.FindFailed;
-import org.sikuli.script.Pattern;
-import org.sikuli.script.Screen;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -16,6 +12,7 @@ import pageobjects.SearchPageObject;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
+import static utils.Constants.*;
 
 public class SearchPageObjectTest {
     WebDriver driver;
@@ -23,14 +20,14 @@ public class SearchPageObjectTest {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "D:\\geckodriver.exe");
+        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
         driver = new FirefoxDriver();
     }
 
     @BeforeMethod
     public void getHome() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://192.168.186.129/opencart/index.php?route=product/search");
+        driver.get(SEARCH_URL);
         search = new SearchPageObject(driver);
     }
 

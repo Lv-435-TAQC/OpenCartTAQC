@@ -1,15 +1,12 @@
 package javatest.pageobjectstest;
 
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.AdminNewCategoriesPageObject;
-import pageobjects.AdminCategoriesPageObject;
 
 import pageobjects.*;
 
@@ -74,7 +71,7 @@ public class AdminCategoriesPageObjectTests {
                     .inputMetaTagDescriptionOfCategories("Name")
                     .inputMetaTagKeywordsOfCategories("Test")
                     .saveNewCategories().getTextFromMessageOfCategories();
-            String expected = ("Success: You have modified categories!");
+            String expected = (ADMIN_CATEGORIES_SUCCESSFUL_MESSAGE );
             assertTrue(actual.contains(expected));
         }
     /**
@@ -108,7 +105,7 @@ public class AdminCategoriesPageObjectTests {
                     .inputMetaTagKeywordsOfCategories("")
                     .saveNewCategories()
                     .getTextFromMessageInNewCategories();
-            String expected = ("Warning: Please check the form carefully for errors!");
+            String expected = (ADMIN_CATEGORIES_UNSUCCESSFUL_MESSAGE);
             assertTrue(actual.contains(expected));
         }
     /**
@@ -142,7 +139,7 @@ public class AdminCategoriesPageObjectTests {
                     .inputMetaTagKeywordsOfCategories("")
                     .saveNewCategories()
                     .getTextFromMessageInNewCategories();
-            String expected = ("Warning: Please check the form carefully for errors!");
+            String expected = (ADMIN_CATEGORIES_UNSUCCESSFUL_MESSAGE);
             assertTrue(actual.contains(expected));
         }
     /**
@@ -175,7 +172,7 @@ public class AdminCategoriesPageObjectTests {
                     .inputMetaTagKeywordsOfCategories("")
                     .saveNewCategories()
                     .getTextFromMessageInNewCategories();
-            String expected = ("Warning: Please check the form carefully for errors!");
+            String expected = (ADMIN_CATEGORIES_UNSUCCESSFUL_MESSAGE);
             assertTrue(actual.contains(expected));
         }
     }
