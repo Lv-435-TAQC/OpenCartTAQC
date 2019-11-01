@@ -5,16 +5,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static utils.DBConstants.*;
-
 public class DBConnector {
     private Connection connection;
     private Statement statement;
 
-    public Statement getConnectionMariaDB(){
+    public Statement getConnectionMariaDB(String DBdriver, String DBurl, String DBname, String DBpassword){
         try {
-            Class.forName(MARIA_DB_DRIVER);
-            connection = DriverManager.getConnection(MARIA_DB_URL, MARIA_DB_USER_NAME, MARIA_DB_PASSWORD);
+            Class.forName(DBdriver);
+            connection = DriverManager.getConnection(DBurl, DBname, DBpassword);
             statement = connection.createStatement();
         }catch (Exception e) {
             e.printStackTrace();
