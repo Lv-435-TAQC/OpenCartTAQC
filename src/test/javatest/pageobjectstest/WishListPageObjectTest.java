@@ -112,7 +112,7 @@ public class WishListPageObjectTest {
                 .getMenuPageObject()
                 .showAllDesktops()
                 .generateProductsPageObjects()
-                .clickAddToWishListByNumberOfProduct(1)
+                .clickAddToWishListByNumberOfProduct(ONE)
                 .getTextFromAlertLabel();
         assertTrue(actual.contains(ALERT_WISH_LIST_SUCCESS));
     }
@@ -137,7 +137,7 @@ public class WishListPageObjectTest {
                 .getMenuPageObject()
                 .showAllDesktops()
                 .generateProductsPageObjects()
-                .clickToLinkedNameByNumberOfProduct(1)
+                .clickToLinkedNameByNumberOfProduct(ONE)
                 .addToWishList()
                 .verifySuccessNotification()
                 .getTextSuccessNotification();

@@ -8,13 +8,6 @@ public class Main {
         WebDriver driver = new FirefoxDriver();
         AdminPageObject adminPageObject = new AdminPageObject(driver);
 
-        adminPageObject
-                .goToAdminPage()
-                .logIn("nataliia", "vmnataliia")
-                .closeModalWindow()
-                .getNavigation()
-                .goToReports().clickProductsViewedReport()
-                .getAdminReportsProductViewedPO()
-                .clickResetAndDeleteItemsFromList();
+
     }
 }
