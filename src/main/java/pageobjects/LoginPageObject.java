@@ -34,7 +34,6 @@ public class LoginPageObject extends BasePageObject {
                 .setLogInField(loginName)
                 .setPasswordField(password)
                 .clickNextButton();
-
         return new MyAccountPageObject(driver);
     }
 
@@ -57,7 +56,8 @@ public class LoginPageObject extends BasePageObject {
     }
 
 
-    public RegistrationPageObject clickToGoToRegistation() {
+
+    public RegistrationPageObject clickToGoToRegistration() {
         registrationButton = new Button(this.driver, LoginLocators.NEW_USER_CONTINUE_BUTTON);
         registrationButton.click();
         return new RegistrationPageObject(driver);
@@ -95,7 +95,6 @@ public class LoginPageObject extends BasePageObject {
         screen.type(LoginPatterns.PASSWORD, "orysia");
         try {
             screen.click(LoginPatterns.LOGIN_BUTTON);
-            screen.find(LoginPatterns.DATE);
             return true;
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();

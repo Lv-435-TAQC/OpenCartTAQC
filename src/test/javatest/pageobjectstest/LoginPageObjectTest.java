@@ -55,8 +55,9 @@ public class LoginPageObjectTest {
     }
 
     @Test
-    public void clickButtonToGoToRegistrationPageTest() {
-        loginPageObject.clickToGoToRegistation();
+
+    public void clickButtonToGoToRegistrationPage() {
+        loginPageObject.clickToGoToRegistration();
         String actual = driver.getCurrentUrl();
         String expected = Constants.REGISTRATION_PAGE;
         assertEquals(actual, expected);
@@ -81,8 +82,8 @@ public class LoginPageObjectTest {
     }
 
     @Test(priority = 2)
-    public void loginValidDateTest() {
-        loginPageObject.logIn("orysita.lviv@gmail.com", "orysia");
+    {
+        loginPageObject.logIn("orysita.lviv+1@gmail.com", "orysia");
         String actual = driver.getCurrentUrl();
         String expected = Constants.ACCOUNT_PAGE;
         assertEquals(actual, expected);
