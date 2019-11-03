@@ -3,7 +3,7 @@ package pageelements;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class Label extends BaseElement{
+public class Label extends BaseElement {
 
 
     public Label(WebDriver driver, String xpath) {
@@ -14,7 +14,15 @@ public class Label extends BaseElement{
         super(elementToParse, xpath);
     }
 
-    public String getText(){
+    public Label(WebElement element) {
+        super(element);
+    }
+
+    public String getText() {
         return this.element.getText();
+    }
+
+    public String getAttribute(String attribute) {
+        return this.element.getAttribute(attribute);
     }
 }

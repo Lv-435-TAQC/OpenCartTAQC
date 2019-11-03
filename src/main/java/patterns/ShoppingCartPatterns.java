@@ -10,4 +10,5 @@ public class ShoppingCartPatterns {
     public static final String TOTAL_COST_PRODUCT = "src/main/resources/sikulipatterns/total_cost.png";
     public static final String TEXT =  "src/main/resources/sikulipatterns/total_cost.png";
     public static final String IPHONE_IN_SHOPPING_CART=  "src/main/resources/sikulipatterns/iphoneInShoppingCart.png";
+    public static final String EMPTY_CART_MESSAGE=  "src/main/resources/sikulipatterns/emptyCartMessage.png";
 }

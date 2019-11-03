@@ -16,7 +16,9 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
-import static utils.commonconstants.Constants.*;
+import static patterns.RegistrationPatterns.*;
+import static utils.Constants.*;
+
 
 public class RegistrationPageObjectTest {
 
@@ -25,7 +27,7 @@ public class RegistrationPageObjectTest {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", PATH_TO_DRIVER);
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         registrationPageObject = new RegistrationPageObject(driver);
@@ -124,40 +126,36 @@ public class RegistrationPageObjectTest {
         assertFalse(driver.getPageSource().contains(PRIVACY_POLICY_AGREE_WARNING_MESSAGE));
     }
 
-    @Test(priority = 1)
+    @Test(priority = 2)
     public void successfulRegisterTest() {
         registrationPageObject.setDataToFirstNameField("Paprika").setDataToLastNameField("Pepper")
                 .setDataToEmailField(new Random().nextInt(1000) + "paprika@paprika.com")
                 .setDataToTelephoneField("0794852421").setDataToPasswordField("12345").setDataToPasswordConfirmField("12345")
-                .checkOnPrivacyPolicyCheckbox().pushOnContinueButton();
+                .checkOnPrivacyPolicyCheckbox().pushOnContinueButton().waitForUrlToBe(SUCCESSFUL_REGISTRATION_URL);
         assertEquals(driver.getCurrentUrl(), SUCCESSFUL_REGISTRATION_URL);
+        registrationPageObject.goToUrl(LOGOUT_URL);
     }
 
-    @Test
+    @Test(priority = 1)
     public void successfulRegisterSikuliTest() {
         Screen screen = new Screen();
-        Pattern fieldFirstName = new Pattern("src/main/resources/sikulipatterns/fieldFirstName.png");
-        Pattern fieldLastName = new Pattern("src/main/resources/sikulipatterns/fieldLastName.png");
-        Pattern fieldEmail = new Pattern("src/main/resources/sikulipatterns/fieldEmail.png");
-        Pattern fieldTelephone = new Pattern("src/main/resources/sikulipatterns/fieldTelephone.png");
-        Pattern labelYourPassword = new Pattern("src/main/resources/sikulipatterns/labelYourPassword.png");
-        Pattern fieldPassword = new Pattern("src/main/resources/sikulipatterns/fieldPassword.png");
-        Pattern fieldPasswordConfirm = new Pattern("src/main/resources/sikulipatterns/fieldPasswordConfirm.png");
-        Pattern checkboxPrivacyPolicy = new Pattern("src/main/resources/sikulipatterns/checkboxPrivacyPolicy.png");
-        Pattern buttonContinue = new Pattern("src/main/resources/sikulipatterns/buttonContinue.png");
-        Pattern messageOnSuccessfulRegistration = new Pattern(
-                "src/main/resources/sikulipatterns/messageOnSuccessfulRegistration.png");
-        registrationPageObject.typeTextToPattern(screen, fieldFirstName, "Paprika");
-        registrationPageObject.typeTextToPattern(screen, fieldLastName, "Pepper");
-        registrationPageObject.typeTextToPattern(screen, fieldEmail,
-                new Random().nextInt(1000) + "paprika@paprika.com");
-        registrationPageObject.typeTextToPattern(screen, fieldTelephone, "0794852421");
-        registrationPageObject.clickOnPattern(screen, labelYourPassword);
+        Pattern buttonLogout = new Pattern(BUTTON_LOGOUT);
+        Pattern labelYourPassword = new Pattern(LABEL_YOUR_PASSWORD);
+        registrationPageObject.typeTextToPattern(screen, new Pattern(FIELD_FIRST_NAME), "Paprika")
+                .typeTextToPattern(screen, new Pattern(FIELD_LAST_NAME), "Pepper")
+                .typeTextToPattern(screen, new Pattern(FIELD_EMAIL),
+                        new Random().nextInt(1000) + "paprika@paprika.com")
+                .typeTextToPattern(screen, new Pattern(FIELD_TELEPHONE), "0794852421")
+                .clickOnPattern(screen, labelYourPassword);
         screen.type(Key.PAGE_DOWN);
-        registrationPageObject.typeTextToPattern(screen, fieldPassword.exact(), "12345");
-        registrationPageObject.typeTextToPattern(screen, fieldPasswordConfirm, "12345");
-        registrationPageObject.clickOnPattern(screen, checkboxPrivacyPolicy);
-        registrationPageObject.clickOnPattern(screen, buttonContinue);
-        assertNotNull(screen.exists(messageOnSuccessfulRegistration));
+        registrationPageObject.typeTextToPattern(screen, labelYourPassword.targetOffset(300, 60), "12345")
+                .typeTextToPattern(screen, labelYourPassword.targetOffset(300, 100), "12345")
+                .clickOnPattern(screen, new Pattern(CHECKBOX_PRIVACY_POLICY))
+                .clickOnPattern(screen, new Pattern(BUTTON_CONTINUE));
+        assertNotNull(screen.exists(new Pattern(MESSAGE_ON_SUCCESSFUL_REGISTRATION)));
+        screen.type(Key.PAGE_DOWN);
+        registrationPageObject.waitForPattern(screen, buttonLogout, 10)
+                .clickOnPattern(screen, buttonLogout)
+                .waitForPattern(screen, new Pattern(MESSAGE_ON_SUCCESSFUL_LOGOUT), 10);
     }
 }

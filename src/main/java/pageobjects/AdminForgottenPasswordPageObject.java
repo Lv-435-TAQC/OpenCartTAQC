@@ -22,7 +22,7 @@ public class AdminForgottenPasswordPageObject extends BasePageObject {
 
     public AdminForgottenPasswordPageObject setEmailFieldForgotten(String loginName) {
         loginFieldForgot = new Input(this.driver, AdminForgottenPasswordLocators.INPUT_EMAIL_FIELD_FOR_ADMIN_FORGOTTEN_PASSWORD_PAGE);
-        loginFieldForgot.setTextForField(loginName);
+        loginFieldForgot.setText(loginName);
 
         return this;
     }

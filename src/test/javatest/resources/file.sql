@@ -1,0 +1,1 @@
+INSERT INTO oc_customer_wishlist(customer_id, product_id, date_added) VALUES ('1','42','2019-10-28 06:04:10');

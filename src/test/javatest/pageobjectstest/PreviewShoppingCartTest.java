@@ -1,4 +1,4 @@
-package javatest.pageobjectstest;
+package pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -9,6 +9,8 @@ import org.testng.annotations.Test;
 import pageobjects.HeaderPageObject;
 import pageobjects.HomePageObject;
 import pageobjects.PreviewShoppingCart;
+import utils.Constants;
+import utils.TestData;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,14 +23,14 @@ public class PreviewShoppingCartTest {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+        System.setProperty(Constants.KEY_TO_DRIVER, Constants.PATH_TO_DRIVER);
         driver = new FirefoxDriver();
     }
 
     @BeforeMethod
     public void getHome() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://localhost/OpenCart");
+        driver.get(TestData.HOME_PAGE);
         home = new HomePageObject(driver);
     }
 
@@ -40,7 +42,7 @@ public class PreviewShoppingCartTest {
     @Test
     public void testGetMapProductInCart() {
         String productID = home.addToCartIphone();
-        HeaderPageObject header = home.goToHeaderPage();
+        HeaderPageObject header = home.getHeaderPageObject();
         PreviewShoppingCart shoppingCartPageObject = header.getPreviewShoppingCart();
         assertTrue(shoppingCartPageObject.getMapProductInCart().containsKey(productID));
     }
@@ -49,7 +51,7 @@ public class PreviewShoppingCartTest {
     public void testRemoveProductFromShoppingCart() {
         home.addToCartIphone();
         String productID = home.addToCartMacBook();
-        HeaderPageObject header = home.goToHeaderPage();
+        HeaderPageObject header = home.getHeaderPageObject();
         PreviewShoppingCart previewShoppingCart = header.getPreviewShoppingCart();
         previewShoppingCart.removeProductFromShoppingCart(productID);
         previewShoppingCart = header.getPreviewShoppingCart();
