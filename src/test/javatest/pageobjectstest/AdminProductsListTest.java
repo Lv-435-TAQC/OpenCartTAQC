@@ -52,7 +52,7 @@ public class AdminProductsListTest {
 
     @AfterClass
     public void tearDown() {
-//        driver.quit();
+        driver.quit();
     }
 
     /**
