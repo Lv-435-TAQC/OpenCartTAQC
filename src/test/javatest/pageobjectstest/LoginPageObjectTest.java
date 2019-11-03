@@ -76,7 +76,7 @@ public class LoginPageObjectTest {
 
     @Test(priority = 2)
     public void LoginValidDate() {
-        loginPageObject.logIn("orysita.lviv@gmail.com", "orysia");
+        loginPageObject.logIn("orysita.lviv+1@gmail.com", "orysia");
         String actual = driver.getCurrentUrl();
         String expected = ACCOUNT_PAGE;
         assertEquals(actual, expected);
