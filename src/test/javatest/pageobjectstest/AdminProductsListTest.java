@@ -1,4 +1,4 @@
-package pageobjectstest;
+package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -20,14 +20,23 @@ public class AdminProductsListTest {
     AdminLoginPageObject admin;
     AdminProductsListPageObject adminProductsList;
 
+    /**
+     * <b> Description of Precondition.</b>
+     *
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open Admin Login page on OpenCart.com;
+     * <li>3. Click on Login button;
+     * <li>4. Click Category button;
+     * <li>5. Choose Product option;
+     * </ul>
+     * <p>
+     */
+
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
         driver = new FirefoxDriver();
-    }
-
-    @BeforeMethod
-    public void getHome() {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         admin = new AdminLoginPageObject(driver);
@@ -46,15 +55,20 @@ public class AdminProductsListTest {
         driver.quit();
     }
 
-    @Test
-    public void deleteProductBySikuliTest(){
-        adminProductsList
-                .findAddedProduct()
-                .deleteChosenProduct()
-                .closeMessage();
-    }
+    /**
+     * <b>TC-01: Positive Test Copy Product.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Mark Products Checkbox;
+     * <li>2. Click Copy Product Button;
+     * <li>3. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Success: You have modified products.
+     */
 
-    @Test
+    @Test(priority = 1)
     public void copyProductTest(){
         String actual =  adminProductsList
                 .markCheckbox()
@@ -63,16 +77,54 @@ public class AdminProductsListTest {
         assertTrue(actual.contains(SUCCESS_CHANGING_PRODUCT));
     }
 
-    @Test
+    /**
+     * <b>TC-02: Positive Test Copy Product.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Set Name in Filter;
+     * <li>2. Set Model in Filter;
+     * <li>3. Set Price in Filter;
+     * <li>4. Set Quantity in Filter;
+     * <li>5. Click Filter button;
+     * <li>6. Compare actual and expected Products model;
+     * </ul>
+     * <p>
+     * Expected Result: Apple Cinema 30.
+     */
+
+    @Test(priority = 2)
     public void filterTest(){
       String actual = adminProductsList
                 .setFilterName("Apple Cinema 30")
                 .setFilterModel("Product 15")
                 .setFilterPrice("100")
                 .setFilterQuantity("990")
-                .chooseEnabledOption()
+                .chooseDisabledOption()
                 .clickFilterSubmit()
               .getTextOfProductsModelLabel();
       assertTrue(actual.contains(MODEL_OF_FILTERED_PRODUCT));
+    }
+
+    /**
+     * <b>TC-03: Positive Test Copy Product.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Mark Products checkbox;
+     * <li>2. Click Delete button;
+     * <li>3. Click Yes button;
+     * <li>4. Set Quantity in Filter;
+     * </ul>
+     * <p>
+     * Expected Result: Success: You have modified products.
+     */
+
+    @Test
+    public void deleteProductBySikuliTest(){
+        adminProductsList
+                .findAddedProduct()
+                .deleteChosenProduct()
+                .closeMessage();
     }
 }
