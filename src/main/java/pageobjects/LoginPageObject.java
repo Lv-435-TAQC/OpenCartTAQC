@@ -13,7 +13,7 @@ import pageelements.Button;
 import pageelements.Input;
 import pageelements.Label;
 import pageelements.LinkedLabel;
-import patterns.LoginProductPatterns;
+import patterns.LoginPatterns;
 
 public class LoginPageObject extends BasePageObject {
     Screen screen = new Screen();
@@ -55,6 +55,8 @@ public class LoginPageObject extends BasePageObject {
         return this;
     }
 
+
+
     public RegistrationPageObject clickToGoToRegistration() {
         registrationButton = new Button(this.driver, LoginLocators.NEW_USER_CONTINUE_BUTTON);
         registrationButton.click();
@@ -88,12 +90,11 @@ public class LoginPageObject extends BasePageObject {
         return this.successfulMessage.getText();
     }
 
-    public Boolean testSikuliBad() {
-        screen.type(LoginProductPatterns.email, "orysita.benko@gmail.com");
-        screen.type(LoginProductPatterns.password, "orysia");
+    public Boolean sikuliBadDate() {
+        screen.type(LoginPatterns.EMAIL, "orysita.benko@gmail.com");
+        screen.type(LoginPatterns.PASSWORD, "orysia");
         try {
-            screen.click(LoginProductPatterns.button);
-            screen.find(LoginProductPatterns.date);
+            screen.click(LoginPatterns.LOGIN_BUTTON);
             return true;
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
@@ -101,12 +102,12 @@ public class LoginPageObject extends BasePageObject {
         }
     }
 
-    public Boolean testSikuliGood() {
-        screen.type(LoginProductPatterns.email, "orysia.benko@gmail.com");
-        screen.type(LoginProductPatterns.password, "orysia");
+    public Boolean sikuliGoodDate() {
+        screen.type(LoginPatterns.EMAIL, "orysia.benko@gmail.com");
+        screen.type(LoginPatterns.PASSWORD, "orysia");
         try {
-            screen.click(LoginProductPatterns.button);
-            screen.find(LoginProductPatterns.account);
+            screen.click(LoginPatterns.LOGIN_BUTTON);
+            screen.find(LoginPatterns.ACCOUNT);
             return true;
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
