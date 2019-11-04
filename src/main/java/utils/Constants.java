@@ -39,4 +39,11 @@ public class Constants {
     public static final String SEARCH_URL="http://192.168.186.129/opencart/index.php?route=product/search";
     public static final String ADMIN_CATEGORIES_SUCCESSFUL_MESSAGE = "Success: You have modified categories!";
     public static final String ADMIN_CATEGORIES_UNSUCCESSFUL_MESSAGE = "Warning: Please check the form carefully for errors!";
+    public static final String WARNING_MESSAGE_1= "Warning: No match for E-Mail Address and/or Password.";
+    public static final String WARNING_MESSAGE_2 = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
+    public static final String HOME_PAGE = "http://localhost/opencart/index.php?route=common/home";
+    public static final String REGISTRATION_PAGE = "http://localhost/opencart/index.php?route=account/register";
+    public static final String FORGOTTEN_PAGE = "http://localhost/opencart/index.php?route=account/forgotten";
+    public static final String ACCOUNT_PAGE = "http://localhost/opencart/index.php?route=account/account";
+    public static final String LOGIN_PAGE="http://localhost/opencart/index.php?route=account/login";
 }
