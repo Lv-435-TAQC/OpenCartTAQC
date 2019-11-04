@@ -4,7 +4,6 @@ import entity.Product;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -31,14 +30,15 @@ public class CompareProductObjectTest {
 //    }
 
     @BeforeMethod
-    public void cleanCookie(){
+    public void cleanCookie() {
         driver.manage().deleteAllCookies();
+        categoryPageObject = menuPageObject.showAllDesktops();
     }
 
     @Test
-    public void addingOneProductToCompareListTest(){
-        categoryPageObject = menuPageObject.showAllDesktops();
+    public void addingOneProductToCompareListTest() {
         Product expected = categoryPageObject
+                .generateProductsPageObjects()
                 .generateProductsList()
                 .getProducts()
                 .get(1);

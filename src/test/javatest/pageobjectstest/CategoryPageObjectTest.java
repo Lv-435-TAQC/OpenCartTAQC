@@ -133,7 +133,7 @@ public class CategoryPageObjectTest {
      * Expected Result: User can submit a review;
      */
     @Test
-    public void ListButtonTest() {
+    public void listButtonTest() {
         categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         categoryPageObject
                 .getFilterPageObject()
@@ -158,7 +158,7 @@ public class CategoryPageObjectTest {
      * Expected Result: User can submit a review;
      */
     @Test
-    public void GridButtonTest() {
+    public void gridButtonTest() {
         categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         categoryPageObject
                 .getFilterPageObject()

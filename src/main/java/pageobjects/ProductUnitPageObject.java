@@ -43,12 +43,10 @@ public class ProductUnitPageObject extends BasePageObject {
         return descriptionOfProduct.getText().replaceAll("..", "");
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         priceOfProduct = new Label(elementToParse, ProductUnitLocators.NEW_PRICE_LOC);
-        System.out.println(priceOfProduct.getText());
         String price = priceOfProduct.getText().replaceAll("Ex Tax:", "").replaceAll(",", "");
-        System.out.println(price);
-        return price.substring(1, price.indexOf(" "));
+        return Double.parseDouble(price.substring(1, price.indexOf(" ")));
     }
 
     public CategoryPageObject clickAddToWishList(String xpath) {
