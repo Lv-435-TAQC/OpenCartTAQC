@@ -40,12 +40,14 @@ public class ProductUnitPageObject extends BasePageObject {
 
     public String getDescriptionOfProduct() {
         descriptionOfProduct = new Label(elementToParse, ProductUnitLocators.DESCRIPTION_OF_PRODUCT_LOC);
-        return descriptionOfProduct.getText();
+        return descriptionOfProduct.getText().replaceAll("..", "");
     }
 
     public String getPrice() {
         priceOfProduct = new Label(elementToParse, ProductUnitLocators.NEW_PRICE_LOC);
+        System.out.println(priceOfProduct.getText());
         String price = priceOfProduct.getText().replaceAll("Ex Tax:", "").replaceAll(",", "");
+        System.out.println(price);
         return price.substring(1, price.indexOf(" "));
     }
 

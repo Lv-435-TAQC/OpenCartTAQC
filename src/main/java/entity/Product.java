@@ -1,6 +1,6 @@
 package entity;
 
-public class Product implements Comparable {
+public class Product implements Comparable<Product> {
     private Integer id;
     private String productName;
     private String imageLink;
@@ -130,8 +130,7 @@ public class Product implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        Product product = (Product) o;
+    public int compareTo(Product product) {
         int result = this.productName.compareTo(product.getProductName());
         if (result == 0) {
             result = this.prise.compareTo(product.getPrise());
