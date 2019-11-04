@@ -10,6 +10,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageobjects.AdminLoginPageObject;
 import pageobjects.RegistrationPageObject;
 
 import java.util.Random;
@@ -157,5 +158,9 @@ public class RegistrationPageObjectTest {
         registrationPageObject.waitForPattern(screen, buttonLogout, 10)
                 .clickOnPattern(screen, buttonLogout)
                 .waitForPattern(screen, new Pattern(MESSAGE_ON_SUCCESSFUL_LOGOUT), 10);
+    }
+
+    public void registerUserAndCheckSuccessByAdminTest() {
+        new AdminLoginPageObject(driver).goToUrl("http://localhost/opencart/admin/");
     }
 }

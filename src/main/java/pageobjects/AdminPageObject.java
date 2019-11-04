@@ -2,13 +2,7 @@ package pageobjects;
 
 import locators.AdminPageLocators;
 import org.openqa.selenium.WebDriver;
-
-import org.stringtemplate.v4.ST;
 import pageelements.Button;
-
-import pageelements.Input;
-import pageobjects.BasePageObject;
-import pageobjects.NavigationPageObject;
 
 
 public class AdminPageObject extends BasePageObject {

@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import pageelements.Button;
 import pageelements.TextButton;
 
+import static locators.AdminNavigationLocators.CUSTOMERS_BUTTON_XPATH;
+import static locators.AdminNavigationLocators.CUSTOMERS_SUB_BUTTON_XPATH;
+
 public class AdminNavigationPageObject extends BasePageObject {
 
     private Button products;
@@ -15,6 +18,8 @@ public class AdminNavigationPageObject extends BasePageObject {
     private Button vouchrs;
     private Button marketing;
     private Button coupons;
+    private Button customersButton;
+    private Button customersSubButton;
 
 
     public AdminNavigationPageObject(WebDriver driver) {
@@ -34,8 +39,6 @@ public class AdminNavigationPageObject extends BasePageObject {
     public AdminCategoriesPageObject goToCategories() {
         categories = new TextButton(driver, AdminNavigationLocators.CATEGORIES_BUTTON_LOC).click();
         return new AdminCategoriesPageObject(driver);
-
-
     }
 
     public AdminGiftVouchersPageObject goToVouchersList() {
@@ -46,10 +49,18 @@ public class AdminNavigationPageObject extends BasePageObject {
     }
 
     public AdminCouponsPageObject goToCouponsList() {
-        marketing= new Button(driver, AdminNavigationLocators.MARKETING_CATEGORY).click();
+        marketing = new Button(driver, AdminNavigationLocators.MARKETING_CATEGORY).click();
         coupons = new Button(driver, AdminNavigationLocators.COUPONS).click();
         return new AdminCouponsPageObject(driver);
     }
 
+    public AdminNavigationPageObject clickOnCustomersButton() {
+        customersButton = new Button(driver, CUSTOMERS_BUTTON_XPATH).click();
+        return this;
+    }
 
+    public AdminCustomersPageObject clickOnCustomersSubButton() {
+        customersSubButton = new Button(driver, CUSTOMERS_SUB_BUTTON_XPATH).click();
+        return new AdminCustomersPageObject(driver);
+    }
 }

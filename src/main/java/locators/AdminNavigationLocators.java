@@ -9,4 +9,7 @@ public class AdminNavigationLocators {
     public static final String VOUCHERS_CATEGORY = "/html/body/div/nav/ul/li[5]/ul/li[4]/a";
     public static final String MARKETING_CATEGORY = "/html/body/div[1]/nav/ul/li[7]/a";
     public static final String COUPONS = "/html/body/div/nav/ul/li[7]/ul/li[2]/a";
+    public static final String CUSTOMERS_BUTTON_XPATH = "/a[@href = '#collapse5']";
+    public static final String CUSTOMERS_SUB_BUTTON_XPATH = "/a[@href = " +
+            "'http://localhost/opencart/admin/index.php?route=customer/customer&user_token=ChHVmSXNaLqaFDOPajOOTHPVkRaecPW4']";
 }

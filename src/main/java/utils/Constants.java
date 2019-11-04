@@ -7,7 +7,7 @@ public class Constants {
     public static final int TWO = 2;
     public static final int THREE = 3;
     public static final int FOUR = 4;
-    public static final String BASE_URL = "http://192.168.152.128/opencart/";
+    public static final String BASE_URL = "http://localhost/opencart/";
     public static final String PATH_TO_DRIVER = "src/main/resources/geckodriver.exe";
     public static final String KEY_TO_DRIVER = "webdriver.gecko.driver";
     public static final String REGISTRATION_PAGE_URL = BASE_URL + "index.php?route=account/register";
