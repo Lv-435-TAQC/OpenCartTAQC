@@ -10,28 +10,35 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ItemInfoPageObject;
-
 import java.util.concurrent.TimeUnit;
 
+import static locators.ItemLocators.TABLET_IMAGE;
+import static org.testng.Assert.assertTrue;
 
 public class ItemInfoPageObjectTest {
     WebDriver driver;
     ItemInfoPageObject item;
 
 
+
     @BeforeClass
     public void setUp() {
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
-        driver = new FirefoxDriver();
-//        driver = new ChromeDriver();
+//       driver = new FirefoxDriver();
+       driver = new ChromeDriver();
     }
 
     @BeforeMethod
     public void getHome() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://localhost/opencart/index.php?route=product/product&path=57&product_id=49");
+        driver.get("http://localhost/opencart/index.php?route=common/home");
         item = new ItemInfoPageObject(driver);
+
+        item.openTabletsMenu();
+        item.selectTablet();
     }
+
+
 
 
     @After
@@ -62,13 +69,26 @@ public class ItemInfoPageObjectTest {
      * correctly uploaded for the selected item.
      */
 
-    @Test
+    @Test(testName = "TC-01",
+            description = "Test Item Description Tab",
+            groups = {"webui", "system", "regression"})
     public void testItemDescriptionTab() {
         item.clickItemDescriptionTab();
         item.findTextField();
 
+
         Assert.assertTrue(item.descriptionTextField.getText().contains("Samsung Galaxy Tab"));
         Assert.assertFalse(item.descriptionTextField.getText().contentEquals(""));
+
+    }
+
+
+
+
+    @Test(priority = 1)
+    public void sikulitest(){
+        Boolean isFound = item.findSelectedItemByImage(TABLET_IMAGE);
+        assertTrue(isFound);
     }
 
 
@@ -186,28 +206,6 @@ public class ItemInfoPageObjectTest {
     public void testAddToCArt(){
         item.addToCart();
         item.verifySuccessNotification();
-    }
-
-
-    /**
-     * <b>TC-06: Test that User can navigate to the Home page.</b>
-     *
-     * Scenario:
-     * <ul>
-     * <li>1. Open Firefox browser;
-     * <li>2. Open Item Description Page on OpenCart.com;
-     * <li>3. Click on Home page button;
-     * <li>4. Verify that User was successfully navigated to the Home page;
-     * </ul>
-     * <p>
-     * Expected Result: User was navigated to the Home page;
-     */
-
-
-    @Test
-    public void testGoToHomePage(){
-        item.findNavigationBar();
-        item.goToHomePage();
     }
 
 }

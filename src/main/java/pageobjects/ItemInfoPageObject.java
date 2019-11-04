@@ -1,6 +1,9 @@
 package pageobjects;
 
 import org.openqa.selenium.WebDriver;
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
 import pageelements.Button;
 import pageelements.Input;
 import pageelements.NotificationMeassage;
@@ -28,6 +31,11 @@ public class ItemInfoPageObject extends BasePageObject {
     public Button navigationBar;
     public Button homePageButton;
     public NotificationMeassage successNotificationMessage;
+    public Button tabletsMenuButton;
+    public Button tabletSelectionButton;
+
+
+
 
 
     public ItemInfoPageObject(WebDriver driver) {
@@ -115,6 +123,10 @@ public class ItemInfoPageObject extends BasePageObject {
         return new ItemInfoPageObject(this.driver);
     }
 
+    /**
+     * navigate to Home page
+     * @return
+     */
     public HomePageObject goToHomePage(){
         homePageButton = new Button(this.driver, HOME_BUTTON).click();
         return new HomePageObject(this.driver);
@@ -128,4 +140,26 @@ public class ItemInfoPageObject extends BasePageObject {
         return new NotificationMeassage(this.driver,SUCCESS_NOTIFICATION_MESSAGE).getText();
     }
 
+    public ItemInfoPageObject openTabletsMenu(){
+        tabletsMenuButton = new Button(this.driver, TABLETS_MENU).click();
+        return new ItemInfoPageObject(this.driver);
+    }
+
+    public ItemInfoPageObject selectTablet(){
+        tabletSelectionButton = new Button(this.driver, SELECT_TABLET).click();
+        return new ItemInfoPageObject(this.driver);
+    }
+
+
+    public Boolean findSelectedItemByImage(String itemPath){
+        Pattern pattern = new Pattern(itemPath);
+        Screen screen = new Screen();
+        try {
+            screen.find(pattern);
+            return true;
+        } catch (FindFailed findFailed){
+            findFailed.printStackTrace();
+            return false;
+        }
+    }
 }

@@ -22,6 +22,8 @@ public class ItemLocators {
     public static final String NAVIGATION_BAR = "//*[@id=\"product-product\"]/ul";
     public static final String HOME_BUTTON = "//*[@id=\"product-product\"]/ul/li[1]/a/i";
     public static final String SUCCESS_NOTIFICATION_MESSAGE ="//*[@id=\"product-product\"]/div[1]";
-
+    public static final String TABLETS_MENU = "//*[@id=\"menu\"]/div[2]/ul/li[4]/a";
+    public static final String SELECT_TABLET = "//*[@id=\"content\"]/div[2]/div/div/div[2]/div[1]/h4/a";
+    public static final String TABLET_IMAGE = "src/main/resources/sikulipatterns/selectedItem.png";
 
 }
