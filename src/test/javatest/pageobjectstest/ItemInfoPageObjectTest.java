@@ -85,11 +85,11 @@ public class ItemInfoPageObjectTest {
 
 
 
-    @Test(priority = 1)
-    public void sikulitest(){
-        Boolean isFound = item.findSelectedItemByImage(TABLET_IMAGE);
-        assertTrue(isFound);
-    }
+//    @Test(priority = 1)
+//    public void sikulitest(){
+//        Boolean isFound = item.findSelectedItemByImage(TABLET_IMAGE);
+//        assertTrue(isFound);
+//    }
 
 
     /**
