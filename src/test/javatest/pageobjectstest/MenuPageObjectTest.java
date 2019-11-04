@@ -25,7 +25,7 @@ public class MenuPageObjectTest {
     @BeforeMethod
     public void getHome() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://localhost/shop");
+        driver.get("http://192.168.92.128/opencart");
         menu = new MenuPageObject(driver);
 
     }
