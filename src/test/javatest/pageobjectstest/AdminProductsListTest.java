@@ -127,4 +127,13 @@ public class AdminProductsListTest {
                 .deleteChosenProduct()
                 .closeMessage();
     }
+
+    @Test
+    public void editProduct(){
+        String actual = adminProductsList
+                .clickEditButton()
+                .saveNewProduct()
+                .getTextFromMessage();
+        assertTrue(actual.contains(SUCCESS_CHANGING_PRODUCT));
+    }
 }

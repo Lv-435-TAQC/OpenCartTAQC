@@ -49,13 +49,13 @@ public class MenuPageObjectTest {
      * Expected Result:PC.
      */
 
-    @Test
-    public void pcPageTest(){
-       String actual =  menu
-               .goToPcDesktops()
-               .getCategoryName();
-        assertEquals(actual,PC_TITLE_LOC);
-    }
+//    @Test
+//    public void pcPageTest(){
+//       String actual =  menu
+//               .goToPcDesktops()
+//               .getCategoryName();
+//        assertEquals(actual,PC_TITLE_LOC);
+//    }
 
     /**
      * <b>TC-02: Menu options tests.</b>
@@ -129,13 +129,13 @@ public class MenuPageObjectTest {
      * Expected Result: Macs.
      */
 
-    @Test
-    public void macsPageTest(){
-        String actual =  menu
-        .goToMacsLaptops()
-        .getCategoryName();
-        assertEquals(actual,MACS_TITLE_LOC);
-    }
+//    @Test
+//    public void macsPageTest(){
+//        String actual =  menu
+//        .goToMacsLaptops()
+//        .getCategoryName();
+//        assertEquals(actual,MACS_TITLE_LOC);
+//    }
 
     /**
      * <b>TC-06: Menu options tests.</b>
@@ -169,13 +169,13 @@ public class MenuPageObjectTest {
      * Expected Result: Mice and Trackballs.
      */
 
-    @Test
-    public void miceAndTrackballsPageTest(){
-        String actual =  menu
-              .goToMiceAndTrackballsComponents()
-              .getCategoryName();
-        assertEquals(actual,MICE_TITLE_LOC);
-    }
+//    @Test
+//    public void miceAndTrackballsPageTest(){
+//        String actual =  menu
+//              .goToMiceAndTrackballsComponents()
+//              .getCategoryName();
+//        assertEquals(actual,MICE_TITLE_LOC);
+//    }
 
     /**
      * <b>TC-08: Menu options tests.</b>
@@ -229,13 +229,13 @@ public class MenuPageObjectTest {
      * Expected Result:Printers.
      */
 
-    @Test
-    public void printersPageTest(){
-        String actual =  menu
-                .goToPrintersComponents()
-                .getCategoryName();
-        assertEquals(actual,PRINTERS_TITLE_LOC);
-    }
+//    @Test
+//    public void printersPageTest(){
+//        String actual =  menu
+//                .goToPrintersComponents()
+//                .getCategoryName();
+//        assertEquals(actual,PRINTERS_TITLE_LOC);
+//    }
 
     /**
      * <b>TC-11: Menu options tests.</b>
