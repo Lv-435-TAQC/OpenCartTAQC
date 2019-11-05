@@ -52,6 +52,7 @@ public class ShoppingCartPageObject extends BasePageObject {
     private Pattern message;
     private Pattern totalCostProduct;
     private Pattern messageEmptyCart;
+    private Button checkoutBillingButton;
 
     public ShoppingCartPageObject(WebDriver driver) {
         super(driver);
@@ -299,6 +300,10 @@ public class ShoppingCartPageObject extends BasePageObject {
         return this.getURL();
     }
 
-
+    public CheckoutBillingDetailsPageObject goCheckoutBillingDetails() {
+        checkoutBillingButton = new Button(driver, ShoppingCartLocators.CHECKOUT_BUTTON_XPATH);
+        checkoutBillingButton.click();
+        return new CheckoutBillingDetailsPageObject(driver);
+    }
 
 }
