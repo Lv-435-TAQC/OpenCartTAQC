@@ -39,20 +39,23 @@ public class CheckoutPageObjectTest {
     }
 
     @AfterClass
-    public void closeUp() {
-        driver.quit();
+       public void closeUp() {
+         driver.quit();
     }
 
 
     @Test
     public void placeAnOrderWithYourCurrentAddressAndAllCommentsAndAllInformationTest() {
-        String actual = checkoutBillingDetails.clickIWantUseAnExistingAddressButton()
+        String actual = checkoutBillingDetails
+                .clickIWantUseAnExistingAddressButton()
                 .wantUseAnExistingAddressButton()
                 .wantUseAnExistingAddressButton()
                 .deliveryMethodWithCommentsAboutYourOrder("My buy")
                 .paymentMethodWithCommentsAboutYourOrder("I paid")
-                .clickContinueButton().succssessMessage();
+                .clickContinueButton().successMessage();
         String expected = "Your order has been placed!";
+        System.out.println(expected);
+        System.out.println(actual);
         assertEquals(actual, expected);
     }
 
