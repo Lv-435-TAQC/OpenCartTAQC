@@ -2,25 +2,29 @@ package javatest.pageobjectstest;
 
 
 
+import entity.Product;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageobjects.*;
 
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 import static utils.Constants.*;
 
-public class AdminChangingProductsTest {
+public class AdminChangingProductsTests {
     WebDriver driver;
-    AdminLoginPageObject admin;
+    AdminLoginPageObject adminLogin;
     AdminProductsListPageObject adminProductsList;
     AddNewProductPageObject addProduct;
     BasePageObject home;
+    AdminPageObject admin;
 
     /**
      * <b> Description of Precondition.</b>
@@ -44,9 +48,9 @@ public class AdminChangingProductsTest {
         adminProductsList = new AdminProductsListPageObject(driver);
         home = new HomePageObject(driver);
         addProduct = new AddNewProductPageObject(driver);
-        admin = new AdminLoginPageObject(driver);
-        admin.goToUrl(ADMIN_LOGIN_URL);
-        admin
+        adminLogin = new AdminLoginPageObject(driver);
+        adminLogin.goToUrl(ADMIN_LOGIN_URL);
+        adminLogin
                 .logIn("admin","123456")
                 .closeModalWindow()
                 .getNavigation()
@@ -56,7 +60,7 @@ public class AdminChangingProductsTest {
     }
     @AfterClass
     public void tearDown() {
-        driver.quit();
+//        driver.quit();
     }
 
     /**
@@ -77,17 +81,34 @@ public class AdminChangingProductsTest {
      */
 
     @Test
-    public void addNewProductTest() {
+    public void addNewProductAndAddingToShoppingCardEndToEndTest() {
         String actualMessage = adminProductsList
                 .goToAddNewProduct()
-                .fillGeneralFields("Apple iPad Pro", APPLE_DESCRIPTION,"tablet")
+                .fillGeneralFields("Apple iPad Pro", APPLE_DESCRIPTION, "tablet")
                 .fillDataFields("iPad Pro", "999", "50")
                 .fillLinksFields("Apple", "Tablets")
                 .setPhoto()
                 .saveNewProduct()
                 .getTextFromMessage();
-        home.goToHomePage().getMenuPageObject().goToTablets().clickAddToCardByNameOfProduct("Apple iPad Pro");
         assertTrue(actualMessage.contains(SUCCESS_CHANGING_PRODUCT));
-
+        home
+                .goToHomePage()
+                .getMenuPageObject()
+                .goToTablets()
+                .clickAddToCardByNameOfProduct("Apple iPad Pro");
     }
+
+        @Test
+        public void deleteProductAndAddingToShoppingCardNegativeTest() {
+        adminProductsList
+                    .markCheckbox()
+                    .deleteProduct();
+               home.goToHomePage()
+                    .getMenuPageObject()
+                    .goToTablets()
+                    .clickAddToCardByNameOfProduct("Apple iPad Pro");
+              String actual = home.goToHomePage().getHeaderPageObject().getTextFromItems();
+              assertEquals(actual,"asdasd");
+    }
+    
 }
