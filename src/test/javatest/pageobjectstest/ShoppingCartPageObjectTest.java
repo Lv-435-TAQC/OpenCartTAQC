@@ -11,9 +11,10 @@ import pageelements.VoucherInTable;
 import pageobjects.*;
 import patterns.ShoppingCartPatterns;
 import utils.Constants;
+import utils.DBMethods;
 import utils.TestData;
+import utils.TestScreenRecorder;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
@@ -38,9 +39,12 @@ public class ShoppingCartPageObjectTest {
     }
 
     @AfterMethod
-    public void makeScreenshots(ITestResult result) throws IOException {
+    public void makeScreenshots(ITestResult result) throws Exception {
+          TestScreenRecorder.stopRecording();
         if (result.getStatus() == ITestResult.FAILURE) {
             ShoppingCartPageObject.makeScreenShotSteps(driver, result.getName());
+        } else {
+                TestScreenRecorder.deleteRecord();
         }
         driver.manage().deleteAllCookies();
     }
@@ -67,7 +71,8 @@ public class ShoppingCartPageObjectTest {
      */
 
     @Test()
-    public void testAddProductToShoppingCart() {
+    public void testAddProductToShoppingCart() throws Exception {
+        TestScreenRecorder.startRecording("testAddProductToShoppingCart");
         String productID = home.addToCartIphone();
         assertTrue(home.goToShoppingCartPage().
                 getShoppingProductsList().
@@ -525,23 +530,29 @@ public class ShoppingCartPageObjectTest {
      */
 
     @Test
-    public void testOrderingProductUsingCouponCode() {
+    public void testOrderingProductUsingCouponCode(){
+        TestScreenRecorder.startRecording("testAddProductToShoppingCart");
+        DBMethods methods = new DBMethods();
         driver.get(TestData.USER_LOGIN_PAGE);
         LoginPageObject loginPageObject = new LoginPageObject(driver);
         loginPageObject.logIn(TestData.USER_NAME, TestData.USER_PASSWORD);
         driver.get(TestData.HOME_PAGE);
         home = new HomePageObject(driver);
         home.addToCartIphone();
-        home.goToShoppingCartPage().
-                writeCouponCode(TestData.COUPON_CODE);
-        driver.get(TestData.ADMIN_PAGE);
+        ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
+        shoppingCartPageObject.
+                writeCouponCode(TestData.COUPON_CODE).
+                getCouponCode();
+        assertEquals(methods.getOrdersTotalCostFromDB(methods.getLastOrderIDFromDB()),
+                shoppingCartPageObject.getTotalCost().substring(1) + "00");
+        driver.get(TestData.ADMIN_PAGE);///*
         AdminPageObject adminPage = new AdminLoginPageObject(driver).
                 logIn(TestData.ADMIN_NAME, TestData.ADMIN_PASSWORD);
         AdminOrderDescriptionPageObject orderDescriptionPageObject = adminPage.closeModalWindow().
                 getNavigation().
                 goToOrdersList().
                 getTheOrder(TestData.ORDER_ID_FOR_COUPON_TEST).
-                viewOrder(driver);
+                viewOrder();
         assertEquals(orderDescriptionPageObject.getCouponCode(), TestData.COUPON_CODE_FIELD_ON_ORDER_PAGE);
         assertEquals(orderDescriptionPageObject.getCouponDiscountAmount(), TestData.COST_OF_IPHONE_USING_COUPON_WITH_SHIPPING);
     }
@@ -590,7 +601,7 @@ public class ShoppingCartPageObjectTest {
                 getNavigation().
                 goToOrdersList().
                 getTheOrder(TestData.ORDER_ID_FOR_GIFT_CERTIFICATE_TEST).
-                viewOrder(driver);
+                viewOrder();
         assertEquals(orderDescriptionPageObject.getGiftCertificateCode(), TestData.GIFT_CERTIFICATE_FIELD_ON_ORDER_PAGE);
         assertEquals(orderDescriptionPageObject.getGiftCertificateAmount(), TestData.COST_OF_IPHONE_USING_GIFT_CERTIFICATE_WITH_SHIPPING);
     }

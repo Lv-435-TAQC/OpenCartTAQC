@@ -26,7 +26,6 @@ public class CategoryPageObject extends BasePageObject {
         super(driver);
         this.productsXpath = productsXpath;
         filterPageObject = new FilterPageObject(this.driver, productsXpath);
-        generateProductsPageObjects();
     }
 
 

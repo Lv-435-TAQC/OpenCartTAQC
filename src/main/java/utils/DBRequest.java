@@ -1,5 +1,6 @@
 package utils;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -15,5 +16,15 @@ public class DBRequest {
                 e.printStackTrace();
             }
         return flag;
+    }
+    public ResultSet selectDataToDB(String select, Statement statement){
+        ResultSet resultSet = null;
+        try{
+            resultSet = statement.executeQuery(select);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return resultSet;
     }
 }

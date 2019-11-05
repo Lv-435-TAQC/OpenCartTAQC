@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ForgottenPasswordPageObject;
+import utils.Constants;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,8 +16,19 @@ import static org.testng.Assert.assertEquals;
 public class ForgottenPasswordTest {
     WebDriver driver;
     ForgottenPasswordPageObject forgottenPassword;
-    public static final String LOGIN_PAGE="http://localhost/opencart/index.php?route=account/login";
-    public static final String FORGOTTEN_PAGE="http://localhost/opencart/index.php?route=account/forgotten";
+
+    /**
+     * <b> Description of Precondition.</b>
+     *
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open Home Page on OpenCart.com;
+     * <li>3. Click on Login Tab;
+     * <li>4. Click on Forgotten password;
+     * </ul>
+     * <p>
+     */
+
     @BeforeClass
     public void setUp() {
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
@@ -26,7 +38,7 @@ public class ForgottenPasswordTest {
     @BeforeMethod
     public void getForgottenPassword() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(FORGOTTEN_PAGE);
+        driver.get(Constants.FORGOTTEN_PAGE);
         forgottenPassword = new ForgottenPasswordPageObject(this.driver);
     }
 
@@ -35,11 +47,22 @@ public class ForgottenPasswordTest {
         driver.quit();
     }
 
+    /**
+     * <b> TC-1: Test from forgotten password go to login page.</b>
+     * <p>
+     * Scenario:
+     * <ul>
+     * <li>1. Click button Back on forgotten page;
+     * </ul>
+     * <p>
+     * Expected Result: Open login page
+     */
+
     @Test
-    public void clickButtonToGoToLoginPage() {
+    public void clickButtonToGoToLoginPageTest() {
         forgottenPassword.clickBackToLoginPageButton();
         String actual = driver.getCurrentUrl();
-        String expected = LOGIN_PAGE;
+        String expected = Constants.LOGIN_PAGE;
         assertEquals(actual, expected);
     }
 }
