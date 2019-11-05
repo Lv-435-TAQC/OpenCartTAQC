@@ -22,7 +22,7 @@ public class WishListPageObject extends BasePageObject {
     private HeaderPageObject headerPageObject;
     private MenuPageObject menuPageObject;
     private Label label;
-    private HashMap<String, WishListItemPageObject> items;
+    private HashMap<String, WishListItem> items;
 
     public WishListPageObject(WebDriver driver) {
         super(driver);
@@ -35,7 +35,7 @@ public class WishListPageObject extends BasePageObject {
         return this.label;
     }
 
-    public HashMap<String, WishListItemPageObject> getItems() {
+    public HashMap<String, WishListItem> getItems() {
         return this.getMapOfItems();
     }
 
@@ -48,26 +48,26 @@ public class WishListPageObject extends BasePageObject {
     }
 
     public ItemInfoPageObject clickItemImage(String id){
-        HashMap<String, WishListItemPageObject> items = getMapOfItems();
+        HashMap<String, WishListItem> items = getMapOfItems();
         items.get(id).getImage().click();
         return new ItemInfoPageObject(this.driver);
     }
 
     public ItemInfoPageObject clickItemProductName(String id){
-        HashMap<String, WishListItemPageObject> items = getMapOfItems();
+        HashMap<String, WishListItem> items = getMapOfItems();
         items.get(id).getProductName().click();
         return new ItemInfoPageObject(this.driver);
     }
 
     public WishListPageObject removeItemFromWishList(String id){
-        HashMap<String, WishListItemPageObject> items = getMapOfItems();
+        HashMap<String, WishListItem> items = getMapOfItems();
         items.get(id).getRemove().click();
         items.remove(id);
         return this;
     }
 
     public BasePageObject addItemToCart(String id){
-        HashMap<String, WishListItemPageObject> items = getMapOfItems();
+        HashMap<String, WishListItem> items = getMapOfItems();
         items.get(id).getAddToCart().click();
         String currentUrl = driver.getCurrentUrl();
         if(currentUrl.equals(WISH_LIST_URL)){
@@ -83,7 +83,7 @@ public class WishListPageObject extends BasePageObject {
         return this.getLabel().getText();
     }
 
-    public HashMap<String, WishListItemPageObject> getMapOfItems(){
+    public HashMap<String, WishListItem> getMapOfItems(){
         this.items = new HashMap<>();
         List<WebElement> listTr = driver.findElement(By.xpath(WISH_LIST_TABLE)).findElements(By.xpath("tr"));
 
@@ -93,7 +93,7 @@ public class WishListPageObject extends BasePageObject {
             WebElement productName = element.findElement(By.xpath("td[2]/a"));
             WebElement addToCart = element.findElement(By.xpath("td[6]/button"));
             WebElement remove = element.findElement(By.xpath("td[6]/a"));
-            this.items.put(id,new WishListItemPageObject(driver, image, productName, addToCart, remove));
+            this.items.put(id,new WishListItem(driver, image, productName, addToCart, remove));
         }
         return items;
     }

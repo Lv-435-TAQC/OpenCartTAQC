@@ -2,13 +2,13 @@ package pageobjects;
 
 import org.openqa.selenium.WebDriver;
 
-public class AdminReportsProductViewedItemPO extends BasePageObject {
+public class AdminReportsProductViewedItem extends BasePageObject {
     private String name;
     private String model;
     private String viewed;
     private String percent;
 
-    public AdminReportsProductViewedItemPO(WebDriver driver, String name, String model, String viewed, String percent) {
+    public AdminReportsProductViewedItem(WebDriver driver, String name, String model, String viewed, String percent) {
         super(driver);
         this.name = name;
         this.model = model;

@@ -14,7 +14,7 @@ import static locators.AdminReportsLocators.PRODUCT_VIEWED_REPORT_TABLE;
 public class AdminReportsProductViewedPO extends BasePageObject {
 
     private Button reset;
-    private List<AdminReportsProductViewedItemPO> viewedItemPOS;
+    private List<AdminReportsProductViewedItem> viewedItemPOS;
 
     public AdminReportsProductViewedPO(WebDriver driver) {
         super(driver);
@@ -36,19 +36,19 @@ public class AdminReportsProductViewedPO extends BasePageObject {
         this.viewedItemPOS = this.getListOfViewedItems();
     }
 
-    public List<AdminReportsProductViewedItemPO> getViewedItemPOS() {
+    public List<AdminReportsProductViewedItem> getViewedItemPOS() {
         this.setItems();
         return viewedItemPOS;
     }
 
-    public List<AdminReportsProductViewedItemPO> getListOfViewedItems() {
+    public List<AdminReportsProductViewedItem> getListOfViewedItems() {
         List<WebElement> listTr = driver.findElement(By.xpath(PRODUCT_VIEWED_REPORT_TABLE)).findElements(By.xpath("tr"));
         for (WebElement element: listTr ) {
             String name = element.findElement(By.xpath("td[1]")).getText();
             String model = element.findElement(By.xpath("td[2]")).getText();
             String viewed = element.findElement(By.xpath("td[3]")).getText();
             String percent = element.findElement(By.xpath("td[4]")).getText();
-            this.viewedItemPOS.add(new AdminReportsProductViewedItemPO(driver, name, model, viewed, percent));
+            this.viewedItemPOS.add(new AdminReportsProductViewedItem(driver, name, model, viewed, percent));
         }
         return viewedItemPOS;
     }

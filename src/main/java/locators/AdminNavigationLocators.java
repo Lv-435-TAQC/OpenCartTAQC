@@ -12,6 +12,6 @@ public class AdminNavigationLocators {
     public static final String ORDERS = "/html/body/div[1]/nav/ul/li[5]/ul/li[1]/a";
     public static final String REPORTS_NAVIGATION = "//*[@id=\"menu-report\"]/a";
     public static final String STATISTICS = "//*[@id=\"collapse65\"]/li[3]/a";
-    public static final String STATISTICS_TABLE = "//*[@id=\"content\"]/div[2]/div/div[2]/div/table/tbody";
+
     public static final String REPORTS = "//*[@id=\"collapse65\"]/li[1]/a";
 }

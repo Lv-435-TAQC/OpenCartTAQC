@@ -85,7 +85,7 @@ public class WishListPageObjectTest {
      */
 
     @Test
-    public void findItemImgInWishList(){
+    public void findItemImgInWishListWithSikuli(){
         Boolean isFound = homePageObject
                 .getHeaderPageObject()
                 .clickWishList()
@@ -158,7 +158,7 @@ public class WishListPageObjectTest {
      */
 
     @Test
-    public void addItemFromWishListToChoppingCart(){
+    public void addItemWithoutParametersFromWishListToChoppingCart(){
         homePageObject
                 .getHeaderPageObject()
                 .clickWishList()

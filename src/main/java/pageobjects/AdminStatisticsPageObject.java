@@ -7,11 +7,11 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static locators.AdminNavigationLocators.STATISTICS_TABLE;
+import static locators.AdminStatisticsLocators.STATISTICS_TABLE;
 
 public class AdminStatisticsPageObject extends BasePageObject {
     private AdminPageObject adminPageObject;
-    private List<AdminStatisticsItemPageObject> statistics;
+    private List<AdminStatisticsItem> statistics;
 
     public AdminStatisticsPageObject(WebDriver driver) {
         super(driver);
@@ -23,7 +23,7 @@ public class AdminStatisticsPageObject extends BasePageObject {
         this.statistics = this.getListOfItems();
     }
 
-    public List<AdminStatisticsItemPageObject> getStatistics() {
+    public List<AdminStatisticsItem> getStatistics() {
         this.setStatistics();
         return statistics;
     }
@@ -32,14 +32,14 @@ public class AdminStatisticsPageObject extends BasePageObject {
         return this.adminPageObject;
     }
 
-    public List<AdminStatisticsItemPageObject> getListOfItems(){
+    public List<AdminStatisticsItem> getListOfItems(){
     List<WebElement> list = driver.findElement(By.xpath(STATISTICS_TABLE)).findElements(By.xpath("tr"));
 
     for (WebElement element: list) {
         String name = element.findElement(By.xpath("td[1]")).getText();
         String value = element.findElement(By.xpath("td[2]")).getText();
         WebElement refresh = element.findElement(By.xpath("td[3]/a"));
-        this.statistics.add(new AdminStatisticsItemPageObject(driver, name, value, refresh));
+        this.statistics.add(new AdminStatisticsItem(driver, name, value, refresh));
     }
     return this.statistics;
     }

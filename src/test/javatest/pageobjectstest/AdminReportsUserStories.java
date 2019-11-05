@@ -52,17 +52,25 @@ public class AdminReportsUserStories {
     }
 
     @Test
-    public void checkFunctionalityOfResetButtonOnReportsProductViewedPage() {
+    public void validationOfDataOnReportsProductViewedPageAccordingToInformationInDatabase() {
         adminPageObject
                 .getNavigation()
-                .goToReports().clickProductsViewedReport()
+                .goToReports()
+                .clickProductsViewedReport()
                 .getAdminReportsProductViewedPO()
                 .clickResetAndDeleteItemsFromList();
         Assert.assertEquals(request.getDataFromDB(GET_FROM_VIEWED, connector.getStatement()), EXPECTED);
     }
 
     @Test
-    public void checkStatistics(){
+    public void validationOfDataInDatabaseAccordingToInformationOnStatisticsPage(){
+        adminPageObject
+                .getNavigation()
+                .goToStatistics()
+                .getStatistics();
+    }
+    @Test
+    public void buyingProductsFromWishListAndCheckingPurchaseInDatabase (){
 
     }
 }

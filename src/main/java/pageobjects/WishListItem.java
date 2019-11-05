@@ -3,7 +3,7 @@ package pageobjects;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class WishListItemPageObject extends BasePageObject{
+public class WishListItem extends BasePageObject{
 
     private WebElement image;
     private WebElement productName;
@@ -11,7 +11,7 @@ public class WishListItemPageObject extends BasePageObject{
     private WebElement remove;
 
 
-    public WishListItemPageObject(WebDriver driver, WebElement image, WebElement productName, WebElement addToCart, WebElement remove) {
+    public WishListItem(WebDriver driver, WebElement image, WebElement productName, WebElement addToCart, WebElement remove) {
         super(driver);
         this.image = image;
         this.productName = productName;
