@@ -1,3 +1,63 @@
+package javatest.pageobjectstest;
+
+
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import pageobjects.*;
+
+
+import java.util.concurrent.TimeUnit;
+
+import static org.testng.Assert.assertTrue;
+import static utils.Constants.*;
+
+public class AddNewProductTest {
+    WebDriver driver;
+    AdminLoginPageObject admin;
+    AdminProductsListPageObject adminProductsList;
+    AddNewProductPageObject addProduct;
+    BasePageObject home;
+
+    /**
+     * <b> Description of Precondition.</b>
+     *
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open Admin Login page on OpenCart.com;
+     * <li>3. Click on Login button;
+     * <li>4. Click Category button;
+     * <li>5. Choose Product option;
+     * </ul>
+     * <p>
+     */
+
+    @BeforeClass
+    public void setUp() {
+        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
+        driver = new FirefoxDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        adminProductsList = new AdminProductsListPageObject(driver);
+        home = new HomePageObject(driver);
+        addProduct = new AddNewProductPageObject(driver);
+        admin = new AdminLoginPageObject(driver);
+        admin.goToUrl(ADMIN_LOGIN_URL);
+        admin
+                .logIn("admin","123456")
+                .closeModalWindow()
+                .getNavigation()
+                .goToCatalog()
+                .goToProducts();
+
+    }
+    @AfterClass
+    public void tearDown() {
+        driver.quit();
+    }
 
     /**
      * <b>TC-03: Positive Test For Required Fields.</b>
