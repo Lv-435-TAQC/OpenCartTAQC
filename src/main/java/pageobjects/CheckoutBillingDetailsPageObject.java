@@ -1,7 +1,6 @@
 package pageobjects;
 
 import locators.CheckoutBillingDetailsLocators;
-import locators.ForgottenPasswordLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -59,16 +58,15 @@ public class CheckoutBillingDetailsPageObject extends BasePageObject {
         return new CheckoutDeliveryDetailsPageObject(driver);
     }
 
-    public CheckoutDeliveryDetailsPageObject wantUseAnExistingAddressButton()
-    {
-       return this.clickNextButton();
+    public CheckoutDeliveryDetailsPageObject wantUseAnExistingAddressButton() {
+        return this.clickNextButton();
     }
 
-    public CheckoutDeliveryDetailsPageObject WantUseNewExistingAddressButtonWithAllInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, String selectCountryRegionOrState)
-    {
-       return this.clickIWantUseAnExistingAddressButton()
-               .inputNotRequiredInformation(firstName,lastName,company,address1,address2,city,postCode,selectCountry, selectCountryRegionOrState);
+    public CheckoutDeliveryDetailsPageObject WantUseNewExistingAddressButtonWithAllInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, String selectCountryRegionOrState) {
+        return this.clickIWantUseAnExistingAddressButton()
+                .inputNotRequiredInformation(firstName, lastName, company, address1, address2, city, postCode, selectCountry, selectCountryRegionOrState);
     }
+
     public CheckoutBillingDetailsPageObject setFirstName(String firstName) {
         firstNameField = new Input(this.driver, CheckoutBillingDetailsLocators.FIRST_NAME);
         firstNameField.setText(firstName);
