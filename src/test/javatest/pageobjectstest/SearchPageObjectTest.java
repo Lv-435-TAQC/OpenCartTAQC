@@ -37,8 +37,9 @@ public class SearchPageObjectTest {
     }
 
     /**
-     * <b> Description of Precondition.</b>
+     * <b> Search With Valid Name.</b>
      *
+     * Scenario:
      * <ul>
      * <li>1. Open Firefox browser;
      * <li>2. Open  Page on OpenCart.com;
@@ -53,17 +54,18 @@ public class SearchPageObjectTest {
      */
 
     @Test
-    public void testInputValidProductName() {
+    public void InputValidProductName() {
         String actual = search
                 .inputProductName()
                 .clickSearchButton()
                 .returnTextFromSearch();
-        String expected = ("Search - Mac");
-        assertEquals(actual, expected);
+        String expectedMessage = ("Search - Mac");
+        assertEquals(actual, expectedMessage);
     }
     /**
-     * <b> Description of Precondition.</b>
+     * <b> Search With Invalid Data.</b>
      *
+     * Scenario:
      * <ul>
      * <li>1. Open Firefox browser;
      * <li>2. Open  Page on OpenCart.com;
@@ -78,17 +80,18 @@ public class SearchPageObjectTest {
      */
 
     @Test
-    public void testInputFalseData() {
+    public void inputFalseData() {
         String actual = search
                 .inputFalseProductName()
                 .clickSearchButton()
                 .returnTextFormInvalidSearch();
-        String expected = ("Your shopping cart is empty!");
-        assertEquals(actual, expected);
+        String expectedMessage = ("Your shopping cart is empty!");
+        assertEquals(actual, expectedMessage);
     }
     /**
-     * <b> Description of Precondition.</b>
+     * <b> Search Product With SubCategory Button.</b>
      *
+     * Scenario:
      * <ul>
      * <li>1. Open Firefox browser;
      * <li>2. Open  Page on OpenCart.com;
@@ -104,19 +107,20 @@ public class SearchPageObjectTest {
      */
 
     @Test
-    public void testUseInSubcategories() {
+    public void useInSubcategories() {
         String actual = search
                 .inputProductName()
                 .selectCategories()
                 .clickSearchButton()
                 .returnTextFromFirstSearchElement();
-        String expected = ("MacBook");
-        assertEquals(actual, expected);
+        String expectedFirstProduct = ("MacBook");
+        assertEquals(actual, expectedFirstProduct);
     }
 
     /**
-     * <b> Description of Precondition.</b>
+     * <b> Search Product With Description .</b>
      *
+     * Scenario:
      * <ul>
      * <li>1. Open Firefox browser;
      * <li>2. Open  Page on OpenCart.com;
@@ -132,18 +136,19 @@ public class SearchPageObjectTest {
      */
 
     @Test
-    public void testUseSearchWithDescription() {
+    public void useSearchWithDescription() {
         String actual = search
                 .inputProductNameForSearchWithProductDescription()
                 .searchInDescription()
                 .clickSearchButton()
                 .returnTextFromFirstSearchElement();
-        String expected = ("Canon EOS 5D");
-        assertEquals(actual, expected);
+        String expectedFirstProduct = ("Canon EOS 5D");
+        assertEquals(actual, expectedFirstProduct);
     }
     /**
-     * <b> Description of Precondition.</b>
+     * <b> Search Product Whit SubCategory Button.</b>
      *
+     * Scenario:
      * <ul>
      * <li>1. Open Firefox browser;
      * <li>2. Open  Page on OpenCart.com;
@@ -159,19 +164,20 @@ public class SearchPageObjectTest {
      */
 
     @Test
-    public void testSearchWithSubcategoriesButton() {
+    public void searchWithSubcategoriesButton() {
         String actual = search
                 .inputProductName()
                 .selectCategories()
                 .useInSubcategories()
                 .clickSearchButton()
                 .returnTextFromFirstSearchElement();
-        String expected = ("iMac");
-        assertEquals(actual, expected);
+        String expectedFirstProduct = ("iMac");
+        assertEquals(actual, expectedFirstProduct);
     }
     /**
-     * <b> Description of Precondition.</b>
+     * <b> Search Category On User Page.</b>
      *
+     * Scenario:
      * <ul>
      * <li>1. Open Firefox browser;
      * <li>2. Open  Page on OpenCart.com;
