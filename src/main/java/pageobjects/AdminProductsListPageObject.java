@@ -1,9 +1,12 @@
 package pageobjects;
 
 import locators.AdminProductsPageLocators;
+import locators.ShoppingCartLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
@@ -48,6 +51,8 @@ public class AdminProductsListPageObject extends BasePageObject{
      }
 
      public String getTextFromMessage(){
+        new WebDriverWait(driver, 30).
+                 until(ExpectedConditions.visibilityOfElementLocated(By.xpath(AdminProductsPageLocators.SUCCESSFUL_ADDING_MESSAGE_LOC)));
         return new Label(driver, AdminProductsPageLocators.SUCCESSFUL_ADDING_MESSAGE_LOC).getText();
      }
 
@@ -140,4 +145,11 @@ public class AdminProductsListPageObject extends BasePageObject{
         productLabel = new Label(driver,AdminProductsPageLocators.NAME_OF_ADDED_PRODUCTS).getText();
         return productLabel;
     }
+
+    public AdminProductsListPageObject deleteProduct(){
+        deleteProductButton = new ImageButton(driver,AdminProductsPageLocators.DELETE_BUTTON_LOC).click();
+        driver.switchTo().alert().accept();
+        return this;
+    }
+
 }
