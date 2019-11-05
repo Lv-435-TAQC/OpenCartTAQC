@@ -54,7 +54,7 @@ public class SearchPageObjectTest {
      */
 
     @Test
-    public void InputValidProductName() {
+    public void inputValidProductName() {
         String actual = search
                 .inputProductName()
                 .clickSearchButton()
@@ -190,7 +190,7 @@ public class SearchPageObjectTest {
      */
 
     @Test
-    public void testFindCategoriesInSearch() {
+    public void findCategoriesInSearch() {
         Assert.assertTrue(search.returnTextFromFifthElementOfCategories().contentEquals("forTest"));
     }
 }

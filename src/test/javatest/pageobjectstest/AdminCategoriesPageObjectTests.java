@@ -70,7 +70,7 @@ public class AdminCategoriesPageObjectTests {
      */
 
         @Test
-        public void AddNewCategoriesToList(){
+        public void addNewCategoriesToList(){
             String actual = navigation.goToCatalog()
                     .goToCategories()
                     .addNewCategories()
@@ -101,7 +101,7 @@ public class AdminCategoriesPageObjectTests {
      */
 
         @Test
-        public void AddNewCategoriesWithAllFalseData(){
+        public void addNewCategoriesWithAllFalseData(){
             String actual = navigation
                     .goToCatalog()
                     .goToCategories()
@@ -134,7 +134,7 @@ public class AdminCategoriesPageObjectTests {
      */
 
         @Test
-        public void AddNewCategoriesWithFalseName() {
+        public void addNewCategoriesWithFalseName() {
             String actual = navigation
                     .goToCatalog()
                     .goToCategories()
@@ -166,7 +166,7 @@ public class AdminCategoriesPageObjectTests {
      */
 
         @Test
-        public void AddNewCategoriesWithFalseMetaTag() {
+        public void addNewCategoriesWithFalseMetaTag() {
             String actual = navigation
                     .goToCatalog()
                     .goToCategories()
