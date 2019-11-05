@@ -1,7 +1,12 @@
 package pageobjects;
 
+import locators.CheckoutDeliveryMethodLocators;
 import locators.CheckoutPaymentMethodLocators;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Button;
 import pageelements.Checkbox;
 import pageelements.Input;
@@ -15,6 +20,9 @@ public class CheckoutPaymentMethodPageObject extends BasePageObject {
 
     public CheckoutPaymentMethodPageObject(WebDriver driver) {
         super(driver);
+        WebElement explicitWait = (new WebDriverWait(driver, 10)).
+                until(ExpectedConditions.presenceOfElementLocated(By.xpath(CheckoutPaymentMethodLocators.CONTINUE_PAYMENT_METHOD)));
+
     }
 
     public CheckoutConfirmOrderPageObject paymentMethodWithCommentsAboutYourOrder(String addCommentsAboutYourOrder) {

@@ -126,7 +126,7 @@ public class LoginPageObjectTest {
 
     @Test
     public void loginNotInputThePasswordTest() {
-        String actual = loginPageObject.setLogInField("orysita.lviv@gmail.com").setPasswordField("").clickNextButton().warningMessage();
+        String actual = loginPageObject.setLogInField("orysita.lviv+1@gmail.com").setPasswordField("").clickNextButton().warningMessage();
         Assert.assertEquals(Constants.WARNING_MESSAGE_1.equalsIgnoreCase(actual) ? Constants.WARNING_MESSAGE_1 : Constants.WARNING_MESSAGE_2, actual);
     }
 
@@ -144,7 +144,7 @@ public class LoginPageObjectTest {
      */
 
     @Test(priority = 2)
-    public void LoginValidDate() {
+    public void loginValidDate() {
         loginPageObject.logIn("orysita.lviv+1@gmail.com", "orysia");
         String actual = driver.getCurrentUrl();
         String expected = Constants.ACCOUNT_PAGE;

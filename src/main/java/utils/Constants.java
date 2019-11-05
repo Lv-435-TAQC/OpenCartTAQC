@@ -46,4 +46,5 @@ public class Constants {
     public static final String FORGOTTEN_PAGE = "http://localhost/opencart/index.php?route=account/forgotten";
     public static final String ACCOUNT_PAGE = "http://localhost/opencart/index.php?route=account/account";
     public static final String LOGIN_PAGE="http://localhost/opencart/index.php?route=account/login";
+
 }
