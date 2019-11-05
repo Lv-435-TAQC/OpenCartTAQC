@@ -40,9 +40,9 @@ public class AdminCategoriesPageObject extends BasePageObject {
         return new AdminCategoriesPageObject(driver);
     }
 
-    public AdminCategoriesPageObject rebuildOnCategoriesPage() {
+    public AdminNewCategoriesPageObject rebuildOnCategoriesPage() {
         rebuildCategoriesPage = new Button(driver, AdminCategoriesLocators.REBUILD_CATEGORIES_BUTTON_LOC).click();
-        return new AdminCategoriesPageObject(driver);
+        return new AdminNewCategoriesPageObject(driver);
     }
 
     public AdminCategoriesPageObject chooseCategoriesFromCategoriesList() {
@@ -50,9 +50,9 @@ public class AdminCategoriesPageObject extends BasePageObject {
         return new AdminCategoriesPageObject(driver);
     }
 
-    public AdminCategoriesPageObject changeSomethingInCategories() {
+    public AdminNewCategoriesPageObject changeSomethingInCategories() {
         editSomethingToCategories = new Button(driver, AdminCategoriesLocators.EDIT_SOMETHING_TO_CATEGORIES_BUTTON_LOC).click();
-        return new AdminCategoriesPageObject(driver);
+        return new AdminNewCategoriesPageObject(driver);
     }
 
     public String getTextOfElementFromListOfCategories() {
