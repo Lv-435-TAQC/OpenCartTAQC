@@ -20,7 +20,4 @@ public class VoucherInTable {
         return amount;
     }
 
-    public void markVoucher() {
-        this.mark.click();
-    }
 }

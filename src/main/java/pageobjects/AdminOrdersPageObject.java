@@ -24,6 +24,9 @@ public class AdminOrdersPageObject extends BasePageObject {
     public Order getTheOrder(String orderID) {
         return getOrdersList().get(orderID);
     }
+    public Order viewOrder(String orderID) {
+        return getOrdersList().get(orderID);
+    }
     public AdminOrdersPageObject clickOrdersLinkedLabel() {
         ordersLabel = new LinkedLabel(this.driver,  OrdersTableLocators.ORDERS);
         ordersLabel.click();
