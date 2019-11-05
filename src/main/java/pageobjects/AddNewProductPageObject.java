@@ -4,10 +4,7 @@ import locators.AddNewProductsLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import pageelements.Button;
-import pageelements.ImageButton;
-import pageelements.Input;
-import pageelements.TextButton;
+import pageelements.*;
 
 import java.util.List;
 
@@ -34,6 +31,7 @@ public class AddNewProductPageObject extends BasePageObject {
     private Button editPhotoButton;
     private Button saveNewProductButton;
     private Button backToListButton;
+    private String fieldMessage;
 
     public AddNewProductPageObject(WebDriver driver) {
 
@@ -146,11 +144,23 @@ public class AddNewProductPageObject extends BasePageObject {
         return new AdminProductsListPageObject(driver);
     }
 
+    public AddNewProductPageObject saveNewProductWithMistake() {
+        saveNewProductButton = new ImageButton(driver, AddNewProductsLocators.SAVE_PRODUCT_BUTTON_LOC).click();
+        return this;
+    }
+
     public AdminProductsListPageObject goBackToList(){
         backToListButton = new ImageButton(driver,AddNewProductsLocators.BACK_BUTTON_LOC).click();
         return new AdminProductsListPageObject(driver);
 
     }
+
+    public String getMessageFromField(){
+        fieldMessage = new Label(driver,AddNewProductsLocators.MESSAGE_FOR_FIELDS_LOC).getText();
+        return fieldMessage;
+
+    }
+
     public AddNewProductPageObject fillGeneralFields(String productName, String description, String megaTag) {
         this
                 .setProductName(productName)
