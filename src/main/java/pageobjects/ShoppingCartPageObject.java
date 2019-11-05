@@ -3,10 +3,7 @@ package pageobjects;
 
 import locators.ShoppingCartLocators;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.sikuli.api.robot.Keyboard;
@@ -55,12 +52,15 @@ public class ShoppingCartPageObject extends BasePageObject {
     private Pattern message;
     private Pattern totalCostProduct;
     private Pattern messageEmptyCart;
+    private Button checkoutBillingButton;
 
     public ShoppingCartPageObject(WebDriver driver) {
         super(driver);
         screen = new Screen();
     }
-
+    /**
+     * This method is used to create screenshots when displaying a web page by the driver.
+     */
     public static void makeScreenShotSteps(WebDriver driver, String screenshotsName) {
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
@@ -69,14 +69,18 @@ public class ShoppingCartPageObject extends BasePageObject {
 
         }
     }
-
+    /**
+     * This method is used to extract the table of products, that have been added to the cart.
+     */
     public HashMap<String, ShoppingCartProduct> getShoppingProductsList() {
         new WebDriverWait(driver, 30).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.PRODUCTS_TABLE_XPATH)));
         this.productsTable = new ShoppingProductsTable(driver, ShoppingCartLocators.PRODUCTS_TABLE_XPATH);
         return productsTable.productsListInCart();
     }
-
+    /**
+     * 
+     */
     public ShoppingCartPageObject removeProductFromCart(String productID) {
         HashMap<String, ShoppingCartProduct> mapProducts = this.getShoppingProductsList();
         mapProducts.get(productID).removeProductsFromCart();
@@ -292,8 +296,14 @@ public class ShoppingCartPageObject extends BasePageObject {
         return finalCost;
     }
 
-
     public String getURL() {
         return this.getURL();
     }
+
+    public CheckoutBillingDetailsPageObject goCheckoutBillingDetails() {
+        checkoutBillingButton = new Button(driver, ShoppingCartLocators.CHECKOUT_BUTTON_XPATH);
+        checkoutBillingButton.click();
+        return new CheckoutBillingDetailsPageObject(driver);
+    }
+
 }

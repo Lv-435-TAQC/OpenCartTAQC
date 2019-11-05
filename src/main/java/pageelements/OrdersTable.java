@@ -30,7 +30,7 @@ public class OrdersTable extends BaseElement {
             Button delete = new Button(tableRow.get(j), "td[8]/div/div/ul/li[2]/a");
             Button edit = new Button(tableRow.get(j), "td[8]/div/div/ul/li[1]/a");
             orders.put(orderID, new Order(
-                    orderID, customer, status, total, dateAdded, dateModified, view, deleteAndEdit, delete, edit));
+                    driver, orderID, customer, status, total, dateAdded, dateModified, view, deleteAndEdit, delete, edit));
         }
         return orders;
     }

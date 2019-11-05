@@ -1,7 +1,12 @@
 package pageobjects;
 
+import locators.CheckoutBillingDetailsLocators;
 import locators.CheckoutDeliveryDetailsLocators;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Button;
 import pageelements.DropDown;
 import pageelements.Input;
@@ -22,6 +27,9 @@ public class CheckoutDeliveryDetailsPageObject extends BasePageObject {
 
     public CheckoutDeliveryDetailsPageObject(WebDriver driver) {
         super(driver);
+        WebElement explicitWait = (new WebDriverWait(driver, 10)).
+                until(ExpectedConditions.presenceOfElementLocated(By.xpath(CheckoutDeliveryDetailsLocators.EXISTING_ADDRESS)));
+
     }
 
     public CheckoutDeliveryMethodPageObject deliveryDetailExistingAddress() {
@@ -61,6 +69,10 @@ public class CheckoutDeliveryDetailsPageObject extends BasePageObject {
         return new CheckoutDeliveryMethodPageObject(driver);
     }
 
+    public CheckoutDeliveryMethodPageObject wantUseAnExistingAddressButton()
+    {
+        return this.clickIWantUseAnExistingAddressButton().clickNextButton();
+    }
 
     public CheckoutDeliveryDetailsPageObject setFirstName(String firstName) {
         firstNameField = new Input(this.driver, CheckoutDeliveryDetailsLocators.FIRST_NAME);
