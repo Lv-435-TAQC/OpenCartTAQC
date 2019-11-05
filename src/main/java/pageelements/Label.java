@@ -19,7 +19,7 @@ public class Label extends BaseElement {
     }
 
     public String getText() {
-        return this.element.getText().replaceAll("..", "");
+        return this.element.getText();
     }
 
     public String getAttribute(String attribute) {

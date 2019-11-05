@@ -52,14 +52,9 @@ public class CategoryPageObject extends BasePageObject {
         products = new ArrayList<>();
         for (int i = 0; i < productsPO.size(); i++) {
             product = new Product();
-            System.out.println("Розмір  " + productsPO.size());
-            System.out.println("ІД  " + productsPO.get(i).getIdOfProduct());
             product.setId(productsPO.get(i).getIdOfProduct());
-            System.out.println("Ім'я " + productsPO.get(i).getNameOfProduct());
             product.setProductName(productsPO.get(i).getNameOfProduct());
-            System.out.println("Опис" + productsPO.get(i).getDescriptionOfProduct());
             product.setSummary(productsPO.get(i).getDescriptionOfProduct());
-            System.out.println("Ціна" + productsPO.get(i).getPrice());
             product.setPrise(productsPO.get(i).getPrice());
             products.add(product);
         }

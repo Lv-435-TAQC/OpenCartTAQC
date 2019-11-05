@@ -53,7 +53,7 @@ public class CompareProductPageObject extends BasePageObject {
             product = new Product();
             product.setId(Integer.parseInt(productNameList.get(i).getAttribute("href").split("=")[2]));
             product.setProductName(productNameList.get(i).getText());
-            if (priceList.get(i).getText().length() > 9) {
+            if (priceList.get(i).getText().contains(" ")) {
                 product.setPrise(Double.parseDouble(priceList.get(i).getText()
                         .split(" ")[1]
                         .replace("$", "")

@@ -42,14 +42,12 @@ public class CompareProductObjectTest {
                 .generateProductsList()
                 .getProducts()
                 .get(1);
-        System.out.println(expected);
         Product actual = categoryPageObject
                 .clickCompareThisProductByProduct(expected)
                 .getFilterPageObject()
                 .clickProductCompare()
                 .getProductList()
                 .get(0);
-        System.out.println(actual);
         Assert.assertTrue(actual.equals(expected));
     }
 }
