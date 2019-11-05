@@ -5,9 +5,11 @@ import locators.CompareProductLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import pageelements.Button;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Label;
 import pageelements.LinkedLabel;
+import pageelements.TextButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +26,18 @@ public class CompareProductPageObject extends BasePageObject {
     private ArrayList<Label> summaryList;
     private ArrayList<Label> weightList;
     private ArrayList<Label> dimensionList;
-    private ArrayList<Button> addToCardButtonList;
-    private ArrayList<Button> removeButtonList;
+    private ArrayList<TextButton> addToCardButtonList;
+    private ArrayList<TextButton> removeButtonList;
+    private Label emptyPageLabel;
 
     public CompareProductPageObject(WebDriver driver) {
         super(driver);
-        generateList();
+        generateListsWithInfo();
     }
 
-    private void generateList() {
+    public CompareProductPageObject generateListsWithInfo() {
         getRowsOfTable()
                 .generateProductNamesLinkedLabelList()
-                .generateButtonLists()
                 .generateProductPriceLabelList()
                 .generateProductModelLabelList()
                 .generateProductBrandsLabelList()
@@ -43,10 +45,19 @@ public class CompareProductPageObject extends BasePageObject {
                 .generateProductRatingLabelList()
                 .generateProductSummaryLabelList()
                 .generateProductWeightLabelList()
-                .generateProductDimensionsLabelList();
+                .generateProductDimensionsLabelList()
+                .generateButtonLists();
+        return this;
     }
 
     public ArrayList<Product> getProductList() {
+        generateProductList();
+        return products;
+    }
+
+    private CompareProductPageObject generateProductList() {
+
+        generateListsWithInfo();
         products = new ArrayList<>();
         Product product;
         for (int i = 0; i < productNameList.size(); i++) {
@@ -76,7 +87,7 @@ public class CompareProductPageObject extends BasePageObject {
             product.setDimensions(dimensionList.get(i).getText());
             products.add(product);
         }
-        return products;
+        return this;
     }
 
     private CompareProductPageObject getRowsOfTable() {
@@ -146,8 +157,8 @@ public class CompareProductPageObject extends BasePageObject {
         removeButtonList = new ArrayList<>();
         addToCardButtonList = new ArrayList<>();
         for (int i = 1; i < elements.size(); i++) {
-            addToCardButtonList.add(new Button(elements.get(i), CompareProductLocators.ADD_TO_CART_BUTTON_LOC));
-            removeButtonList.add(new Button(elements.get(i), CompareProductLocators.REMOVE_BUTTON_LOC));
+            addToCardButtonList.add(new TextButton(elements.get(i), CompareProductLocators.ADD_TO_CART_BUTTON_LOC));
+            removeButtonList.add(new TextButton(elements.get(i), CompareProductLocators.REMOVE_BUTTON_LOC));
         }
         return this;
     }
@@ -174,7 +185,8 @@ public class CompareProductPageObject extends BasePageObject {
     }
 
     public CompareProductPageObject clickRemoveButton(Product product) {
-        for (int i = 0; i < products.size(); i++) {
+        generateProductList();
+        for (int i = 0; i < removeButtonList.size(); i++) {
             if (products.get(i).getId() == product.getId()) {
                 removeButtonList.get(i).click();
             }
@@ -189,5 +201,12 @@ public class CompareProductPageObject extends BasePageObject {
             }
         }
         return new ItemInfoPageObject(this.driver);
+    }
+
+    public String getTextAboutEmptyPage() {
+        WebDriverWait wait = new WebDriverWait(driver, 50);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CompareProductLocators.EMPTY_PAGE_LABEL_LOC)));
+        emptyPageLabel = new Label(driver, CompareProductLocators.EMPTY_PAGE_LABEL_LOC);
+        return emptyPageLabel.getText();
     }
 }

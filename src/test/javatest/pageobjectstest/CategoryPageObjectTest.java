@@ -45,7 +45,7 @@ public class CategoryPageObjectTest {
      * <li>4. Verify text;
      * </ul>
      * <p>
-     * Expected Result: User can submit a review;
+     * Expected Result: User can see sorted by param product list;
      */
     @Test
     public void labelSortByTextTest() {
@@ -68,7 +68,7 @@ public class CategoryPageObjectTest {
      * <li>4. Verify text;
      * </ul>
      * <p>
-     * Expected Result: User can submit a review;
+     * Expected Result: User can see sorted by param product list;
      */
     @Test
     public void labelShowTextTest() {
@@ -106,7 +106,7 @@ public class CategoryPageObjectTest {
      * <li>5. Verify name with expected;
      * </ul>
      * <p>
-     * Expected Result: User can submit a review;
+     * Expected Result: User can see sorted by param product list;
      */
     @Test(dataProvider = "sortBySelector")
     public void sortByParamTest(String sortType, String expected) {
@@ -130,7 +130,7 @@ public class CategoryPageObjectTest {
      * <li>5. Verify attribute with expected;
      * </ul>
      * <p>
-     * Expected Result: User can submit a review;
+     * Expected Result: User can see product list in List form;
      */
     @Test
     public void listButtonTest() {
@@ -155,7 +155,7 @@ public class CategoryPageObjectTest {
      * <li>5. Verify attribute with expected;
      * </ul>
      * <p>
-     * Expected Result: User can submit a review;
+     * Expected Result: User can see product list in Grid form;
      */
     @Test
     public void gridButtonTest() {
@@ -191,7 +191,7 @@ public class CategoryPageObjectTest {
      * <li>5. Verify name with expected;
      * </ul>
      * <p>
-     * Expected Result: User can submit a review;
+     * Expected Result: User can see product list with some number of products;
      */
     @Test(dataProvider = "showSelector")
     public void showNumberOfElements(String numberOfItems, Integer expected) {
@@ -214,7 +214,7 @@ public class CategoryPageObjectTest {
      * <li>3.  Verify design of button with expected;
      * </ul>
      * <p>
-     * Expected Result: User can submit a review;
+     * Expected Result: User can see Grid button;
      */
     @Test
     public void validateGridButtonByImageTest() {
@@ -233,7 +233,7 @@ public class CategoryPageObjectTest {
      * <li>3.  Verify design of button with expected;
      * </ul>
      * <p>
-     * Expected Result: User can submit a review;
+     * Expected Result: User can see List button;
      */
     @Test
     public void validateListButtonByImageTest() {
@@ -253,7 +253,7 @@ public class CategoryPageObjectTest {
      * <li>4. Verify product with expected;
      * </ul>
      * <p>
-     * Expected Result: User can submit a review;
+     * Expected Result: User can see sorted by param product list;
      */
     @Test
     public void sortByNameAZParamValidateByImageTest() {

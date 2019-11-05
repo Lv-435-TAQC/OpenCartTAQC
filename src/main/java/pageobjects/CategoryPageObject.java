@@ -194,10 +194,12 @@ public class CategoryPageObject extends BasePageObject {
     public CategoryPageObject clickCompareThisProductByProduct(Product product) {
         generateProductsList();
         for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getProductName().contains(product.getProductName())) {
+            if (products.get(i).getId() == (product.getId())) {
                 productsPO.get(i).clickCompareThisProduct(productsXpath);
             }
         }
+        WebDriverWait wait = new WebDriverWait(driver, 50);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CategoryLocators.ALERT_LABEL_LOC)));
         return this;
     }
 
