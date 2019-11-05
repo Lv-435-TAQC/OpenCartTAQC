@@ -30,9 +30,20 @@ public class Constants {
     public static final String WISH_LIST_ID_42 = "42";
     public static final String LOGOUT_URL = "http://localhost/opencart/index.php?route=account/logout";
     public static final String ADMIN_LOGIN_URL = "http://localhost/shop/admin/index.php?route=common/login";
+    public static final String MENU_URL = "http://localhost/shop";
     public static final String SUCCESS_CHANGING_PRODUCT = "Success: You have modified products!";
     public static final String UNSUCCESSFUL_CHANGING_PRODUCT = "Warning: Please check the form carefully for errors!";
     public static final String MODEL_OF_FILTERED_PRODUCT = "Apple Cinema 30";
     public static final String APPLE_DESCRIPTION = "Apple iPad Pro 12.9 64Gb Wi-Fi+4G (Space Gray) 2018";
     public static final String ADMIN_LOGIN2_URL = "http://192.168.186.129/opencart/admin/index.php?route=common/dashboard&user_token=ZMuBLJtL0IzVqWvTS8J1UUvWCEwiVh2s";
+    public static final String SEARCH_URL="http://192.168.186.129/opencart/index.php?route=product/search";
+    public static final String ADMIN_CATEGORIES_SUCCESSFUL_MESSAGE = "Success: You have modified categories!";
+    public static final String ADMIN_CATEGORIES_UNSUCCESSFUL_MESSAGE = "Warning: Please check the form carefully for errors!";
+    public static final String WARNING_MESSAGE_1= "Warning: No match for E-Mail Address and/or Password.";
+    public static final String WARNING_MESSAGE_2 = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
+    public static final String HOME_PAGE = "http://localhost/opencart/index.php?route=common/home";
+    public static final String REGISTRATION_PAGE = "http://localhost/opencart/index.php?route=account/register";
+    public static final String FORGOTTEN_PAGE = "http://localhost/opencart/index.php?route=account/forgotten";
+    public static final String ACCOUNT_PAGE = "http://localhost/opencart/index.php?route=account/account";
+    public static final String LOGIN_PAGE="http://localhost/opencart/index.php?route=account/login";
 }

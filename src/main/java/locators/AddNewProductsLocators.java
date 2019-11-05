@@ -17,5 +17,6 @@ public class AddNewProductsLocators {
     public static final String PHOTO_LOC = "//*[@id=\"thumb-image\"]";
     public static final String EDIT_PHOTO_BUTTON_LOC = "//*[@id=\"button-image\"]";
     public static final String SELECT_PHOTO_LOC = "//*[@id=\"filemanager\"]/div/div[2]/div[2]/div[2]/a/img";
+    public static final String BACK_BUTTON_LOC = "//*[@id=\"content\"]/div[1]/div/div/a";
 
 }

@@ -33,6 +33,7 @@ public class AddNewProductPageObject extends BasePageObject {
     private Button selectPhotoButton;
     private Button editPhotoButton;
     private Button saveNewProductButton;
+    private Button backToListButton;
 
     public AddNewProductPageObject(WebDriver driver) {
 
@@ -145,6 +146,11 @@ public class AddNewProductPageObject extends BasePageObject {
         return new AdminProductsListPageObject(driver);
     }
 
+    public AdminProductsListPageObject goBackToList(){
+        backToListButton = new ImageButton(driver,AddNewProductsLocators.BACK_BUTTON_LOC).click();
+        return new AdminProductsListPageObject(driver);
+
+    }
     public AddNewProductPageObject fillGeneralFields(String productName, String description, String megaTag) {
         this
                 .setProductName(productName)
