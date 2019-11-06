@@ -6,15 +6,20 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.HomePageObject;
 import pageobjects.WishListPageObject;
+import utils.DBConnector;
+import utils.DBRequest;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static utils.Constants.*;
+import static utils.DBConstants.*;
 
 public class WishListPageObjectTest {
     public static final String LOGIN_NAME = "ngardzhalo@gmail.com";
     public static final String LOGIN_PASSWORD = "vmnataliia";
     WebDriver driver;
+    DBConnector connector;
+    DBRequest request;
     HomePageObject homePageObject;
 
     /**
@@ -25,12 +30,8 @@ public class WishListPageObjectTest {
      * <li>2. Open Home Page on OpenCart.com;
      * <li>3. Click on Login Tab;
      * <li>4. Enter username, password and Click Login Tab;
-     * <li>5. Click on Home Tab;
-     * <li>6. Click on Menu/MacDesktops Tab;
-     * <li>7. Add IMac Item to Wish List;
-     * <li>8. Click on Menu/AllDesktops Tab;
-     * <li>9. Add Apple Item to Wish List;
-     * <li>10. Click on Home Tab;
+     * <li>5. Add information to Database;
+     * <li>6. Click on Home Tab;
      * </ul>
      * <p>
      */
@@ -39,20 +40,16 @@ public class WishListPageObjectTest {
     public void setUp() {
         System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
         driver = new FirefoxDriver();
+        connector = new DBConnector();
+        connector.getConnectionMariaDB(MARIA_DB_DRIVER, MARIA_DB_URL, MARIA_DB_USER_NAME, MARIA_DB_PASSWORD);
+        request = new DBRequest();
+        request.insertDataToDB(INSERT_TO_WISH_LIST,connector.getStatement());
         homePageObject = new HomePageObject(driver);
         homePageObject.goToHomePage()
                 .getHeaderPageObject()
                 .clickLoginPage()
-                .logIn(LOGIN_NAME, LOGIN_PASSWORD)
-                .getMenuPageObject()
-                .clickMacDesktops()
-                .generateProductsPageObjects()
-                .clickAddToWishListByNumberOfProduct(1)
-                .goToHomePage()
-                .getMenuPageObject()
-                .showAllDesktops()
-                .generateProductsPageObjects()
-                .clickAddToWishListByNumberOfProduct(1);
+                .logIn(LOGIN_NAME, LOGIN_PASSWORD);
+
     }
     @BeforeMethod
     public void getHome() {
@@ -68,6 +65,7 @@ public class WishListPageObjectTest {
 
     @AfterClass
     public void tearDown() {
+        request.deleteDataFromDB(DELETE_ALL_FROM_WISH_LIST, connector.getStatement());
         driver.close();
     }
 
@@ -264,6 +262,18 @@ public class WishListPageObjectTest {
 
     @Test
     public void buyingProductsFromWishListAndCheckingPurchaseInDatabase (){
-
+        homePageObject
+                .getHeaderPageObject()
+                .clickWishList()
+                .addItemToCart(WISH_LIST_ID_40)
+                .goToHomePage()
+                .getHeaderPageObject()
+                .clickShoppingCartPage()
+                .goCheckoutBillingDetails()
+                .wantUseAnExistingAddressButton()
+                .wantUseAnExistingAddressButton()
+                .deliveryMethodWithCommentsAboutYourOrder(" ")
+                .paymentMethodWithCommentsAboutYourOrder(" ")
+                .clickContinueButton();
     }
 }

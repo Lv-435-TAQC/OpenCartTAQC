@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static locators.WishListLocators.*;
+import static utils.Constants.WISH_LIST_URL;
 
 
 public class WishListPageObject extends BasePageObject {
@@ -23,6 +24,14 @@ public class WishListPageObject extends BasePageObject {
     private MenuPageObject menuPageObject;
     private Label label;
     private HashMap<String, WishListItem> items;
+
+    public HeaderPageObject getHeaderPageObject() {
+        return headerPageObject;
+    }
+
+    public MenuPageObject getMenuPageObject() {
+        return menuPageObject;
+    }
 
     public WishListPageObject(WebDriver driver) {
         super(driver);
