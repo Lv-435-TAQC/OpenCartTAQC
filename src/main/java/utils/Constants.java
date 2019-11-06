@@ -9,7 +9,7 @@ public class Constants {
     public static final int THREE = 3;
     public static final int FOUR = 4;
     public static final int EIGHT = 8;
-    public static final String BASE_URL = "http://192.168.92.128/opencart/";
+    public static final String BASE_URL = "http://localhost/shop/";
     public static final String BASE_ADMIN_URL = "http://192.168.152.128/opencart/admin";
     public static final String PATH_TO_DRIVER = "src/main/resources/geckodriver.exe";
     public static final String KEY_TO_DRIVER = "webdriver.gecko.driver";
@@ -52,7 +52,7 @@ public class Constants {
     public static final String DOLLAR_CURRENCY = "$";
     public static final String EURO_CURRENCY = "€";
     public static final String POUND_CURRENCY = "£";
-    public static final String SHOPPING_CART = "Shopping cart";
+    public static final String SHOPPING_CART = "Shopping Cart";
     public static final String LOGIN = "Login";
     public static final String REGISTER = "Register";
 }

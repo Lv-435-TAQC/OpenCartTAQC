@@ -37,54 +37,161 @@ public class HeaderPageObjectTest {
         driver.close();
     }
 
+    /**
+     * <b>TC-01: Euro Currency Test.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click currency selector;
+     * <li>2. Choose euro currency;
+     * <li>3. Find euro symbol in items title ;
+     * <li>4. Compare expected and actual symbols;
+     * </ul>
+     * <p>
+     * Expected Result:€.
+     */
+
     @Test
     public void euroCurrencyTest() {
-        String actual = header.chooseEuroCurrency().getTextFromItems();
+        String actual = header
+                .chooseEuroCurrency()
+                .getTextFromItems();
         assertTrue(actual.contains(EURO_CURRENCY));
     }
 
+    /**
+     * <b>TC-02: Dollar Currency Test.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click currency selector;
+     * <li>2. Choose dollar currency;
+     * <li>3. Find dollar symbol in items title ;
+     * <li>4. Compare expected and actual symbols;
+     * </ul>
+     * <p>
+     * Expected Result:$.
+     */
+
     @Test
     public void dollarCurrencyTest() {
-        String actual = header.chooseDollarCurrency().getTextFromItems();
+        String actual = header
+                .chooseDollarCurrency()
+                .getTextFromItems();
         assertTrue(actual.contains(DOLLAR_CURRENCY));
     }
 
+    /**
+     * <b>TC-03: Pound Currency Test.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click currency selector;
+     * <li>2. Choose pound currency;
+     * <li>3. Find pound symbol in items title ;
+     * <li>4. Compare expected and actual symbols;
+     * </ul>
+     * <p>
+     * Expected Result:£.
+     */
+
     @Test
     public void poundCurrencyTest() {
-        String actual = header.choosePoundCurrency().getTextFromItems();
+        String actual = header
+                .choosePoundCurrency()
+                .getTextFromItems();
         assertTrue(actual.contains(POUND_CURRENCY));
     }
 
+    /**
+     * <b>TC-04: Login Page Test</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on login;
+     * <li>2. Compare expected and actual title;
+     * </ul>
+     * <p>
+     * Expected Result:Login.
+     */
+
     @Test
-    public void testLoginPage() {
+    public void goToLoginPageTest() {
         header.clickLoginPage();
         String actual = header.getTextFromSecondTape();
         assertEquals(actual, LOGIN);
     }
 
+    /**
+     * <b>TC-05: Register Page Test</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on register;
+     * <li>2. Compare expected and actual title;
+     * </ul>
+     * <p>
+     * Expected Result:Register.
+     */
     @Test
-    public void testRegistrationPage() {
+    public void goToRegistrationPageTest() {
         header.clickRegistrationPage();
         String actual = header.getTextFromSecondTape();
         assertEquals(actual, REGISTER);
     }
 
+    /**
+     * <b>TC-06: Wish List Page Test</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on wish list;
+     * <li>2. Compare expected and actual title;
+     * </ul>
+     * <p>
+     * Expected Result:Login.
+     */
+
     @Test
-    public void testWishListPage(){
+    public void goToWishListTest(){
         header.clickWishList();
         String actual = header.getTextFromSecondTape();
         assertEquals(actual,LOGIN);
     }
 
+    /**
+     * <b>TC-07: Shopping cart Page Test</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on wish list;
+     * <li>2. Compare expected and actual title;
+     * </ul>
+     * <p>
+     * Expected Result:Login.
+     */
+
     @Test
-    public void testShoppingCartPage(){
+    public void goToShoppingCartPageTest(){
         header.clickShoppingCartPage();
          String actual = header.getTextFromFirstTape();
          assertEquals(actual,SHOPPING_CART);
     }
 
+    /**
+     * <b>TC-08: Checklist Page Test</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on wish list;
+     * <li>2. Compare expected and actual title;
+     * </ul>
+     * <p>
+     * Expected Result:Login.
+     */
+
     @Test
-    public void testCheckoutPage(){
+    public void goToCheckoutPageTest(){
         header.goToCheckoutCartPage();
         String actual = header.getTextFromFirstTape();
         assertEquals(actual,SHOPPING_CART);
