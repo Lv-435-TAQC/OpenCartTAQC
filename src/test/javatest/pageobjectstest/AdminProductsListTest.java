@@ -127,4 +127,53 @@ public class AdminProductsListTest {
                 .deleteChosenProduct()
                 .closeMessage();
     }
+
+    /**
+     * <b>TC-05: Positive Test Edit Product without some changes.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Mark Products Checkbox;
+     * <li>2. Click Edit Product Button;
+     * <li>3. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Success: You have modified products.
+     */
+
+    @Test
+    public void editProductWithoutChanges(){
+        String actual = adminProductsList
+                .clickEditButton()
+                .saveNewProduct()
+                .getTextFromMessage();
+        assertTrue(actual.contains(SUCCESS_CHANGING_PRODUCT));
+    }
+
+    /**
+     * <b>TC-04: Positive Test Edit Product without some changes.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Mark Products Checkbox;
+     * <li>2. Click Edit Product Button;
+     * <li>3. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Success: You have modified products.
+     */
+
+
+    @Test
+    public void editProduct(){
+        String actualMessage = adminProductsList
+                .clickEditButton()
+                .setProductName("dasdwe")
+                .setMetaTagTitle("asdasd")
+                .clickData()
+                .setProductModel("sfdasf")
+                .saveNewProduct()
+                .getTextFromMessage();
+        assertTrue(actualMessage.contains(SUCCESS_CHANGING_PRODUCT));
+    }
 }

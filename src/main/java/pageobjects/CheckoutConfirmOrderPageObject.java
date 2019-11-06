@@ -10,6 +10,7 @@ import org.sikuli.script.FindFailed;
 import org.sikuli.script.Screen;
 import pageelements.Button;
 import patterns.LoginPatterns;
+import utils.TestData;
 
 public class CheckoutConfirmOrderPageObject extends BasePageObject {
     Screen screen = new Screen();
@@ -44,6 +45,7 @@ public class CheckoutConfirmOrderPageObject extends BasePageObject {
 
     public CheckoutConfirmOrderPageObject sikuliAlertError() {
         isTrue = true;
+        //  screen.wait(LoginPatterns.ALERT);
         try {
             screen.click(LoginPatterns.ALERT);
             return new CheckoutConfirmOrderPageObject(driver);
@@ -52,4 +54,11 @@ public class CheckoutConfirmOrderPageObject extends BasePageObject {
             return new CheckoutConfirmOrderPageObject(driver);
         }
     }
+
+    public AdminLoginPageObject goToAdminPage()
+    {
+        driver.get(TestData.ADMIN_PAGE);
+        return new AdminLoginPageObject(driver);
+    }
+
 }

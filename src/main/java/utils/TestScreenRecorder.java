@@ -22,6 +22,10 @@ import static org.monte.media.AudioFormatKeys.MediaTypeKey;
 import static org.monte.media.AudioFormatKeys.MimeTypeKey;
 import static org.monte.media.VideoFormatKeys.*;
 
+/**
+ * This class provides methods for video recording of the test
+ */
+
 public class TestScreenRecorder extends ScreenRecorder {
     public static ScreenRecorder screenRecorder;
     public static String name;
@@ -35,7 +39,10 @@ public class TestScreenRecorder extends ScreenRecorder {
         TestScreenRecorder.name = name;
 
     }
-
+    /**
+     * This method is the start of video recording.
+     * @param methodName This is param which is first part of recording move
+     */
     public static void startRecording(String methodName) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width;
@@ -68,7 +75,9 @@ public class TestScreenRecorder extends ScreenRecorder {
         }
 
     }
-
+    /**
+     * This this method stops video recording.
+     */
     public static void stopRecording() {
         try {
             screenRecorder.stop();
@@ -76,7 +85,9 @@ public class TestScreenRecorder extends ScreenRecorder {
             System.out.println("Error in stopRecording method");
         }
     }
-
+    /**
+     * This method deletes the recorded test.
+     */
     public static void deleteRecord() {
         try {
             Files.delete(Paths.get(file.getPath() + "\\" + fileName));
@@ -84,7 +95,9 @@ public class TestScreenRecorder extends ScreenRecorder {
             System.out.println("Error in deleteRecord method");
         }
     }
-
+    /**
+     * This method of creating video file.
+     */
     @Override
     protected File createMovieFile(Format fileFormat) throws IOException {
 

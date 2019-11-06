@@ -18,5 +18,6 @@ public class AddNewProductsLocators {
     public static final String EDIT_PHOTO_BUTTON_LOC = "//*[@id=\"button-image\"]";
     public static final String SELECT_PHOTO_LOC = "//*[@id=\"filemanager\"]/div/div[2]/div[2]/div[2]/a/img";
     public static final String BACK_BUTTON_LOC = "//*[@id=\"content\"]/div[1]/div/div/a";
+    public static final String MESSAGE_FOR_FIELDS_LOC = "//*[@id=\"language1\"]/div[1]/div/div";
 
 }

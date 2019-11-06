@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Button;
 import pageelements.Label;
+import pageelements.*;
+import utils.TestData;
 
 public class CheckoutSuccessPageObject extends BasePageObject {
     private Label successMessageLabel;
@@ -34,4 +36,9 @@ public class CheckoutSuccessPageObject extends BasePageObject {
     {
         return new AdminPageObject(driver);
     }
+    public AdminLoginPageObject goToAdminPage() {
+        driver.get(TestData.ADMIN_PAGE);
+        return new AdminLoginPageObject(driver);
+    }
+
 }
