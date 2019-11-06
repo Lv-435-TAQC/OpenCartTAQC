@@ -30,8 +30,9 @@ public class WishListPageObjectTest {
      * <li>2. Open Home Page on OpenCart.com;
      * <li>3. Click on Login Tab;
      * <li>4. Enter username, password and Click Login Tab;
-     * <li>5. Add information to Database;
-     * <li>6. Click on Home Tab;
+     * <li>5. Delete all products from Wish List in Database;
+     * <li>6. Add products to Wish List in Database;
+     * <li>7. Click on Home Tab;
      * </ul>
      * <p>
      */
@@ -43,6 +44,7 @@ public class WishListPageObjectTest {
         connector = new DBConnector();
         connector.getConnectionMariaDB(MARIA_DB_DRIVER, MARIA_DB_URL, MARIA_DB_USER_NAME, MARIA_DB_PASSWORD);
         request = new DBRequest();
+        request.deleteDataFromDB(DELETE_ALL_FROM_WISH_LIST, connector.getStatement());
         request.insertDataToDB(INSERT_TO_WISH_LIST,connector.getStatement());
         homePageObject = new HomePageObject(driver);
         homePageObject.goToHomePage()
@@ -65,12 +67,13 @@ public class WishListPageObjectTest {
 
     @AfterClass
     public void tearDown() {
-        request.deleteDataFromDB(DELETE_ALL_FROM_WISH_LIST, connector.getStatement());
+        request.deleteDataFromDB(DELETE_ALL_FROM_ORDER, connector.getStatement());
+        driver.manage().deleteAllCookies();
         driver.close();
     }
 
     /**
-     * <b>TC-01: Test Wish List Item's Image Apple.</b>
+     * <b>TC-01: Test Wish List Item's with Image Apple.</b>
      *
      * Scenario:
      * <ul>
@@ -143,7 +146,7 @@ public class WishListPageObjectTest {
     }
 
     /**
-     * <b>TC-04: Test Wish List Alert on Wish List Page.</b>
+     * <b>TC-04: Test Adding Item Without Parameters to Shopping Cart.</b>
      *
      * Scenario:
      * <ul>
@@ -260,6 +263,17 @@ public class WishListPageObjectTest {
         assertTrue(actual.contains(WISH_LIST_ID_42));
     }
 
+    /**
+     * <b>TC-09: Tests .</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Wish List Tab;
+     * </ul>
+     * <p>
+     * Expected Result: .
+     */
+
     @Test
     public void buyingProductsFromWishListAndCheckingPurchaseInDatabase (){
         homePageObject
@@ -270,10 +284,10 @@ public class WishListPageObjectTest {
                 .getHeaderPageObject()
                 .clickShoppingCartPage()
                 .goCheckoutBillingDetails()
-                .wantUseAnExistingAddressButton()
-                .wantUseAnExistingAddressButton()
-                .deliveryMethodWithCommentsAboutYourOrder(" ")
-                .paymentMethodWithCommentsAboutYourOrder(" ")
-                .clickContinueButton();
+                .continueWantUseAnExistingAddressBillingDetailsPageButton()
+                .continueWantUseAnExistingAddressButton()
+                .deliveryMethodWithoutCommentsAboutYourOrder()
+                .paymentMethodWithoutCommentsAboutYourOrder()
+                .clickContinueButtonU();
     }
 }

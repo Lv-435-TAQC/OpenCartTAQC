@@ -3,20 +3,24 @@ package pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import pageelements.Label;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static locators.AdminStatisticsLocators.STATISTICS_ALERT;
 import static locators.AdminStatisticsLocators.STATISTICS_TABLE;
 
 public class AdminStatisticsPageObject extends BasePageObject {
     private AdminPageObject adminPageObject;
     private List<AdminStatisticsItem> statistics;
+    private Label label;
 
     public AdminStatisticsPageObject(WebDriver driver) {
         super(driver);
         this.adminPageObject = new AdminPageObject(driver);
         this.statistics = new ArrayList<>();
+        this.label = new Label(driver, STATISTICS_ALERT);
     }
 
     public void setStatistics() {
@@ -46,6 +50,6 @@ public class AdminStatisticsPageObject extends BasePageObject {
 
     public AdminStatisticsPageObject clickRefresh(int numOfElement){
         this.getStatistics().get(numOfElement).getRefresh().click();
-        return this;
+        return new AdminStatisticsPageObject(driver);
     }
 }
