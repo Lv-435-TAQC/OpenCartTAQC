@@ -50,7 +50,7 @@ public class HomePageObject extends BasePageObject {
     }
 
     public ShoppingCartPageObject goToShoppingCartPage() {
-        driver.navigate().to("http://localhost/OpenCart/index.php?route=checkout/cart");
+        driver.navigate().to("http://localhost/OpenCart/index.php?route=goToCheckout/cart");
         return new ShoppingCartPageObject(driver);
     }
 

@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.assertTrue;
 import static utils.Constants.*;
 
-public class AdminChangingProductsTest {
+public class AdminChangingProductsTests {
     WebDriver driver;
     AdminLoginPageObject admin;
     AdminProductsListPageObject adminProductsList;

@@ -4,6 +4,10 @@ import org.openqa.selenium.WebDriver;
 import pageobjects.AdminOrderDescriptionPageObject;
 import pageobjects.BasePageObject;
 
+/**
+ *  The class is created to describe the order item in orders table.
+ */
+
 public class Order {
     private WebDriver driver;
     private String orderID;
@@ -38,7 +42,10 @@ public class Order {
         delete.click();
         return this;
     }
-
+    /**
+     * This method opens the order page.
+     * @return AdminOrderDescriptionPage
+     */
     public AdminOrderDescriptionPageObject viewOrder() {
         view.click();
         return new AdminOrderDescriptionPageObject(driver);
