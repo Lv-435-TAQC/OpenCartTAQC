@@ -2,7 +2,7 @@ package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterClass;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -11,8 +11,7 @@ import pageobjects.HomePageObject;
 import utils.Constants;
 
 import static org.testng.Assert.assertEquals;
-import static utils.Constants.KEY_TO_DRIVER;
-import static utils.Constants.PATH_TO_DRIVER;
+import static utils.Constants.*;
 
 public class CheckoutPageObjectTest {
     WebDriver driver;
@@ -38,36 +37,34 @@ public class CheckoutPageObjectTest {
 
     @BeforeClass
     public void setUp() {
+
         System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
         driver = new FirefoxDriver();
         homePageObject = new HomePageObject(driver);
-        driver.get(Constants.HOME_PAGE);
-        homePageObject.goToHomeUrlPage()
+        driver.get(HOME_PAGE);
+        homePageObject.goToHomePage()
                 .getHeaderPageObject()
                 .clickLoginPage()
                 .logIn("orysita.lviv+1@gmail.com", "orysia")
-                .getMenuPageObject()
-                .goToPhonesAndPDAs()
-                .clickAddToCardByNameOfProduct("Palm Treo Pro")
-                .goToHomeUrlPage()
-                .goToShoppingCartPage()
-                .goCheckoutBillingDetails();
-        checkoutBillingDetails = new CheckoutBillingDetailsPageObject(driver);
+                .goToHomePage();
     }
-  /*  @BeforeMethod
-    public void getHome() {
+
+    @BeforeMethod
+    public void addProduct() {
         homePageObject.getMenuPageObject()
                 .goToPhonesAndPDAs()
                 .clickAddToCardByNameOfProduct("Palm Treo Pro")
-                .goToHomeUrlPage()
+                .goToHomePage()
                 .goToShoppingCartPage()
                 .goCheckoutBillingDetails();
-    }*/
+        checkoutBillingDetails = new CheckoutBillingDetailsPageObject(driver);
 
- //   @AfterClass
-  //    public void closeUp() {
- //        driver.quit();
- //   }
+    }
+
+    //   @AfterClass
+    //    public void closeUp() {
+    //        driver.quit();
+    //   }
 
     /**
      * <b>TC-1: Test checkout     </b>
@@ -98,10 +95,9 @@ public class CheckoutPageObjectTest {
      */
 
 
-
     /**
      * <b>TC-1: Test checkout </b>
-     *
+     * <p>
      * Scenario:
      * <ul>
      * <li> 1. Click I want to use an existing address on Billing Details
@@ -123,21 +119,20 @@ public class CheckoutPageObjectTest {
      * <p>
      * Expected Result: Your order has been placed!
      */
-    @Test
+    @Test(priority = 1)
     public void placeAnOrderWithYourCurrentAddressAndAllComments() {
         String actual = checkoutBillingDetails
                 .continueWantUseAnExistingAddressBillingDetailsPageButton()
                 .continueWantUseAnExistingAddressButton()
                 .deliveryMethodWithCommentsAboutYourOrder("My buy")
                 .paymentMethodWithCommentsAboutYourOrder("I paid")
-                .clickContinueButton().successMessage();
-        String expected = "Your order has been placed!";
-        assertEquals(actual, expected);
+                .clickContinueButtonX().successMessage();
+        assertEquals(SUCCSSES_ORDER1.equalsIgnoreCase(actual) ? Constants.SUCCSSES_ORDER1 : Constants.SUCCSSES_ORDER2, actual);
     }
 
     /**
      * <b>TC-2: Test checkout </b>
-     *
+     * <p>
      * Scenario:
      * <ul>
      * <li> 1. Click I want to use an existing address on Billing Details
@@ -158,42 +153,47 @@ public class CheckoutPageObjectTest {
      * Expected Result: Your order has been placed!
      */
 
-    @Test
+    @Test(priority = 2)
     public void placeAnOrderWithYourCurrentAddressAndNotAllComments() {
         String actual = checkoutBillingDetails
                 .continueWantUseAnExistingAddressBillingDetailsPageButton()
                 .continueWantUseAnExistingAddressButton()
                 .deliveryMethodWithoutCommentsAboutYourOrder()
                 .paymentMethodWithoutCommentsAboutYourOrder()
-                .clickContinueButton().successMessage()
-        String expected = "Your order has been placed!";
-        assertEquals(actual, expected);
+                .clickContinueButtonX().successMessage();
+        assertEquals(SUCCSSES_ORDER1.equalsIgnoreCase(actual) ? Constants.SUCCSSES_ORDER1 : Constants.SUCCSSES_ORDER2, actual);
     }
 
 
-
-    @Test
+    @Test(priority = 3)
     public void placeAnOrderWithYourNewAddressAndNotAllCommentsAndAllInformationTest() {
-        String actual = checkoutBillingDetails
-                .continueWantUseNewAddressButtonWithAllInformation("Orysia","Benko","SoftServe", "Chervonoy Kalyny 51", "Suxiv", "Lviv", "125463", "Ukraine", 3493)
-        .continueWantUseNewAddressButtonWithAllInformation("Orysia","Benko","SoftServe", "Chervonoy Kalyny 51", "Suxiv", "Lviv", "125463", "Ukraine", 3493)
-               .deliveryMethodWithoutCommentsAboutYourOrder()
+        String actual =
+                checkoutBillingDetails
+                .continueWantUseNewAddressButtonWithAllInformation(
+                        "Orysia", "Benko", "SoftServe",
+                        "Chervonoy Kalyny 51", "Suxiv", "Lviv",
+                        "125463", "Ukraine", 3493)
+                .continueWantUseNewAddressButtonWithAllInformation("Orysia", "Benko", "SoftServe",
+                        "Chervonoy Kalyny 51", "Suxiv", "Lviv", "125463", "Ukraine", 3490)
+                .deliveryMethodWithoutCommentsAboutYourOrder()
                 .paymentMethodWithoutCommentsAboutYourOrder()
-                .clickContinueButton().successMessage();
-        String expected = "Your order has been placed!";
-        assertEquals(actual, expected);
+                .clickContinueButtonX().successMessage();
+        assertEquals(SUCCSSES_ORDER1.equalsIgnoreCase(actual) ? Constants.SUCCSSES_ORDER1 : Constants.SUCCSSES_ORDER2, actual);
     }
 
-    @Test
+    @Test(priority = 4)
     public void placeAnOrderWithYourNewAddressAndAllCommentsAndInformationTest() {
         String actual = checkoutBillingDetails
-                .continueWantUseNewAddressButtonWithAllInformation("Orysia","Benko","SoftServe", "Chervonoy Kalyny 51", "Suxiv", "Lviv", "125463", "Ukraine", 3493)
-                .continueWantUseNewAddressButtonWithAllInformation("Orysia","Benko","SoftServe", "Chervonoy Kalyny 51", "Suxiv", "Lviv", "125463", "Ukraine", 3493)
+                .continueWantUseNewAddressButtonWithAllInformation("Orysia", "Benko", "SoftServe",
+                        "Chervonoy Kalyny 51", "Suxiv", "Lviv",
+                        "125463", "Ukraine", 3493)
+                .continueWantUseNewAddressButtonWithAllInformation("Orysia", "Benko", "SoftServe",
+                        "Chervonoy Kalyny 51", "Suxiv", "Lviv",
+                        "125463", "Ukraine", 3493)
                 .deliveryMethodWithCommentsAboutYourOrder("My buy")
                 .paymentMethodWithCommentsAboutYourOrder("I paid")
-                .clickContinueButton().successMessage();
-        String expected = "Your order has been placed!";
-        assertEquals(actual, expected);
+                .clickContinueButtonX().successMessage();
+        assertEquals(SUCCSSES_ORDER1.equalsIgnoreCase(actual) ? Constants.SUCCSSES_ORDER1 : Constants.SUCCSSES_ORDER2, actual);
     }
 
     @Test

@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Button;
 import pageelements.Label;
 import pageelements.*;
+import utils.Constants;
 import utils.TestData;
 
 public class CheckoutSuccessPageObject extends BasePageObject {
@@ -28,16 +29,11 @@ public class CheckoutSuccessPageObject extends BasePageObject {
         WebElement explicitWait = (new WebDriverWait(driver, 10)).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(CheckoutSuccessLocators.SUCCESS_MESSAGE)));
         successMessageLabel = new Label(this.driver, CheckoutSuccessLocators.SUCCESS_MESSAGE);
-
         return successMessageLabel.getText();
     }
 
-    public  AdminPageObject goToAdmainPage()
-    {
-        return new AdminPageObject(driver);
-    }
     public AdminLoginPageObject goToAdminPage() {
-        driver.get(TestData.ADMIN_PAGE);
+        driver.get(Constants.ADMIN_PAGE);
         return new AdminLoginPageObject(driver);
     }
 

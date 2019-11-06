@@ -124,7 +124,7 @@ public class CheckoutDeliveryDetailsPageObject extends BasePageObject {
 
     public CheckoutDeliveryDetailsPageObject selectCountryRegionOrState(int selectIndexCountryRegionOrState) {
         selectCountryRegionOrStateDrop = new DropDown(this.driver, CheckoutDeliveryDetailsLocators.REGION_OR_STATE);
-        selectCountryRegionOrStateDrop.writeOrdinalIndex(selectIndexCountryRegionOrState);
+        selectCountryRegionOrStateDrop.getElement().selectByValue(Integer.valueOf(selectIndexCountryRegionOrState).toString());
         return this;
     }
 

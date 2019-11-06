@@ -33,7 +33,7 @@ public class CheckoutPaymentMethodPageObject extends BasePageObject {
 
     public CheckoutConfirmOrderPageObject paymentMethodWithoutCommentsAboutYourOrder() {
         this
-                .clickFlatShippingRateButton()
+               // .clickFlatShippingRateButton()
                 .checkOnPrivacyPolicyCheckbox()
                 .clickContinueButton();
         return new CheckoutConfirmOrderPageObject(driver);
