@@ -30,10 +30,9 @@ public class AdminProductsListPageObject extends BasePageObject{
     private Input filterModelField;
     private Input filterPriceField;
     private Input filterQuantityField;
-    private DropDown statusSelect;
     private Button submitFilterButton;
+    private Checkbox mainCheckbox;
     private String productLabel;
-    private Button confirmButton;
     Screen screen = new Screen();
 
     public AdminProductsListPageObject(WebDriver driver) {
@@ -92,7 +91,7 @@ public class AdminProductsListPageObject extends BasePageObject{
      }
 
      public AdminProductsListPageObject markCheckbox(){
-        this.createList(AdminProductsPageLocators.CHECKBOXES_LOC).get(1).click();
+       mainCheckbox = new Checkbox(driver,AdminProductsPageLocators.CHECKBOX_LOC).clickOnCheckbox();
         return this;
      }
 
@@ -123,16 +122,6 @@ public class AdminProductsListPageObject extends BasePageObject{
 
     public AdminProductsListPageObject setFilterQuantity(String quantity){
         filterQuantityField = new Input(driver,AdminProductsPageLocators.FILTER_QUANTITY_FIELD_LOC).setText(quantity);
-        return this;
-    }
-
-    public AdminProductsListPageObject chooseEnabledOption(){
-        statusSelect = new DropDown(driver,AdminProductsPageLocators.FILTER_SELECT_LOC).writeOrdinalIndex(ONE);
-        return this;
-    }
-
-    public AdminProductsListPageObject chooseDisabledOption(){
-        statusSelect = new DropDown(driver,AdminProductsPageLocators.FILTER_SELECT_LOC).writeOrdinalIndex(TWO);
         return this;
     }
 

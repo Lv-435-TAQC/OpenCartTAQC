@@ -82,6 +82,8 @@ public class AddNewProductTest {
                  .setMetaTagTitle("test12321")
                  .clickData()
                  .setProductModel("test")
+                 .clickLinks()
+                 .setCategories("Tablet")
                  .saveNewProduct()
                  .getTextFromMessage();
          assertTrue(actualMessage.contains(SUCCESS_CHANGING_PRODUCT));

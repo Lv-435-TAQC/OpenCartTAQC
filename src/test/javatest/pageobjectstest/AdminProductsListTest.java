@@ -100,7 +100,6 @@ public class AdminProductsListTest {
                 .setFilterModel("Product 15")
                 .setFilterPrice("100")
                 .setFilterQuantity("990")
-                .chooseDisabledOption()
                 .clickFilterSubmit()
               .getTextOfProductsModelLabel();
       assertTrue(actual.contains(MODEL_OF_FILTERED_PRODUCT));

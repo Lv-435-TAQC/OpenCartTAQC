@@ -1,5 +1,7 @@
 package utils;
 
+import org.stringtemplate.v4.ST;
+
 public class Constants {
 
     public static final int ZERO = 0;
@@ -8,7 +10,7 @@ public class Constants {
     public static final int THREE = 3;
     public static final int FOUR = 4;
     public static final int EIGHT = 8;
-    public static final String BASE_URL = "http://192.168.152.128/opencart/";
+    public static final String BASE_URL = "http://localhost/shop/";
     public static final String BASE_ADMIN_URL = "http://192.168.152.128/opencart/admin";
     public static final String PATH_TO_DRIVER = "src/main/resources/geckodriver.exe";
     public static final String KEY_TO_DRIVER = "webdriver.gecko.driver";
@@ -47,4 +49,5 @@ public class Constants {
     public static final String ACCOUNT_PAGE = "http://localhost/opencart/index.php?route=account/account";
     public static final String LOGIN_PAGE="http://localhost/opencart/index.php?route=account/login";
     public static final String NEGATIVE_MESSAGE_FOR_FIELD = "Product Name must be greater than 1 and less than 255 characters";
+    public static final String MESSAGE_IN_CATEGORY = "There are no products to list in this category.";
 }
