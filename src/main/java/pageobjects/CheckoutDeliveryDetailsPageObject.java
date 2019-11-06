@@ -1,6 +1,5 @@
 package pageobjects;
 
-import locators.CheckoutBillingDetailsLocators;
 import locators.CheckoutDeliveryDetailsLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -29,17 +28,23 @@ public class CheckoutDeliveryDetailsPageObject extends BasePageObject {
         super(driver);
         WebElement explicitWait = (new WebDriverWait(driver, 10)).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(CheckoutDeliveryDetailsLocators.EXISTING_ADDRESS)));
-
     }
 
-    public CheckoutDeliveryMethodPageObject deliveryDetailExistingAddress() {
-        this
-                .clickIWantUseAnExistingAddressButton()
-                .clickNextButton();
-        return new CheckoutDeliveryMethodPageObject(driver);
+    public CheckoutDeliveryMethodPageObject continueWantUseAnExistingAddressButton() {
+        return this.clickIWantUseAnExistingAddressButton().clickNextButton();
     }
 
-    public CheckoutDeliveryMethodPageObject inputNewRequiredInformation(String firstName, String lastName, String company, String address1, String city, String selectCountry, String selectCountryRegionOrState) {
+    public CheckoutDeliveryMethodPageObject continueWantUseNewAddressButtonWithAllInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, Integer selectCountryRegionOrState) {
+        return this.clickIWantUseNewExistingAddressButton()
+                .continueInputNewNotRequiredInformation(firstName, lastName, company, address1, address2, city, postCode, selectCountry, selectCountryRegionOrState);
+    }
+
+    public CheckoutDeliveryMethodPageObject continueWantUseNewAddressButtonWithAllInformation(String firstName, String lastName, String company, String address1, String city, String selectCountry, Integer selectCountryRegionOrState) {
+        return this.clickIWantUseNewExistingAddressButton()
+                .continueInputNewRequiredInformation(firstName, lastName, company, address1, city, selectCountry, selectCountryRegionOrState);
+    }
+
+    public CheckoutDeliveryMethodPageObject continueInputNewRequiredInformation(String firstName, String lastName, String company, String address1, String city, String selectCountry, Integer selectCountryRegionOrState) {
         this
                 .clickIWantUseNewExistingAddressButton()
                 .setFirstName(firstName)
@@ -53,7 +58,7 @@ public class CheckoutDeliveryDetailsPageObject extends BasePageObject {
         return new CheckoutDeliveryMethodPageObject(driver);
     }
 
-    public CheckoutDeliveryMethodPageObject inputNewNotRequiredInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, String selectCountryRegionOrState) {
+    public CheckoutDeliveryMethodPageObject continueInputNewNotRequiredInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, Integer selectCountryRegionOrState) {
         this
                 .clickIWantUseNewExistingAddressButton()
                 .setFirstName(firstName)
@@ -67,11 +72,6 @@ public class CheckoutDeliveryDetailsPageObject extends BasePageObject {
                 .selectCountryRegionOrState(selectCountryRegionOrState)
                 .clickNextButton();
         return new CheckoutDeliveryMethodPageObject(driver);
-    }
-
-    public CheckoutDeliveryMethodPageObject wantUseAnExistingAddressButton()
-    {
-        return this.clickIWantUseAnExistingAddressButton().clickNextButton();
     }
 
     public CheckoutDeliveryDetailsPageObject setFirstName(String firstName) {
@@ -122,9 +122,9 @@ public class CheckoutDeliveryDetailsPageObject extends BasePageObject {
         return this;
     }
 
-    public CheckoutDeliveryDetailsPageObject selectCountryRegionOrState(String selectCountryRegionOrState) {
+    public CheckoutDeliveryDetailsPageObject selectCountryRegionOrState(int selectIndexCountryRegionOrState) {
         selectCountryRegionOrStateDrop = new DropDown(this.driver, CheckoutDeliveryDetailsLocators.REGION_OR_STATE);
-        selectCountryRegionOrStateDrop.writeOptionParameter(selectCountryRegionOrState);
+        selectCountryRegionOrStateDrop.getElement().selectByValue(Integer.valueOf(selectIndexCountryRegionOrState).toString());
         return this;
     }
 
