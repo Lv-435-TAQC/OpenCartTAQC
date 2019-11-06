@@ -10,6 +10,8 @@ import org.sikuli.script.Screen;
 import pageelements.Button;
 import utils.TestData;
 
+import static locators.CheckoutConfirmOrderLocators.CONFIRM_ORDER;
+
 public class CheckoutConfirmOrderPageObject extends BasePageObject {
     Screen screen = new Screen();
     Boolean isTrue = false;
@@ -23,7 +25,8 @@ public class CheckoutConfirmOrderPageObject extends BasePageObject {
     }
 
     public CheckoutSuccessPageObject clickContinueButtonX() {
-        continueButton = new Button(this.driver, CheckoutConfirmOrderLocators.CONFIRM_ORDER);
+        (new WebDriverWait(driver, 30)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(CONFIRM_ORDER)));
+        continueButton = new Button(this.driver, CONFIRM_ORDER);
         continueButton.click();
         try {
             Thread.sleep(5000);
@@ -33,18 +36,18 @@ public class CheckoutConfirmOrderPageObject extends BasePageObject {
         if (driver.switchTo().alert() != null) {
             driver.switchTo().alert().accept();
         } else {
-            continueButton = new Button(this.driver, CheckoutConfirmOrderLocators.CONFIRM_ORDER);
+//            continueButton = new Button(this.driver, CONFIRM_ORDER);
             continueButton.click();
         }
-        continueButton = new Button(this.driver, CheckoutConfirmOrderLocators.CONFIRM_ORDER);
+//        continueButton = new Button(this.driver, CONFIRM_ORDER);
         continueButton.click();
         return new CheckoutSuccessPageObject(driver);
     }
 
     public CheckoutSuccessPageObject clickContinueButtonU() {
         WebElement explicitWait = (new WebDriverWait(driver, 10)).
-                until(ExpectedConditions.presenceOfElementLocated(By.xpath(CheckoutConfirmOrderLocators.CONFIRM_ORDER)));
-        continueButton = new Button(this.driver, CheckoutConfirmOrderLocators.CONFIRM_ORDER);
+                until(ExpectedConditions.presenceOfElementLocated(By.xpath(CONFIRM_ORDER)));
+        continueButton = new Button(this.driver, CONFIRM_ORDER);
         continueButton.click();
         return new CheckoutSuccessPageObject(driver);
     }

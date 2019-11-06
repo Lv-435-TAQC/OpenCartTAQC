@@ -1,22 +1,27 @@
 package javatest.pageobjectstest;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.Assert;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageelements.Button;
 import pageobjects.CheckoutBillingDetailsPageObject;
 import pageobjects.HomePageObject;
 import utils.Constants;
 
+import static locators.CheckoutConfirmOrderLocators.CONFIRM_ORDER;
 import static org.testng.Assert.assertEquals;
 import static utils.Constants.*;
 
 public class CheckoutPageObjectTest {
-    WebDriver driver;
-    HomePageObject homePageObject;
-    CheckoutBillingDetailsPageObject checkoutBillingDetails;
+    private WebDriver driver;
+    private HomePageObject homePageObject;
+    private CheckoutBillingDetailsPageObject checkoutBillingDetails;
 
     /**
      * <b> Description of Precondition.</b>
@@ -37,23 +42,24 @@ public class CheckoutPageObjectTest {
 
     @BeforeClass
     public void setUp() {
-
         System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
         driver = new FirefoxDriver();
         homePageObject = new HomePageObject(driver);
+
         driver.get(HOME_PAGE);
         homePageObject.goToHomePage()
                 .getHeaderPageObject()
                 .clickLoginPage()
-                .logIn("orysita.lviv+1@gmail.com", "orysia")
-                .goToHomePage();
+                .logIn("orysita.lviv+1@gmail.com", "orysia");
     }
 
     @BeforeMethod
     public void addProduct() {
-        homePageObject.getMenuPageObject()
+        homePageObject
+                .goToHomePage()
+                .getMenuPageObject()
                 .goToPhonesAndPDAs()
-                .clickAddToCardByNameOfProduct("Palm Treo Pro")
+                .clickAddToCardByNameOfProduct("iPhone")
                 .goToHomePage()
                 .goToShoppingCartPage()
                 .goCheckoutBillingDetails();
@@ -61,10 +67,17 @@ public class CheckoutPageObjectTest {
 
     }
 
-    //   @AfterClass
-    //    public void closeUp() {
-    //        driver.quit();
-    //   }
+//    @AfterMethod
+//    public void logout() {
+//        checkoutBillingDetails.goToUrl(LOGOUT_URL);
+//        (new WebDriverWait(driver, 30))
+//                .until(ExpectedConditions.textToBe(By.xpath("//div[@id = 'content']/h1"), "Account Logout"));
+//    }
+
+//    @AfterClass
+//    public void closeUp() {
+//        driver.quit();
+//    }
 
     /**
      * <b>TC-1: Test checkout     </b>
@@ -169,31 +182,44 @@ public class CheckoutPageObjectTest {
     public void placeAnOrderWithYourNewAddressAndNotAllCommentsAndAllInformationTest() {
         String actual =
                 checkoutBillingDetails
-                .continueWantUseNewAddressButtonWithAllInformation(
-                        "Orysia", "Benko", "SoftServe",
-                        "Chervonoy Kalyny 51", "Suxiv", "Lviv",
-                        "125463", "Ukraine", 3493)
-                .continueWantUseNewAddressButtonWithAllInformation("Orysia", "Benko", "SoftServe",
-                        "Chervonoy Kalyny 51", "Suxiv", "Lviv", "125463", "Ukraine", 3490)
-                .deliveryMethodWithoutCommentsAboutYourOrder()
-                .paymentMethodWithoutCommentsAboutYourOrder()
-                .clickContinueButtonX().successMessage();
+                        .continueWantUseNewAddressButtonWithAllInformation(
+                                "Orysia", "Benko", "SoftServe",
+                                "Chervonoy Kalyny 51", "Suxiv", "Lviv",
+                                "125463", "Ukraine", 3493)
+                        .continueWantUseNewAddressButtonWithAllInformation("Orysia", "Benko", "SoftServe",
+                                "Chervonoy Kalyny 51", "Suxiv", "Lviv", "125463", "Ukraine", 3490)
+                        .deliveryMethodWithoutCommentsAboutYourOrder()
+                        .paymentMethodWithoutCommentsAboutYourOrder()
+                        .clickContinueButtonX().successMessage();
         assertEquals(SUCCSSES_ORDER1.equalsIgnoreCase(actual) ? Constants.SUCCSSES_ORDER1 : Constants.SUCCSSES_ORDER2, actual);
     }
 
     @Test(priority = 4)
     public void placeAnOrderWithYourNewAddressAndAllCommentsAndInformationTest() {
-        String actual = checkoutBillingDetails
+//        String actual =
+        checkoutBillingDetails
                 .continueWantUseNewAddressButtonWithAllInformation("Orysia", "Benko", "SoftServe",
                         "Chervonoy Kalyny 51", "Suxiv", "Lviv",
-                        "125463", "Ukraine", 3493)
+                        "125463", "Thailand", 3192)
                 .continueWantUseNewAddressButtonWithAllInformation("Orysia", "Benko", "SoftServe",
                         "Chervonoy Kalyny 51", "Suxiv", "Lviv",
-                        "125463", "Ukraine", 3493)
-                .deliveryMethodWithCommentsAboutYourOrder("My buy")
-                .paymentMethodWithCommentsAboutYourOrder("I paid")
-                .clickContinueButtonX().successMessage();
-        assertEquals(SUCCSSES_ORDER1.equalsIgnoreCase(actual) ? Constants.SUCCSSES_ORDER1 : Constants.SUCCSSES_ORDER2, actual);
+                        "125463", "Thailand", 3192)
+                .deliveryMethodWithCommentsAboutYourOrder("buy")
+                .paymentMethodWithCommentsAboutYourOrder("paid");
+//        driver.findElement(By.xpath("//a[@class = 'accordion-toggle collapsed' and @href = '#collapse-checkout-confirm']")).click();
+        WebDriverWait wait = (new WebDriverWait(driver, 20));
+        Boolean result = wait.until(ExpectedConditions.textToBe
+                (By.xpath("/html/body/div[2]/div/div/div/div[6]/div[2]/div/div[1]/table/tfoot/tr[2]/td[1]/strong"), "Flat Shipping Rate:"));
+        if (result) {
+            driver.findElement(By.xpath("//input[@type = 'button' and @value = 'Confirm Order']")).click();
+        }
+        (new WebDriverWait(driver, 20)).until(ExpectedConditions.alertIsPresent());
+        if (driver.switchTo().alert() != null) {
+            driver.switchTo().alert().accept();
+        } else {
+            new Button(this.driver, CONFIRM_ORDER).click();
+        }
+//        assertEquals(SUCCSSES_ORDER1.equalsIgnoreCase(actual) ? Constants.SUCCSSES_ORDER1 : Constants.SUCCSSES_ORDER2, actual);
     }
 
     @Test
