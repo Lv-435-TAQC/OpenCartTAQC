@@ -1,18 +1,14 @@
 package javatest.pageobjectstest;
 
 
-
-import entity.Product;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.*;
 
-
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
@@ -24,7 +20,14 @@ public class AdminChangingProductsTests {
     AdminProductsListPageObject adminProductsList;
     AddNewProductPageObject addProduct;
     BasePageObject home;
-    AdminPageObject admin;
+
+    @BeforeClass
+    public void setUp() {
+        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
+        driver = new FirefoxDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
 
     /**
      * <b> Description of Precondition.</b>
@@ -39,12 +42,8 @@ public class AdminChangingProductsTests {
      * <p>
      */
 
-    @BeforeClass
-    public void setUp() {
-        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
-        driver = new FirefoxDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    @BeforeMethod
+    public void getHome(){
         adminProductsList = new AdminProductsListPageObject(driver);
         home = new HomePageObject(driver);
         addProduct = new AddNewProductPageObject(driver);
@@ -56,8 +55,8 @@ public class AdminChangingProductsTests {
                 .getNavigation()
                 .goToCatalog()
                 .goToProducts();
-
     }
+
     @AfterClass
     public void tearDown() {
         driver.quit();
