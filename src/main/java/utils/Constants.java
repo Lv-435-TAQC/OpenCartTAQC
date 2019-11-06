@@ -8,7 +8,7 @@ public class Constants {
     public static final int THREE = 3;
     public static final int FOUR = 4;
     public static final int EIGHT = 8;
-    public static final String BASE_URL = "http://192.168.152.128/opencart/";
+    public static final String BASE_URL = "http://192.168.92.128/opencart/";
     public static final String BASE_ADMIN_URL = "http://192.168.152.128/opencart/admin";
     public static final String HOME_ADMIN_URL = BASE_ADMIN_URL + "index.php?route=common/dashboard&user_token=snGcwz15PAFuAuKlpDjs3KSj01yp51GG";
     public static final String PATH_TO_DRIVER = "src/main/resources/geckodriver.exe";
@@ -47,4 +47,5 @@ public class Constants {
     public static final String FORGOTTEN_PAGE = "http://localhost/opencart/index.php?route=account/forgotten";
     public static final String ACCOUNT_PAGE = "http://localhost/opencart/index.php?route=account/account";
     public static final String LOGIN_PAGE="http://localhost/opencart/index.php?route=account/login";
+    public static final String NEGATIVE_MESSAGE_FOR_FIELD = "Product Name must be greater than 1 and less than 255 characters";
 }

@@ -15,9 +15,14 @@ public class AdminNewCategoriesPageObject extends BasePageObject {
     private Input metaTagDescription;
     private Input metaTagKeywords;
     private Label getTextFromMessageInNewCategories;
+    private Label getTextFromCategoryNameField;
 
     public AdminNewCategoriesPageObject(WebDriver driver) {
         super(driver);
+    }
+    public String getTextOfCategoryName() {
+        getTextFromCategoryNameField = new Label(this.driver, AdminAddCategoriesLocators.NAME_OF_CATEGORIES_INPUT_LOC);
+        return getTextFromCategoryNameField.getText();
     }
 
     public AdminNewCategoriesPageObject inputCategoriesName(String name ) {

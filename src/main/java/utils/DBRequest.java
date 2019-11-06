@@ -18,6 +18,7 @@ public class DBRequest {
             }
         return flag;
     }
+<<<<<<< HEAD
 
     public Boolean deleteDataFromDB(String insert, Statement statement) {
         Boolean flag;
@@ -59,5 +60,16 @@ public class DBRequest {
             e.printStackTrace();
         }
         return flag;
+=======
+    public ResultSet selectDataToDB(String select, Statement statement){
+        ResultSet resultSet = null;
+        try{
+            resultSet = statement.executeQuery(select);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return resultSet;
+>>>>>>> develop
     }
 }

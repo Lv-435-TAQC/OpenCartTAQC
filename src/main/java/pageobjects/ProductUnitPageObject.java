@@ -40,13 +40,14 @@ public class ProductUnitPageObject extends BasePageObject {
 
     public String getDescriptionOfProduct() {
         descriptionOfProduct = new Label(elementToParse, ProductUnitLocators.DESCRIPTION_OF_PRODUCT_LOC);
-        return descriptionOfProduct.getText();
+        String summary =  descriptionOfProduct.getText();
+        return summary.substring(0,summary.length()-2)                ;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         priceOfProduct = new Label(elementToParse, ProductUnitLocators.NEW_PRICE_LOC);
         String price = priceOfProduct.getText().replaceAll("Ex Tax:", "").replaceAll(",", "");
-        return price.substring(1, price.indexOf(" "));
+        return Double.parseDouble(price.substring(1, price.indexOf(" ")));
     }
 
     public CategoryPageObject clickAddToWishList(String xpath) {
