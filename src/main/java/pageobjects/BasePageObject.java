@@ -38,8 +38,4 @@ public abstract class BasePageObject {
         return new HomePageObject(driver);
     }
 
-//    public HomePageObject goToHomeUrlPage() {
-//        driver.get(HOME_PAGE);
-//        return new HomePageObject(driver);
-//    }
 }
