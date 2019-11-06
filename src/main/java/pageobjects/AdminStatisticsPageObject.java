@@ -43,4 +43,9 @@ public class AdminStatisticsPageObject extends BasePageObject {
     }
     return this.statistics;
     }
+
+    public AdminStatisticsPageObject clickRefresh(int numOfElement){
+        this.getStatistics().get(numOfElement).getRefresh().click();
+        return this;
+    }
 }

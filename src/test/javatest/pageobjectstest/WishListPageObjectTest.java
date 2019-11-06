@@ -198,7 +198,8 @@ public class WishListPageObjectTest {
      * <ul>
      * <li>1. Click on Wish List Tab;
      * <li>2. Remove IMac Item from Wish List;
-     * <li>3. Verify that Item with ID = 41 isn't in Wish List;
+     * <li>3. Get Map Items in new Wish List;
+     * <li>4. Verify that Item with ID = 41 isn't in Wish List;
      * </ul>
      * <p>
      * Expected Result: Item with ID = 41 isn't in Wish List.
@@ -259,5 +260,10 @@ public class WishListPageObjectTest {
                 .clickItemProductName(WISH_LIST_ID_42);
         String actual = driver.getCurrentUrl();
         assertTrue(actual.contains(WISH_LIST_ID_42));
+    }
+
+    @Test
+    public void buyingProductsFromWishListAndCheckingPurchaseInDatabase (){
+
     }
 }

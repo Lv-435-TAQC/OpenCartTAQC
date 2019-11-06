@@ -5,8 +5,7 @@ import org.sikuli.script.FindFailed;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 
-import static utils.Constants.BASE_ADMIN_URL;
-import static utils.Constants.BASE_URL;
+import static utils.Constants.*;
 
 public abstract class BasePageObject {
 

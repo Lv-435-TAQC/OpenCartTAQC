@@ -19,17 +19,29 @@ public class DBRequest {
         return flag;
     }
 
-    public ArrayList<String> getDataFromDB(String select, Statement statement) {
+    public Boolean deleteDataFromDB(String insert, Statement statement) {
+        Boolean flag;
+            try{
+                statement.execute(insert);
+                flag = true;
+            }catch (SQLException e){
+                flag = false;
+                e.printStackTrace();
+            }
+        return flag;
+    }
+
+    public ArrayList<String> getDataFromDB(String select, Statement statement, String firstColumnLabel, String secondColumnLabel) {
         ResultSet resultSet = null;
         int id;
-        int viewed;
+        int secondParam;
         ArrayList<String> res = new ArrayList();
         try {
             resultSet = statement.executeQuery(select);
             while (resultSet.next()) {
-                id = resultSet.getInt("product_id");
-                viewed = resultSet.getInt("viewed");
-                res.add(id + " " + viewed);
+                id = resultSet.getInt(firstColumnLabel);
+                secondParam = resultSet.getInt(secondColumnLabel);
+                res.add(id + " " + secondParam);
             }
         } catch (SQLException e) {
             e.printStackTrace();

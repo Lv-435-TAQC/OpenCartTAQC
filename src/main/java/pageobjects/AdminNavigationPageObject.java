@@ -1,7 +1,10 @@
 package pageobjects;
 
 import locators.AdminNavigationLocators;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Button;
 import pageelements.TextButton;
 
@@ -38,6 +41,8 @@ public class AdminNavigationPageObject extends BasePageObject {
     }
     public AdminReportsPageObject goToReports(){
         this.clickReports();
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(REPORTS)));
         this.reports = new Button(driver, REPORTS).click();
         return new AdminReportsPageObject(driver);
     }
