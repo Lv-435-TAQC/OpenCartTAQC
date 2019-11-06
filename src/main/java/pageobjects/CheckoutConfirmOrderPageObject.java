@@ -6,10 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.sikuli.script.FindFailed;
 import org.sikuli.script.Screen;
 import pageelements.Button;
-import patterns.LoginPatterns;
 import utils.TestData;
 
 public class CheckoutConfirmOrderPageObject extends BasePageObject {
@@ -21,9 +19,10 @@ public class CheckoutConfirmOrderPageObject extends BasePageObject {
         super(driver);
         WebElement explicitWait = (new WebDriverWait(driver, 10)).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(CheckoutConfirmOrderLocators.CONFIRM_ORDER)));
+
     }
 
-    public CheckoutSuccessPageObject clickContinueButton(){
+    public CheckoutSuccessPageObject clickContinueButtonX() {
         continueButton = new Button(this.driver, CheckoutConfirmOrderLocators.CONFIRM_ORDER);
         continueButton.click();
         try {
@@ -31,10 +30,9 @@ public class CheckoutConfirmOrderPageObject extends BasePageObject {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        if(driver.switchTo().alert()!=null) {
-            sikuliAlertError();
-        }
-        else {
+        if (driver.switchTo().alert() != null) {
+            driver.switchTo().alert().accept();
+        } else {
             continueButton = new Button(this.driver, CheckoutConfirmOrderLocators.CONFIRM_ORDER);
             continueButton.click();
         }
@@ -43,21 +41,15 @@ public class CheckoutConfirmOrderPageObject extends BasePageObject {
         return new CheckoutSuccessPageObject(driver);
     }
 
-
-    public CheckoutConfirmOrderPageObject sikuliAlertError() {
-        isTrue = true;
-        //  screen.wait(LoginPatterns.ALERT);
-        try {
-            screen.click(LoginPatterns.ALERT);
-            return new CheckoutConfirmOrderPageObject(driver);
-        } catch (FindFailed findFailed) {
-            findFailed.printStackTrace();
-            return new CheckoutConfirmOrderPageObject(driver);
-        }
+    public CheckoutSuccessPageObject clickContinueButtonU() {
+        WebElement explicitWait = (new WebDriverWait(driver, 10)).
+                until(ExpectedConditions.presenceOfElementLocated(By.xpath(CheckoutConfirmOrderLocators.CONFIRM_ORDER)));
+        continueButton = new Button(this.driver, CheckoutConfirmOrderLocators.CONFIRM_ORDER);
+        continueButton.click();
+        return new CheckoutSuccessPageObject(driver);
     }
 
-    public AdminLoginPageObject goToAdminPage()
-    {
+    public AdminLoginPageObject goToAdminPage() {
         driver.get(TestData.ADMIN_PAGE);
         return new AdminLoginPageObject(driver);
     }
