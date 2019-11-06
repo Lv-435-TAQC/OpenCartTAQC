@@ -22,7 +22,8 @@ public class CheckoutConfirmOrderPageObject extends BasePageObject {
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(CheckoutConfirmOrderLocators.CONFIRM_ORDER)));
     }
 
-    public CheckoutSuccessPageObject clickContinueButton(){
+    public CheckoutSuccessPageObject clickContinueButton() {
+
         continueButton = new Button(this.driver, CheckoutConfirmOrderLocators.CONFIRM_ORDER);
         continueButton.click();
         try {
@@ -30,10 +31,9 @@ public class CheckoutConfirmOrderPageObject extends BasePageObject {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        if(driver.switchTo().alert()!=null) {
+        if (driver.switchTo().alert() != null) {
             sikuliAlertError();
-        }
-        else {
+        } else {
             continueButton = new Button(this.driver, CheckoutConfirmOrderLocators.CONFIRM_ORDER);
             continueButton.click();
         }
@@ -42,10 +42,8 @@ public class CheckoutConfirmOrderPageObject extends BasePageObject {
         return new CheckoutSuccessPageObject(driver);
     }
 
-
     public CheckoutConfirmOrderPageObject sikuliAlertError() {
         isTrue = true;
-      //  screen.wait(LoginPatterns.ALERT);
         try {
             screen.click(LoginPatterns.ALERT);
             return new CheckoutConfirmOrderPageObject(driver);

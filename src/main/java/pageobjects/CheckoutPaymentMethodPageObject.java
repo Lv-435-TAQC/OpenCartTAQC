@@ -1,6 +1,5 @@
 package pageobjects;
 
-import locators.CheckoutDeliveryMethodLocators;
 import locators.CheckoutPaymentMethodLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -22,12 +21,10 @@ public class CheckoutPaymentMethodPageObject extends BasePageObject {
         super(driver);
         WebElement explicitWait = (new WebDriverWait(driver, 10)).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(CheckoutPaymentMethodLocators.CONTINUE_PAYMENT_METHOD)));
-
     }
 
     public CheckoutConfirmOrderPageObject paymentMethodWithCommentsAboutYourOrder(String addCommentsAboutYourOrder) {
         this
-                .clickFlatShippingRateButton()
                 .setCommentsAboutYourOrder(addCommentsAboutYourOrder)
                 .checkOnPrivacyPolicyCheckbox()
                 .clickContinueButton();
@@ -49,6 +46,9 @@ public class CheckoutPaymentMethodPageObject extends BasePageObject {
     }
 
     public CheckoutPaymentMethodPageObject clickFlatShippingRateButton() {
+        WebElement explicitWait = (new WebDriverWait(driver, 10)).
+                until(ExpectedConditions.presenceOfElementLocated(By.xpath( CheckoutPaymentMethodLocators.CASH_ON_DELIVERY)));
+
         cashOnDelivery = new Button(this.driver, CheckoutPaymentMethodLocators.CASH_ON_DELIVERY);
         cashOnDelivery.click();
         return this;

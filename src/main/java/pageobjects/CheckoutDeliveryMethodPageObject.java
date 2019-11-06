@@ -1,6 +1,6 @@
 package pageobjects;
 
-import locators.CheckoutDeliveryDetailsLocators;
+import locators.CheckoutBillingDetailsLocators;
 import locators.CheckoutDeliveryMethodLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,12 +19,11 @@ public class CheckoutDeliveryMethodPageObject extends BasePageObject {
         super(driver);
         WebElement explicitWait = (new WebDriverWait(driver, 10)).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(CheckoutDeliveryMethodLocators.INPUT_COMMENTS_ABOUT_YOUR_ORDER_DELIVERY)));
-
     }
 
     public CheckoutPaymentMethodPageObject deliveryMethodWithCommentsAboutYourOrder(String addCommentsAboutYourOrder) {
         this
-                .clickFlatShippingRateButton()
+              //  .clickFlatShippingRateButton()
                 .setCommentsAboutYourOrder(addCommentsAboutYourOrder)
                 .clickContinueButton();
         return new CheckoutPaymentMethodPageObject(driver);
@@ -32,11 +31,10 @@ public class CheckoutDeliveryMethodPageObject extends BasePageObject {
 
     public CheckoutPaymentMethodPageObject deliveryMethodWithoutCommentsAboutYourOrder() {
         this
-                .clickFlatShippingRateButton()
+               // .clickFlatShippingRateButton()
                 .clickContinueButton();
         return new CheckoutPaymentMethodPageObject(driver);
     }
-
 
     public CheckoutDeliveryMethodPageObject setCommentsAboutYourOrder(String addCommentsAboutYourOrder) {
         addCommentsAboutYourOrderField = new Input(this.driver, CheckoutDeliveryMethodLocators.INPUT_COMMENTS_ABOUT_YOUR_ORDER_DELIVERY);
