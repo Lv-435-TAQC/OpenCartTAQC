@@ -42,7 +42,6 @@ public class HeaderPageObject extends BasePageObject {
         return new HomePageObject(driver);
     }
 
-
     public WishListPageObject clickWishList() {
         this.setWishPageButton(new ImageTextButton(driver, HeaderLocators.WISH_LIST_PAGE_BUTTON_LOC));
         this.getWishPageButton().click();
@@ -77,19 +76,19 @@ public class HeaderPageObject extends BasePageObject {
     public HeaderPageObject chooseDollarCurrency() {
         currencyListButton = new ImageTextButton(driver, HeaderLocators.CURRENCY_BUTTON_LOC).click();
         this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(TWO).click();
-        return new HeaderPageObject(driver);
+        return this;
     }
 
     public HeaderPageObject chooseEuroCurrency() {
         currencyListButton = new ImageTextButton(driver, HeaderLocators.CURRENCY_BUTTON_LOC).click();
         this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(ZERO).click();
-        return new HeaderPageObject(driver);
+        return this;
     }
 
     public HeaderPageObject choosePoundCurrency() {
         currencyListButton = new ImageTextButton(driver, HeaderLocators.CURRENCY_BUTTON_LOC).click();
         this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(ONE).click();
-        return new HeaderPageObject(driver);
+        return this;
     }
 
     public String getTextFromFirstTape() {
@@ -114,6 +113,7 @@ public class HeaderPageObject extends BasePageObject {
         openPreview.click();
         return new PreviewShoppingCart(driver);
     }
+
     public void setWishPageButton(Button wishPageButton) {
         this.wishPageButton = wishPageButton;
     }

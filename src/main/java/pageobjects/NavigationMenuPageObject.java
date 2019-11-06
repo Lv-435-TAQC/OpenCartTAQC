@@ -20,6 +20,10 @@ public class NavigationMenuPageObject extends BasePageObject {
         return elements;
     }
 
+    /**
+     * Generator of navigation menu structure
+     * @return instance of this object
+     */
     private NavigationMenuPageObject generateMenu() {
         List<WebElement> elements = generateMenuWebElements();
         for (int i = 0; i < elements.size(); i++) {
@@ -28,6 +32,11 @@ public class NavigationMenuPageObject extends BasePageObject {
         return this;
     }
 
+    /**
+     * Wrapper for click on menu point
+     * @param item - name of point
+     * @return instance of category page object
+     */
     public CategoryPageObject clickOnMenuByItem(String item) {
         String xpath = CategoryLocators.ALL_PRODUCTS_DIV_LOC;
         generateMenu();

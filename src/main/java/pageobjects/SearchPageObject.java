@@ -7,7 +7,19 @@ import pageelements.DropDown;
 import pageelements.Input;
 import pageelements.Label;
 
-
+/**
+ *Description Of Admin Categories Page Object.
+ * Contains  Methods:
+ * searchButton(button to search)
+ * searchInSubCategories(button to use search in subCategories for search)
+ * searchInDescription(button to search product by using description)
+ * inputFalseNameOfProduct(input incorrect product name for search)
+ * inputNameOfProduct(input name of product for search)
+ * inputProductNameForSearchWithDescription(input description of product for search)
+ * categoriesButton(method to select category)
+ * returnTextOfInput(return text from message of correct search)
+ * returnFalseInput(return text from message of incorrect search)
+ */
 public class SearchPageObject extends BasePageObject {
     private Button searchButton;
     private Button searchInSubcategories;

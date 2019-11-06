@@ -62,4 +62,5 @@ public class Constants {
     public static final String SHOPPING_CART = "Shopping Cart";
     public static final String LOGIN = "Login";
     public static final String REGISTER = "Register";
+    public static final String TEXT_FROM_ITEMS_BUTTON = "1 item(s) - $999.00";
 }

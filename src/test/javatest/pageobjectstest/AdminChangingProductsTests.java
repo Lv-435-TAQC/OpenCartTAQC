@@ -77,9 +77,13 @@ public class AdminChangingProductsTests {
      * <li>8. Go to Home page;
      * <li>9. Click on Tablets button in Menu;
      * <li>10. Add Product in Shopping Card;
+     * <li>11. Go to Home page;
+     * <li>12. Get title from Items button;
+     * <li>13. Compare expected and actual titles;
      * </ul>
      * <p>
-     * Expected Result: Product will be added in Shopping Card.
+     * Expected Result_1: Product will be added in Shopping Card.
+     * Expected Result_2: 1 item(s) - $999.00.
      */
 
     @Test
@@ -92,12 +96,18 @@ public class AdminChangingProductsTests {
                 .setPhoto()
                 .saveNewProduct()
                 .getTextFromMessage();
-        assertTrue(actualMessage.contains(SUCCESS_CHANGING_PRODUCT));
+        assertEquals(actualMessage,SUCCESS_CHANGING_PRODUCT);
         home
                 .goToHomePage()
                 .getMenuPageObject()
                 .goToTablets()
                 .clickAddToCardByNameOfProduct("Apple iPad Pro");
+        String actualItemsButtonTitle = home
+                .goToHomePage()
+                .getHeaderPageObject()
+                .getTextFromItems();
+        assertTrue(actualItemsButtonTitle.contains(TEXT_FROM_ITEMS_BUTTON));
+
     }
 
     /**
