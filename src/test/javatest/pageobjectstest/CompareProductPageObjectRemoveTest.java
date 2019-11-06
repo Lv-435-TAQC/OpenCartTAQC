@@ -76,7 +76,7 @@ public class CompareProductPageObjectRemoveTest {
      * Expected Result: User can see correct number of actual product;
      */
     @Test(dataProvider = "positionOfProduct")
-    public void removeOneProduct(Integer position) {
+    public void removeOneProductFromComparePageTest(Integer position) {
         ArrayList<Product> product = compareProductPageObject.getProductList();
         Integer expected = 3;
         Integer actual = compareProductPageObject
@@ -116,7 +116,7 @@ public class CompareProductPageObjectRemoveTest {
      * Expected Result: User can see correct number of actual product;
      */
     @Test(dataProvider = "positionOfTwoProducts")
-    public void removeTwoProducts(Integer firstPosition, Integer secondPosition) {
+    public void removeTwoProductsFromComparePageTest(Integer firstPosition, Integer secondPosition) {
         ArrayList<Product> product = compareProductPageObject.getProductList();
         Integer expected = 2;
         Integer actual = compareProductPageObject
@@ -157,7 +157,7 @@ public class CompareProductPageObjectRemoveTest {
      * Expected Result: User can see correct number of actual product;
      */
     @Test(dataProvider = "positionOfThreeProducts")
-    public void removeThreeProducts(Integer firstPosition, Integer secondPosition, Integer thirdPosition) {
+    public void removeThreeProductsFromComparePageTest(Integer firstPosition, Integer secondPosition, Integer thirdPosition) {
         ArrayList<Product> product = compareProductPageObject.getProductList();
         Integer expected = 1;
         Integer actual = compareProductPageObject
@@ -191,7 +191,7 @@ public class CompareProductPageObjectRemoveTest {
      * Expected Result: User can see page without products;
      */
     @Test
-    public void removeAllProducts() {
+    public void removeAllProductsFromComparePageTest() {
         ArrayList<Product> product = compareProductPageObject.getProductList();
         String expected = "Your shopping cart is empty";
         String actual = compareProductPageObject
