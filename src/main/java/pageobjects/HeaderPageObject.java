@@ -28,14 +28,6 @@ public class HeaderPageObject extends BasePageObject {
     private Button currencyListButton;
     private String buttonText;
 
-    public void setWishPageButton(Button wishPageButton) {
-        this.wishPageButton = wishPageButton;
-    }
-
-    public Button getWishPageButton() {
-        return wishPageButton;
-    }
-
     public HeaderPageObject(WebDriver driver) {
         super(driver);
     }
@@ -50,10 +42,6 @@ public class HeaderPageObject extends BasePageObject {
         return new HomePageObject(driver);
     }
 
-    public ItemInfoPageObject goToItemsPage() {
-        itemsPageButton = new ImageTextButton(driver, HeaderLocators.ITEMS_PAGE_BUTTON_LOC).click();
-        return new ItemInfoPageObject(driver);
-    }
 
     public WishListPageObject clickWishList() {
         this.setWishPageButton(new ImageTextButton(driver, HeaderLocators.WISH_LIST_PAGE_BUTTON_LOC));
@@ -125,5 +113,12 @@ public class HeaderPageObject extends BasePageObject {
         openPreview = new Button(driver, HeaderLocators.OPEN_PREVIEW_CART);
         openPreview.click();
         return new PreviewShoppingCart(driver);
+    }
+    public void setWishPageButton(Button wishPageButton) {
+        this.wishPageButton = wishPageButton;
+    }
+
+    public Button getWishPageButton() {
+        return wishPageButton;
     }
 }

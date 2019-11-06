@@ -20,7 +20,14 @@ public class AdminChangingProductsTests {
     AdminProductsListPageObject adminProductsList;
     AddNewProductPageObject addProduct;
     BasePageObject home;
-    AdminPageObject admin;
+
+    @BeforeClass
+    public void setUp() {
+        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
+        driver = new FirefoxDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
 
     /**
      * <b> Description of Precondition.</b>
@@ -34,6 +41,7 @@ public class AdminChangingProductsTests {
      * </ul>
      * <p>
      */
+
     @BeforeMethod
     public void getHome(){
         adminProductsList = new AdminProductsListPageObject(driver);
@@ -47,17 +55,8 @@ public class AdminChangingProductsTests {
                 .getNavigation()
                 .goToCatalog()
                 .goToProducts();
-
     }
 
-    @BeforeClass
-    public void setUp() {
-        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
-        driver = new FirefoxDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-    }
     @AfterClass
     public void tearDown() {
         driver.quit();

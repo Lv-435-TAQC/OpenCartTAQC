@@ -12,7 +12,7 @@ import java.util.List;
 import static utils.Constants.*;
 
 /**
- * Decription of AddNewProductPageObject class
+ * Description of AddNewProductPageObject class
  * Class contains methods and field for AddNewProjectTests
  */
 
