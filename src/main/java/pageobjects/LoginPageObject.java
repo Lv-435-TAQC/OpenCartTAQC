@@ -14,6 +14,7 @@ import pageelements.Input;
 import pageelements.Label;
 import pageelements.LinkedLabel;
 import patterns.LoginPatterns;
+import utils.TestData;
 
 public class LoginPageObject extends BasePageObject {
     Screen screen = new Screen();
@@ -113,5 +114,9 @@ public class LoginPageObject extends BasePageObject {
             findFailed.printStackTrace();
             return false;
         }
+    }
+    public HomePageObject goToHome(){
+        driver.get(TestData.HOME_PAGE);
+        return new HomePageObject(driver);
     }
 }

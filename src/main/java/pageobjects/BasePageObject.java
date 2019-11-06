@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
+import utils.TestData;
 
 import static utils.Constants.BASE_ADMIN_URL;
 import static utils.Constants.BASE_URL;
@@ -41,8 +42,5 @@ public abstract class BasePageObject {
         return new HomePageObject(driver);
     }
 
-    public AdminLoginPageObject goToAdminPage() {
-        driver.get(BASE_ADMIN_URL);
-        return new AdminLoginPageObject(driver);
-    }
+
 }
