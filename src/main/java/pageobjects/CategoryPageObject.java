@@ -244,4 +244,8 @@ public class CategoryPageObject extends BasePageObject {
         filterPageObject = new FilterPageObject(this.driver, productsXpath);
         return filterPageObject;
     }
+
+    public String getMessageAboutProducts() {
+        return new Label(driver,CategoryLocators.MESSAGE_PRODUCTS_LOC).getText();
+    }
 }

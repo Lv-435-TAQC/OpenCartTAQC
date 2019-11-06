@@ -1,5 +1,6 @@
 package utils;
 
+
 public class Constants {
 
     public static final int ZERO = 0;
@@ -47,11 +48,18 @@ public class Constants {
     public static final String ACCOUNT_PAGE = "http://localhost/opencart/index.php?route=account/account";
     public static final String LOGIN_PAGE = "http://localhost/opencart/index.php?route=account/login";
     public static final String NEGATIVE_MESSAGE_FOR_FIELD = "Product Name must be greater than 1 and less than 255 characters";
+
     public static final String ADMIN_PAGE = "http://localhost/opencart/admin/";
     public static final String ADMIN_LOGIN = "admin";
     public static final String ADMIN_PASSWORD = "orysia";
     public static final String SHOPPING_CARD_URL = "http://localhost/opencart/index.php?route=checkout/cart";
     public static final String SUCCSSES_ORDER1 = "Your order has been placed!";
     public static final String SUCCSSES_ORDER2 = "Checkout";
-
+    public static final String MESSAGE_IN_CATEGORY = "There are no products to list in this category.";
+    public static final String DOLLAR_CURRENCY = "$";
+    public static final String EURO_CURRENCY = "€";
+    public static final String POUND_CURRENCY = "£";
+    public static final String SHOPPING_CART = "Shopping cart";
+    public static final String LOGIN = "Login";
+    public static final String REGISTER = "Register";
 }

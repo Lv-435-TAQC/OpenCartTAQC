@@ -60,11 +60,11 @@ public class AdminChangingProductsTests {
     }
     @AfterClass
     public void tearDown() {
-//        driver.quit();
+        driver.quit();
     }
 
     /**
-     * <b>TC-01: End To End Test Adding and Buying Product.</b>
+     * <b>TC-01: End To End Test Adding and Add To Shopping Card Product.</b>
      *
      * Scenario:
      * <ul>
@@ -75,9 +75,12 @@ public class AdminChangingProductsTests {
      * <li>5. Set Photo;
      * <li>6. Click Save new Product button ;
      * <li>7. Compare actual and expected messages;
+     * <li>8. Go to Home page;
+     * <li>9. Click on Tablets button in Menu;
+     * <li>10. Add Product in Shopping Card;
      * </ul>
      * <p>
-     * Expected Result: Success: You have modified products.
+     * Expected Result: Product will be added in Shopping Card.
      */
 
     @Test
@@ -98,17 +101,33 @@ public class AdminChangingProductsTests {
                 .clickAddToCardByNameOfProduct("Apple iPad Pro");
     }
 
-        @Test
+    /**
+     * <b>TC-02: End To End Test Deleting all Products and check Category.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click Main checkbox;
+     * <li>2. Click delete button;
+     * <li>3. Access alert;
+     * <li>4. Go To Home Page;
+     * <li>5. Click on Tablets in menu;
+     * <li>6. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Message: There are no products to list in this category.
+     */
+
+        @Test(priority = 1)
         public void deleteProductAndAddingToShoppingCardNegativeTest() {
         adminProductsList
-                    .markCheckbox()
-                    .deleteProduct();
-               home.goToHomePage()
-                    .getMenuPageObject()
-                    .goToTablets()
-                    .clickAddToCardByNameOfProduct("Apple iPad Pro");
-              String actual = home.goToHomePage().getHeaderPageObject().getTextFromItems();
-              assertEquals(actual,"asdasd");
+                       .markCheckbox()
+                      .deleteProduct();
+              String actual = home
+                      .goToHomePage()
+                      .getMenuPageObject()
+                      .goToTablets()
+                      .getMessageAboutProducts();
+              assertEquals(actual,MESSAGE_IN_CATEGORY);
     }
     
 }
