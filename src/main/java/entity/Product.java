@@ -154,16 +154,6 @@ public class Product implements Comparable<Product> {
                 summary.contains(product.summary);
     }
 
-
-    public boolean equals(Product product) {
-        if (this == product) return true;
-        if (product == null || getClass() != product.getClass()) return false;
-        return id.equals(product.id) &&
-                productName.contains(product.productName) &&
-                prise.equals(product.prise) &&
-                summary.contains(product.summary);
-    }
-
     @Override
     public int compareTo(Product product) {
         int result = this.productName.compareTo(product.getProductName());

@@ -114,6 +114,7 @@ public class HeaderPageObject extends BasePageObject {
         openPreview.click();
         return new PreviewShoppingCart(driver);
     }
+
     public void setWishPageButton(Button wishPageButton) {
         this.wishPageButton = wishPageButton;
     }

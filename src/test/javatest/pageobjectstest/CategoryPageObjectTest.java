@@ -1,5 +1,6 @@
 package pageobjectstest;
 
+import entity.Product;
 import locators.CategoryLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +17,7 @@ import pageobjects.CategoryPageObject;
 import pageobjects.MenuPageObject;
 import patterns.CategoryPatterns;
 import utils.Constants;
+import utils.ProductEntityData;
 
 import java.lang.reflect.Method;
 
@@ -45,7 +47,7 @@ public class CategoryPageObjectTest {
      * <li>4. Verify text;
      * </ul>
      * <p>
-     * Expected Result: User can see sorted by param product list;
+     * Expected Result: User can see sorted by label;
      */
     @Test
     public void labelSortByTextTest() {
@@ -68,7 +70,7 @@ public class CategoryPageObjectTest {
      * <li>4. Verify text;
      * </ul>
      * <p>
-     * Expected Result: User can see sorted by param product list;
+     * Expected Result: User can see show label;
      */
     @Test
     public void labelShowTextTest() {
@@ -82,15 +84,15 @@ public class CategoryPageObjectTest {
 
     @DataProvider(name = "sortBySelector")
     public Object[][] createDataForSortByParam(Method m) {
-        return new Object[][]{new Object[]{"Default", "Apple Cinema 30"}
-                , new Object[]{"Name (A - Z)", "Apple Cinema 30"}
-                , new Object[]{"Name (Z - A)", "Sony VAIO"}
-                , new Object[]{"Price (Low > High)", "Canon EOS 5D"}
-                , new Object[]{"Price (High > Low)", "Sony VAIO"}
-                , new Object[]{"Rating (Highest)", "Sony VAIO"}
-                , new Object[]{"Rating (Lowest)", "Apple Cinema 30"}
-                , new Object[]{"Model (A - Z)", "HTC Touch HD"}
-                , new Object[]{"Model (Z - A)", "Product 8"}
+        return new Object[][]{new Object[]{"Default", ProductEntityData.appleCinema30}
+                , new Object[]{"Name (A - Z)",  ProductEntityData.appleCinema30}
+                , new Object[]{"Name (Z - A)",  ProductEntityData.sonyVAIO}
+                , new Object[]{"Price (Low > High)",  ProductEntityData.canonEOS5D}
+                , new Object[]{"Price (High > Low)", ProductEntityData.sonyVAIO}
+                , new Object[]{"Rating (Highest)", ProductEntityData.sonyVAIO}
+                , new Object[]{"Rating (Lowest)",  ProductEntityData.appleCinema30}
+                , new Object[]{"Model (A - Z)",  ProductEntityData.HTCTouchHD}
+                , new Object[]{"Model (Z - A)",  ProductEntityData.product8}
         };
     }
 
@@ -102,20 +104,22 @@ public class CategoryPageObjectTest {
      * <li>1. Open Firefox browser;
      * <li>2. Open All desktops Page on OpenCart.com;
      * <li>3. Select option from selector sort by;
-     * <li>4. Get name of first product ;
-     * <li>5. Verify name with expected;
+     * <li>4. Get product entity of first product on page;
+     * <li>5. Compare actual product with expected;
      * </ul>
      * <p>
      * Expected Result: User can see sorted by param product list;
      */
     @Test(dataProvider = "sortBySelector")
-    public void sortByParamTest(String sortType, String expected) {
+    public void sortByParamTest(String sortType, Product expected) {
         categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
-        String actual = categoryPageObject
+        Product actual = categoryPageObject
                 .getFilterPageObject()
                 .choseSortBySelectorByParam(sortType)
-                .getNameOfProductByNumberOfProduct(1);
-        Assert.assertTrue(actual.contains(expected));
+                .getProductByPosition(1);
+        System.out.println(expected);
+        System.out.println(actual);
+        Assert.assertTrue(actual.equals(expected));
     }
 
     /**
