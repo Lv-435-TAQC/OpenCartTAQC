@@ -18,8 +18,8 @@ import static utils.Constants.*;
 
 public class AdminCategoriesPageObjectTests {
     WebDriver driver;
-    AdminLoginPageObject admin;
-    AdminNavigationPageObject navigation;
+    AdminLoginPageObject AdminLoginPageObject;
+    AdminNavigationPageObject AdminNavigationPageObject;
     /**
      * <b> Description of Precondition.</b>
      *
@@ -39,10 +39,10 @@ public class AdminCategoriesPageObjectTests {
         @BeforeMethod
         public void getHome() {
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            admin = new AdminLoginPageObject(driver);
-            admin.goToUrl(ADMIN_LOGIN2_URL);
-            admin.logIn("admin", "admin").closeModalWindow();
-            navigation = new AdminNavigationPageObject(driver);
+            AdminLoginPageObject = new AdminLoginPageObject(driver);
+            AdminLoginPageObject.goToUrl(ADMIN_LOGIN2_URL);
+            AdminLoginPageObject.logIn("admin", "admin").closeModalWindow();
+            AdminNavigationPageObject = new AdminNavigationPageObject(driver);
         }
 
         @AfterClass
@@ -71,7 +71,7 @@ public class AdminCategoriesPageObjectTests {
 
         @Test
         public void addNewCategoriesToList(){
-            String actual = navigation.goToCatalog()
+            String actualMessage = AdminNavigationPageObject.goToCatalog()
                     .goToCategories()
                     .addNewCategories()
                     .inputCategoriesName("forTest")
@@ -79,8 +79,7 @@ public class AdminCategoriesPageObjectTests {
                     .inputMetaTagDescriptionOfCategories("Name")
                     .inputMetaTagKeywordsOfCategories("Test")
                     .saveNewCategories().getTextFromMessageOfCategories();
-            String expectedMessage = (ADMIN_CATEGORIES_SUCCESSFUL_MESSAGE );
-            assertTrue(actual.contains(expectedMessage));
+            assertTrue(actualMessage.contains(ADMIN_CATEGORIES_SUCCESSFUL_MESSAGE));
         }
     /**
      * <b> Negative Test Add Category With All False Test Data.</b>
@@ -102,7 +101,7 @@ public class AdminCategoriesPageObjectTests {
 
         @Test
         public void addNewCategoriesWithAllFalseData(){
-            String actual = navigation
+            String actualMessage = AdminNavigationPageObject
                     .goToCatalog()
                     .goToCategories()
                     .addNewCategories()
@@ -112,8 +111,7 @@ public class AdminCategoriesPageObjectTests {
                     .inputMetaTagKeywordsOfCategories("")
                     .saveNewCategories()
                     .getTextFromMessageInNewCategories();
-            String expectedMessage = (ADMIN_CATEGORIES_UNSUCCESSFUL_MESSAGE);
-            assertTrue(actual.contains(expectedMessage));
+            assertTrue(actualMessage.contains(ADMIN_CATEGORIES_UNSUCCESSFUL_MESSAGE));
         }
     /**
      * <b> Negative Test Add Category With False Name.</b>
@@ -135,7 +133,7 @@ public class AdminCategoriesPageObjectTests {
 
         @Test
         public void addNewCategoriesWithFalseName() {
-            String actual = navigation
+            String actualMessage = AdminNavigationPageObject
                     .goToCatalog()
                     .goToCategories()
                     .addNewCategories()
@@ -145,8 +143,7 @@ public class AdminCategoriesPageObjectTests {
                     .inputMetaTagKeywordsOfCategories("")
                     .saveNewCategories()
                     .getTextFromMessageInNewCategories();
-            String expectedMessage = (ADMIN_CATEGORIES_UNSUCCESSFUL_MESSAGE);
-            assertTrue(actual.contains(expectedMessage));
+            assertTrue(actualMessage.contains(ADMIN_CATEGORIES_UNSUCCESSFUL_MESSAGE));
         }
     /**
      * <b> Negative Test With False MetaTag.</b>
@@ -167,7 +164,7 @@ public class AdminCategoriesPageObjectTests {
 
         @Test
         public void addNewCategoriesWithFalseMetaTag() {
-            String actual = navigation
+            String actualMessage = AdminNavigationPageObject
                     .goToCatalog()
                     .goToCategories()
                     .addNewCategories()
@@ -177,8 +174,7 @@ public class AdminCategoriesPageObjectTests {
                     .inputMetaTagKeywordsOfCategories("")
                     .saveNewCategories()
                     .getTextFromMessageInNewCategories();
-            String expectedMessage = (ADMIN_CATEGORIES_UNSUCCESSFUL_MESSAGE);
-            assertTrue(actual.contains(expectedMessage));
+            assertTrue(actualMessage.contains(ADMIN_CATEGORIES_UNSUCCESSFUL_MESSAGE));
         }
     /**
      * <b> Edit Name In Category.</b>
@@ -197,7 +193,7 @@ public class AdminCategoriesPageObjectTests {
      */
         @Test
         public void editSomethingToCategory() {
-            String actual = navigation
+            String actualMessage = AdminNavigationPageObject
                     .goToCatalog()
                     .goToCategories()
                     .changeSomethingInCategories()
@@ -205,7 +201,6 @@ public class AdminCategoriesPageObjectTests {
                     .inputMetaTagDescriptionOfCategories("dafazf")
                     .saveNewCategories()
                     .getTextFromMessageOfCategories();
-            String expectedMessage = (ADMIN_CATEGORIES_SUCCESSFUL_MESSAGE);
-            assertTrue(actual.contains(expectedMessage));
+            assertTrue(actualMessage.contains(ADMIN_CATEGORIES_SUCCESSFUL_MESSAGE));
         }
     }
