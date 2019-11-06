@@ -11,6 +11,7 @@ import pageobjects.HeaderPageObject;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
+import static utils.Constants.*;
 
 public class HeaderPageObjectTest {
     WebDriver driver;
@@ -19,14 +20,14 @@ public class HeaderPageObjectTest {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
         driver = new FirefoxDriver();
     }
 
     @BeforeMethod
     public void getHome() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://localhost/shop");
+        driver.get(BASE_URL);
         header = new HeaderPageObject(driver);
 
     }
@@ -39,62 +40,54 @@ public class HeaderPageObjectTest {
     @Test
     public void euroCurrencyTest() {
         String actual = header.chooseEuroCurrency().getTextFromItems();
-        String expected = "€";
-        assertTrue(actual.contains(expected));
+        assertTrue(actual.contains(EURO_CURRENCY));
     }
 
     @Test
     public void dollarCurrencyTest() {
         String actual = header.chooseDollarCurrency().getTextFromItems();
-        String expected = "$";
-        assertTrue(actual.contains(expected));
+        assertTrue(actual.contains(DOLLAR_CURRENCY));
     }
 
     @Test
     public void poundCurrencyTest() {
         String actual = header.choosePoundCurrency().getTextFromItems();
-        String expected = "£";
-        assertTrue(actual.contains(expected));
+        assertTrue(actual.contains(POUND_CURRENCY));
     }
 
     @Test
     public void testLoginPage() {
         header.clickLoginPage();
         String actual = header.getTextFromSecondTape();
-        String expected = "Login";
-        assertEquals(actual, expected);
+        assertEquals(actual, LOGIN);
     }
 
     @Test
     public void testRegistrationPage() {
         header.clickRegistrationPage();
         String actual = header.getTextFromSecondTape();
-        String expected = "Register";
-        assertEquals(actual, expected);
+        assertEquals(actual, REGISTER);
     }
 
     @Test
     public void testWishListPage(){
         header.clickWishList();
         String actual = header.getTextFromSecondTape();
-        String expected = "Login";
-        assertEquals(actual,expected);
+        assertEquals(actual,LOGIN);
     }
 
     @Test
     public void testShoppingCartPage(){
-    header.clickShoppingCartPage();
-    String actual = header.getTextFromFirstTape();
-    String expected = "Shopping Cart";
-    assertEquals(actual,expected);
+        header.clickShoppingCartPage();
+         String actual = header.getTextFromFirstTape();
+         assertEquals(actual,SHOPPING_CART);
     }
 
     @Test
     public void testCheckoutPage(){
         header.goToCheckoutCartPage();
         String actual = header.getTextFromFirstTape();
-        String expected = "Shopping Cart";
-        assertEquals(actual,expected);
+        assertEquals(actual,SHOPPING_CART);
     }
 }
 

@@ -60,7 +60,7 @@ public class AdminChangingProductsTests {
     }
     @AfterClass
     public void tearDown() {
-//        driver.quit();
+        driver.quit();
     }
 
     /**
@@ -114,7 +114,7 @@ public class AdminChangingProductsTests {
      * <li>6. Compare actual and expected messages;
      * </ul>
      * <p>
-     * Expected Message: There are no products to list in this category..
+     * Expected Message: There are no products to list in this category.
      */
 
         @Test(priority = 1)

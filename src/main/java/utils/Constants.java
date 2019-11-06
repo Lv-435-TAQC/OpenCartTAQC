@@ -50,4 +50,10 @@ public class Constants {
     public static final String LOGIN_PAGE="http://localhost/opencart/index.php?route=account/login";
     public static final String NEGATIVE_MESSAGE_FOR_FIELD = "Product Name must be greater than 1 and less than 255 characters";
     public static final String MESSAGE_IN_CATEGORY = "There are no products to list in this category.";
+    public static final String DOLLAR_CURRENCY = "$";
+    public static final String EURO_CURRENCY = "€";
+    public static final String POUND_CURRENCY = "£";
+    public static final String SHOPPING_CART = "Shopping cart";
+    public static final String LOGIN = "Login";
+    public static final String REGISTER = "Register";
 }

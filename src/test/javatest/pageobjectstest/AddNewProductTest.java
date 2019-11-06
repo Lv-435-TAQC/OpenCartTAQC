@@ -60,7 +60,7 @@ public class AddNewProductTest {
     }
 
     /**
-     * <b>TC-03: Positive Test For Required Fields.</b>
+     * <b>TC-01: Positive Test For Required Fields.</b>
      *
      * Scenario:
      * <ul>
@@ -90,7 +90,7 @@ public class AddNewProductTest {
     }
 
     /**
-     * <b>TC-04: Positive Test For Required Fields with Numbers.</b>
+     * <b>TC-02: Positive Test For Required Fields with Numbers.</b>
      *
      * Scenario:
      * <ul>
@@ -119,7 +119,7 @@ public class AddNewProductTest {
     }
 
     /**
-     * <b>TC-05: Positive Test For Required Fields With Symbols.</b>
+     * <b>TC-03: Positive Test For Required Fields With Symbols.</b>
      *
      * Scenario:
      * <ul>
@@ -148,7 +148,7 @@ public class AddNewProductTest {
     }
 
     /**
-     * <b>TC-06: Positive Test For Required Fields with spaces.</b>
+     * <b>TC-04: Positive Test For Required Fields with spaces.</b>
      *
      * Scenario:
      * <ul>
@@ -177,7 +177,7 @@ public class AddNewProductTest {
     }
 
     /**
-     * <b>TC-08: Negative Test For Required Fields.</b>
+     * <b>TC-05: Negative Test For Required Fields.</b>
      *
      * Scenario:
      * <ul>
@@ -202,7 +202,7 @@ public class AddNewProductTest {
     }
 
     /**
-     * <b>TC-09: Positive Test For Required Fields.</b>
+     * <b>TC-06: Positive Test For Required Fields.</b>
      *
      * Scenario:
      * <ul>
@@ -227,7 +227,7 @@ public class AddNewProductTest {
     }
 
     /**
-     * <b>TC-10: Negative Test For Required Fields.</b>
+     * <b>TC-7: Negative Test For Required Fields.</b>
      *
      * Scenario:
      * <ul>
