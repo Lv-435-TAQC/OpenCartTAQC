@@ -1,6 +1,7 @@
 package pageobjects;
 
 import locators.CheckoutBillingDetailsLocators;
+import locators.ForgottenPasswordLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,11 +27,29 @@ public class CheckoutBillingDetailsPageObject extends BasePageObject {
 
     public CheckoutBillingDetailsPageObject(WebDriver driver) {
         super(driver);
-        WebElement explicitWait = (new WebDriverWait(driver, 10)).
-                until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CheckoutBillingDetailsLocators.EXISTING_ADDRESS)));
     }
 
-    public CheckoutDeliveryDetailsPageObject inputRequiredInformation(String firstName, String lastName, String company, String address1, String city, String selectCountry, String selectCountryRegionOrState) {
+    public CheckoutDeliveryDetailsPageObject continueWantUseAnExistingAddressBillingDetailsPageButton() {
+        WebElement explicitWait = (new WebDriverWait(driver, 10)).
+                until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CheckoutBillingDetailsLocators.EXISTING_ADDRESS)));
+        return this.clickIWantUseAnExistingAddressButton().clickNextButton();
+    }
+
+    public CheckoutDeliveryDetailsPageObject continueWantUseNewAddressButtonWithAllInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, Integer selectCountryRegionOrState) {
+        WebElement explicitWait = (new WebDriverWait(driver, 10)).
+                until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CheckoutBillingDetailsLocators.EXISTING_ADDRESS)));
+        return this.clickIWantUseNewAddressButton()
+                .inputRequiredInformation(firstName, lastName, company, address1, address2, city, postCode, selectCountry, selectCountryRegionOrState);
+    }
+
+    public CheckoutDeliveryDetailsPageObject continueWantUseNewAddressButtonWithNotAllInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, Integer selectCountryRegionOrState) {
+        WebElement explicitWait = (new WebDriverWait(driver, 10)).
+                until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CheckoutBillingDetailsLocators.EXISTING_ADDRESS)));
+        return this.clickIWantUseNewAddressButton()
+                .inputNotRequiredInformation(firstName, lastName, company, address1, city, selectCountry, selectCountryRegionOrState);
+    }
+
+    public CheckoutDeliveryDetailsPageObject inputNotRequiredInformation(String firstName, String lastName, String company, String address1, String city, String selectCountry, Integer selectCountryRegionOrState) {
         this
                 .setFirstName(firstName)
                 .setLastName(lastName)
@@ -43,7 +62,7 @@ public class CheckoutBillingDetailsPageObject extends BasePageObject {
         return new CheckoutDeliveryDetailsPageObject(driver);
     }
 
-    public CheckoutDeliveryDetailsPageObject inputNotRequiredInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, String selectCountryRegionOrState) {
+    public CheckoutDeliveryDetailsPageObject inputRequiredInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, int selectCountryRegionOrState) {
         this
                 .setFirstName(firstName)
                 .setLastName(lastName)
@@ -58,15 +77,16 @@ public class CheckoutBillingDetailsPageObject extends BasePageObject {
         return new CheckoutDeliveryDetailsPageObject(driver);
     }
 
-    public CheckoutDeliveryDetailsPageObject wantUseAnExistingAddressButton() {
-        return this.clickNextButton();
+    public CheckoutDeliveryDetailsPageObject wantUseAnExistingAddressButton()
+    {
+       return this.clickNextButton();
     }
 
-    public CheckoutDeliveryDetailsPageObject WantUseNewExistingAddressButtonWithAllInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, String selectCountryRegionOrState) {
-        return this.clickIWantUseAnExistingAddressButton()
-                .inputNotRequiredInformation(firstName, lastName, company, address1, address2, city, postCode, selectCountry, selectCountryRegionOrState);
+    public CheckoutDeliveryDetailsPageObject WantUseNewExistingAddressButtonWithAllInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, int selectCountryRegionOrState)
+    {
+       return this.clickIWantUseAnExistingAddressButton()
+               .inputNotRequiredInformation(firstName,lastName,company,address1,city,selectCountry, selectCountryRegionOrState);
     }
-
     public CheckoutBillingDetailsPageObject setFirstName(String firstName) {
         firstNameField = new Input(this.driver, CheckoutBillingDetailsLocators.FIRST_NAME);
         firstNameField.setText(firstName);
@@ -115,9 +135,10 @@ public class CheckoutBillingDetailsPageObject extends BasePageObject {
         return this;
     }
 
-    public CheckoutBillingDetailsPageObject selectCountryRegionOrState(String selectCountryRegionOrState) {
+    public CheckoutBillingDetailsPageObject selectCountryRegionOrState(int ordinalIndexCountryRegionOrState) {
         selectCountryRegionOrStateDrop = new DropDown(this.driver, CheckoutBillingDetailsLocators.REGION_OR_STATE);
-        selectCountryRegionOrStateDrop.writeOptionParameter(selectCountryRegionOrState);
+        System.out.println("here");
+        selectCountryRegionOrStateDrop.getElement().selectByValue(Integer.valueOf(ordinalIndexCountryRegionOrState).toString());
         return this;
     }
 
@@ -127,14 +148,14 @@ public class CheckoutBillingDetailsPageObject extends BasePageObject {
         return this;
     }
 
-    public CheckoutBillingDetailsPageObject clickIWantUseNewExistingAddressButton() {
+    public CheckoutBillingDetailsPageObject clickIWantUseNewAddressButton() {
         iWantUseNewExistingAddress = new Button(this.driver, CheckoutBillingDetailsLocators.NEW_ADDRESS);
         iWantUseNewExistingAddress.click();
         return this;
     }
 
     public CheckoutDeliveryDetailsPageObject clickNextButton() {
-        continueButton = new Button(this.driver, CheckoutBillingDetailsLocators.CONTINUE_BUTTON);
+       continueButton = new Button(this.driver, CheckoutBillingDetailsLocators.CONTINUE_BUTTON);
         continueButton.click();
         return new CheckoutDeliveryDetailsPageObject(driver);
 

@@ -5,12 +5,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.sikuli.script.Constants;
 import org.sikuli.script.Key;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 import pageelements.Button;
 import pageelements.Label;
 import patterns.ShoppingCartPatterns;
+import static utils.Constants.BASE_URL;
 
 public class HomePageObject extends BasePageObject {
     public HeaderPageObject headerPageObject;
@@ -50,7 +52,7 @@ public class HomePageObject extends BasePageObject {
     }
 
     public ShoppingCartPageObject goToShoppingCartPage() {
-        driver.navigate().to("http://localhost/OpenCart/index.php?route=goToCheckout/cart");
+        driver.navigate().to(BASE_URL+"index.php?route=checkout/cart");
         return new ShoppingCartPageObject(driver);
     }
 
