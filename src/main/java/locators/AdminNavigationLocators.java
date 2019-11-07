@@ -9,9 +9,10 @@ public class AdminNavigationLocators {
     public static final String VOUCHERS_CATEGORY = "/html/body/div/nav/ul/li[5]/ul/li[4]/a";
     public static final String MARKETING_CATEGORY = "/html/body/div[1]/nav/ul/li[7]/a";
     public static final String COUPONS = "/html/body/div/nav/ul/li[7]/ul/li[2]/a";
+    public static final String CUSTOMERS_BUTTON_XPATH = "//li[@id = 'menu-customer']";
+    public static final String CUSTOMERS_SUB_BUTTON_XPATH = "//ul[@id = 'collapse5']/li";
     public static final String ORDERS = "/html/body/div[1]/nav/ul/li[5]/ul/li[1]/a";
     public static final String REPORTS_NAVIGATION = "//*[@id=\"menu-report\"]/a";
     public static final String STATISTICS = "//*[@id=\"collapse65\"]/li[3]/a";
-
     public static final String REPORTS = "//*[@id=\"collapse65\"]/li[1]/a";
 }

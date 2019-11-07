@@ -1,14 +1,15 @@
 package pageobjects;
 
-import locators.CategoryLocators;
 import locators.MenuLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pageelements.Button;
 import pageelements.TextButton;
+import utils.Helper;
 
 import java.util.List;
+
 import static utils.Constants.*;
 
 public class MenuPageObject extends BasePageObject {
@@ -36,102 +37,123 @@ public class MenuPageObject extends BasePageObject {
         return listOfOptions;
     }
 
-    public CategoryPageObject goToPcDesktops() {
+
+    public AbstractCategoryPageObject goToPcDesktops() {
         desktopsOptionsButton = new TextButton(driver, MenuLocators.DESKTOP_BUTTON_LOC).click();
-        this.createListOfOptions(MenuLocators.DESKTOP_OPTIONS_LOC).get(ZERO).click();
-        return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
+         this.createListOfOptions(MenuLocators.DESKTOP_OPTIONS_LOC).get(ZERO).click();
+        return new EmptyCategoryPageObject(driver);
     }
 
-    public CategoryPageObject clickMacDesktops() {
+
+    public AbstractCategoryPageObject clickMacDesktops() {
         desktopsOptionsButton = new TextButton(driver, MenuLocators.DESKTOP_BUTTON_LOC).click();
+        String buttonText = this.createListOfOptions(MenuLocators.DESKTOP_OPTIONS_LOC).get(ONE).getText();
         this.createListOfOptions(MenuLocators.DESKTOP_OPTIONS_LOC).get(ONE).click();
-        return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
+        return new SubCategoryPageObject(driver);
     }
 
-    public CategoryPageObject showAllDesktops() {
+
+    public AbstractCategoryPageObject showAllDesktops() {
         desktopsOptionsButton = new TextButton(driver, MenuLocators.DESKTOP_BUTTON_LOC).click();
         showAllDesktopsButton = new TextButton(driver, MenuLocators.SHOW_ALL_DESKTOPS_BUTTON_LOC).click();
-        return new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
+        return new FullCategoryPageObject(driver);
     }
 
-    public CategoryPageObject goToMacsLaptops() {
+
+    public AbstractCategoryPageObject goToMacsLaptops() {
         laptopsOptionsButton = new TextButton(driver, MenuLocators.LAPTOPS_NOTEBOOKS_BUTTON_LOC).click();
+        String buttonText = this.createListOfOptions(MenuLocators.LAPTOPS_NOTEBOOKS_OPTIONS_LOC).get(ZERO).getText();
         this.createListOfOptions(MenuLocators.LAPTOPS_NOTEBOOKS_OPTIONS_LOC).get(ZERO).click();
-        return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
+        return new EmptyCategoryPageObject(driver);
     }
 
-    public CategoryPageObject goToWindowsLaptops() {
+
+    public AbstractCategoryPageObject goToWindowsLaptops() {
         laptopsOptionsButton = new TextButton(driver, MenuLocators.LAPTOPS_NOTEBOOKS_BUTTON_LOC).click();
+        String buttonText = this.createListOfOptions(MenuLocators.LAPTOPS_NOTEBOOKS_OPTIONS_LOC).get(ONE).getText();
         this.createListOfOptions(MenuLocators.LAPTOPS_NOTEBOOKS_OPTIONS_LOC).get(ONE).click();
-        return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
+        return new EmptyCategoryPageObject(driver);
     }
 
-    public CategoryPageObject showAllLaptops() {
+
+    public AbstractCategoryPageObject showAllLaptops() {
+
         laptopsOptionsButton = new TextButton(driver, MenuLocators.LAPTOPS_NOTEBOOKS_BUTTON_LOC).click();
         showAllLaptopsButton = new TextButton(driver, MenuLocators.SHOW_ALL_LAPTOPS_NOTEBOOKS_BUTTON_LOC).click();
-        return new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
+        return new FullCategoryPageObject(driver);
     }
 
-    public CategoryPageObject goToMiceAndTrackballsComponents() {
+
+    public AbstractCategoryPageObject goToMiceAndTrackballsComponents() {
         componentsOptionsButton = new TextButton(driver, MenuLocators.COMPONENTS_BUTTON_LOC).click();
         this.createListOfOptions(MenuLocators.COMPONENTS_OPTIONS_LOC).get(ZERO).click();
-        return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
+        return new EmptyCategoryPageObject(driver);
     }
 
-    public CategoryPageObject goToMonitorsComponents() {
+
+    public AbstractCategoryPageObject goToMonitorsComponents() {
         componentsOptionsButton = new TextButton(driver, MenuLocators.COMPONENTS_BUTTON_LOC).click();
         this.createListOfOptions(MenuLocators.COMPONENTS_OPTIONS_LOC).get(ONE).click();
-        return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
+        return new FullCategoryPageObject(driver);
     }
 
-    public CategoryPageObject goToPrintersComponents() {
+
+    public AbstractCategoryPageObject goToPrintersComponents() {
         componentsOptionsButton = new TextButton(driver, MenuLocators.COMPONENTS_BUTTON_LOC).click();
         this.createListOfOptions(MenuLocators.COMPONENTS_OPTIONS_LOC).get(TWO).click();
-        return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
+        return new EmptyCategoryPageObject(driver);
     }
 
-    public CategoryPageObject goToScannersComponents() {
+
+    public AbstractCategoryPageObject goToScannersComponents() {
         componentsOptionsButton = new TextButton(driver, MenuLocators.COMPONENTS_BUTTON_LOC).click();
         this.createListOfOptions(MenuLocators.COMPONENTS_OPTIONS_LOC).get(THREE).click();
-        return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
+        return new EmptyCategoryPageObject(driver);
     }
 
-    public CategoryPageObject goToWebCamerasComponents() {
+
+    public AbstractCategoryPageObject goToWebCamerasComponents() {
         componentsOptionsButton = new TextButton(driver, MenuLocators.COMPONENTS_BUTTON_LOC).click();
         this.createListOfOptions(MenuLocators.COMPONENTS_OPTIONS_LOC).get(FOUR).click();
-        return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
+        return new EmptyCategoryPageObject(driver);
     }
 
-    public CategoryPageObject showAllComponents() {
+
+    public AbstractCategoryPageObject showAllComponents() {
         laptopsOptionsButton = new TextButton(driver, MenuLocators.COMPONENTS_BUTTON_LOC).click();
         showAllLaptopsButton = new TextButton(driver, MenuLocators.SHOW_ALL_COMPONENTS_BUTTON_LOC).click();
-        return new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
+        return new EmptyCategoryPageObject(driver);
     }
 
-    public CategoryPageObject goToTablets() {
+
+    public AbstractCategoryPageObject goToTablets() {
         tabletsButton = new TextButton(driver, MenuLocators.TABLETS_BUTTON_LOC).click();
-        return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
+        return new SubCategoryPageObject(driver);
     }
 
-    public CategoryPageObject goToSoftware() {
+
+    public AbstractCategoryPageObject goToSoftware() {
         tabletsButton = new TextButton(driver, MenuLocators.SOFTWARE_BUTTON_LOC).click();
-        return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
+        return new EmptyCategoryPageObject(driver);
     }
 
-    public CategoryPageObject goToPhonesAndPDAs() {
+
+    public AbstractCategoryPageObject goToPhonesAndPDAs() {
         tabletsButton = new TextButton(driver, MenuLocators.PHONES_PDAS_BUTTON_LOC).click();
-        return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
+        return new SubCategoryPageObject(driver);
     }
 
-    public CategoryPageObject goToWebCameras() {
+
+    public AbstractCategoryPageObject goToWebCameras() {
         tabletsButton = new TextButton(driver, MenuLocators.CAMERAS_BUTTON_LOC).click();
-        return new CategoryPageObject(driver, CategoryLocators.SUB_PRODUCTS_DIV_LOC);
+        return new SubCategoryPageObject(driver);
     }
 
-    public CategoryPageObject showAllMP3Players() {
+
+    public AbstractCategoryPageObject showAllMP3Players() {
         mp3PlayerButton = new Button(driver, MenuLocators.MP3_PLAYERS_BUTTON_LOC).click();
         showAllMP3PlayersButton = new Button(driver, MenuLocators.SHOW_ALL_MP3PLAYERS_BUTTON_LOC).click();
-        return new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
+        return new FullCategoryPageObject(driver);
     }
 
 }

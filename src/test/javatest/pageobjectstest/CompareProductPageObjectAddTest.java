@@ -8,7 +8,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.CategoryPageObject;
+import pageobjects.AbstractCategoryPageObject;
+import pageobjects.SubCategoryPageObject;
 import pageobjects.MenuPageObject;
 import utils.Constants;
 import utils.ProductEntityData;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 public class CompareProductPageObjectAddTest {
     WebDriver driver;
     MenuPageObject menuPageObject;
-    CategoryPageObject categoryPageObject;
+    AbstractCategoryPageObject categoryPageObject;
 
     @BeforeClass
     public void setUp() {

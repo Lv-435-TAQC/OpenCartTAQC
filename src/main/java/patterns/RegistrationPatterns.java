@@ -2,9 +2,7 @@ package patterns;
 
 public class RegistrationPatterns {
 
-    public static final String FIELD_FIRST_NAME = "src/main/resources/sikulipatterns/fieldFirstName.png";
-    public static final String FIELD_LAST_NAME = "src/main/resources/sikulipatterns/fieldLastName.png";
-    public static final String FIELD_EMAIL = "src/main/resources/sikulipatterns/fieldEmail.png";
+    public static final String LABEL_YOUR_PERSONAL_DETAILS = "src/main/resources/sikulipatterns/labelYourPersonalDetails.png";
     public static final String FIELD_TELEPHONE = "src/main/resources/sikulipatterns/fieldTelephone.png";
     public static final String LABEL_YOUR_PASSWORD = "src/main/resources/sikulipatterns/labelYourPassword.png";
     public static final String CHECKBOX_PRIVACY_POLICY = "src/main/resources/sikulipatterns/checkboxPrivacyPolicy.png";

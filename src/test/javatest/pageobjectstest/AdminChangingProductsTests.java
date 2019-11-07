@@ -63,7 +63,7 @@ public class AdminChangingProductsTests {
     }
 
     /**
-     * <b>TC-01: Adding and Add To Shopping Card Product Test.</b>
+     * <b>TC-01: Adding New Product and Add To Shopping Cart Test.</b>
      *
      * Scenario:
      * <ul>
@@ -128,11 +128,10 @@ public class AdminChangingProductsTests {
      */
 
         @Test(priority = 1)
-        public void editProductAndAddingToShoppingCardNegativeTest() {
+        public void deleteProductAndCheckTabletsTest() {
             adminProductsList
                         .setFilterName("Apple iPad Pro")
                         .filterProduct()
-                        .deleteProduct()
                         .markCheckbox()
                         .deleteProduct();
               String actual = home
