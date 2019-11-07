@@ -12,20 +12,17 @@ import pageelements.Label;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryPageObject extends BasePageObject {
-    private Label categoryNameLabel;
+public class SubCategoryPageObject extends AbstractCategoryPageObject {
     private List<WebElement> elements;
     private Label alertLabel;
     private ArrayList<ProductUnitPageObject> productsPO;
+    private String xpath;
     private ArrayList<Product> products;
     private FilterPageObject filterPageObject;
-    private String productsXpath;
-    private NavigationMenuPageObject navigationMenuPageObject;
 
-    public CategoryPageObject(WebDriver driver, String productsXpath) {
+    public SubCategoryPageObject(WebDriver driver) {
         super(driver);
-        this.productsXpath = productsXpath;
-        filterPageObject = new FilterPageObject(this.driver, productsXpath);
+        setXpath(CategoryLocators.SUB_PRODUCTS_DIV_LOC);
     }
 
     /**
@@ -33,8 +30,8 @@ public class CategoryPageObject extends BasePageObject {
      *
      * @return list of web elements
      */
-    private List<WebElement> getAllProductsElementsFromPage() {
-        elements = driver.findElements(By.xpath(productsXpath));
+    public List<WebElement> getAllProductsElementsFromPage() {
+        elements = driver.findElements(By.xpath(xpath));
         return elements;
     }
 
@@ -43,9 +40,10 @@ public class CategoryPageObject extends BasePageObject {
      *
      * @return instance of this page object
      */
-    public CategoryPageObject generateProductsPageObjects() {
+    @Override
+    public SubCategoryPageObject generateProductsPageObjects() {
         WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(productsXpath)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
         productsPO = new ArrayList<ProductUnitPageObject>();
         getAllProductsElementsFromPage();
         for (int i = 0; i < elements.size(); i++) {
@@ -59,7 +57,8 @@ public class CategoryPageObject extends BasePageObject {
      *
      * @return instance of this page object
      */
-    public CategoryPageObject generateProductsList() {
+    @Override
+    public SubCategoryPageObject generateProductsList() {
         Product product;
         generateProductsPageObjects();
         products = new ArrayList<>();
@@ -80,6 +79,7 @@ public class CategoryPageObject extends BasePageObject {
      * @param numberOfProduct - position of product on page
      * @return instance of item page object
      */
+    @Override
     public ItemInfoPageObject clickToImageByNumberOfProduct(int numberOfProduct) {
         productsPO.get(numberOfProduct - 1).clickProductImage();
         return new ItemInfoPageObject(this.driver);
@@ -91,6 +91,7 @@ public class CategoryPageObject extends BasePageObject {
      * @param numberOfProduct - position of product on page
      * @return instance of item page object
      */
+    @Override
     public ItemInfoPageObject clickToLinkedNameByNumberOfProduct(int numberOfProduct) {
         productsPO.get(numberOfProduct - 1).clickLinkedProductName();
         return new ItemInfoPageObject(this.driver);
@@ -102,6 +103,7 @@ public class CategoryPageObject extends BasePageObject {
      * @param numberOfProduct - position of product on page
      * @return instance of item page object
      */
+    @Override
     public ItemInfoPageObject clickToAddToCardByNumberOfProduct(int numberOfProduct) {
         productsPO.get(numberOfProduct - 1).clickAddToCardButton();
         return new ItemInfoPageObject(this.driver);
@@ -113,8 +115,9 @@ public class CategoryPageObject extends BasePageObject {
      * @param numberOfProduct - position of product on page
      * @return instance of this page object
      */
-    public CategoryPageObject clickAddToWishListByNumberOfProduct(int numberOfProduct) {
-        productsPO.get(numberOfProduct - 1).clickAddToWishList(productsXpath);
+    @Override
+    public SubCategoryPageObject clickAddToWishListByNumberOfProduct(int numberOfProduct) {
+        productsPO.get(numberOfProduct - 1).clickAddToWishList();
         return this;
     }
 
@@ -124,8 +127,9 @@ public class CategoryPageObject extends BasePageObject {
      * @param numberOfProduct - position of product on page
      * @return instance of item page object
      */
-    public CategoryPageObject clickCompareThisProductByNumberOfProduct(int numberOfProduct) {
-        productsPO.get(numberOfProduct - 1).clickCompareThisProduct(productsXpath);
+    @Override
+    public SubCategoryPageObject clickCompareThisProductByNumberOfProduct(int numberOfProduct) {
+        productsPO.get(numberOfProduct - 1).clickCompareThisProduct();
         return this;
     }
 
@@ -135,6 +139,7 @@ public class CategoryPageObject extends BasePageObject {
      * @param numberOfProduct - position of product on page
      * @return name of product
      */
+    @Override
     public String getNameOfProductByNumberOfProduct(int numberOfProduct) {
         return productsPO.get(numberOfProduct - 1).getNameOfProduct();
     }
@@ -145,6 +150,7 @@ public class CategoryPageObject extends BasePageObject {
      * @param numberOfProduct - position of product on page
      * @return description og product
      */
+    @Override
     public String getDescriptionOfProductByNumberOfProduct(int numberOfProduct) {
         return productsPO.get(numberOfProduct - 1).getDescriptionOfProduct();
     }
@@ -155,6 +161,7 @@ public class CategoryPageObject extends BasePageObject {
      * @param numberOfProduct - position of product on page
      * @return price
      */
+    @Override
     public Double getNewPriceByNumberOfProduct(int numberOfProduct) {
         return productsPO.get(numberOfProduct - 1).getPrice();
     }
@@ -164,8 +171,17 @@ public class CategoryPageObject extends BasePageObject {
      *
      * @return array list with product unit page objects
      */
+    @Override
     public ArrayList<ProductUnitPageObject> getProductsPO() {
         return productsPO;
+    }
+
+    public void setProductsPO(ArrayList<ProductUnitPageObject> productsPO) {
+        this.productsPO = productsPO;
+    }
+
+    public void refreshProductPO() {
+        this.productsPO = new ArrayList<>();
     }
 
     /**
@@ -173,6 +189,7 @@ public class CategoryPageObject extends BasePageObject {
      *
      * @return text of label
      */
+    @Override
     public String getTextFromAlertLabel() {
         WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CategoryLocators.ALERT_LABEL_LOC)));
@@ -181,25 +198,16 @@ public class CategoryPageObject extends BasePageObject {
     }
 
     /**
-     * Text getter from category name label
-     *
-     * @return name of category
-     */
-    public String getCategoryName() {
-        categoryNameLabel = new Label(driver, CategoryLocators.CATEGORY_NAME_LABEL_LOC);
-        return categoryNameLabel.getText();
-    }
-
-    /**
      * Wrapper for click on "Add to Wish List" button of product based on id of product
      *
      * @param id - id of product
      * @return instance of this page object
      */
-    public CategoryPageObject clickAddToWishListByID(Integer id) {
+    @Override
+    public SubCategoryPageObject clickAddToWishListByID(Integer id) {
         for (int i = 0; i < productsPO.size(); i++) {
             if (productsPO.get(i).getIdOfProduct() == id) {
-                productsPO.get(i).clickAddToWishList(productsXpath);
+                productsPO.get(i).clickAddToWishList();
             }
         }
         return this;
@@ -211,11 +219,12 @@ public class CategoryPageObject extends BasePageObject {
      * @param nameOfProduct - name of product
      * @return instance of this page object
      */
-    public CategoryPageObject clickAddToWishListByNameOfProduct(String nameOfProduct) {
+    @Override
+    public SubCategoryPageObject clickAddToWishListByNameOfProduct(String nameOfProduct) {
         generateProductsList();
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getProductName().contains(nameOfProduct)) {
-                productsPO.get(i).clickAddToWishList(productsXpath);
+                productsPO.get(i).clickAddToWishList();
             }
         }
         return this;
@@ -227,11 +236,12 @@ public class CategoryPageObject extends BasePageObject {
      * @param product - entity of product
      * @return instance of this page object
      */
-    public CategoryPageObject clickAddToWishListByProduct(Product product) {
+    @Override
+    public SubCategoryPageObject clickAddToWishListByProduct(Product product) {
         generateProductsList();
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getProductName().contains(product.getProductName())) {
-                productsPO.get(i).clickAddToWishList(productsXpath);
+                productsPO.get(i).clickAddToWishList();
             }
         }
         return this;
@@ -243,7 +253,8 @@ public class CategoryPageObject extends BasePageObject {
      * @param id - id of product
      * @return instance of this page object
      */
-    public CategoryPageObject clickAddToCardByID(Integer id) {
+    @Override
+    public SubCategoryPageObject clickAddToCardByID(Integer id) {
         for (int i = 0; i < productsPO.size(); i++) {
             if (productsPO.get(i).getIdOfProduct() == id) {
                 productsPO.get(i).clickAddToCardButton();
@@ -258,7 +269,8 @@ public class CategoryPageObject extends BasePageObject {
      * @param nameOfProduct - name of product
      * @return instance of this page object
      */
-    public CategoryPageObject clickAddToCardByNameOfProduct(String nameOfProduct) {
+    @Override
+    public SubCategoryPageObject clickAddToCardByNameOfProduct(String nameOfProduct) {
         generateProductsList();
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getProductName().contains(nameOfProduct)) {
@@ -274,7 +286,8 @@ public class CategoryPageObject extends BasePageObject {
      * @param product - entity of product
      * @return instance of this page object
      */
-    public CategoryPageObject clickAddToCardByProduct(Product product) {
+    @Override
+    public SubCategoryPageObject clickAddToCardByProduct(Product product) {
         generateProductsList();
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getProductName().contains(product.getProductName())) {
@@ -290,10 +303,11 @@ public class CategoryPageObject extends BasePageObject {
      * @param id - id of product
      * @return instance of this page object
      */
-    public CategoryPageObject clickCompareThisProductByID(Integer id) {
+    @Override
+    public SubCategoryPageObject clickCompareThisProductByID(Integer id) {
         for (int i = 0; i < productsPO.size(); i++) {
             if (productsPO.get(i).getIdOfProduct() == id) {
-                productsPO.get(i).clickCompareThisProduct(productsXpath);
+                productsPO.get(i).clickCompareThisProduct();
             }
         }
         return this;
@@ -305,11 +319,12 @@ public class CategoryPageObject extends BasePageObject {
      * @param nameOfProduct - name of product
      * @return instance of this page object
      */
-    public CategoryPageObject clickCompareThisProductByNameOfProduct(String nameOfProduct) {
+    @Override
+    public SubCategoryPageObject clickCompareThisProductByNameOfProduct(String nameOfProduct) {
         generateProductsList();
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getProductName().contains(nameOfProduct)) {
-                productsPO.get(i).clickCompareThisProduct(productsXpath);
+                productsPO.get(i).clickCompareThisProduct();
             }
         }
         return this;
@@ -321,11 +336,12 @@ public class CategoryPageObject extends BasePageObject {
      * @param product - entity of product
      * @return instance of this page object
      */
-    public CategoryPageObject clickCompareThisProductByProduct(Product product) {
+    @Override
+    public SubCategoryPageObject clickCompareThisProductByProduct(Product product) {
         generateProductsList();
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getId() == (product.getId())) {
-                productsPO.get(i).clickCompareThisProduct(productsXpath);
+                productsPO.get(i).clickCompareThisProduct();
             }
         }
         WebDriverWait wait = new WebDriverWait(driver, 50);
@@ -339,6 +355,7 @@ public class CategoryPageObject extends BasePageObject {
      * @param id - id of product
      * @return product entity
      */
+    @Override
     public Product getProductByID(Integer id) {
         generateProductsList();
         Product product = new Product();
@@ -356,6 +373,7 @@ public class CategoryPageObject extends BasePageObject {
      * @param position - position of product
      * @return product entity
      */
+    @Override
     public Product getProductByPosition(Integer position) {
         generateProductsList();
         return products.get(position - 1);
@@ -368,6 +386,7 @@ public class CategoryPageObject extends BasePageObject {
      * @param name - name of product
      * @return product entity
      */
+    @Override
     public Product getProductByName(String name) {
         generateProductsList();
         Product product = new Product();
@@ -384,20 +403,14 @@ public class CategoryPageObject extends BasePageObject {
      *
      * @return array list with product entities
      */
+    @Override
     public ArrayList<Product> getProducts() {
         generateProductsList();
         return products;
     }
 
-    /**
-     * Getter of navigation menu page object
-     *
-     * @return instance of navigation menu page object
-     */
-
-    public NavigationMenuPageObject getNavigationMenuPageObject() {
-        return navigationMenuPageObject;
-
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
     }
 
     /**
@@ -405,12 +418,37 @@ public class CategoryPageObject extends BasePageObject {
      *
      * @return instance of filter page object
      */
+    @Override
     public FilterPageObject getFilterPageObject() {
-        filterPageObject = new FilterPageObject(this.driver, productsXpath);
+        filterPageObject = new FilterPageObject(this.driver,this);
         return filterPageObject;
     }
 
+    @Override
     public String getMessageAboutProducts() {
-        return new Label(driver,CategoryLocators.MESSAGE_PRODUCTS_LOC).getText();
+        return new Label(driver, CategoryLocators.MESSAGE_PRODUCTS_LOC).getText();
     }
+
+    public List<WebElement> getElements() {
+        return elements;
+    }
+
+    public void setElements(List<WebElement> elements) {
+        this.elements = elements;
+    }
+
+    @Override
+    public String getMessageAboutEmptyPage() {
+        return null;
+    }
+
+    @Override
+    public HomePageObject clickOnContinueButton() {
+        return null;
+    }
+
+    public void setXpath(String xpath) {
+        this.xpath = xpath;
+    }
+
 }

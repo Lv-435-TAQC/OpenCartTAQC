@@ -270,17 +270,25 @@ public class WishListPageObjectTest {
     }
 
     /**
-     * <b>TC-09: Tests .</b>
+     * <b>TC-09: Test purchase product selected from Wish List.</b>
      *
      * Scenario:
      * <ul>
      * <li>1. Click on Wish List Tab;
+     * <li>2. Click add to Cart on Product with ID=40;
+     * <li>1. Click on Shopping Cart Tab;
+     * <li>1. Go to Checkout Billing Details;
+     * <li>1. Use an Existing Address Billing Details and Click Continue;
+     * <li>1. Use Delivery Method Without Comments About Your Order and Click Continue;
+     * <li>1. Use Payment Method Without Comments About Your Order and Click Continue;
+     * <li>1. Click Continue on Confirm Order;
+     * <li>1. Get Data about Price in Order from Database;
      * </ul>
      * <p>
-     * Expected Result: .
+     * Expected Result: Current Price from Order is equal to Price in same Order from Database.
      */
 
-    @Test
+    @Test(invocationCount = 1)
     public void buyingProductsFromWishListAndCheckingPurchaseInDatabase (){
         homePageObject
                 .getHeaderPageObject()
