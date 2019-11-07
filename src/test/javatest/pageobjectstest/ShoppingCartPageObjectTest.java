@@ -2,18 +2,14 @@ package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.sikuli.script.Match;
-import org.sikuli.script.Pattern;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-import pageelements.CouponInTable;
-import pageelements.VoucherInTable;
-import pageobjects.*;
-import patterns.ShoppingCartPatterns;
+import pageobjects.HomePageObject;
+import pageobjects.ShoppingCartPageObject;
 import utils.Constants;
 import utils.TestData;
+import utils.TestScreenRecorder;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
@@ -38,7 +34,7 @@ public class ShoppingCartPageObjectTest {
     }
 
     @AfterMethod
-    public void makeScreenshots(ITestResult result) throws IOException {
+    public void makeScreenshots(ITestResult result) {
         if (result.getStatus() == ITestResult.FAILURE) {
             ShoppingCartPageObject.makeScreenShotSteps(driver, result.getName());
         }
@@ -72,79 +68,6 @@ public class ShoppingCartPageObjectTest {
         assertTrue(home.goToShoppingCartPage().
                 getShoppingProductsList().
                 containsKey(productID));
-    }
-
-    /**
-     * <b>TC-02: Test adding product to shopping cart, use sikuli.</b>
-     * <p>
-     * Scenario:
-     * <ul>
-     * <li>1. Open Firefox browser;
-     * <li>2. Click add to cart iphone on OpenCart/index.php?route=common/home;
-     * <li>3. Click on Shopping Cart Tab;
-     * <li>4. Verify, that iphone contains in Shopping Cart table;
-     * </ul>
-     * <p>
-     * Expected Result: Table of products, in Shopping Cart,
-     * contains added product.
-     */
-
-    @Test()
-    public void testAddProductToShoppingCartUseSikuli() {
-        Match match = new HomePageObject(driver).
-                addIphoneToShoppingCartSikuly().
-                openShoppingCartSikuly().
-                finedElementInShoppingCartSikuly(new Pattern(ShoppingCartPatterns.IPHONE_IN_SHOPPING_CART));
-        assertNotNull(match);
-    }
-
-    /**
-     * <b>TC-03: Test changing quantity products, use sikuli</b>
-     * <p>
-     * Scenario:
-     * <ul>
-     * <li>1. Open Firefox browser;
-     * <li>2. Click add to cart iphone on OpenCart/index.php?route=common/home;
-     * <li>3. Click on Shopping Cart Tab;
-     * <li>4. Write two in quantity cell;
-     * <li>5. Verify that total cost increased by 2 times ;
-     * </ul>
-     * <p>
-     * Expected Result: Total cost increased by 2 times.
-     */
-    @Test()
-    public void testChangingQuantityProductsUseSikuli() {
-        String actual = new HomePageObject(driver).
-                addIphoneToShoppingCartSikuly().
-                openShoppingCartSikuly().
-                changeQuantityProductsSikuly().
-                getTotalCostSikuly().split(TestData.BLANK_SYMBOL)[1];
-        String expected = TestData.COST_OF_TWO_IPHONES;
-        assertEquals(actual, expected);
-    }
-
-    /**
-     * <b>TC-04: Test remove product from shopping cart, use siculi.</b>
-     * <p>
-     * Scenario:
-     * <ul>
-     * <li>1. Open Firefox browser;
-     * <li>2. Click add to cart iphone on OpenCart/index.php?route=common/home;
-     * <li>3. Click on Shopping Cart Tab;
-     * <li>4. Click remove iphone;
-     * <li>5. Verify that Shopping Cart Page is empty ;
-     * </ul>
-     * <p>
-     * Expected Result: Shopping Cart does not have product,
-     * and contains massage.
-     */
-    @Test()
-    public void testRemoveProductFromCartUseSikuli() {
-        String actual = new HomePageObject(driver).
-                addIphoneToShoppingCartSikuly().
-                openShoppingCartSikuly().
-                removeProductSikuly();
-        assertEquals(actual, TestData.EMPTY_SHOPPING_CART_MESSAGE);
     }
 
     /**
@@ -493,180 +416,8 @@ public class ShoppingCartPageObjectTest {
     public void testGoToCheckout() {
         home.addToCartMacBook();
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
-        String actual = shoppingCartPageObject.checkout();
+        String actual = shoppingCartPageObject.goToCheckout();
         assertEquals(actual, TestData.CHECKOUT_PAGE);
-    }
-
-    /**
-     * <b>TC-18: Test, ordering a product using the coupon code.</b>
-     * <p>
-     * Scenario:
-     * <ul>
-     * <li>1. Open Firefox browser;
-     * <li>2. Login on http://localhost/OpenCart/index.php?route=account/login;
-     * <li>3. Click add to cart iPhone on OpenCart/index.php?route=common/home;
-     * <li>4. Click on Shopping Cart Tab;
-     * <li>5. Click on Use Coupon Code Tab;
-     * <li>6. Write coupon code in input ;
-     * <li>7. Click Checkout button;
-     * <li>8. Click Continue on Billing Details Tub;
-     * <li>9. Click Continue on Delivery Method Tub;
-     * <li>10. Mark  Terms & Conditions on Payment Method Tub;
-     * <li>11. Click Continue on Payment Method Tub;
-     * <li>12. Click Confirm Order on Confirm Order Tub;
-     * <li>13. Login on http://localhost/OpenCart/admin/index.php?route=common/login;
-     * <li>14. Click on Sales Tab;
-     * <li>15. Click on Orders Tab;
-     * <li>16. Click View button on Order row;
-     * <li>17. Verify that Total amount is discounted;
-     * </ul>
-     * <p>
-     * Expected Result: Order includes coupon row and total cost is discounted.
-     */
-
-    @Test
-    public void testOrderingProductUsingCouponCode() {
-        driver.get(TestData.USER_LOGIN_PAGE);
-        LoginPageObject loginPageObject = new LoginPageObject(driver);
-        loginPageObject.logIn(TestData.USER_NAME, TestData.USER_PASSWORD);
-        driver.get(TestData.HOME_PAGE);
-        home = new HomePageObject(driver);
-        home.addToCartIphone();
-        home.goToShoppingCartPage().
-                writeCouponCode(TestData.COUPON_CODE);
-        driver.get(TestData.ADMIN_PAGE);
-        AdminPageObject adminPage = new AdminLoginPageObject(driver).
-                logIn(TestData.ADMIN_NAME, TestData.ADMIN_PASSWORD);
-        AdminOrderDescriptionPageObject orderDescriptionPageObject = adminPage.closeModalWindow().
-                getNavigation().
-                goToOrdersList().
-                getTheOrder(TestData.ORDER_ID_FOR_COUPON_TEST).
-                viewOrder(driver);
-        assertEquals(orderDescriptionPageObject.getCouponCode(), TestData.COUPON_CODE_FIELD_ON_ORDER_PAGE);
-        assertEquals(orderDescriptionPageObject.getCouponDiscountAmount(), TestData.COST_OF_IPHONE_USING_COUPON_WITH_SHIPPING);
-    }
-
-    /**
-     * <b>TC-19: Test, ordering a product using the gift certificate.</b>
-     * <p>
-     * Scenario:
-     * <ul>
-     * <li>1. Open Firefox browser;
-     * <li>2. Login on http://localhost/OpenCart/index.php?route=account/login;
-     * <li>3. Click add to cart iPhone on OpenCart/index.php?route=common/home;
-     * <li>4. Click on Shopping Cart Tab;
-     * <li>5. Click on Use Gift Certificate Tab;
-     * <li>6. Write gift code in input;
-     * <li>7. Click Checkout button;
-     * <li>8. Click Continue on Billing Details Tub;
-     * <li>9. Click Continue on Delivery Method Tub;
-     * <li>10. Mark  Terms & Conditions on Payment Method Tub;
-     * <li>11. Click Continue on Payment Method Tub;
-     * <li>12. Click Confirm Order on Confirm Order Tub;
-     * <li>13. Login on http://localhost/OpenCart/admin/index.php?route=common/login;
-     * <li>14. Click on Sales Tab;
-     * <li>15. Click on Orders Tab;
-     * <li>16. Click View button on Order row;
-     * <li>17. Verify that Total amount is discounted;
-     * </ul>
-     * <p>
-     * Expected Result: Order includes gift certificate row and total cost is discounted.
-     */
-
-    @Test
-    public void testOrderingProductUsingGiftCertificate() {
-        driver.get(TestData.USER_LOGIN_PAGE);
-        LoginPageObject loginPageObject = new LoginPageObject(driver);
-        loginPageObject.logIn(TestData.USER_NAME, TestData.USER_PASSWORD);
-        driver.get(TestData.HOME_PAGE);
-        home = new HomePageObject(driver);
-        home.addToCartIphone();
-        home.goToShoppingCartPage().
-                writeGiftCertificate(TestData.GIFT_CERTIFICATE);
-        driver.get(TestData.ADMIN_PAGE);
-        AdminPageObject adminPage = new AdminLoginPageObject(driver).
-                logIn(TestData.ADMIN_NAME, TestData.ADMIN_PASSWORD);
-        AdminOrderDescriptionPageObject orderDescriptionPageObject = adminPage.closeModalWindow().
-                getNavigation().
-                goToOrdersList().
-                getTheOrder(TestData.ORDER_ID_FOR_GIFT_CERTIFICATE_TEST).
-                viewOrder(driver);
-        assertEquals(orderDescriptionPageObject.getGiftCertificateCode(), TestData.GIFT_CERTIFICATE_FIELD_ON_ORDER_PAGE);
-        assertEquals(orderDescriptionPageObject.getGiftCertificateAmount(), TestData.COST_OF_IPHONE_USING_GIFT_CERTIFICATE_WITH_SHIPPING);
-    }
-
-    /**
-     * <b> TC-20: Test, Creating a new voucher.</b>
-     * <p>
-     * Scenario:
-     * <ul>
-     * <li>1. Open Firefox browser;
-     * <li>2. Login on http://localhost/OpenCart/admin/index.php?route=common/login;
-     * <li>3. Close Important Security Notification window;
-     * <li>4. Click on Sales Tub;
-     * <li>5. Click on Gift Voucher Tub;
-     * <li>6. Click on Gift Voucher Tub;
-     * <li>7. Click on Add New button;
-     * <li>8. Fill in all fields;
-     * <li>9. Click on button Save;
-     * <li>10. Verify that created voucher is in vouchers table
-     * </ul>
-     * <p>
-     * Expected Result: Voucher is created and showed in the vouchers table.
-     */
-
-    @Test(invocationCount = 1)
-    public void testCreatingNewVoucher() {
-        driver.get(TestData.ADMIN_PAGE);
-        AdminPageObject adminPage = new AdminLoginPageObject(driver).
-                logIn(TestData.ADMIN_NAME, TestData.ADMIN_PASSWORD);
-        AdminGiftVouchersPageObject vouchersPage = adminPage.closeModalWindow().
-                getNavigation().
-                goToVouchersList().
-                goToCreationGiftVoucher().
-                createNewGiftVoucher(TestData.VOUCHER_CODE, TestData.VOUCHER_FROM_NAME, TestData.VOUCHER_FROM_E_MAIL,
-                        TestData.VOUCHER_TO_NAME, TestData.VOUCHER_TO_E_MAIL, TestData.VOUCHER_THEME,
-                        TestData.VOUCHER_MESSAGE, TestData.VOUCHER_AMOUNT, TestData.VOUCHER_STATUS);
-        assertTrue(vouchersPage.getGiftVouchersTable().containsKey(TestData.VOUCHER_CODE));
-        VoucherInTable voucherInTable = (VoucherInTable) vouchersPage.getGiftVouchersTable().get(TestData.VOUCHER_CODE);
-        assertEquals(voucherInTable.getAmount(), TestData.VOUCHER_AMOUNT_IN_TABLE);
-    }
-
-    /**
-     * <b> TC-21: Test, Creating a new coupon.</b>
-     * <p>
-     * Scenario:
-     * <ul>
-     * <li>1. Open Firefox browser;
-     * <li>2. Login on http://localhost/OpenCart/admin/index.php?route=common/login;
-     * <li>3. Close Important Security Notification window;
-     * <li>4. Click on Marketing Tub;
-     * <li>5. Click on Coupons Tub;
-     * <li>7. Click on Add New button;
-     * <li>8. Fill in all fields;
-     * <li>9. Click on button Save;
-     * <li>10. Verify that created coupon is in coupons table
-     * </ul>
-     * <p>
-     * Expected Result: Coupon is created and showed in the coupons table.
-     */
-
-    @Test(invocationCount = 1)
-    public void testCreatingNewCoupon() {
-        driver.get(TestData.ADMIN_PAGE);
-        AdminPageObject adminPage = new AdminLoginPageObject(driver).
-                logIn(TestData.ADMIN_NAME, TestData.ADMIN_PASSWORD);
-        AdminCouponsPageObject adminCouponsPageObject = adminPage.
-                closeModalWindow().
-                getNavigation().
-                goToCouponsList().
-                goToCreationCoupon().
-                createNewCoupon(TestData.COUPON_NAME, TestData.COUPON_CREATING_CODE, TestData.COUPON_TYPE, TestData.COUPON_DISCOUNT,
-                        TestData.COUPON_TOTAL_AMOUNT, TestData.COUPON_DATE_START, TestData.COUPON_DATE_END,
-                        TestData.COUPON_USES_PER_COUPON, TestData.COUPON_USES_PER_CUSTOMER, TestData.COUPON_STATUS);
-        assertTrue(adminCouponsPageObject.getCouponsTable().containsKey(TestData.COUPON_CREATING_CODE));
-        CouponInTable coupons = (CouponInTable) adminCouponsPageObject.getCouponsTable().get(TestData.COUPON_CREATING_CODE);
-        assertEquals(coupons.getDiscount(), TestData.COUPON_DISCOUNT);
     }
 
 }

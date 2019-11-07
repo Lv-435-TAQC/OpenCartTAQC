@@ -7,27 +7,27 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.sikuli.script.Screen;
 import org.sikuli.script.FindFailed;
+import org.sikuli.script.Screen;
 import pageelements.Button;
 import pageelements.Input;
 import pageelements.Label;
 import pageelements.LinkedLabel;
+import patterns.LoginPatterns;
+import utils.TestData;
+
+import static utils.Constants.*;
+import static utils.Constants.FIRST_PASSWORD;
 
 public class LoginPageObject extends BasePageObject {
+    Screen screen = new Screen();
     private Input loginField;
     private Input passwordField;
     private Button nextButton;
-    private Button registetionButton;
+    private Button registrationButton;
     private LinkedLabel forgottenPassword;
     private Label warningMessage;
     private Label successfulMessage;
-    Screen screen = new Screen();
-    String email = "src/main/resources/sikulipatterns/InputEmail.png";
-    String password = "src/main/resources/sikulipatterns/password.png";
-    String button = "src/main/resources/sikulipatterns/loginButton.png";
-    String date = "src/main/resources/sikulipatterns/NotCorrectEmail.png";
-    String account = "src/main/resources/sikulipatterns/MyAccount.png";
 
     public LoginPageObject(WebDriver driver) {
         super(driver);
@@ -38,18 +38,19 @@ public class LoginPageObject extends BasePageObject {
                 .setLogInField(loginName)
                 .setPasswordField(password)
                 .clickNextButton();
-
         return new MyAccountPageObject(driver);
     }
 
     public LoginPageObject setLogInField(String loginName) {
         loginField = new Input(this.driver, LoginLocators.INPUT_EMAIL_FIELD);
+        loginField.clearField();
         loginField.setText(loginName);
         return this;
     }
 
     public LoginPageObject setPasswordField(String password) {
         passwordField = new Input(this.driver, LoginLocators.INPUT_PASSWORD_FIELD);
+        passwordField.clearField();
         passwordField.setText(password);
         return this;
     }
@@ -61,9 +62,10 @@ public class LoginPageObject extends BasePageObject {
     }
 
 
-    public RegistrationPageObject clickToGoToRegistation() {
-        registetionButton = new Button(this.driver, LoginLocators.NEW_USER_CONTINUE_BUTTON);
-        registetionButton.click();
+
+    public RegistrationPageObject clickToGoToRegistration() {
+        registrationButton = new Button(this.driver, LoginLocators.NEW_USER_CONTINUE_BUTTON);
+        registrationButton.click();
         return new RegistrationPageObject(driver);
     }
 
@@ -88,35 +90,38 @@ public class LoginPageObject extends BasePageObject {
     }
 
     public String successfulMessage() {
-        WebElement explicitWait = (new WebDriverWait(driver,10)).
+        WebElement explicitWait = (new WebDriverWait(driver, 10)).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ForgottenPasswordLocators.SENT_INFORMATION_FOR_FORGOTTEN_PASSWORD)));
         successfulMessage = new Label(this.driver, ForgottenPasswordLocators.SENT_INFORMATION_FOR_FORGOTTEN_PASSWORD);
         return this.successfulMessage.getText();
     }
-    public Boolean testSikuliBad()
-    {
-        screen.type(email, "orysita.benko@gmail.com");
-        screen.type(password, "orysia");
+
+    public Boolean sikuliBadDate() {
+        screen.type(LoginPatterns.EMAIL, "orysisdfvta.benko@gmail.com");
+        screen.type(LoginPatterns.PASSWORD, "oryfddfsia");
         try {
-            screen.click(button);
-            screen.find(date);
+            screen.click(LoginPatterns.LOGIN_BUTTON);
             return true;
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
             return false;
         }
     }
-    public Boolean testSikuliGood()
-    {
-        screen.type(email, "orysia.benko@gmail.com");
-        screen.type(password, "orysia");
+
+    public Boolean sikuliGoodDate() {
+        screen.type(LoginPatterns.EMAIL, FIRST_MAIL);
+        screen.type(LoginPatterns.PASSWORD, FIRST_PASSWORD);
         try {
-            screen.click(button);
-            screen.find(account);
+            screen.click(LoginPatterns.LOGIN_BUTTON);
+            screen.find(LoginPatterns.ACCOUNT);
             return true;
         } catch (FindFailed findFailed) {
             findFailed.printStackTrace();
             return false;
         }
+    }
+    public HomePageObject goToHome(){
+        driver.get(TestData.HOME_PAGE);
+        return new HomePageObject(driver);
     }
 }

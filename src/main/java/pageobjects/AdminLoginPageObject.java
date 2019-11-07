@@ -24,19 +24,20 @@ public class AdminLoginPageObject extends BasePageObject {
                 .setLogInField(loginName)
                 .setPasswordField(password)
                 .clickNextButton();
-
         return new AdminPageObject(driver);
     }
 
 
     public AdminLoginPageObject setLogInField(String loginName) {
         loginField = new Input(this.driver, AdminLoginLocators.INPUT_ADMIN_EMAIL_FIELD);
+        loginField.clearField();
         loginField.setText(loginName);
         return this;
     }
 
     public AdminLoginPageObject setPasswordField(String password) {
         passwordField = new Input(this.driver, AdminLoginLocators.INPUT_PASSWORD_FIELD);
+        passwordField.clearField();
         passwordField.setText(password);
         return this;
     }
@@ -66,5 +67,4 @@ public class AdminLoginPageObject extends BasePageObject {
 
         return new AdminLoginPageObject(driver);
     }
-
 }

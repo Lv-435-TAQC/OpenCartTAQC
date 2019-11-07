@@ -1,11 +1,13 @@
 package utils;
 
+import static utils.Constants.BASE_URL;
+
 public class TestData {
-    public static final String USER_LOGIN_PAGE = "http://localhost/OpenCart/index.php?route=account/login";
-    public static final String ADMIN_PAGE = "http://localhost/OpenCart/admin";
+    public static final String USER_LOGIN_PAGE = BASE_URL + "index.php?route=account/login";
+    public static final String ADMIN_PAGE = BASE_URL + "admin";
     public static final String USER_NAME = "user@gmail.com";
     public static final String USER_PASSWORD = "user";
-    public static final String HOME_PAGE = "http://localhost/OpenCart";
+    public static final String HOME_PAGE = BASE_URL;
     public static final String ADMIN_NAME = "admin";
     public static final String ADMIN_PASSWORD = "admin";
     public static final String COST_OF_TWO_IPHONES = "$246.40";
@@ -14,11 +16,9 @@ public class TestData {
     public static final String COUPON_CODE = "111";
     public static final String GIFT_CERTIFICATE = "333";
     public static final String COUPON_CODE_FIELD_ON_ORDER_PAGE = "Coupon (111)";
-    public static final String GIFT_CERTIFICATE_FIELD_ON_ORDER_PAGE = "Gift Certificate (111)";
-    public static final String ORDER_ID_FOR_COUPON_TEST = "7";
-    public static final String ORDER_ID_FOR_GIFT_CERTIFICATE_TEST = "6";
+    public static final String GIFT_CERTIFICATE_FIELD_ON_ORDER_PAGE = "Gift Certificate (333)";
     public static final String QUANTITY_PRODUCTS = "2";
-    public static final String CHECKOUT_PAGE = "http://localhost/OpenCart/index.php?route=checkout/checkout";
+    public static final String CHECKOUT_PAGE = BASE_URL + "index.php?route=checkout/checkout";
     public static final String IPHONE_ID = "40";
     public static final String SHIPPING_COUNTRY = "Ukraine";
     public static final Integer SHIPPING_REGION = 13;

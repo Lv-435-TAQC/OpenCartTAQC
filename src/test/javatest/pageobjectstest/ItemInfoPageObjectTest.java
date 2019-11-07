@@ -10,7 +10,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.ItemInfoPageObject;
-
 import java.util.concurrent.TimeUnit;
 
 import static locators.ItemLocators.TABLET_IMAGE;
@@ -48,6 +47,8 @@ public class ItemInfoPageObjectTest {
         driver.get("http://localhost/opencart/index.php?route=common/home");
         item.openTabletsMenu();
         item.selectTablet();
+        item = new ItemInfoPageObject(driver);
+
     }
 
 

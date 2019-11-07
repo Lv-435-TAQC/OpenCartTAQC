@@ -22,6 +22,7 @@ public class ForgottenPasswordPageObject extends BasePageObject {
 
     public ForgottenPasswordPageObject setEmailFieldForgotten(String loginName) {
         loginFieldForgot = new Input(this.driver, ForgottenPasswordLocators.INPUT_EMAIL_FIELD_FOR_FORGOTTEN_PASSWORD_PAGE);
+        loginFieldForgot.clearField();
         loginFieldForgot.setText(loginName);
 
         return this;

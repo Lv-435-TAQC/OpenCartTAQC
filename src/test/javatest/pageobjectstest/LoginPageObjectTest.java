@@ -1,44 +1,50 @@
-package pageobjectstest;
+package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pageobjects.HeaderPageObject;
+import pageobjects.HomePageObject;
 import pageobjects.LoginPageObject;
+import utils.Constants;
 
-import java.util.concurrent.TimeUnit;
+import java.lang.reflect.Method;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static utils.Constants.*;
 
 public class LoginPageObjectTest {
-    public static final String HOME_PAGE = "http://localhost/opencart/index.php?route=common/home";
-    public static final String REGISTRATION_PAGE = "http://localhost/opencart/index.php?route=account/register";
-    public static final String FORGOTTEN_PAGE = "http://localhost/opencart/index.php?route=account/forgotten";
-    public static final String ACCOUNT_PAGE = "http://localhost/opencart/index.php?route=account/account";
     WebDriver driver;
     HeaderPageObject headerPageObject;
     LoginPageObject loginPageObject;
-    String warningMessage1 = "Warning: No match for E-Mail Address and/or Password.";
-    String warningMessage2 = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
+    HomePageObject homePageObject;
+
+    /**
+     * <b> Description of Precondition.</b>
+     *
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open Home Page on OpenCart.com;
+     * <li>3. Click on Login Tab;
+     * </ul>
+     * <p>
+     */
 
     @BeforeClass
     public void setUp() {
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
         driver = new FirefoxDriver();
         headerPageObject = new HeaderPageObject(driver);
-        driver.get(HOME_PAGE);
-        headerPageObject.clickLoginPage();
+        homePageObject = new HomePageObject(driver);
+        driver.get(Constants.HOME_PAGE);
+        homePageObject.headerPageObject.clickLoginPage();
         loginPageObject = new LoginPageObject(this.driver);
     }
 
     @BeforeMethod
     public void getLogin() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         headerPageObject.clickLoginPage();
         loginPageObject = new LoginPageObject(this.driver);
     }
@@ -48,76 +54,146 @@ public class LoginPageObjectTest {
         driver.quit();
     }
 
+    /**
+     * <b>TC-1: Test Button Registration</b>
+     * <p>
+     * Scenario:
+     * <ul>
+     * <li>1. Click button go to Registration page;
+     * </ul>
+     * <p>
+     * Expected Result: Open Registration page
+     */
+
     @Test
     public void clickButtonToGoToRegistrationPage() {
-        loginPageObject.clickToGoToRegistation();
+        loginPageObject.clickToGoToRegistration();
         String actual = driver.getCurrentUrl();
-        String expected = REGISTRATION_PAGE;
+        String expected = Constants.REGISTRATION_PAGE;
         assertEquals(actual, expected);
     }
 
-    @Test
-    public void LoginNegative() {
-        String actual = loginPageObject.setLogInField("").setPasswordField("").clickNextButton().warningMessage();
-        Assert.assertEquals(warningMessage1.equalsIgnoreCase(actual) ? warningMessage1 : warningMessage2, actual);
+    /**
+     * <b>TC-2: Authentication </b>
+     * <p>
+     * Scenario:
+     * <ul>
+     * <li> 1. Input login date from Authentication
+     * <li> 2. Input password date from Authentication
+     * <li> 3. Click Login button
+     * </ul>
+     * <p>
+     * Expected Result: "Warning: No match for E-Mail Address and/or Password." or correct login with correct date
+     */
+
+    @DataProvider(name = "AuthenticationUser")
+    public Object[][] createDataForLoginPage(Method m) {
+        return new Object[][]{
+                new Object[]{"orysia.benko@gmail.com", ""}
+                , new Object[]{"orysita.lviv+1@gmail.com", " "}
+                , new Object[]{"orysita.lviv521311@gmail.com", "fdgfdfg"}
+                , new Object[]{"Uhyyyyyyy", "Aaaaaaa"}
+                , new Object[]{"", ""}
+                , new Object[]{"", "orysia"}
+        };
     }
 
-    @Test
-    public void LoginNotInputTheEmail() {
-        String actual = loginPageObject.setLogInField("").setPasswordField("orysia").clickNextButton().warningMessage();
-        Assert.assertEquals(warningMessage1.equalsIgnoreCase(actual) ? warningMessage1 : warningMessage2, actual);
+    @Test(dataProvider = "AuthenticationUser", priority = 1)
+    public void LoginTest(String login, String password) {
+        String actual = loginPageObject.
+                goToUrl(LOGOUT_URL)
+                .goToHomePage()
+                .getHeaderPageObject()
+                .clickLoginPage()
+                .setLogInField(login)
+                .setPasswordField(password)
+                .clickNextButton()
+                .warningMessage();
+        Assert.assertEquals(Constants.WARNING_MESSAGE_1.equalsIgnoreCase(actual) ? Constants.WARNING_MESSAGE_1 : Constants.WARNING_MESSAGE_2, actual);
     }
 
+    /**
+     * <b>TC-3: Test Forgotten password button</b>
+     * <p>
+     * Scenario:
+     * <ul>
+     * <li> 1. Click button Forgotten password;
+     * </ul>
+     * <p>
+     * Expected Result: Open Forgotten password page
+     */
     @Test
-    public void LoginNotInputThePassword() {
-        String actual = loginPageObject.setLogInField("orysita.lviv@gmail.com").setPasswordField("").clickNextButton().warningMessage();
-        Assert.assertEquals(warningMessage1.equalsIgnoreCase(actual) ? warningMessage1 : warningMessage2, actual);
-    }
-
-    @Test(priority = 2)
-    public void LoginValidDate() {
-        loginPageObject.logIn("orysita.lviv@gmail.com", "orysia");
-        String actual = driver.getCurrentUrl();
-        String expected = ACCOUNT_PAGE;
-        assertEquals(actual, expected);
-    }
-
-    @Test
-    public void InputNotCorrectData() {
-        String actual = loginPageObject.setLogInField("hahahah@gmail.com").setPasswordField("Uhyyyyyy").clickNextButton().warningMessage();
-        Assert.assertEquals(warningMessage1.equalsIgnoreCase(actual) ? warningMessage1 : warningMessage2, actual);
-    }
-
-    @Test
-    public void GoToForgottenPage() {
+    public void goToForgottenPageTest() {
         loginPageObject.goToPageForgottenPassword();
         String actual = driver.getCurrentUrl();
-        String expected = FORGOTTEN_PAGE;
+        String expected = Constants.FORGOTTEN_PAGE;
         assertEquals(actual, expected);
     }
 
-    @Test(priority = 1)
-    public void SentEmailForgottenPassword() {
-        String actual = loginPageObject.forgottenPassword("orysita.lviv@gmail.com").successfulMessage();
-        String expected = "An email with a confirmation link has been sent your email address.";
-        assertEquals(actual, expected);
+
+    @DataProvider(name = "ForgottenPassword")
+    public Object[][] createDataForLoginPa1ge(Method m) {
+        return new Object[][]{new Object[]{""}
+                , new Object[]{"orysia123.benko@gmail.com"}
+                , new Object[]{"Uhyyyyyyy"}
+                , new Object[]{""}
+        };
     }
 
-    @Test(priority = 1)
-    public void SentEmailNotSuccessfulForgottenPassword() {
-        String actual = loginPageObject.forgottenPassword("hahahaha@gmail.com").warningMessage();
-        String expected = "Warning: The E-Mail Address was not found in our records, please try again!";
-        assertEquals(actual, expected);
+    /**
+     * <b>TC-3: Test Forgotten password with not correct date</b>
+     * <p>
+     * Scenario:
+     * <ul>
+     * <li> 1. Click linked text Forgotten password;
+     * <li> 2. Input email from ForgottenPassword;
+     * <li> 3. Click Sent;
+     * </ul>
+     * <p>
+     * Expected Result: Open Forgotten password page
+     */
+
+    @Test(dataProvider = "ForgottenPassword")
+    public void sentEmailNotSuccessfulForgottenPasswordTest(String email) {
+        String actual = loginPageObject.forgottenPassword(email).warningMessage();
+        assertEquals(actual, WARNING_NOT_CORRECT_EMAIL);
     }
 
-    @Test(priority = 4)
-    public void SikuliTestValidData(){
-        Boolean isFound=  loginPageObject.testSikuliGood();
+    /**
+     * <b>TC-3: Test Forgotten password with correct date</b>
+     * <p>
+     * Scenario:
+     * <ul>
+     * <li> 1. Click linked text Forgotten password;
+     * <li> 2. Input email from ForgottenPassword;
+     * <li> 3. Click Sent;
+     * </ul>
+     * <p>
+     * Expected Result: An email with a confirmation link has been sent your email address.
+     */
+
+    @Test()
+    public void sentEmailSuccessfulForgottenPasswordTest() {
+        String actual = loginPageObject.forgottenPassword("orysia.benko@gmail.com").successfulMessage();
+        assertEquals(actual, WARNING_CORRECT_EMAIL);
+    }
+
+    /**
+     * <b>TC-4: Correct date(login, password) used SIKULI </b>
+     * <p>
+     * Scenario:
+     * <ul>
+     * <li> 1. Input login = "orysita.lviv+1@gmail.com"
+     * <li> 2. Input password = "orysia"
+     * <li> 3. Click Login button
+     * </ul>
+     * <p>
+     * Expected Result: My account Page
+     */
+
+    @Test(priority = 2)
+    public void sikuliTestValidDataTest() {
+        Boolean isFound = loginPageObject.sikuliGoodDate();
         assertTrue(isFound);
     }
-    @Test(priority = 3)
-    public void SikuliTestNotValidData() {
-        Boolean isFound=  loginPageObject.testSikuliBad();
-        assertTrue(isFound);
     }
-}

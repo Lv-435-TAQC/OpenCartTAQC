@@ -20,6 +20,10 @@ public class NavigationMenuPageObject extends BasePageObject {
         return elements;
     }
 
+    /**
+     * Generator of navigation menu structure
+     * @return instance of this object
+     */
     private NavigationMenuPageObject generateMenu() {
         List<WebElement> elements = generateMenuWebElements();
         for (int i = 0; i < elements.size(); i++) {
@@ -28,13 +32,19 @@ public class NavigationMenuPageObject extends BasePageObject {
         return this;
     }
 
-    public CategoryPageObject clickOnMenuByItem(String item) {
-        String xpath = CategoryLocators.ALL_PRODUCTS_DIV_LOC;
+    /**
+     * Wrapper for click on menu point
+     * @param item - name of point
+     * @return instance of category page object
+     */
+
+    public AbstractCategoryPageObject clickOnMenuByItem(String item) {
+
         generateMenu();
         for (int i = 0; i < navigationMenu.size(); i++) {
             if (navigationMenu.get(i).getText().contains(item)) {
                 if (navigationMenu.get(i).getText().contains("-")) {
-                    xpath = CategoryLocators.SUB_PRODUCTS_DIV_LOC;
+
                     navigationMenu.get(i).click();
                 } else {
                     navigationMenu.get(i).click();
@@ -43,7 +53,7 @@ public class NavigationMenuPageObject extends BasePageObject {
                 navigationMenu.get(0).click();
             }
         }
-        return new CategoryPageObject(this.driver, xpath);
+        return new SubCategoryPageObject(this.driver);
     }
 
 }

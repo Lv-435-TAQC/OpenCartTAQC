@@ -6,10 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.AdminLoginPageObject;
-import pageobjects.AdminProductsListPageObject;
+import pageobjects.*;
 
 
 import java.util.concurrent.TimeUnit;
@@ -21,18 +19,31 @@ public class AddNewProductTest {
     WebDriver driver;
     AdminLoginPageObject admin;
     AdminProductsListPageObject adminProductsList;
+    AddNewProductPageObject addProduct;
+    BasePageObject home;
+
+    /**
+     * <b> Description of Precondition.</b>
+     *
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open Admin Login page on OpenCart.com;
+     * <li>3. Click on Login button;
+     * <li>4. Click Category button;
+     * <li>5. Choose Product option;
+     * </ul>
+     * <p>
+     */
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
         driver = new FirefoxDriver();
-    }
-
-    @BeforeMethod
-    public void getHome() {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         adminProductsList = new AdminProductsListPageObject(driver);
+        home = new HomePageObject(driver);
+        addProduct = new AddNewProductPageObject(driver);
         admin = new AdminLoginPageObject(driver);
         admin.goToUrl(ADMIN_LOGIN_URL);
         admin
@@ -48,119 +59,199 @@ public class AddNewProductTest {
         driver.quit();
     }
 
+    /**
+     * <b>TC-01: Positive Test For Required Fields.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Add New Product Button;
+     * <li>2. Fill Product Name field;
+     * <li>3. Fill Mega Tag field;
+     * <li>4. Fill Product Model field;
+     * <li>5. Click Save Product button;
+     * <li>6. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Success: You have modified products.
+     */
     @Test
-    public void addNewProductTest() {
-        String actual = adminProductsList
+    public void checkRequiredFieldsWithCorrectDataTest(){
+         String actualMessage = adminProductsList
+                 .goToAddNewProduct()
+                 .setProductName("test123324")
+                 .setMetaTagTitle("test12321")
+                 .clickData()
+                 .setProductModel("test")
+                 .clickLinks()
+                 .saveNewProduct()
+                 .getTextFromMessage();
+         assertTrue(actualMessage.contains(SUCCESS_CHANGING_PRODUCT));
+    }
+
+    /**
+     * <b>TC-02: Positive Test For Required Fields with Numbers.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Add New Product Button;
+     * <li>2. Fill Product Name field;
+     * <li>3. Fill Mega Tag field;
+     * <li>4. Fill Product Model field;
+     * <li>5. Click Save Product button;
+     * <li>6. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Success: You have modified products.
+     */
+
+    @Test
+    public void checkRequiredFieldWithNumbersDataTest(){
+        String actualMessage = adminProductsList
                 .goToAddNewProduct()
-                .fillGeneralFields("Apple iPad Pro", APPLE_DESCRIPTION,"tablet")
-                .fillDataFields("iPad Pro", "999", "50")
-                .fillLinksFields("Apple", "Tablets")
-                .setPhoto()
+                .setProductName("23413245643")
+                .setMetaTagTitle("1232435436")
+                .clickData()
+                .setProductModel("1243245346")
+                .clickLinks()
                 .saveNewProduct()
                 .getTextFromMessage();
-        assertTrue(actual.contains(SUCCESS_CHANGING_PRODUCT));
+        assertTrue(actualMessage.contains(SUCCESS_CHANGING_PRODUCT));
     }
 
+    /**
+     * <b>TC-03: Positive Test For Required Fields With Symbols.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Add New Product Button;
+     * <li>2. Fill Product Name field;
+     * <li>3. Fill Mega Tag field;
+     * <li>4. Fill Product Model field;
+     * <li>5. Click Save Product button;
+     * <li>6. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Success: You have modified products.
+     */
+
     @Test
-    public void addNewProductNegativeTest() {
-        String actual = adminProductsList
+    public void checkRequiredFieldWithSymbolsDataTest(){
+        String actualMessage = adminProductsList
                 .goToAddNewProduct()
-                .setDescription(APPLE_DESCRIPTION)
-                .setMetaTagTitle("tablet")
-                .fillDataFields("iPad Pro", "999", "50")
-                .fillLinksFields("Apple", "Tablets")
-                .setPhoto()
-                .saveNewProduct()
-                .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
-    }
-
-
-    @Test
-     public void editProduct(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .saveNewProduct()
-                .getTextFromMessage();
-        assertTrue(actual.contains(SUCCESS_CHANGING_PRODUCT));
-     }
-
-    @Test
-     public void editWithoutName(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .clearProductName()
-                .saveNewProduct()
-                .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
-     }
-
-    @Test
-    public void editWithoutMegaTag(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .clearMetaTagTitle()
-                .saveNewProduct()
-                .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
-    }
-
-    @Test
-    public void editWithoutModel(){
-        String actual = adminProductsList
-                .clickEditButton()
+                .setProductName("+_++_+^#$%^")
+                .setMetaTagTitle("+_)(*&^%")
                 .clickData()
-                .clearProductModel()
+                .setProductModel("_)(*&^%$#@")
+                .clickLinks()
                 .saveNewProduct()
                 .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
+        assertTrue(actualMessage.contains(SUCCESS_CHANGING_PRODUCT));
     }
 
-    @Test
-    public void editWithoutNameAndMegaTag(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .clearProductName()
-                .clearMetaTagTitle()
-                .saveNewProduct()
-                .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
-    }
+    /**
+     * <b>TC-04: Positive Test For Required Fields with spaces.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Add New Product Button;
+     * <li>2. Fill Product Name field;
+     * <li>3. Fill Mega Tag field;
+     * <li>4. Fill Product Model field;
+     * <li>5. Click Save Product button;
+     * <li>6. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result: Success: You have modified products.
+     */
 
     @Test
-    public void editWithoutNameAndModel(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .clearProductName()
+    public void checkRequiredFieldWithSpaceDataTest(){
+        String actualMessage = adminProductsList
+                .goToAddNewProduct()
+                .setProductName("   ")
+                .setMetaTagTitle("    ")
                 .clickData()
-                .clearProductModel()
+                .setProductModel("    ")
+                .clickLinks()
                 .saveNewProduct()
                 .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
+        assertTrue(actualMessage.contains(SUCCESS_CHANGING_PRODUCT));
     }
 
-    @Test
-    public void editWithoutMegaTagAndModel(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .clearMetaTagTitle()
-                .clickData()
-                .clearProductModel()
-                .saveNewProduct()
-                .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
+    /**
+     * <b>TC-05: Negative Test For Required Fields.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Add New Product Button;
+     * <li>2. Click on Product Name field;
+     * <li>3. Click Save Product button;
+     * <li>4. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * Expected Result:"Product Name must be greater than 1 and less than 255 characters".
+     */
+
+    @Test(priority = 1)
+    public void checkProductNameWithoutDataTest(){
+        String actualMessage = adminProductsList
+                .goToAddNewProduct()
+                .setProductName("")
+                .saveNewProductWithMistake()
+                .getMessageFromField();
+        addProduct.goBackToList();
+        assertTrue(actualMessage.contains(NEGATIVE_MESSAGE_FOR_FIELD));
     }
 
-    @Test
-    public void editWithoutNameAndMegaTagAndModel(){
-        String actual = adminProductsList
-                .clickEditButton()
-                .clearProductName()
-                .clearMetaTagTitle()
-                .clickData()
-                .clearProductModel()
-                .saveNewProduct()
-                .getTextFromMessage();
-        assertTrue(actual.contains(UNSUCCESSFUL_CHANGING_PRODUCT));
+    /**
+     * <b>TC-06: Positive Test For Required Fields.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Add New Product Button;
+     * <li>2. Click on Mega Tag field;
+     * <li>3. Click Save Product button;
+     * <li>4. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * "Warning: "Product Name must be greater than 1 and less than 255 characters".
+     */
+
+    @Test(priority = 1)
+    public void checkMegaTagFieldWithoutDataTest(){
+        String actualMessage = adminProductsList
+                .goToAddNewProduct()
+                .setMetaTagTitle("")
+                .saveNewProductWithMistake()
+                .getMessageFromField();
+        addProduct.goBackToList();
+        assertTrue(actualMessage.contains(NEGATIVE_MESSAGE_FOR_FIELD));
     }
+
+    /**
+     * <b>TC-7: Negative Test For Required Fields.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Click on Add New Product Button;
+     * <li>2. Click on Product Model field;
+     * <li>3. Click Save Product button;
+     * <li>4. Compare actual and expected messages;
+     * </ul>
+     * <p>
+     * "Warning: "Product Name must be greater than 1 and less than 255 characters".
+     */
+
+    @Test(priority = 1)
+    public void checkProductModelWithoutDataTest(){
+        String actualMessage = adminProductsList
+                .goToAddNewProduct()
+                .clickData()
+                .setProductModel("")
+                .saveNewProductWithMistake()
+                .getMessageFromField();
+        addProduct.goBackToList();
+        assertTrue(actualMessage.contains(NEGATIVE_MESSAGE_FOR_FIELD));
+    }
+
 }

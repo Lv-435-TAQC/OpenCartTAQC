@@ -1,6 +1,8 @@
 package entity;
 
-public class Product implements Comparable {
+import java.util.Objects;
+
+public class Product implements Comparable<Product> {
     private Integer id;
     private String productName;
     private String imageLink;
@@ -14,6 +16,27 @@ public class Product implements Comparable {
     private String dimensions;
 
     public Product() {
+    }
+
+    public Product(Integer id, String productName, Double prise, String summary) {
+        this.id = id;
+        this.productName = productName;
+        this.prise = prise;
+        this.summary = summary;
+    }
+
+    public Product(Integer id, String productName, String imageLink, Double prise, String model, String brands, String availability, String rating, String summary, Double weight, String dimensions) {
+        this.id = id;
+        this.productName = productName;
+        this.imageLink = imageLink;
+        this.prise = prise;
+        this.model = model;
+        this.brands = brands;
+        this.availability = availability;
+        this.rating = rating;
+        this.summary = summary;
+        this.weight = weight;
+        this.dimensions = dimensions;
     }
 
     public Integer getId() {
@@ -120,9 +143,11 @@ public class Product implements Comparable {
                 '}';
     }
 
-    public boolean equals(Product product) {
-        if (this == product) return true;
-        if (product == null || getClass() != product.getClass()) return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
         return id.equals(product.id) &&
                 productName.contains(product.productName) &&
                 prise.equals(product.prise) &&
@@ -130,12 +155,16 @@ public class Product implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        Product product = (Product) o;
+    public int compareTo(Product product) {
         int result = this.productName.compareTo(product.getProductName());
         if (result == 0) {
             result = this.prise.compareTo(product.getPrise());
         }
         return result;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, productName, prise, summary);
     }
 }
