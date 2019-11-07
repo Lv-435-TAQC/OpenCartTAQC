@@ -35,5 +35,4 @@ public class ProductEntityData {
             add(HTCTouchHD);
         }
     };
-
 }

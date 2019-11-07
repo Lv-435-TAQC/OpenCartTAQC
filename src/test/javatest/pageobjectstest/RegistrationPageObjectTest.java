@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.AdminLoginPageObject;
 import pageobjects.RegistrationPageObject;
+import utils.DBMethods;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +35,8 @@ public class RegistrationPageObjectTest {
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         registrationPageObject = new RegistrationPageObject(driver);
+        DBMethods dbMethods = new DBMethods();
+        dbMethods.deleteAllUsersFromDB();
     }
 
     @BeforeMethod
