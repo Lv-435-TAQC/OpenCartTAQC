@@ -13,7 +13,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pageobjects.CategoryPageObject;
+import pageobjects.AbstractCategoryPageObject;
 import pageobjects.MenuPageObject;
 import patterns.CategoryPatterns;
 import utils.Constants;
@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
 public class CategoryPageObjectTest {
     WebDriver driver;
     MenuPageObject menuPageObject;
-    CategoryPageObject categoryPageObject;
+    AbstractCategoryPageObject categoryPageObject;
 
     @BeforeClass
     public void setUp() {
@@ -33,7 +33,7 @@ public class CategoryPageObjectTest {
         driver = new FirefoxDriver();
         driver.get(Constants.BASE_URL);
         menuPageObject = new MenuPageObject(driver);
-        menuPageObject.showAllDesktops();
+        categoryPageObject = menuPageObject.showAllDesktops();
     }
 
     /**
@@ -51,7 +51,6 @@ public class CategoryPageObjectTest {
      */
     @Test
     public void labelSortByTextTest() {
-        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         String actual = categoryPageObject
                 .getFilterPageObject()
                 .getSortByLabelText();
@@ -74,7 +73,6 @@ public class CategoryPageObjectTest {
      */
     @Test
     public void labelShowTextTest() {
-        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         String actual = categoryPageObject
                 .getFilterPageObject()
                 .getShowLabelText();
@@ -85,14 +83,14 @@ public class CategoryPageObjectTest {
     @DataProvider(name = "sortBySelector")
     public Object[][] createDataForSortByParam(Method m) {
         return new Object[][]{new Object[]{"Default", ProductEntityData.appleCinema30}
-                , new Object[]{"Name (A - Z)",  ProductEntityData.appleCinema30}
-                , new Object[]{"Name (Z - A)",  ProductEntityData.sonyVAIO}
-                , new Object[]{"Price (Low > High)",  ProductEntityData.canonEOS5D}
+                , new Object[]{"Name (A - Z)", ProductEntityData.appleCinema30}
+                , new Object[]{"Name (Z - A)", ProductEntityData.sonyVAIO}
+                , new Object[]{"Price (Low > High)", ProductEntityData.canonEOS5D}
                 , new Object[]{"Price (High > Low)", ProductEntityData.sonyVAIO}
                 , new Object[]{"Rating (Highest)", ProductEntityData.sonyVAIO}
-                , new Object[]{"Rating (Lowest)",  ProductEntityData.appleCinema30}
-                , new Object[]{"Model (A - Z)",  ProductEntityData.HTCTouchHD}
-                , new Object[]{"Model (Z - A)",  ProductEntityData.product8}
+                , new Object[]{"Rating (Lowest)", ProductEntityData.appleCinema30}
+                , new Object[]{"Model (A - Z)", ProductEntityData.HTCTouchHD}
+                , new Object[]{"Model (Z - A)", ProductEntityData.product8}
         };
     }
 
@@ -112,10 +110,10 @@ public class CategoryPageObjectTest {
      */
     @Test(dataProvider = "sortBySelector")
     public void sortByParamTest(String sortType, Product expected) {
-        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         Product actual = categoryPageObject
                 .getFilterPageObject()
                 .choseSortBySelectorByParam(sortType)
+                .generateProductsList()
                 .getProductByPosition(1);
         System.out.println(expected);
         System.out.println(actual);
@@ -138,7 +136,6 @@ public class CategoryPageObjectTest {
      */
     @Test
     public void listButtonTest() {
-        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         categoryPageObject
                 .getFilterPageObject()
                 .clickListButton();
@@ -163,7 +160,6 @@ public class CategoryPageObjectTest {
      */
     @Test
     public void gridButtonTest() {
-        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         categoryPageObject
                 .getFilterPageObject()
                 .clickGridButton();
@@ -199,7 +195,6 @@ public class CategoryPageObjectTest {
      */
     @Test(dataProvider = "showSelector")
     public void showNumberOfElements(String numberOfItems, Integer expected) {
-        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         Integer actual = categoryPageObject
                 .getFilterPageObject()
                 .choseShowSelectorByParam(numberOfItems)
@@ -261,7 +256,6 @@ public class CategoryPageObjectTest {
      */
     @Test
     public void sortByNameAZParamValidateByImageTest() {
-        categoryPageObject = new CategoryPageObject(driver, CategoryLocators.ALL_PRODUCTS_DIV_LOC);
         categoryPageObject
                 .getFilterPageObject()
                 .clickGridButton()

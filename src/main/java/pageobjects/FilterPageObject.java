@@ -16,11 +16,12 @@ public class FilterPageObject extends BasePageObject {
     private DropDown sortByDropDown;
     private Label showLabel;
     private DropDown showDropDown;
-    private String xpath;
+    private AbstractCategoryPageObject abstractCategoryPageObject;
 
-    public FilterPageObject(WebDriver driver, String xpath) {
+
+    public FilterPageObject(WebDriver driver, AbstractCategoryPageObject categoryPageObject) {
         super(driver);
-        this.xpath = xpath;
+        abstractCategoryPageObject = categoryPageObject;
     }
 
     /**
@@ -28,10 +29,10 @@ public class FilterPageObject extends BasePageObject {
      *
      * @return instance of category page object
      */
-    public CategoryPageObject clickListButton() {
+    public AbstractCategoryPageObject clickListButton() {
         listButton = new ImageTextButton(this.driver, FilterLocators.SHOW_LIST_BUTTON_LOC);
         listButton.click();
-        return new CategoryPageObject(this.driver, xpath);
+        return new SubCategoryPageObject(this.driver);
     }
 
     /**
@@ -39,10 +40,10 @@ public class FilterPageObject extends BasePageObject {
      *
      * @return instance of category page object
      */
-    public CategoryPageObject clickGridButton() {
+    public AbstractCategoryPageObject clickGridButton() {
         gridButton = new ImageTextButton(this.driver, FilterLocators.SHOW_GRID_BUTTON_LOC);
         gridButton.click();
-        return new CategoryPageObject(this.driver, xpath);
+        return abstractCategoryPageObject;
     }
 
     /**
@@ -82,10 +83,10 @@ public class FilterPageObject extends BasePageObject {
      * @param param - name of point in drop down selector
      * @return instance of category page object
      */
-    public CategoryPageObject choseSortBySelectorByParam(String param) {
+    public AbstractCategoryPageObject choseSortBySelectorByParam(String param) {
         sortByDropDown = new DropDown(driver, FilterLocators.SORT_BY_SELECTOR_LOC);
         sortByDropDown.writeOptionParameter(param);
-        return new CategoryPageObject(this.driver, xpath);
+        return abstractCategoryPageObject;
     }
 
     /**
@@ -94,10 +95,10 @@ public class FilterPageObject extends BasePageObject {
      * @param id - id of point in drop down selector
      * @return instance of category page object
      */
-    public CategoryPageObject choseSortBySelectorByID(int id) {
+    public AbstractCategoryPageObject choseSortBySelectorByID(int id) {
         sortByDropDown = new DropDown(driver, FilterLocators.SORT_BY_SELECTOR_LOC);
         sortByDropDown.writeOrdinalIndex(id);
-        return new CategoryPageObject(this.driver, xpath);
+        return abstractCategoryPageObject;
     }
 
     /**
@@ -117,10 +118,10 @@ public class FilterPageObject extends BasePageObject {
      * @return instance of category page object
      */
 
-    public CategoryPageObject choseShowSelectorByParam(String param) {
+    public AbstractCategoryPageObject choseShowSelectorByParam(String param) {
         showDropDown = new DropDown(driver, FilterLocators.SHOW_SELECTOR_LOC);
         showDropDown.writeOptionParameter(param);
-        return new CategoryPageObject(this.driver, xpath);
+        return abstractCategoryPageObject;
     }
 
     /**
@@ -129,10 +130,10 @@ public class FilterPageObject extends BasePageObject {
      * @param id - id of point in drop down selector
      * @return instance of category page object
      */
-    public CategoryPageObject choseShowSelectorByID(int id) {
+    public AbstractCategoryPageObject choseShowSelectorByID(int id) {
         showDropDown = new DropDown(driver, FilterLocators.SHOW_SELECTOR_LOC);
         showDropDown.writeOrdinalIndex(id);
-        return new CategoryPageObject(this.driver, xpath);
+        return abstractCategoryPageObject;
     }
 
 }

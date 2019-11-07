@@ -9,6 +9,7 @@ public class Constants {
     public static final int THREE = 3;
     public static final int FOUR = 4;
     public static final int EIGHT = 8;
+
     public static final String BASE_URL = "http://localhost/OpenCart/";
     public static final String BASE_ADMIN_URL = BASE_URL + "admin";
     public static final String HOME_ADMIN_URL = BASE_ADMIN_URL + "index.php?route=common/dashboard&user_token=snGcwz15PAFuAuKlpDjs3KSj01yp51GG";
@@ -31,10 +32,8 @@ public class Constants {
     public static final String WISH_LIST_ID_41 = "41";
     public static final String WISH_LIST_ID_42 = "42";
     public static final String WISH_LIST_ID_40 = "40";
-
     public static final String LOGOUT_URL = "http://localhost/opencart/index.php?route=account/logout";
-    public static final String ADMIN_LOGIN_URL = "http://localhost/opencart/admin/";
-    public static final String MENU_URL = "http://localhost/shop";
+    public static final String ADMIN_LOGIN_URL = BASE_URL + "admin/";
     public static final String SUCCESS_CHANGING_PRODUCT = "Success: You have modified products!";
     public static final String UNSUCCESSFUL_CHANGING_PRODUCT = "Warning: Please check the form carefully for errors!";
     public static final String MODEL_OF_FILTERED_PRODUCT = "Apple Cinema 30";
@@ -51,11 +50,11 @@ public class Constants {
     public static final String ACCOUNT_PAGE = BASE_URL + "index.php?route=account/account";
     public static final String LOGIN_PAGE = BASE_URL + "index.php?route=account/login";
     public static final String NEGATIVE_MESSAGE_FOR_FIELD = "Product Name must be greater than 1 and less than 255 characters";
-    public static final String WISH_LIST_URL = "http://192.168.152.128/opencart/index.php?route=account/wishlist";
-    public static final String ADMIN_PAGE = "http://localhost/OpenCart/admin/";
+    public static final String WISH_LIST_URL = BASE_URL + "index.php?route=account/wishlist";
+    public static final String ADMIN_PAGE = BASE_URL + "admin/";
     public static final String ADMIN_LOGIN = "admin";
     public static final String ADMIN_PASSWORD = "orysia";
-    public static final String SHOPPING_CARD_URL = "http://localhost/opencart/index.php?route=checkout/cart";
+    public static final String SHOPPING_CARD_URL = BASE_URL + "index.php?route=checkout/cart";
     public static final String SUCCSSES_ORDER1 = "Your order has been placed!";
     public static final String SUCCSSES_ORDER2 = "Checkout";
     public static final String MESSAGE_IN_CATEGORY = "There are no products to list in this category.";
