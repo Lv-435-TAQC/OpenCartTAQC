@@ -33,7 +33,7 @@ public class Constants {
     public static final String WISH_LIST_ID_40 = "40";
 
     public static final String LOGOUT_URL = "http://localhost/opencart/index.php?route=account/logout";
-    public static final String ADMIN_LOGIN_URL = "http://localhost/shop/admin/index.php?route=common/login";
+    public static final String ADMIN_LOGIN_URL = "http://localhost/opencart/admin/";
     public static final String MENU_URL = "http://localhost/shop";
     public static final String SUCCESS_CHANGING_PRODUCT = "Success: You have modified products!";
     public static final String UNSUCCESSFUL_CHANGING_PRODUCT = "Warning: Please check the form carefully for errors!";
