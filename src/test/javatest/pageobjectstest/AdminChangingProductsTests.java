@@ -63,7 +63,7 @@ public class AdminChangingProductsTests {
     }
 
     /**
-     * <b>TC-01: End To End Test Adding and Add To Shopping Card Product.</b>
+     * <b>TC-01: Adding and Add To Shopping Card Product Test.</b>
      *
      * Scenario:
      * <ul>
@@ -87,7 +87,7 @@ public class AdminChangingProductsTests {
      */
 
     @Test
-    public void addNewProductAndAddingToShoppingCardEndToEndTest() {
+    public void addNewProductAndAddingToShoppingCardTest() {
         String actualMessage = adminProductsList
                 .goToAddNewProduct()
                 .fillGeneralFields("Apple iPad Pro", APPLE_DESCRIPTION, "tablet")
@@ -96,7 +96,7 @@ public class AdminChangingProductsTests {
                 .setPhoto()
                 .saveNewProduct()
                 .getTextFromMessage();
-        assertEquals(actualMessage,SUCCESS_CHANGING_PRODUCT);
+        assertTrue(actualMessage.contains(SUCCESS_CHANGING_PRODUCT));
         home
                 .goToHomePage()
                 .getMenuPageObject()
@@ -111,26 +111,30 @@ public class AdminChangingProductsTests {
     }
 
     /**
-     * <b>TC-02: End To End Test Deleting all Products and check Category.</b>
+     * <b>TC-02:Deleting Tablets and check Tablets Category Test.</b>
      *
      * Scenario:
      * <ul>
-     * <li>1. Click Main checkbox;
-     * <li>2. Click delete button;
-     * <li>3. Access alert;
-     * <li>4. Go To Home Page;
-     * <li>5. Click on Tablets in menu;
-     * <li>6. Compare actual and expected messages;
+     * <li>1. Set product name in name field;
+     * <li>2. Click submit filter;
+     * <li>3. Click delete button;
+     * <li>4. Access alert;
+     * <li>5. Go To Home Page;
+     * <li>6. Click on Tablets in menu;
+     * <li>7. Compare actual and expected messages;
      * </ul>
      * <p>
      * Expected Message: There are no products to list in this category.
      */
 
         @Test(priority = 1)
-        public void deleteProductAndAddingToShoppingCardNegativeTest() {
-        adminProductsList
-                       .markCheckbox()
-                      .deleteProduct();
+        public void editProductAndAddingToShoppingCardNegativeTest() {
+            adminProductsList
+                        .setFilterName("Apple iPad Pro")
+                        .filterProduct()
+                        .deleteProduct()
+                        .markCheckbox()
+                        .deleteProduct();
               String actual = home
                       .goToHomePage()
                       .getMenuPageObject()
