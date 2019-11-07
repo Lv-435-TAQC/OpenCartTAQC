@@ -20,9 +20,8 @@ public class AdminPageObject extends BasePageObject {
         return new AdminPageObject(driver);
     }
 
-    public AdminNavigationPageObject getNavigation(){
+    public AdminNavigationPageObject getNavigation() {
         navigationPageObject = new AdminNavigationPageObject(driver);
         return navigationPageObject;
     }
-
 }

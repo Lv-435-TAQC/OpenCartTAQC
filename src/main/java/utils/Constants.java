@@ -27,4 +27,5 @@ public class Constants {
     public static final String WISH_LIST_ID_41 = "41";
     public static final String WISH_LIST_ID_42 = "42";
     public static final String LOGOUT_URL = "http://localhost/opencart/index.php?route=account/logout";
+    public static final String ADMIN_LOGIN_URL = "http://localhost/opencart/admin/";
 }

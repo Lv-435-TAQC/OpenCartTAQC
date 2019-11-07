@@ -1,7 +1,10 @@
 package pageobjects;
 
 import locators.AdminNavigationLocators;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Button;
 import pageelements.TextButton;
 
@@ -54,7 +57,7 @@ public class AdminNavigationPageObject extends BasePageObject {
         return new AdminCouponsPageObject(driver);
     }
 
-    public AdminNavigationPageObject clickOnCustomersButton() {
+    public AdminNavigationPageObject goToCustomers() {
         customersButton = new Button(driver, CUSTOMERS_BUTTON_XPATH).click();
         return this;
     }
