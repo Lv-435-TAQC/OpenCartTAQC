@@ -12,6 +12,7 @@ import pageobjects.AdminLoginPageObject;
 import pageobjects.ShoppingCartPageObject;
 import utils.Constants;
 import utils.TestData;
+import utils.TestScreenRecorder;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,11 +38,14 @@ public class AdminDiscountsCreationTest {
     }
 
     @AfterMethod
-    public void makeScreenshots(ITestResult result) throws Exception {
-
+    public void makeScreenshots(ITestResult result) {
+        TestScreenRecorder.stopRecording();
         if (result.getStatus() == ITestResult.FAILURE) {
             ShoppingCartPageObject.makeScreenShotSteps(driver, result.getName());
+        } else {
+            TestScreenRecorder.deleteRecord();
         }
+        driver.manage().deleteAllCookies();
     }
 
 
@@ -72,12 +76,13 @@ public class AdminDiscountsCreationTest {
 
     @Test(invocationCount = 1)
     public void testCreatingNewVoucher() {
-        AdminGiftVouchersPageObject vouchersPage = loginPageObject.logIn(TestData.ADMIN_NAME, TestData.ADMIN_PASSWORD).
-                closeModalWindow().
-                getNavigation().
-                goToVouchersList().
-                goToCreationGiftVoucher().
-                createNewGiftVoucher(TestData.VOUCHER_CODE, TestData.VOUCHER_FROM_NAME, TestData.VOUCHER_FROM_E_MAIL,
+        TestScreenRecorder.startRecording("testCreatingNewVoucher");
+        AdminGiftVouchersPageObject vouchersPage = loginPageObject.logIn(TestData.ADMIN_NAME, TestData.ADMIN_PASSWORD)
+                .closeModalWindow()
+                .getNavigation()
+                .goToVouchersList()
+                .goToCreationGiftVoucher()
+                .createNewGiftVoucher(TestData.VOUCHER_CODE, TestData.VOUCHER_FROM_NAME, TestData.VOUCHER_FROM_E_MAIL,
                         TestData.VOUCHER_TO_NAME, TestData.VOUCHER_TO_E_MAIL, TestData.VOUCHER_THEME,
                         TestData.VOUCHER_MESSAGE, TestData.VOUCHER_AMOUNT, TestData.VOUCHER_STATUS);
         assertTrue(vouchersPage.getGiftVouchersTable().containsKey(TestData.VOUCHER_CODE));
@@ -106,12 +111,13 @@ public class AdminDiscountsCreationTest {
 
     @Test(invocationCount = 1)
     public void testCreatingNewCoupon() {
-        AdminCouponsPageObject adminCouponsPageObject = loginPageObject.logIn(TestData.ADMIN_NAME, TestData.ADMIN_PASSWORD).
-                closeModalWindow().
-                getNavigation().
-                goToCouponsList().
-                goToCreationCoupon().
-                createNewCoupon(TestData.COUPON_NAME, TestData.COUPON_CREATING_CODE, TestData.COUPON_TYPE, TestData.COUPON_DISCOUNT,
+        TestScreenRecorder.startRecording("testCreatingNewCoupon");
+        AdminCouponsPageObject adminCouponsPageObject = loginPageObject.logIn(TestData.ADMIN_NAME, TestData.ADMIN_PASSWORD)
+                .closeModalWindow()
+                .getNavigation()
+                .goToCouponsList()
+                .goToCreationCoupon()
+                .createNewCoupon(TestData.COUPON_NAME, TestData.COUPON_CREATING_CODE, TestData.COUPON_TYPE, TestData.COUPON_DISCOUNT,
                         TestData.COUPON_TOTAL_AMOUNT, TestData.COUPON_DATE_START, TestData.COUPON_DATE_END,
                         TestData.COUPON_USES_PER_COUPON, TestData.COUPON_USES_PER_CUSTOMER, TestData.COUPON_STATUS);
         assertTrue(adminCouponsPageObject.getCouponsTable().containsKey(TestData.COUPON_CREATING_CODE));
