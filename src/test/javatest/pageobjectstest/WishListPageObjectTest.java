@@ -26,13 +26,15 @@ public class WishListPageObjectTest {
      * <b> Description of Precondition.</b>
      *
      * <ul>
-     * <li>1. Open Firefox browser;
-     * <li>2. Open Home Page on OpenCart.com;
-     * <li>3. Click on Login Tab;
-     * <li>4. Enter username, password and Click Login Tab;
-     * <li>5. Delete all products from Wish List in Database;
-     * <li>6. Add products to Wish List in Database;
+     * <li>1. Delete all products from Wish List in Database;
+     * <li>2. Add products to Wish List in Database;
+     * <li>3. Open Firefox browser;
+     * <li>4. Open Home Page on OpenCart.com;
+     * <li>5. Click on Login Tab;
+     * <li>6. Enter username, password and Click Login Tab;
      * <li>7. Click on Home Tab;
+     * <li>8. Open Shopping Cart;
+     * <li>9. Delete all products in Shopping Cart;
      * </ul>
      * <p>
      */
@@ -44,14 +46,17 @@ public class WishListPageObjectTest {
         connector = new DBConnector();
         connector.getConnectionMariaDB(MARIA_DB_DRIVER, MARIA_DB_URL, MARIA_DB_USER_NAME, MARIA_DB_PASSWORD);
         request = new DBRequest();
+        request.deleteDataFromDB(DELETE_ALL_FROM_ORDER, connector.getStatement());
         request.deleteDataFromDB(DELETE_ALL_FROM_WISH_LIST, connector.getStatement());
         request.insertDataToDB(INSERT_TO_WISH_LIST,connector.getStatement());
         homePageObject = new HomePageObject(driver);
         homePageObject.goToHomePage()
                 .getHeaderPageObject()
                 .clickLoginPage()
-                .logIn(LOGIN_NAME, LOGIN_PASSWORD);
-
+                .logIn(LOGIN_NAME, LOGIN_PASSWORD)
+                .getHeaderPageObject()
+                .clickShoppingCartPage()
+                .determineIfTableExistsAndRemoveAll();
     }
     @BeforeMethod
     public void getHome() {
@@ -59,15 +64,15 @@ public class WishListPageObjectTest {
     }
 
     @AfterMethod
-    public void makeScreenshots(ITestResult result) {
+    public void makeScreenshots(ITestResult result) throws Exception {
         if (result.getStatus() == ITestResult.FAILURE) {
             WishListPageObject.makeScreenShotSteps(driver, result.getName());
         }
+        homePageObject.getHeaderPageObject().clickShoppingCartPage().determineIfTableExistsAndRemoveAll();
     }
 
     @AfterClass
     public void tearDown() {
-        request.deleteDataFromDB(DELETE_ALL_FROM_ORDER, connector.getStatement());
         driver.manage().deleteAllCookies();
         driver.close();
     }
@@ -289,5 +294,6 @@ public class WishListPageObjectTest {
                 .deliveryMethodWithoutCommentsAboutYourOrder()
                 .paymentMethodWithoutCommentsAboutYourOrder()
                 .clickContinueButtonU();
+
     }
 }

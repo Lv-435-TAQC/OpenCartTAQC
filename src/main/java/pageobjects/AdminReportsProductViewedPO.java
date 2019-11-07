@@ -53,7 +53,7 @@ public class AdminReportsProductViewedPO extends BasePageObject {
             String model = element.findElement(By.xpath("td[2]")).getText();
             String viewed = element.findElement(By.xpath("td[3]")).getText();
             String percent = element.findElement(By.xpath("td[4]")).getText();
-            this.viewedItemPOS.add(new AdminReportsProductViewedItem(driver, name, model, viewed, percent));
+            this.viewedItemPOS.add(new AdminReportsProductViewedItem(name, model, viewed, percent));
         }
         return viewedItemPOS;
     }

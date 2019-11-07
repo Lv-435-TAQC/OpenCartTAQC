@@ -109,11 +109,9 @@ public class AdminReportsUserStories {
                 .getStatistics()
                 .get(ZERO)
                 .getValue();
-        System.out.println(actual);
         String expected = request
                 .getDataFromDB(GET_FROM_ORDER, connector.getStatement(), "order_id", "total")
                 .get(ZERO);
-        System.out.println(expected);
         Assert.assertEquals(Float.parseFloat(expected.split(" ")[1]),Float.parseFloat(actual));
     }
 
