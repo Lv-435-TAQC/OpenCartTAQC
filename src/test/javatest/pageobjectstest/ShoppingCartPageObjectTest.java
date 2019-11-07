@@ -2,12 +2,10 @@ package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.sikuli.script.Match;
-import org.sikuli.script.Pattern;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-import pageobjects.*;
-import patterns.ShoppingCartPatterns;
+import pageobjects.HomePageObject;
+import pageobjects.ShoppingCartPageObject;
 import utils.Constants;
 import utils.TestData;
 import utils.TestScreenRecorder;
@@ -36,12 +34,9 @@ public class ShoppingCartPageObjectTest {
     }
 
     @AfterMethod
-    public void makeScreenshots(ITestResult result) throws Exception {
-         TestScreenRecorder.stopRecording();
+    public void makeScreenshots(ITestResult result) {
         if (result.getStatus() == ITestResult.FAILURE) {
             ShoppingCartPageObject.makeScreenShotSteps(driver, result.getName());
-        } else {
-              TestScreenRecorder.deleteRecord();
         }
         driver.manage().deleteAllCookies();
     }
@@ -68,85 +63,11 @@ public class ShoppingCartPageObjectTest {
      */
 
     @Test()
-    public void testAddProductToShoppingCart() throws Exception {
-        TestScreenRecorder.startRecording("testAddProductToShoppingCart");
+    public void testAddProductToShoppingCart() {
         String productID = home.addToCartIphone();
         assertTrue(home.goToShoppingCartPage().
                 getShoppingProductsList().
                 containsKey(productID));
-    }
-
-    /**
-     * <b>TC-02: Test adding product to shopping cart, use sikuli.</b>
-     * <p>
-     * Scenario:
-     * <ul>
-     * <li>1. Open Firefox browser;
-     * <li>2. Click add to cart iphone on OpenCart/index.php?route=common/home;
-     * <li>3. Click on Shopping Cart Tab;
-     * <li>4. Verify, that iphone contains in Shopping Cart table;
-     * </ul>
-     * <p>
-     * Expected Result: Table of products, in Shopping Cart,
-     * contains added product.
-     */
-
-    @Test()
-    public void testAddProductToShoppingCartUseSikuli() {
-        Match match = new HomePageObject(driver).
-                addIphoneToShoppingCartSikuly().
-                openShoppingCartSikuly().
-                finedElementInShoppingCartSikuly(new Pattern(ShoppingCartPatterns.IPHONE_IN_SHOPPING_CART));
-        assertNotNull(match);
-    }
-
-    /**
-     * <b>TC-03: Test changing quantity products, use sikuli</b>
-     * <p>
-     * Scenario:
-     * <ul>
-     * <li>1. Open Firefox browser;
-     * <li>2. Click add to cart iphone on OpenCart/index.php?route=common/home;
-     * <li>3. Click on Shopping Cart Tab;
-     * <li>4. Write two in quantity cell;
-     * <li>5. Verify that total cost increased by 2 times ;
-     * </ul>
-     * <p>
-     * Expected Result: Total cost increased by 2 times.
-     */
-    @Test()
-    public void testChangingQuantityProductsUseSikuli() {
-        String actual = new HomePageObject(driver).
-                addIphoneToShoppingCartSikuly().
-                openShoppingCartSikuly().
-                changeQuantityProductsSikuly().
-                getTotalCostSikuly().split(TestData.BLANK_SYMBOL)[1];
-        String expected = TestData.COST_OF_TWO_IPHONES;
-        assertEquals(actual, expected);
-    }
-
-    /**
-     * <b>TC-04: Test remove product from shopping cart, use siculi.</b>
-     * <p>
-     * Scenario:
-     * <ul>
-     * <li>1. Open Firefox browser;
-     * <li>2. Click add to cart iphone on OpenCart/index.php?route=common/home;
-     * <li>3. Click on Shopping Cart Tab;
-     * <li>4. Click remove iphone;
-     * <li>5. Verify that Shopping Cart Page is empty ;
-     * </ul>
-     * <p>
-     * Expected Result: Shopping Cart does not have product,
-     * and contains massage.
-     */
-    @Test()
-    public void testRemoveProductFromCartUseSikuli() {
-        String actual = new HomePageObject(driver).
-                addIphoneToShoppingCartSikuly().
-                openShoppingCartSikuly().
-                removeProductSikuly();
-        assertEquals(actual, TestData.EMPTY_SHOPPING_CART_MESSAGE);
     }
 
     /**
