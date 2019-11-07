@@ -61,7 +61,7 @@ public class Constants {
     public static final String DOLLAR_CURRENCY = "$";
     public static final String EURO_CURRENCY = "€";
     public static final String POUND_CURRENCY = "£";
-    public static final String SHOPPING_CART = "Shopping cart";
+    public static final String SHOPPING_CART = "Shopping Cart";
     public static final String LOGIN = "Login";
     public static final String REGISTER = "Register";
     public static final String PRICE_FOR_IPHONE = "106";

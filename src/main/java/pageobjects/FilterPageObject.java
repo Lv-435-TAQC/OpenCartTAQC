@@ -23,50 +23,99 @@ public class FilterPageObject extends BasePageObject {
         this.xpath = xpath;
     }
 
+    /**
+     * Default wrapper for click on List button
+     *
+     * @return instance of category page object
+     */
     public CategoryPageObject clickListButton() {
         listButton = new ImageTextButton(this.driver, FilterLocators.SHOW_LIST_BUTTON_LOC);
         listButton.click();
         return new CategoryPageObject(this.driver, xpath);
     }
 
+    /**
+     * Default wrapper for click on Grid button
+     *
+     * @return instance of category page object
+     */
     public CategoryPageObject clickGridButton() {
         gridButton = new ImageTextButton(this.driver, FilterLocators.SHOW_GRID_BUTTON_LOC);
         gridButton.click();
         return new CategoryPageObject(this.driver, xpath);
     }
 
+    /**
+     * Default wrapper for click on Product Compare linked label
+     *
+     * @return instance of compare product page object
+     */
     public CompareProductPageObject clickProductCompare() {
         productCompareLabel = new LinkedLabel(this.driver, FilterLocators.PRODUCT_COMPARE_LABEL_LOC);
         productCompareLabel.click();
         return new CompareProductPageObject(this.driver);
     }
 
+    /**
+     * Text getter from Product Compare linked label
+     *
+     * @return text from label
+     */
     public String getProductCompareText() {
         productCompareLabel = new LinkedLabel(this.driver, FilterLocators.PRODUCT_COMPARE_LABEL_LOC);
         return productCompareLabel.getText();
     }
 
+    /**
+     * Text getter from SortBy label
+     *
+     * @return text from label
+     */
     public String getSortByLabelText() {
         sortByLabel = new LinkedLabel(this.driver, FilterLocators.SORT_BY_LABEL_LOC);
         return sortByLabel.getText();
     }
 
+    /**
+     * Wrapper for drop dawn selector of sorting method by name
+     *
+     * @param param - name of point in drop down selector
+     * @return instance of category page object
+     */
     public CategoryPageObject choseSortBySelectorByParam(String param) {
         sortByDropDown = new DropDown(driver, FilterLocators.SORT_BY_SELECTOR_LOC);
         sortByDropDown.writeOptionParameter(param);
         return new CategoryPageObject(this.driver, xpath);
     }
 
-    public CategoryPageObject choseSortBySelectorByID(int id, String xpath) {
+    /**
+     * Wrapper for drop dawn selector of sorting method by id
+     *
+     * @param id - id of point in drop down selector
+     * @return instance of category page object
+     */
+    public CategoryPageObject choseSortBySelectorByID(int id) {
         sortByDropDown = new DropDown(driver, FilterLocators.SORT_BY_SELECTOR_LOC);
         sortByDropDown.writeOrdinalIndex(id);
         return new CategoryPageObject(this.driver, xpath);
     }
 
+    /**
+     * Text getter from Show label
+     *
+     * @return text from label
+     */
     public String getShowLabelText() {
         showLabel = new LinkedLabel(this.driver, FilterLocators.SHOW_LABEL_LOC);
         return showLabel.getText();
     }
+
+    /**
+     * Wrapper for drop dawn selector for number of product method by name
+     *
+     * @param param - name of point in drop down selector
+     * @return instance of category page object
+     */
 
     public CategoryPageObject choseShowSelectorByParam(String param) {
         showDropDown = new DropDown(driver, FilterLocators.SHOW_SELECTOR_LOC);
@@ -74,6 +123,12 @@ public class FilterPageObject extends BasePageObject {
         return new CategoryPageObject(this.driver, xpath);
     }
 
+    /**
+     * Wrapper for drop dawn selector for number of product method by id
+     *
+     * @param id - id of point in drop down selector
+     * @return instance of category page object
+     */
     public CategoryPageObject choseShowSelectorByID(int id) {
         showDropDown = new DropDown(driver, FilterLocators.SHOW_SELECTOR_LOC);
         showDropDown.writeOrdinalIndex(id);
