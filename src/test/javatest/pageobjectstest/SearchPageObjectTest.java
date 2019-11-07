@@ -191,6 +191,6 @@ public class SearchPageObjectTest {
 
     @Test
     public void findCategoriesInSearch() {
-        Assert.assertTrue(search.returnTextFromFifthElementOfCategories().contentEquals("forTest"));
+        Assert.assertTrue(search.returnTextFromFifthElementOfCategories().contentEquals("forTestdsada"));
     }
 }
