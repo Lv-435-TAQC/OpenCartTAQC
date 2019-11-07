@@ -50,13 +50,9 @@ public class Constants {
     public static final String ACCOUNT_PAGE = BASE_URL + "index.php?route=account/account";
     public static final String LOGIN_PAGE = BASE_URL + "index.php?route=account/login";
     public static final String NEGATIVE_MESSAGE_FOR_FIELD = "Product Name must be greater than 1 and less than 255 characters";
-<<<<<<< HEAD
-
-    public static final String ADMIN_PAGE = "http://localhost/opencart/admin/index.php?route=common/login";
-=======
+    public static final String ADMIN_PAGE_ = "http://localhost/opencart/admin/index.php?route=common/login";
     public static final String WISH_LIST_URL = BASE_URL + "index.php?route=account/wishlist";
     public static final String ADMIN_PAGE = BASE_URL + "admin/";
->>>>>>> develop
     public static final String ADMIN_LOGIN = "admin";
     public static final String ADMIN_PASSWORD = "orysia";
     public static final String SHOPPING_CARD_URL = BASE_URL + "index.php?route=checkout/cart";

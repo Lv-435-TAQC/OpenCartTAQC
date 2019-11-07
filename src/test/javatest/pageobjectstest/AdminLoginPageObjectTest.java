@@ -30,7 +30,7 @@ public class AdminLoginPageObjectTest {
     public void setUp() {
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
         driver = new FirefoxDriver();
-        driver.get(Constants.ADMIN_PAGE);
+        driver.get(Constants.ADMIN_PAGE_);
     }
 
     @BeforeMethod
@@ -72,7 +72,7 @@ public class AdminLoginPageObjectTest {
     public void adminLoginTest(String login, String password) {
         adminLoginPageObject.logIn(login, password);
         String actual = driver.getCurrentUrl();
-        String expected = Constants.ADMIN_PAGE;
+        String expected = Constants.ADMIN_PAGE_;
         assertEquals(actual, expected);
     }
 

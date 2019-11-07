@@ -24,11 +24,10 @@ public class MyAccountTest {
      * <li>1. Open Firefox browser;
      * <li>2. Open Home Page on OpenCart.com;
      * <li>3. Click on Login Tab;
-     * <li>4. Click on Login Tab;
+     * <li>4. Enter username, password and Click login ;
      * </ul>
      * <p>
      */
-
 
     @BeforeClass
     public void setUp() {
@@ -48,6 +47,20 @@ public class MyAccountTest {
         driver.quit();
     }
 
+
+    /**
+     * <b>TC-1: Change phoneNumber in user Account </b>
+     * <p>
+     * Scenario:
+     * <ul>
+     * <li> 1. Click Edit your account information
+     * <li> 2. Input new telephone number
+     * <li> 3. Click Continue button
+     * </ul>
+     * <p>
+     * Expected Result: Success: Your account has been successfully updated.
+     */
+
     @Test
     public void changeNumberPhoneTest() {
         String actual =
@@ -58,6 +71,20 @@ public class MyAccountTest {
                         .successfulMessageChangeInformation();
         assertEquals(actual, SUCSSES_INFORMATION_CHANGE);
     }
+
+    /**
+     * <b>TC-2: Change name in user Account </b>
+     * <p>
+     * Scenario:
+     * <ul>
+     * <li> 1. Click Edit your account information
+     * <li> 2. Input new first name
+     * <li> 3. Input new last name
+     * <li> 4. Click Continue button
+     * </ul>
+     * <p>
+     * Expected Result: Success: Your account has been successfully updated.
+     */
 
     @Test
     public void changeNameTest() {
@@ -71,6 +98,23 @@ public class MyAccountTest {
         assertEquals(actual, SUCSSES_INFORMATION_CHANGE);
     }
 
+    /**
+     * <b>TC-3: Change Email And After Login </b>
+     * <p>
+     * Scenario:
+     * <ul>
+     * <li> 1. Click Edit your account information
+     * <li> 2. Input new email
+     * <li> 3. Click Continue button
+     * <li> 4. Log out
+     * <li> 5. Go to home page
+     * <li> 6. Click on Login Tab;
+     * <li> 7. Enter new username, password and Click login;
+     * </ul>
+     * <p>
+     * Expected Result: My Account
+     */
+
     @Test(priority = 1)
     public void changeEmailAndAfterLoginTest() {
         String actual =
@@ -82,10 +126,30 @@ public class MyAccountTest {
                         .goToHomePage()
                         .getHeaderPageObject()
                         .clickLoginPage()
-                        .logIn(LAST_MAIL, "orysia")
+                        .logIn(LAST_MAIL, FIRST_PASSWORD)
                         .myAccountText();
         assertEquals(actual, MY_ACCOUNT_TEXT);
     }
+
+    /**
+     * <b>TC-4: Change Email And Password And After Login </b>
+     * <p>
+     * Scenario:
+     * <ul>
+     * <li> 1. Click Edit your account information
+     * <li> 2. Input new email
+     * <li> 3. Click Continue button
+     * <li> 4. Click Change your password
+     * <li> 5. Input new email
+     * <li> 6. Click Continue button
+     * <li> 7. Log out
+     * <li> 8. Go to home page
+     * <li> 9. Click on Login Tab;
+     * <li> 10. Enter new username, new password and Click login;
+     * </ul>
+     * <p>
+     * Expected Result: My Account
+     */
 
     @Test(priority = 2)
     public void changeEmailAndPasswordAfterLoginTest() {
@@ -106,6 +170,24 @@ public class MyAccountTest {
                         .myAccountText();
         assertEquals(actual, MY_ACCOUNT_TEXT);
     }
+
+    /**
+     * <b>TC-5: Change Email And Password And After Login </b>
+     * <p>
+     * Scenario:
+     * <ul>
+     * <li> 1. Click Change your password
+     * <li> 2. Input new password
+     * <li> 3. Input confirm password
+     * <li> 4. Click Continue button
+     * <li> 5. Log out
+     * <li> 6. Go to home page
+     * <li> 7. Click on Login Tab;
+     * <li> 8. Enter new username, new password and Click login;
+     * </ul>
+     * <p>
+     * Expected Result: Success: Your password has been successfully updated.
+     */
 
     @Test(priority = 3)
     public void changePasswordTest() {
