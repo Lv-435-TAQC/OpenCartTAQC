@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The class is used to work with different discounts (coupons)
+ */
 public class AdminCouponsPageObject extends BasePageObject {
     HashMap<String, CouponInTable> coupons;
     private Button addNewCoupons;
@@ -19,11 +22,19 @@ public class AdminCouponsPageObject extends BasePageObject {
         super(driver);
     }
 
+    /**
+     * This method allows you to switch to the form of creating a discount (coupon)
+     * @return AdminCreationCouponPageObject.
+     */
     public AdminCreationCouponPageObject goToCreationCoupon() {
         this.addNewCoupons = new Button(driver, AdminCouponsLocators.ADD_NEW_COUPONS).click();
         return new AdminCreationCouponPageObject(driver);
     }
 
+    /**
+     * This method returns all the coupon folders as a map.
+     * @return HashMap<String, CouponInTable>
+     */
     public Map getCouponsTable() {
         coupons = new HashMap<>();
         List<WebElement> tableRow = driver.findElements(By.tagName("tr"));

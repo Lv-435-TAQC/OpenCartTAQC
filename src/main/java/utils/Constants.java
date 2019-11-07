@@ -9,8 +9,8 @@ public class Constants {
     public static final int THREE = 3;
     public static final int FOUR = 4;
     public static final int EIGHT = 8;
-    public static final String BASE_URL = "http://localhost/opencart/";
-    public static final String BASE_ADMIN_URL = "http://192.168.152.128/opencart/admin";
+    public static final String BASE_URL = "http://localhost/OpenCart/";
+    public static final String BASE_ADMIN_URL = BASE_URL + "admin";
     public static final String HOME_ADMIN_URL = BASE_ADMIN_URL + "index.php?route=common/dashboard&user_token=snGcwz15PAFuAuKlpDjs3KSj01yp51GG";
     public static final String PATH_TO_DRIVER = "src/main/resources/geckodriver.exe";
     public static final String KEY_TO_DRIVER = "webdriver.gecko.driver";
@@ -31,6 +31,7 @@ public class Constants {
     public static final String WISH_LIST_ID_41 = "41";
     public static final String WISH_LIST_ID_42 = "42";
     public static final String WISH_LIST_ID_40 = "40";
+
     public static final String LOGOUT_URL = "http://localhost/opencart/index.php?route=account/logout";
     public static final String ADMIN_LOGIN_URL = "http://localhost/opencart/admin/";
     public static final String MENU_URL = "http://localhost/shop";
@@ -44,14 +45,14 @@ public class Constants {
     public static final String ADMIN_CATEGORIES_UNSUCCESSFUL_MESSAGE = "Warning: Please check the form carefully for errors!";
     public static final String WARNING_MESSAGE_1 = "Warning: No match for E-Mail Address and/or Password.";
     public static final String WARNING_MESSAGE_2 = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
-    public static final String HOME_PAGE = "http://localhost/opencart/index.php?route=common/home";
-    public static final String REGISTRATION_PAGE = "http://localhost/opencart/index.php?route=account/register";
-    public static final String FORGOTTEN_PAGE = "http://localhost/opencart/index.php?route=account/forgotten";
-    public static final String ACCOUNT_PAGE = "http://localhost/opencart/index.php?route=account/account";
-    public static final String LOGIN_PAGE = "http://localhost/opencart/index.php?route=account/login";
+    public static final String HOME_PAGE = BASE_URL + "index.php?route=common/home";
+    public static final String REGISTRATION_PAGE = BASE_URL + "index.php?route=account/register";
+    public static final String FORGOTTEN_PAGE = BASE_URL + "index.php?route=account/forgotten";
+    public static final String ACCOUNT_PAGE = BASE_URL + "index.php?route=account/account";
+    public static final String LOGIN_PAGE = BASE_URL + "index.php?route=account/login";
     public static final String NEGATIVE_MESSAGE_FOR_FIELD = "Product Name must be greater than 1 and less than 255 characters";
     public static final String WISH_LIST_URL = "http://192.168.152.128/opencart/index.php?route=account/wishlist";
-    public static final String ADMIN_PAGE = "http://localhost/opencart/admin/";
+    public static final String ADMIN_PAGE = "http://localhost/OpenCart/admin/";
     public static final String ADMIN_LOGIN = "admin";
     public static final String ADMIN_PASSWORD = "orysia";
     public static final String SHOPPING_CARD_URL = "http://localhost/opencart/index.php?route=checkout/cart";
