@@ -49,7 +49,7 @@ public class Constants {
     public static final String LOGIN_PAGE = "http://localhost/opencart/index.php?route=account/login";
     public static final String NEGATIVE_MESSAGE_FOR_FIELD = "Product Name must be greater than 1 and less than 255 characters";
 
-    public static final String ADMIN_PAGE = "http://localhost/opencart/admin/";
+    public static final String ADMIN_PAGE = "http://localhost/opencart/admin/index.php?route=common/login";
     public static final String ADMIN_LOGIN = "admin";
     public static final String ADMIN_PASSWORD = "orysia";
     public static final String SHOPPING_CARD_URL = "http://localhost/opencart/index.php?route=checkout/cart";
@@ -62,4 +62,15 @@ public class Constants {
     public static final String SHOPPING_CART = "Shopping Cart";
     public static final String LOGIN = "Login";
     public static final String REGISTER = "Register";
+    public static final String ADMIN_PASS = "admin";
+    public static final String PASSWORD = "orysia";
+    public static final String FIRST_MAIL = "weather+1@gmail.com";
+    public static final String LAST_MAIL = "orysita.lviv+100@gmail.com";
+    public static final String FIRST_PASSWORD = "orysia";
+    public static final String LAST_PASSWORD = "orysia1998";
+    public static final String SUCSSES_PASWORD_CHANGE="Success: Your password has been successfully updated.";
+    public static final String MY_ACCOUNT_TEXT="My Account";
+    public static final String SUCSSES_INFORMATION_CHANGE="Success: Your account has been successfully updated.";
+    public static final String WARNING_NOT_CORRECT_EMAIL = "Warning: The E-Mail Address was not found in our records, please try again!";
+    public static final String WARNING_CORRECT_EMAIL = "An email with a confirmation link has been sent your email address.";
 }

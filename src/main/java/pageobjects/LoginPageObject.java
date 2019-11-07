@@ -16,6 +16,9 @@ import pageelements.LinkedLabel;
 import patterns.LoginPatterns;
 import utils.TestData;
 
+import static utils.Constants.*;
+import static utils.Constants.FIRST_PASSWORD;
+
 public class LoginPageObject extends BasePageObject {
     Screen screen = new Screen();
     private Input loginField;
@@ -40,12 +43,14 @@ public class LoginPageObject extends BasePageObject {
 
     public LoginPageObject setLogInField(String loginName) {
         loginField = new Input(this.driver, LoginLocators.INPUT_EMAIL_FIELD);
+        loginField.clearField();
         loginField.setText(loginName);
         return this;
     }
 
     public LoginPageObject setPasswordField(String password) {
         passwordField = new Input(this.driver, LoginLocators.INPUT_PASSWORD_FIELD);
+        passwordField.clearField();
         passwordField.setText(password);
         return this;
     }
@@ -92,8 +97,8 @@ public class LoginPageObject extends BasePageObject {
     }
 
     public Boolean sikuliBadDate() {
-        screen.type(LoginPatterns.EMAIL, "orysita.benko@gmail.com");
-        screen.type(LoginPatterns.PASSWORD, "orysia");
+        screen.type(LoginPatterns.EMAIL, "orysisdfvta.benko@gmail.com");
+        screen.type(LoginPatterns.PASSWORD, "oryfddfsia");
         try {
             screen.click(LoginPatterns.LOGIN_BUTTON);
             return true;
@@ -104,8 +109,8 @@ public class LoginPageObject extends BasePageObject {
     }
 
     public Boolean sikuliGoodDate() {
-        screen.type(LoginPatterns.EMAIL, "orysia.benko@gmail.com");
-        screen.type(LoginPatterns.PASSWORD, "orysia");
+        screen.type(LoginPatterns.EMAIL, FIRST_MAIL);
+        screen.type(LoginPatterns.PASSWORD, FIRST_PASSWORD);
         try {
             screen.click(LoginPatterns.LOGIN_BUTTON);
             screen.find(LoginPatterns.ACCOUNT);

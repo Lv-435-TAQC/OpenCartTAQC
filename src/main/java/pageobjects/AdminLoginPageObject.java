@@ -31,12 +31,14 @@ public class AdminLoginPageObject extends BasePageObject {
 
     public AdminLoginPageObject setLogInField(String loginName) {
         loginField = new Input(this.driver, AdminLoginLocators.INPUT_ADMIN_EMAIL_FIELD);
+        loginField.clearField();
         loginField.setText(loginName);
         return this;
     }
 
     public AdminLoginPageObject setPasswordField(String password) {
         passwordField = new Input(this.driver, AdminLoginLocators.INPUT_PASSWORD_FIELD);
+        passwordField.clearField();
         passwordField.setText(password);
         return this;
     }
