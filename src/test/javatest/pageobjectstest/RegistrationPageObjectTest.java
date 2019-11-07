@@ -11,27 +11,29 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.AdminLoginPageObject;
+import pageobjects.HomePageObject;
 import pageobjects.RegistrationPageObject;
 import utils.DBMethods;
 
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
 import static patterns.RegistrationPatterns.*;
 import static utils.Constants.*;
+import static utils.TestData.ADMIN_NAME;
+import static utils.TestData.ADMIN_PASSWORD;
 
 
 public class RegistrationPageObjectTest {
 
     private WebDriver driver;
     private RegistrationPageObject registrationPageObject;
-    private String email = new Random().nextInt(1000) + "paprika@paprika.com";
+    private String email = "paprika@paprika.com";
     private String password = "12345";
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", PATH_TO_DRIVER);
+        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         registrationPageObject = new RegistrationPageObject(driver);
@@ -135,7 +137,7 @@ public class RegistrationPageObjectTest {
     private void registerSuccessfully(String emailData) {
         registrationPageObject.setDataToFirstNameField("Paprika").setDataToLastNameField("Pepper")
                 .setDataToEmailField(emailData)
-                .setDataToTelephoneField("0794852421").setDataToPasswordField(password).setDataToPasswordConfirmField("12345")
+                .setDataToTelephoneField("0794852421").setDataToPasswordField(password).setDataToPasswordConfirmField(password)
                 .checkOnPrivacyPolicyCheckbox().pushOnContinueButton().waitForUrlToBe(SUCCESSFUL_REGISTRATION_URL);
     }
 
@@ -154,9 +156,8 @@ public class RegistrationPageObjectTest {
         Pattern labelYourPersonalDetails = new Pattern(LABEL_YOUR_PERSONAL_DETAILS);
         registrationPageObject.typeTextToPattern(screen, labelYourPersonalDetails.targetOffset(300, 65), "Paprika")
                 .typeTextToPattern(screen, labelYourPersonalDetails.targetOffset(300, 110), "Pepper")
-                .typeTextToPattern(screen, labelYourPersonalDetails.targetOffset(300, 160),
-                        new Random().nextInt(1000) + "paprika@paprika.com")
-                .typeTextToPattern(screen, new Pattern(FIELD_TELEPHONE), "0794852421")
+                .typeTextToPattern(screen, labelYourPersonalDetails.targetOffset(300, 160), email)
+                .typeTextToPattern(screen, labelYourPersonalDetails.targetOffset(300, 215), "0794852421")
                 .clickOnPattern(screen, labelYourPassword);
         screen.type(Key.PAGE_DOWN);
         registrationPageObject.typeTextToPattern(screen, labelYourPassword.targetOffset(300, 60), "12345")
@@ -176,9 +177,21 @@ public class RegistrationPageObjectTest {
         registerSuccessfully(emailData);
         AdminLoginPageObject adminLoginPageObject = new AdminLoginPageObject(driver);
         adminLoginPageObject.goToUrl(ADMIN_LOGIN_URL);
-        adminLoginPageObject.logIn("admin", "admin").closeModalWindow().getNavigation()
+        adminLoginPageObject.logIn(ADMIN_NAME, ADMIN_PASSWORD).closeModalWindow().getNavigation()
                 .goToCustomers().clickOnCustomersSubButton().setDataToEmailField(emailData).clickOnButtonFilter();
         assertTrue(driver.getPageSource().contains(emailData));
         adminLoginPageObject.goToUrl(LOGOUT_URL);
+    }
+
+    @Test
+    public void successfullyRegisterAndLoginTest() {
+        String emailData = 3 + email;
+        registerSuccessfully(emailData);
+        registrationPageObject.goToUrl(LOGOUT_URL);
+        new HomePageObject(driver).getHeaderPageObject()
+                .clickLoginPage()
+                .logIn(emailData, password);
+        assertEquals(driver.getCurrentUrl(), "http://localhost/opencart/index.php?route=account/account");
+        registrationPageObject.goToUrl(LOGOUT_URL);
     }
 }

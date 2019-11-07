@@ -8,7 +8,6 @@ import pageobjects.HomePageObject;
 import pageobjects.ShoppingCartPageObject;
 import utils.Constants;
 import utils.TestData;
-import utils.TestScreenRecorder;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
@@ -230,7 +229,7 @@ public class ShoppingCartPageObjectTest {
         ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
         shoppingCartPageObject.writeEstimateShippingAndTaxes(TestData.SHIPPING_COUNTRY, TestData.SHIPPING_REGION, TestData.POST_CODE);
         String actualResult = shoppingCartPageObject.messageAboutOption();
-        assertTrue(actualResult.contains(TestData.NOTICE_ABOUT_SUCCESSFUL_SHIPPING_ESTIMETE));
+        assertTrue(actualResult.contains(TestData.NOTICE_ABOUT_SUCCESSFUL_SHIPPING_ESTIMATE));
     }
 
     /**
