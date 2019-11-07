@@ -2,21 +2,21 @@ package javatest.pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pageobjects.AdminLoginPageObject;
 import utils.Constants;
 
+import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
+import static utils.Constants.ADMIN_PASS;
+import static utils.Constants.PASSWORD;
 
 public class AdminLoginPageObjectTest {
     WebDriver driver;
     AdminLoginPageObject adminLoginPageObject;
+
     /**
      * <b> Description of Precondition.</b>
      *
@@ -30,7 +30,7 @@ public class AdminLoginPageObjectTest {
     public void setUp() {
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
         driver = new FirefoxDriver();
-        driver.get(Constants.HOME_PAGE);
+        driver.get(Constants.ADMIN_PAGE_);
     }
 
     @BeforeMethod
@@ -44,43 +44,53 @@ public class AdminLoginPageObjectTest {
         driver.quit();
     }
 
-    /**
-     * <b>TC-1: Not correct date(login, password) </b>
-     * <p>
-     * Scenario:
-     * <ul>
-     * <li> 1. Input login = ""
-     * <li> 2. Input password = ""
-     * <li> 3. Click Login button
-     * </ul>
-     * <p>
-     * Expected Result: "Warning: No match for E-Mail Address and/or Password."
-     */
-
-    @Test
-    public void adminLoginNegativeTest() {
-        String actual = adminLoginPageObject.setLogInField("").setPasswordField("").clickNextButton().warningMessage();
-        Assert.assertEquals(Constants.WARNING_MESSAGE_1.equalsIgnoreCase(actual) ? Constants.WARNING_MESSAGE_1 : Constants.WARNING_MESSAGE_2, actual);
+    @DataProvider(name = "AuthenticationAdmin")
+    public Object[][] createDataForLoginAdmin(Method m) {
+        return new Object[][]{new Object[]{"", "orysia"}
+                , new Object[]{"admin", ""}
+                , new Object[]{"orysita.lviv+1@gmail.com", " "}
+                , new Object[]{"orysita.lviv+1@gmail.com", "fdgfdfg"}
+                , new Object[]{"orysita.lviv+1@gmail.com", "orysia"}
+                , new Object[]{"", ""}
+        };
     }
 
     /**
-     * <b>TC-2: Correct date(login, password) </b>
+     * <b>TC-1: AuthenticationAdmin without correct date</b>
      * <p>
      * Scenario:
      * <ul>
-     * <li> 1. Input login = "admin"
-     * <li> 2. Input password = "orysia"
+     * <li> 1. Input login date from AuthenticationAdmin
+     * <li> 2. Input password date from AuthenticationAdmin
      * <li> 3. Click Login button
      * </ul>
      * <p>
-     * Expected Result: Admin Page
+     * Expected Result: "Warning: No match for E-Mail Address and/or Password." or correct login with correct date
      */
 
-    @Test(priority = 1)
-    public void adminLoginValidDate() {
-        adminLoginPageObject.logIn("orysita.lviv+1@gmail.com", "orysia");
+    @Test(dataProvider = "AuthenticationAdmin")
+    public void adminLoginTest(String login, String password) {
+        adminLoginPageObject.logIn(login, password);
         String actual = driver.getCurrentUrl();
-        String expected = Constants.ACCOUNT_PAGE;
+        String expected = Constants.ADMIN_PAGE_;
         assertEquals(actual, expected);
+    }
+
+    /**
+     * <b>TC-1: Authentication Admin test correct date</b>
+     * <p>
+     * Scenario:
+     * <ul>
+     * <li> 1. Input login date
+     * <li> 2. Input password date
+     * <li> 3. Click Login button
+     * </ul>
+     * <p>
+     * Expected Result:
+     */
+
+    @Test()
+    public void adminPositiveLoginTest() {
+        adminLoginPageObject.logIn(ADMIN_PASS, PASSWORD);
     }
 }

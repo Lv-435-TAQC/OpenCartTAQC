@@ -1,6 +1,5 @@
 package pageobjects;
 
-import locators.AdminFilterOrderLocators;
 import locators.CheckoutSuccessLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,9 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Button;
 import pageelements.Label;
-import pageelements.*;
 import utils.Constants;
-import utils.TestData;
 
 public class CheckoutSuccessPageObject extends BasePageObject {
     private Label successMessageLabel;
@@ -33,7 +30,7 @@ public class CheckoutSuccessPageObject extends BasePageObject {
     }
 
     public AdminLoginPageObject goToAdminPage() {
-        driver.get(Constants.ADMIN_PAGE);
+        driver.get(Constants.ADMIN_PAGE_);
         return new AdminLoginPageObject(driver);
     }
 
