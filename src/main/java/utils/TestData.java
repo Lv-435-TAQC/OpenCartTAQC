@@ -27,7 +27,7 @@ public class TestData {
     public static final String DISCOUNT_COUPON_FOR_IPHONE = "$-10.10";
     public static final String DISCOUNT_GIFT_CERTIFICATE_FOR_IPHONE = "$-30.00";
     public static final String EMPTY_SHOPPING_CART_NOTICE = "Your shopping cart is empty!";
-    public static final String NOTICE_ABOUT_SUCCESSFUL_SHIPPING_ESTIMETE = "Success: Your shipping estimate has been applied";
+    public static final String NOTICE_ABOUT_SUCCESSFUL_SHIPPING_ESTIMATE = "Success: Your shipping estimate has been applied";
     public static final String COST_OF_IPHONE_USING_COUPON = "$111.08";
     public static final String COST_OF_IPHONE_USING_GIFT_CERTIFICATE = "$93.20";
     public static final String COST_OF_IPHONE_USING_GIFT_CERTIFICATE_AND_COUPON = "$81.08";
