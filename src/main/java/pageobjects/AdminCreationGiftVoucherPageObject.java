@@ -23,7 +23,7 @@ public class AdminCreationGiftVoucherPageObject extends BasePageObject {
         super(driver);
     }
 
-    public AdminCreationGiftVoucherPageObject createNewGigtVoucher(
+    public AdminGiftVouchersPageObject createNewGiftVoucher(
             String giftCode, String fromName, String fromEMail, String toName,
             String toEMailGift, String theme, String message, String amount, String status) {
         this.writeGiftCode(giftCode).
@@ -36,7 +36,7 @@ public class AdminCreationGiftVoucherPageObject extends BasePageObject {
                 writeAmount(amount).
                 writeStatus(status).
                 saveGiftVoucher();
-        return this;
+        return new AdminGiftVouchersPageObject(driver);
     }
 
     public AdminCreationGiftVoucherPageObject writeGiftCode(String giftCode) {

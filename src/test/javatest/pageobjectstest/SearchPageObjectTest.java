@@ -1,11 +1,7 @@
 package pageobjectstest;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.sikuli.script.FindFailed;
-import org.sikuli.script.Pattern;
-import org.sikuli.script.Screen;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -16,6 +12,7 @@ import pageobjects.SearchPageObject;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
+import static utils.Constants.*;
 
 public class SearchPageObjectTest {
     WebDriver driver;
@@ -23,14 +20,14 @@ public class SearchPageObjectTest {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "D:\\geckodriver.exe");
+        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
         driver = new FirefoxDriver();
     }
 
     @BeforeMethod
     public void getHome() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://192.168.186.129/opencart/index.php?route=product/search");
+        driver.get(SEARCH_URL);
         search = new SearchPageObject(driver);
     }
 
@@ -39,68 +36,161 @@ public class SearchPageObjectTest {
        driver.quit();
     }
 
+    /**
+     * <b> Search With Valid Name.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open  Page on OpenCart.com;
+     * <li>3. Go to Search;
+     * <li>4. Input Product Name;
+     * <li>5. Click Search Button;
+     * <li>6. Get Text from Message;
+     * <li>7. Compare Expected with Text from Message;
+     * </ul>
+     * <p>
+     *  Expected Result: "Search - Mac";
+     */
+
     @Test
-    public void testInputValidProductName() {
+    public void inputValidProductName() {
         String actual = search
                 .inputProductName()
                 .clickSearchButton()
                 .returnTextFromSearch();
-        String expected = ("Search - Mac");
-        assertEquals(actual, expected);
+        String expectedMessage = ("Search - Mac");
+        assertEquals(actual, expectedMessage);
     }
+    /**
+     * <b> Search With Invalid Data.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open  Page on OpenCart.com;
+     * <li>3. Go to Search;
+     * <li>4. Input False in Product Name;
+     * <li>5. Click Search Button;
+     * <li>6. Get Text from Message;
+     * <li>7. Compare Expected with Text from Message;
+     * </ul>
+     * <p>
+     *  Expected Result: "Your shopping cart is empty!";
+     */
+
     @Test
-    public void testInputFalseData() {
+    public void inputFalseData() {
         String actual = search
                 .inputFalseProductName()
                 .clickSearchButton()
                 .returnTextFormInvalidSearch();
-        String expected = ("Your shopping cart is empty!");
-        assertEquals(actual, expected);
+        String expectedMessage = ("Your shopping cart is empty!");
+        assertEquals(actual, expectedMessage);
     }
+    /**
+     * <b> Search Product With SubCategory Button.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open  Page on OpenCart.com;
+     * <li>3. Go to Search;
+     * <li>4. Input Data in Product Name;
+     * <li>5. Select Category;
+     * <li>6. Click Search Button;
+     * <li>7. Get Text from First Element of Search;
+     * <li>8. Compare Expected with Text from Message;
+     * </ul>
+     * <p>
+     *  Expected Result: "MacBook";
+     */
+
     @Test
-    public void testUseInSubcategories() {
+    public void useInSubcategories() {
         String actual = search
                 .inputProductName()
                 .selectCategories()
                 .clickSearchButton()
                 .returnTextFromFirstSearchElement();
-        String expected = ("MacBook");
-        assertEquals(actual, expected);
+        String expectedFirstProduct = ("MacBook");
+        assertEquals(actual, expectedFirstProduct);
     }
+
+    /**
+     * <b> Search Product With Description .</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open  Page on OpenCart.com;
+     * <li>3. Go to Search;
+     * <li>4. Input Data in Product Name;
+     * <li>5. Click Description Button;
+     * <li>6. Click Search Button;
+     * <li>7. Get Text from First Element of Search;
+     * <li>8. Compare Expected with Text from Message;
+     * </ul>
+     * <p>
+     *  Expected Result: "Canon EOS 5D";
+     */
+
     @Test
-    public void testUseSearchWithDescription() {
+    public void useSearchWithDescription() {
         String actual = search
                 .inputProductNameForSearchWithProductDescription()
                 .searchInDescription()
                 .clickSearchButton()
                 .returnTextFromFirstSearchElement();
-        String expected = ("Canon EOS 5D");
-        assertEquals(actual, expected);
+        String expectedFirstProduct = ("Canon EOS 5D");
+        assertEquals(actual, expectedFirstProduct);
     }
+    /**
+     * <b> Search Product Whit SubCategory Button.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open  Page on OpenCart.com;
+     * <li>3. Go to Search;
+     * <li>4. Input Data in Product Name;
+     * <li>5. Click Search With Subcategory  Button;
+     * <li>6. Click Search Button;
+     * <li>7. Get Text from First Element of Search;
+     * <li>8. Compare Expected with Text from Message;
+     * </ul>
+     * <p>
+     *  Expected Result: "iMac";
+     */
+
     @Test
-    public void testSearchWithSubcategoriesButton() {
+    public void searchWithSubcategoriesButton() {
         String actual = search
                 .inputProductName()
                 .selectCategories()
                 .useInSubcategories()
                 .clickSearchButton()
                 .returnTextFromFirstSearchElement();
-        String expected = ("iMac");
-        assertEquals(actual, expected);
+        String expectedFirstProduct = ("iMac");
+        assertEquals(actual, expectedFirstProduct);
     }
-    @Test(priority = 1)
-    public void testSikuli() throws FindFailed {
-        Screen screen = new Screen();
-        String categoriesSelect = "D:\\sikuliScreenshot\\categories.PNG";
-        String laptopsAndNote = "D:\\sikuliScreenshot\\Mac.PNG";
-        String inputNameOfProduct = "D:\\sikuliScreenshot\\inputNameProduct.PNG";
-        String searchButton = "D:\\sikuliScreenshot\\searchButton.PNG";
-        String firstElementOfSearch = "D:\\sikuliScreenshot\\MacBook.PNG";
-        screen.type(inputNameOfProduct, "mac");
-        screen.click(categoriesSelect);
-        screen.click(laptopsAndNote);
-        screen.click(searchButton);
-        screen.find(firstElementOfSearch);
+    /**
+     * <b> Search Category On User Page.</b>
+     *
+     * Scenario:
+     * <ul>
+     * <li>1. Open Firefox browser;
+     * <li>2. Open  Page on OpenCart.com;
+     * <li>3. Go to Search;
+     * <li>4. Get Text from First Element of Search;
+     * <li>5. Compare Expected with Text Categories;
+     * </ul>
+     * <p>
+     *  Expected Result: "forTest";
+     */
 
+    @Test
+    public void findCategoriesInSearch() {
+        Assert.assertTrue(search.returnTextFromFifthElementOfCategories().contentEquals("forTestdsada"));
     }
 }

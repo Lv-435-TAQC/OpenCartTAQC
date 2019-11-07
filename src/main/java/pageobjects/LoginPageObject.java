@@ -7,16 +7,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Screen;
 import pageelements.Button;
 import pageelements.Input;
 import pageelements.Label;
 import pageelements.LinkedLabel;
+import patterns.LoginPatterns;
+import utils.TestData;
 
 public class LoginPageObject extends BasePageObject {
+    Screen screen = new Screen();
     private Input loginField;
     private Input passwordField;
     private Button nextButton;
-    private Button registetionButton;
+    private Button registrationButton;
     private LinkedLabel forgottenPassword;
     private Label warningMessage;
     private Label successfulMessage;
@@ -30,10 +35,8 @@ public class LoginPageObject extends BasePageObject {
                 .setLogInField(loginName)
                 .setPasswordField(password)
                 .clickNextButton();
-
         return new MyAccountPageObject(driver);
     }
-
 
     public LoginPageObject setLogInField(String loginName) {
         loginField = new Input(this.driver, LoginLocators.INPUT_EMAIL_FIELD);
@@ -54,9 +57,10 @@ public class LoginPageObject extends BasePageObject {
     }
 
 
-    public RegistrationPageObject clickToGoToRegistation() {
-        registetionButton = new Button(this.driver, LoginLocators.NEW_USER_CONTINUE_BUTTON);
-        registetionButton.click();
+
+    public RegistrationPageObject clickToGoToRegistration() {
+        registrationButton = new Button(this.driver, LoginLocators.NEW_USER_CONTINUE_BUTTON);
+        registrationButton.click();
         return new RegistrationPageObject(driver);
     }
 
@@ -81,9 +85,38 @@ public class LoginPageObject extends BasePageObject {
     }
 
     public String successfulMessage() {
-        WebElement explicitWait = (new WebDriverWait(driver,10)).
+        WebElement explicitWait = (new WebDriverWait(driver, 10)).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ForgottenPasswordLocators.SENT_INFORMATION_FOR_FORGOTTEN_PASSWORD)));
         successfulMessage = new Label(this.driver, ForgottenPasswordLocators.SENT_INFORMATION_FOR_FORGOTTEN_PASSWORD);
         return this.successfulMessage.getText();
+    }
+
+    public Boolean sikuliBadDate() {
+        screen.type(LoginPatterns.EMAIL, "orysita.benko@gmail.com");
+        screen.type(LoginPatterns.PASSWORD, "orysia");
+        try {
+            screen.click(LoginPatterns.LOGIN_BUTTON);
+            return true;
+        } catch (FindFailed findFailed) {
+            findFailed.printStackTrace();
+            return false;
+        }
+    }
+
+    public Boolean sikuliGoodDate() {
+        screen.type(LoginPatterns.EMAIL, "orysia.benko@gmail.com");
+        screen.type(LoginPatterns.PASSWORD, "orysia");
+        try {
+            screen.click(LoginPatterns.LOGIN_BUTTON);
+            screen.find(LoginPatterns.ACCOUNT);
+            return true;
+        } catch (FindFailed findFailed) {
+            findFailed.printStackTrace();
+            return false;
+        }
+    }
+    public HomePageObject goToHome(){
+        driver.get(TestData.HOME_PAGE);
+        return new HomePageObject(driver);
     }
 }

@@ -28,14 +28,6 @@ public class HeaderPageObject extends BasePageObject {
     private Button currencyListButton;
     private String buttonText;
 
-    public void setWishPageButton(Button wishPageButton) {
-        this.wishPageButton = wishPageButton;
-    }
-
-    public Button getWishPageButton() {
-        return wishPageButton;
-    }
-
     public HeaderPageObject(WebDriver driver) {
         super(driver);
     }
@@ -48,11 +40,6 @@ public class HeaderPageObject extends BasePageObject {
     public HomePageObject goToHomePage() {
         yourStore = new LinkedLabel(driver, HeaderLocators.YOUR_STORE_BUTTON_LOC).click();
         return new HomePageObject(driver);
-    }
-
-    public ItemInfoPageObject goToItemsPage() {
-        itemsPageButton = new ImageTextButton(driver, HeaderLocators.ITEMS_PAGE_BUTTON_LOC).click();
-        return new ItemInfoPageObject(driver);
     }
 
     public WishListPageObject clickWishList() {
@@ -89,19 +76,19 @@ public class HeaderPageObject extends BasePageObject {
     public HeaderPageObject chooseDollarCurrency() {
         currencyListButton = new ImageTextButton(driver, HeaderLocators.CURRENCY_BUTTON_LOC).click();
         this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(TWO).click();
-        return new HeaderPageObject(driver);
+        return this;
     }
 
     public HeaderPageObject chooseEuroCurrency() {
         currencyListButton = new ImageTextButton(driver, HeaderLocators.CURRENCY_BUTTON_LOC).click();
         this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(ZERO).click();
-        return new HeaderPageObject(driver);
+        return this;
     }
 
     public HeaderPageObject choosePoundCurrency() {
         currencyListButton = new ImageTextButton(driver, HeaderLocators.CURRENCY_BUTTON_LOC).click();
         this.createListOfCurrency(HeaderLocators.LIST_OF_CURRENCY_LOC).get(ONE).click();
-        return new HeaderPageObject(driver);
+        return this;
     }
 
     public String getTextFromFirstTape() {
@@ -125,5 +112,13 @@ public class HeaderPageObject extends BasePageObject {
         openPreview = new Button(driver, HeaderLocators.OPEN_PREVIEW_CART);
         openPreview.click();
         return new PreviewShoppingCart(driver);
+    }
+
+    public void setWishPageButton(Button wishPageButton) {
+        this.wishPageButton = wishPageButton;
+    }
+
+    public Button getWishPageButton() {
+        return wishPageButton;
     }
 }

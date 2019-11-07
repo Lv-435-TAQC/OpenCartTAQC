@@ -8,8 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Button;
 import pageelements.TextButton;
 
-import static locators.AdminNavigationLocators.CUSTOMERS_BUTTON_XPATH;
-import static locators.AdminNavigationLocators.CUSTOMERS_SUB_BUTTON_XPATH;
+import static locators.AdminNavigationLocators.*;
 
 public class AdminNavigationPageObject extends BasePageObject {
 
@@ -23,15 +22,36 @@ public class AdminNavigationPageObject extends BasePageObject {
     private Button coupons;
     private Button customersButton;
     private Button customersSubButton;
+    private Button reportsNavigation;
+    private Button orders;
+    private Button statistics;
+    private Button reports;
 
 
     public AdminNavigationPageObject(WebDriver driver) {
         super(driver);
     }
 
+    public void clickReports() {
+        this.reportsNavigation = new Button(driver, REPORTS_NAVIGATION).click();
+    }
+
+    public AdminStatisticsPageObject goToStatistics(){
+        this.clickReports();
+        this.statistics = new Button(driver, STATISTICS).click();
+        return new AdminStatisticsPageObject(driver);
+    }
+    public AdminReportsPageObject goToReports(){
+        this.clickReports();
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(REPORTS)));
+        this.reports = new Button(driver, REPORTS).click();
+        return new AdminReportsPageObject(driver);
+    }
+
     public AdminNavigationPageObject goToCatalog() {
         catalog = new TextButton(driver, AdminNavigationLocators.CATALOG_BUTTON_LOC).click();
-        return new AdminNavigationPageObject(driver);
+        return this;
     }
 
     public AdminProductsListPageObject goToProducts() {
@@ -45,7 +65,7 @@ public class AdminNavigationPageObject extends BasePageObject {
     }
 
     public AdminGiftVouchersPageObject goToVouchersList() {
-        salesGroup = new Button(driver, AdminNavigationLocators.SALIS_GROUP).click();
+        salesGroup = new Button(driver, AdminNavigationLocators.SALES_GROUP).click();
         vouchersCategory = new Button(driver, AdminNavigationLocators.VOUCHERS_CATEGORY).click();
         vouchrs = new Button(driver, AdminNavigationLocators.VOUCHERS).click();
         return new AdminGiftVouchersPageObject(driver);
@@ -65,5 +85,11 @@ public class AdminNavigationPageObject extends BasePageObject {
     public AdminCustomersPageObject clickOnCustomersSubButton() {
         customersSubButton = new Button(driver, CUSTOMERS_SUB_BUTTON_XPATH).click();
         return new AdminCustomersPageObject(driver);
+    }
+
+    public AdminOrdersPageObject goToOrdersList() {
+        salesGroup = new Button(driver, AdminNavigationLocators.SALES_GROUP).click();
+        orders = new Button(driver, AdminNavigationLocators.ORDERS).click();
+        return new AdminOrdersPageObject(driver);
     }
 }
