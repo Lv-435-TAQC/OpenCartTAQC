@@ -18,8 +18,6 @@ public class Helper {
         } else{
             result = new SubCategoryPageObject(driver);
         }
-
-
             return result;
     }
 }

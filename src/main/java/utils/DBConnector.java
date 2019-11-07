@@ -13,28 +13,29 @@ public class DBConnector {
         return statement;
     }
 
-    public Statement getConnectionMariaDB(String DBdriver, String DBurl, String DBname, String DBpassword){
+    public Statement getConnectionMariaDB(String DBdriver, String DBurl, String DBname, String DBpassword) {
         try {
             Class.forName(DBdriver);
             connection = DriverManager.getConnection(DBurl, DBname, DBpassword);
             statement = connection.createStatement();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         Boolean isConnected = true;
         try {
             isConnected = !connection.isClosed();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return statement;
     }
-    public Boolean closeConnectionMariaDB(){
+
+    public Boolean closeConnectionMariaDB() {
         Boolean isClosed = true;
         try {
             connection.close();
             isClosed = connection.isClosed();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return isClosed;

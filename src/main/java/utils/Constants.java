@@ -10,7 +10,7 @@ public class Constants {
     public static final int FOUR = 4;
     public static final int EIGHT = 8;
 
-    public static final String BASE_URL = "http://localhost/OpenCart/";
+    public static final String BASE_URL = "http://localhost/opencart/";
     public static final String BASE_ADMIN_URL = BASE_URL + "admin";
     public static final String HOME_ADMIN_URL = BASE_ADMIN_URL + "index.php?route=common/dashboard&user_token=snGcwz15PAFuAuKlpDjs3KSj01yp51GG";
     public static final String PATH_TO_DRIVER = "src/main/resources/geckodriver.exe";
