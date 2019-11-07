@@ -44,6 +44,17 @@ public class AdminLoginPageObjectTest {
         driver.quit();
     }
 
+    @DataProvider(name = "AuthenticationAdmin")
+    public Object[][] createDataForLoginAdmin(Method m) {
+        return new Object[][]{new Object[]{"", "orysia"}
+                , new Object[]{"admin", ""}
+                , new Object[]{"orysita.lviv+1@gmail.com", " "}
+                , new Object[]{"orysita.lviv+1@gmail.com", "fdgfdfg"}
+                , new Object[]{"orysita.lviv+1@gmail.com", "orysia"}
+                , new Object[]{"", ""}
+        };
+    }
+
     /**
      * <b>TC-1: AuthenticationAdmin without correct date</b>
      * <p>
@@ -57,17 +68,6 @@ public class AdminLoginPageObjectTest {
      * Expected Result: "Warning: No match for E-Mail Address and/or Password." or correct login with correct date
      */
 
-    @DataProvider(name = "AuthenticationAdmin")
-    public Object[][] createDataForLoginAdmin(Method m) {
-        return new Object[][]{new Object[]{"", "orysia"}
-                , new Object[]{"admin", ""}
-                , new Object[]{"orysita.lviv+1@gmail.com", " "}
-                , new Object[]{"orysita.lviv+1@gmail.com", "fdgfdfg"}
-                , new Object[]{"orysita.lviv+1@gmail.com", "orysia"}
-                , new Object[]{"", ""}
-        };
-    }
-
     @Test(dataProvider = "AuthenticationAdmin")
     public void adminLoginTest(String login, String password) {
         adminLoginPageObject.logIn(login, password);
@@ -75,7 +75,6 @@ public class AdminLoginPageObjectTest {
         String expected = Constants.ADMIN_PAGE;
         assertEquals(actual, expected);
     }
-
 
     /**
      * <b>TC-1: Authentication Admin test correct date</b>
