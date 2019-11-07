@@ -9,7 +9,7 @@ public class Constants {
     public static final int THREE = 3;
     public static final int FOUR = 4;
     public static final int EIGHT = 8;
-    public static final String BASE_URL = "http://localhost/opencart/";
+    public static final String BASE_URL = "http://192.168.92.128/opencart";
     public static final String BASE_ADMIN_URL = "http://192.168.152.128/opencart/admin";
     public static final String PATH_TO_DRIVER = "src/main/resources/geckodriver.exe";
     public static final String KEY_TO_DRIVER = "webdriver.gecko.driver";
@@ -31,7 +31,7 @@ public class Constants {
     public static final String WISH_LIST_ID_42 = "42";
     public static final String LOGOUT_URL = "http://localhost/opencart/index.php?route=account/logout";
     public static final String ADMIN_LOGIN_URL = "http://localhost/shop/admin/index.php?route=common/login";
-    public static final String MENU_URL = "http://localhost/shop";
+    public static final String MENU_URL = "http://192.168.92.128/opencart";
     public static final String SUCCESS_CHANGING_PRODUCT = "Success: You have modified products!";
     public static final String UNSUCCESSFUL_CHANGING_PRODUCT = "Warning: Please check the form carefully for errors!";
     public static final String MODEL_OF_FILTERED_PRODUCT = "Apple Cinema 30";

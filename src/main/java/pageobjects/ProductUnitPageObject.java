@@ -78,25 +78,23 @@ public class ProductUnitPageObject extends BasePageObject {
     /**
      * Wrapper for click on "Add to Wish List" button
      *
-     * @param xpath - xpath for category po structure
      * @return instance of  category page object
      */
-    public CategoryPageObject clickAddToWishList(String xpath) {
+    public SubCategoryPageObject clickAddToWishList() {
         addToWishListButton = new ImageButton(elementToParse, ProductUnitLocators.ADD_TO_WISH_LIST_BUTTON_LOC);
         addToWishListButton.click();
-        return new CategoryPageObject(this.driver, xpath);
+        return new SubCategoryPageObject(this.driver);
     }
 
     /**
      * Wrapper for click on "Compare this Product" button
      *
-     * @param xpath - xpath for category po structure
      * @return instance of  category page object
      */
-    public CategoryPageObject clickCompareThisProduct(String xpath) {
+    public SubCategoryPageObject clickCompareThisProduct() {
         compareThisProductButton = new ImageButton(elementToParse, ProductUnitLocators.COMPARE_THIS_PRODUCT_BUTTON_LOC);
         compareThisProductButton.click();
-        return new CategoryPageObject(this.driver, xpath);
+        return new SubCategoryPageObject(this.driver);
     }
 
     /**
