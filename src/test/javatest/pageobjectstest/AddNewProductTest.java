@@ -83,7 +83,6 @@ public class AddNewProductTest {
                  .clickData()
                  .setProductModel("test")
                  .clickLinks()
-                 .setCategories("Tablet")
                  .saveNewProduct()
                  .getTextFromMessage();
          assertTrue(actualMessage.contains(SUCCESS_CHANGING_PRODUCT));
@@ -113,6 +112,7 @@ public class AddNewProductTest {
                 .setMetaTagTitle("1232435436")
                 .clickData()
                 .setProductModel("1243245346")
+                .clickLinks()
                 .saveNewProduct()
                 .getTextFromMessage();
         assertTrue(actualMessage.contains(SUCCESS_CHANGING_PRODUCT));
@@ -142,6 +142,7 @@ public class AddNewProductTest {
                 .setMetaTagTitle("+_)(*&^%")
                 .clickData()
                 .setProductModel("_)(*&^%$#@")
+                .clickLinks()
                 .saveNewProduct()
                 .getTextFromMessage();
         assertTrue(actualMessage.contains(SUCCESS_CHANGING_PRODUCT));
@@ -171,6 +172,7 @@ public class AddNewProductTest {
                 .setMetaTagTitle("    ")
                 .clickData()
                 .setProductModel("    ")
+                .clickLinks()
                 .saveNewProduct()
                 .getTextFromMessage();
         assertTrue(actualMessage.contains(SUCCESS_CHANGING_PRODUCT));
@@ -190,7 +192,7 @@ public class AddNewProductTest {
      * Expected Result:"Product Name must be greater than 1 and less than 255 characters".
      */
 
-    @Test
+    @Test(priority = 1)
     public void checkProductNameWithoutDataTest(){
         String actualMessage = adminProductsList
                 .goToAddNewProduct()
@@ -215,7 +217,7 @@ public class AddNewProductTest {
      * "Warning: "Product Name must be greater than 1 and less than 255 characters".
      */
 
-    @Test
+    @Test(priority = 1)
     public void checkMegaTagFieldWithoutDataTest(){
         String actualMessage = adminProductsList
                 .goToAddNewProduct()
@@ -240,7 +242,7 @@ public class AddNewProductTest {
      * "Warning: "Product Name must be greater than 1 and less than 255 characters".
      */
 
-    @Test
+    @Test(priority = 1)
     public void checkProductModelWithoutDataTest(){
         String actualMessage = adminProductsList
                 .goToAddNewProduct()
