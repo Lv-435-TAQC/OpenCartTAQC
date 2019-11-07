@@ -2,6 +2,7 @@ package pageobjectstest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pageobjects.HomePageObject;
@@ -294,6 +295,9 @@ public class WishListPageObjectTest {
                 .deliveryMethodWithoutCommentsAboutYourOrder()
                 .paymentMethodWithoutCommentsAboutYourOrder()
                 .clickContinueButtonU();
-
+        String actual = request
+                .getDataFromDBOneParameters(GET_FROM_ORDER2, connector.getStatement(), "total")
+                .get(ZERO);
+        Assert.assertEquals(actual,PRICE_FOR_IPHONE);
     }
 }

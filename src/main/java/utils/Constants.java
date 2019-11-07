@@ -64,4 +64,5 @@ public class Constants {
     public static final String SHOPPING_CART = "Shopping cart";
     public static final String LOGIN = "Login";
     public static final String REGISTER = "Register";
+    public static final String PRICE_FOR_IPHONE = "106";
 }

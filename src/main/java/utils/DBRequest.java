@@ -31,7 +31,7 @@ public class DBRequest {
         return flag;
     }
 
-    public ArrayList<String> getDataFromDB(String select, Statement statement, String firstColumnLabel, String secondColumnLabel) {
+    public ArrayList<String> getDataFromDBTwoParameters(String select, Statement statement, String firstColumnLabel, String secondColumnLabel) {
         ResultSet resultSet = null;
         int id;
         int secondParam;
@@ -42,6 +42,22 @@ public class DBRequest {
                 id = resultSet.getInt(firstColumnLabel);
                 secondParam = resultSet.getInt(secondColumnLabel);
                 res.add(id + " " + secondParam);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public ArrayList<String> getDataFromDBOneParameters(String select, Statement statement, String firstColumnLabel) {
+        ResultSet resultSet = null;
+        int param;
+        ArrayList<String> res = new ArrayList();
+        try {
+            resultSet = statement.executeQuery(select);
+            while (resultSet.next()) {
+               param = resultSet.getInt(firstColumnLabel);
+               res.add(param + "");
             }
         } catch (SQLException e) {
             e.printStackTrace();

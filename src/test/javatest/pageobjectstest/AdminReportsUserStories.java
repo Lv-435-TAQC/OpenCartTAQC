@@ -81,7 +81,7 @@ public class AdminReportsUserStories {
                 .getAdminReportsProductViewedPO()
                 .clickResetAndDeleteItemsFromList();
         ArrayList actual = request
-                .getDataFromDB(GET_FROM_VIEWED, connector.getStatement(), "product_id", "viewed");
+                .getDataFromDBTwoParameters(GET_FROM_VIEWED, connector.getStatement(), "product_id", "viewed");
         System.out.println(actual);
         Assert.assertEquals( actual, EXPECTED_FOR_REPORTS);
     }
@@ -110,7 +110,7 @@ public class AdminReportsUserStories {
                 .get(ZERO)
                 .getValue();
         String expected = request
-                .getDataFromDB(GET_FROM_ORDER, connector.getStatement(), "order_id", "total")
+                .getDataFromDBTwoParameters(GET_FROM_ORDER, connector.getStatement(), "order_id", "total")
                 .get(ZERO);
         Assert.assertEquals(Float.parseFloat(expected.split(" ")[1]),Float.parseFloat(actual));
     }
