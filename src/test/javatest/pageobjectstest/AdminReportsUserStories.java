@@ -33,7 +33,6 @@ public class AdminReportsUserStories {
         request.insertDataToDB(UPDATE_VIEWED_PRODUCTS, connector.getStatement());
         request.insertDataToDB(INSERT_TO_ORDER, connector.getStatement());
         adminPageObject = new AdminPageObject(driver);
-
     }
 
     @BeforeMethod

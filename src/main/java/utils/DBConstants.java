@@ -24,8 +24,9 @@ public class DBConstants {
             "('1', '41', '2019-11-05 00:07:17'),\n" +
             "('1', '40', '2019-11-05 00:07:17'),\n" +
             "('1', '30', '2019-11-05 00:07:17');";
-    public static final String MARIA_DB_URL_XAMPP = "jdbc:mysql://localhost/opencart";
+    public static final String MARIA_DB_URL_XAMPP = "jdbc:mysql://localhost:3307/opencartdb";
     public static final String MARIA_DB_USER_NAME_XAMPP = "root";
-    public static final String MARIA_DB_PASSWORD_XAMPP = "root";
+    public static final String MARIA_DB_PASSWORD_XAMPP = "";
     public static final String ORDERS = "SELECT * FROM opencart.oc_order;";
+    public static final String DELETE_ALL_USERS_FROM_DB = "DELETE FROM opencartdb.oc_customer";
 }

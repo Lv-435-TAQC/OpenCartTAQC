@@ -9,25 +9,25 @@ public class DBRequest {
 
     public Boolean insertDataToDB(String insert, Statement statement) {
         Boolean flag;
-            try{
-                statement.execute(insert);
-                flag = true;
-            }catch (SQLException e){
-                flag = false;
-                e.printStackTrace();
-            }
+        try {
+            statement.execute(insert);
+            flag = true;
+        } catch (SQLException e) {
+            flag = false;
+            e.printStackTrace();
+        }
         return flag;
     }
 
-    public Boolean deleteDataFromDB(String insert, Statement statement) {
+    public Boolean deleteDataFromDB(String request, Statement statement) {
         Boolean flag;
-            try{
-                statement.execute(insert);
-                flag = true;
-            }catch (SQLException e){
-                flag = false;
-                e.printStackTrace();
-            }
+        try {
+            statement.execute(request);
+            flag = true;
+        } catch (SQLException e) {
+            flag = false;
+            e.printStackTrace();
+        }
         return flag;
     }
 
@@ -56,8 +56,8 @@ public class DBRequest {
         try {
             resultSet = statement.executeQuery(select);
             while (resultSet.next()) {
-               param = resultSet.getInt(firstColumnLabel);
-               res.add(param + "");
+                param = resultSet.getInt(firstColumnLabel);
+                res.add(param + "");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,12 +77,12 @@ public class DBRequest {
         return flag;
     }
 
-    public ResultSet selectDataToDB(String select, Statement statement){
+    public ResultSet selectDataToDB(String select, Statement statement) {
         ResultSet resultSet = null;
-        try{
+        try {
             resultSet = statement.executeQuery(select);
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultSet;

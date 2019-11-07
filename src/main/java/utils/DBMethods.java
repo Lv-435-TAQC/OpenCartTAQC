@@ -3,6 +3,8 @@ package utils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static utils.DBConstants.*;
+
 public class DBMethods {
 
     public String getLastOrderIDFromDB() {
@@ -11,7 +13,7 @@ public class DBMethods {
         DBRequest request = new DBRequest();
         ResultSet set = request.selectDataToDB(DBConstants.ORDERS,
                 connector.getConnectionMariaDB(DBConstants.MARIA_DB_DRIVER, DBConstants.MARIA_DB_URL_XAMPP,
-                        DBConstants.MARIA_DB_USER_NAME_XAMPP, DBConstants.MARIA_DB_PASSWORD_XAMPP));
+                        MARIA_DB_USER_NAME_XAMPP, DBConstants.MARIA_DB_PASSWORD_XAMPP));
         connector.closeConnectionMariaDB();
         try {
             while (set.next()) {
@@ -24,6 +26,7 @@ public class DBMethods {
         }
         return String.valueOf(lastOrder);
     }
+
     public String getOrdersTotalCostFromDB(String orderId) {
         int id = Integer.parseInt(orderId);
         String totalCost = "0";
@@ -31,7 +34,7 @@ public class DBMethods {
         DBRequest request = new DBRequest();
         ResultSet set = request.selectDataToDB(DBConstants.ORDERS,
                 connector.getConnectionMariaDB(DBConstants.MARIA_DB_DRIVER, DBConstants.MARIA_DB_URL_XAMPP,
-                        DBConstants.MARIA_DB_USER_NAME_XAMPP, DBConstants.MARIA_DB_PASSWORD_XAMPP));
+                        MARIA_DB_USER_NAME_XAMPP, DBConstants.MARIA_DB_PASSWORD_XAMPP));
         connector.closeConnectionMariaDB();
         try {
             while (set.next()) {
@@ -45,5 +48,13 @@ public class DBMethods {
             System.out.println("Connection to DB is fail !!!");
         }
         return totalCost;
+    }
+
+    public void deleteAllUsersFromDB() {
+        DBConnector dbConnector = new DBConnector();
+        DBRequest dbRequest = new DBRequest();
+        dbConnector.getConnectionMariaDB(
+                MARIA_DB_DRIVER, "jdbc:mysql://localhost:3307/opencartdb", MARIA_DB_USER_NAME_XAMPP, "");
+        dbRequest.deleteDataFromDB(DELETE_ALL_USERS_FROM_DB, dbConnector.getStatement());
     }
 }
