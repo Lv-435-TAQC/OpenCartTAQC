@@ -35,5 +35,4 @@ public class AdminPageObject extends BasePageObject {
     public AdminNavigationPageObject getNavigation() {
         return this.navigationPageObject;
     }
-
 }

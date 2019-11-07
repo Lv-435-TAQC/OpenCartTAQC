@@ -9,8 +9,9 @@ public class Constants {
     public static final int THREE = 3;
     public static final int FOUR = 4;
     public static final int EIGHT = 8;
-    public static final String BASE_URL = "http://localhost/opencart/";
+    public static final String BASE_URL = "http://192.168.152.128/opencart/";
     public static final String BASE_ADMIN_URL = "http://192.168.152.128/opencart/admin";
+    public static final String HOME_ADMIN_URL = BASE_ADMIN_URL + "index.php?route=common/dashboard&user_token=snGcwz15PAFuAuKlpDjs3KSj01yp51GG";
     public static final String PATH_TO_DRIVER = "src/main/resources/geckodriver.exe";
     public static final String KEY_TO_DRIVER = "webdriver.gecko.driver";
     public static final String REGISTRATION_PAGE_URL = BASE_URL + "index.php?route=account/register";
@@ -29,6 +30,7 @@ public class Constants {
     public static final String ALERT_WISH_LIST_SUCCESS = "Success:";
     public static final String WISH_LIST_ID_41 = "41";
     public static final String WISH_LIST_ID_42 = "42";
+    public static final String WISH_LIST_ID_40 = "40";
     public static final String LOGOUT_URL = "http://localhost/opencart/index.php?route=account/logout";
     public static final String ADMIN_LOGIN_URL = "http://localhost/shop/admin/index.php?route=common/login";
     public static final String MENU_URL = "http://localhost/shop";
@@ -48,7 +50,7 @@ public class Constants {
     public static final String ACCOUNT_PAGE = "http://localhost/opencart/index.php?route=account/account";
     public static final String LOGIN_PAGE = "http://localhost/opencart/index.php?route=account/login";
     public static final String NEGATIVE_MESSAGE_FOR_FIELD = "Product Name must be greater than 1 and less than 255 characters";
-
+    public static final String WISH_LIST_URL = "http://192.168.152.128/opencart/index.php?route=account/wishlist";
     public static final String ADMIN_PAGE = "http://localhost/opencart/admin/";
     public static final String ADMIN_LOGIN = "admin";
     public static final String ADMIN_PASSWORD = "orysia";
@@ -59,7 +61,9 @@ public class Constants {
     public static final String DOLLAR_CURRENCY = "$";
     public static final String EURO_CURRENCY = "€";
     public static final String POUND_CURRENCY = "£";
-    public static final String SHOPPING_CART = "Shopping cart";
+    public static final String SHOPPING_CART = "Shopping Cart";
     public static final String LOGIN = "Login";
     public static final String REGISTER = "Register";
+    public static final String TEXT_FROM_ITEMS_BUTTON = "1 item(s) - $999.00";
+    public static final String PRICE_FOR_IPHONE = "106";
 }

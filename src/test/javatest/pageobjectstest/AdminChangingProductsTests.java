@@ -1,18 +1,14 @@
 package javatest.pageobjectstest;
 
 
-
-import entity.Product;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.*;
 
-
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
@@ -24,7 +20,14 @@ public class AdminChangingProductsTests {
     AdminProductsListPageObject adminProductsList;
     AddNewProductPageObject addProduct;
     BasePageObject home;
-    AdminPageObject admin;
+
+    @BeforeClass
+    public void setUp() {
+        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
+        driver = new FirefoxDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
 
     /**
      * <b> Description of Precondition.</b>
@@ -39,12 +42,8 @@ public class AdminChangingProductsTests {
      * <p>
      */
 
-    @BeforeClass
-    public void setUp() {
-        System.setProperty(KEY_TO_DRIVER, PATH_TO_DRIVER);
-        driver = new FirefoxDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    @BeforeMethod
+    public void getHome(){
         adminProductsList = new AdminProductsListPageObject(driver);
         home = new HomePageObject(driver);
         addProduct = new AddNewProductPageObject(driver);
@@ -56,15 +55,15 @@ public class AdminChangingProductsTests {
                 .getNavigation()
                 .goToCatalog()
                 .goToProducts();
-
     }
+
     @AfterClass
     public void tearDown() {
         driver.quit();
     }
 
     /**
-     * <b>TC-01: End To End Test Adding and Add To Shopping Card Product.</b>
+     * <b>TC-01: Adding and Add To Shopping Card Product Test.</b>
      *
      * Scenario:
      * <ul>
@@ -78,13 +77,17 @@ public class AdminChangingProductsTests {
      * <li>8. Go to Home page;
      * <li>9. Click on Tablets button in Menu;
      * <li>10. Add Product in Shopping Card;
+     * <li>11. Go to Home page;
+     * <li>12. Get title from Items button;
+     * <li>13. Compare expected and actual titles;
      * </ul>
      * <p>
-     * Expected Result: Product will be added in Shopping Card.
+     * Expected Result_1: Product will be added in Shopping Card.
+     * Expected Result_2: 1 item(s) - $999.00.
      */
 
     @Test
-    public void addNewProductAndAddingToShoppingCardEndToEndTest() {
+    public void addNewProductAndAddingToShoppingCardTest() {
         String actualMessage = adminProductsList
                 .goToAddNewProduct()
                 .fillGeneralFields("Apple iPad Pro", APPLE_DESCRIPTION, "tablet")
@@ -99,29 +102,39 @@ public class AdminChangingProductsTests {
                 .getMenuPageObject()
                 .goToTablets()
                 .clickAddToCardByNameOfProduct("Apple iPad Pro");
+        String actualItemsButtonTitle = home
+                .goToHomePage()
+                .getHeaderPageObject()
+                .getTextFromItems();
+        assertTrue(actualItemsButtonTitle.contains(TEXT_FROM_ITEMS_BUTTON));
+
     }
 
     /**
-     * <b>TC-02: End To End Test Deleting all Products and check Category.</b>
+     * <b>TC-02:Deleting Tablets and check Tablets Category Test.</b>
      *
      * Scenario:
      * <ul>
-     * <li>1. Click Main checkbox;
-     * <li>2. Click delete button;
-     * <li>3. Access alert;
-     * <li>4. Go To Home Page;
-     * <li>5. Click on Tablets in menu;
-     * <li>6. Compare actual and expected messages;
+     * <li>1. Set product name in name field;
+     * <li>2. Click submit filter;
+     * <li>3. Click delete button;
+     * <li>4. Access alert;
+     * <li>5. Go To Home Page;
+     * <li>6. Click on Tablets in menu;
+     * <li>7. Compare actual and expected messages;
      * </ul>
      * <p>
      * Expected Message: There are no products to list in this category.
      */
 
         @Test(priority = 1)
-        public void deleteProductAndAddingToShoppingCardNegativeTest() {
-        adminProductsList
-                       .markCheckbox()
-                      .deleteProduct();
+        public void editProductAndAddingToShoppingCardNegativeTest() {
+            adminProductsList
+                        .setFilterName("Apple iPad Pro")
+                        .filterProduct()
+                        .deleteProduct()
+                        .markCheckbox()
+                        .deleteProduct();
               String actual = home
                       .goToHomePage()
                       .getMenuPageObject()

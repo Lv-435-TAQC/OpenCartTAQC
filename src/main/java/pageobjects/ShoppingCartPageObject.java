@@ -3,7 +3,10 @@ package pageobjects;
 
 import locators.ShoppingCartLocators;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.sikuli.api.robot.Keyboard;
@@ -17,7 +20,10 @@ import patterns.ShoppingCartPatterns;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import static locators.ShoppingCartLocators.PRODUCTS_TABLE_XPATH;
 
 /**
  *  The class is created to describe the basic functionality on the shopping cart page
@@ -76,8 +82,8 @@ public class ShoppingCartPageObject extends BasePageObject {
      */
     public HashMap<String, ShoppingCartProduct> getShoppingProductsList() {
         new WebDriverWait(driver, 30).
-                until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.PRODUCTS_TABLE_XPATH)));
-        this.productsTable = new ShoppingProductsTable(driver, ShoppingCartLocators.PRODUCTS_TABLE_XPATH);
+                until(ExpectedConditions.presenceOfElementLocated(By.xpath(PRODUCTS_TABLE_XPATH)));
+        this.productsTable = new ShoppingProductsTable(driver, PRODUCTS_TABLE_XPATH);
         return productsTable.productsListInCart();
     }
     /**
@@ -358,4 +364,29 @@ public class ShoppingCartPageObject extends BasePageObject {
         return new CheckoutBillingDetailsPageObject(driver);
     }
 
+    public BasePageObject determineIfTableExistsAndRemoveAll(){
+        String shopCart = driver.findElement(By.xpath("/html/body/div[2]/div/div/h1")).getText();
+        if(shopCart.contains("Use Gift Certificate")){
+            return this.removeAllProductsFromCart();
+        }else {
+            return this;
+        }
+    }
+
+    public ShoppingCartPageObject removeAllProductsFromCart() {
+        HashMap<String, ShoppingCartProduct> mapProducts = this.getShoppingProductsList();
+        ArrayList<String> listIDs = new ArrayList<>();
+        if(mapProducts.isEmpty()){
+            return this;
+        }else {
+            for (HashMap.Entry<String, ShoppingCartProduct> entry : mapProducts.entrySet()) {
+                listIDs.add(entry.getKey());
+            }
+            for (String s : listIDs) {
+                this.removeProductFromCart(s);
+            }
+            return new ShoppingCartPageObject(driver);
+        }
+
+    }
 }

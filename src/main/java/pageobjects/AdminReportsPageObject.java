@@ -9,6 +9,7 @@ public class AdminReportsPageObject extends BasePageObject {
     private AdminPageObject adminPageObject;
     private DropDown filter;
     private AdminNavigationPageObject adminNavigationPageObject;
+    private AdminReportsProductViewedPO adminReportsProductViewedPO;
 
 
     public AdminReportsPageObject(WebDriver driver) {
@@ -17,6 +18,10 @@ public class AdminReportsPageObject extends BasePageObject {
         this.filter = new DropDown(driver, FILTER);
         this.adminNavigationPageObject = new AdminNavigationPageObject(driver);
 
+    }
+
+    public AdminReportsProductViewedPO getAdminReportsProductViewedPO() {
+        return adminReportsProductViewedPO;
     }
 
     public AdminNavigationPageObject getAdminNavigationPageObject() {
@@ -33,7 +38,7 @@ public class AdminReportsPageObject extends BasePageObject {
 
     public AdminReportsPageObject clickProductsViewedReport() {
         this.filter.writeOptionParameter("Products Viewed Report");
-
-        return new AdminReportsPageObject(driver);
+        adminReportsProductViewedPO = new AdminReportsProductViewedPO(driver);
+        return this;
     }
 }

@@ -82,7 +82,7 @@ public class HomePageObject extends BasePageObject {
     }
 
     public HeaderPageObject getHeaderPageObject() {
-        return new HeaderPageObject(driver);
+        return this.headerPageObject;
     }
 
     public MenuPageObject getMenuPageObject() {
