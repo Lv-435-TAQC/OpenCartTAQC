@@ -57,7 +57,7 @@ public class Constants {
     public static final String SHOPPING_CARD_URL = BASE_URL + "index.php?route=checkout/cart";
     public static final String SUCCSSES_ORDER1 = "Your order has been placed!";
     public static final String SUCCSSES_ORDER2 = "Checkout";
-    public static final String MESSAGE_IN_CATEGORY = "There are no products to list in this category.";
+    public static final String MESSAGE_IN_CATEGORY = "Your shopping cart is empty!";
     public static final String DOLLAR_CURRENCY = "$";
     public static final String EURO_CURRENCY = "€";
     public static final String POUND_CURRENCY = "£";
