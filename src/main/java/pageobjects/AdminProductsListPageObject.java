@@ -28,6 +28,8 @@ public class AdminProductsListPageObject extends BasePageObject{
     private Button addNewProductButton;
     private Button deleteProductButton;
     private Checkbox mainCheckbox;
+    private Input filterName;
+    private Button submitFilter;
 
     public AdminProductsListPageObject(WebDriver driver) {
         super(driver);
@@ -79,4 +81,22 @@ public class AdminProductsListPageObject extends BasePageObject{
         return this;
     }
 
+    /**
+     * filterProduct
+     * @return AdminProductsListPageObject
+     */
+    public AdminProductsListPageObject filterProduct() {
+        submitFilter = new ImageButton(driver, AdminProductsPageLocators.FILTER_SUBMIT_BUTTON_LOC).click();
+        return new AdminProductsListPageObject(driver);
+    }
+
+    /**
+     * setFilterName
+     * @param name
+     * @return AdminProductsListPageObject
+     */
+    public AdminProductsListPageObject setFilterName(String name) {
+        filterName = new Input(driver, AdminProductsPageLocators.FILTER_NAME_FIELD_LOC).clearField().setText(name);
+        return new AdminProductsListPageObject(driver);
+    }
 }

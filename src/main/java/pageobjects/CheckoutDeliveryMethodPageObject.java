@@ -1,6 +1,5 @@
 package pageobjects;
 
-import locators.CheckoutBillingDetailsLocators;
 import locators.CheckoutDeliveryMethodLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -49,6 +48,8 @@ public class CheckoutDeliveryMethodPageObject extends BasePageObject {
     }
 
     public CheckoutPaymentMethodPageObject clickContinueButton() {
+        WebElement explicitWait = (new WebDriverWait(driver, 10)).
+                until(ExpectedConditions.presenceOfElementLocated(By.xpath(CheckoutDeliveryMethodLocators.CONTINUE_DELIVERY_METHOD)));
         continueButton = new Button(this.driver, CheckoutDeliveryMethodLocators.CONTINUE_DELIVERY_METHOD);
         continueButton.click();
         return new CheckoutPaymentMethodPageObject(driver);

@@ -29,4 +29,5 @@ public class ShoppingCartLocators {
     public static final String TABLE_PRODUCTS_FOR_PREVIEW_CART = "/html/body/header/div/div/div[3]/div/ul/li[1]/table/tbody";
     public static final String SUCCESS_MASSAGE = "/html/body/div[2]/div[1]";
     public static final String CART_EMPTY_MASSAGE = "/html/body/div[2]/div/div/p";
+    public static final String PRODUCTS_TABLE = "/html/body/div[2]/div/div/h1";
 }

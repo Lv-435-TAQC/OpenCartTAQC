@@ -1,7 +1,6 @@
 package pageobjects;
 
 import locators.CheckoutBillingDetailsLocators;
-import locators.ForgottenPasswordLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pageelements.Button;
 import pageelements.DropDown;
 import pageelements.Input;
+
+import static locators.CheckoutBillingDetailsLocators.REGION_OR_STATE;
 
 public class CheckoutBillingDetailsPageObject extends BasePageObject {
     private Input firstNameField;
@@ -35,21 +36,23 @@ public class CheckoutBillingDetailsPageObject extends BasePageObject {
         return this.clickIWantUseAnExistingAddressButton().clickNextButton();
     }
 
-    public CheckoutDeliveryDetailsPageObject continueWantUseNewAddressButtonWithAllInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, Integer selectCountryRegionOrState) {
+    public CheckoutDeliveryDetailsPageObject continueWantUseNewAddressButtonWithAllInformation(
+            String firstName, String lastName, String company, String address1, String address2,
+            String city, String postCode, String selectCountry, int selectCountryRegionOrState) {
         WebElement explicitWait = (new WebDriverWait(driver, 10)).
                 until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CheckoutBillingDetailsLocators.EXISTING_ADDRESS)));
         return this.clickIWantUseNewAddressButton()
                 .inputRequiredInformation(firstName, lastName, company, address1, address2, city, postCode, selectCountry, selectCountryRegionOrState);
     }
 
-    public CheckoutDeliveryDetailsPageObject continueWantUseNewAddressButtonWithNotAllInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, Integer selectCountryRegionOrState) {
+    public CheckoutDeliveryDetailsPageObject continueWantUseNewAddressButtonWithNotAllInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, int selectCountryRegionOrState) {
         WebElement explicitWait = (new WebDriverWait(driver, 10)).
                 until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CheckoutBillingDetailsLocators.EXISTING_ADDRESS)));
         return this.clickIWantUseNewAddressButton()
                 .inputNotRequiredInformation(firstName, lastName, company, address1, city, selectCountry, selectCountryRegionOrState);
     }
 
-    public CheckoutDeliveryDetailsPageObject inputNotRequiredInformation(String firstName, String lastName, String company, String address1, String city, String selectCountry, Integer selectCountryRegionOrState) {
+    public CheckoutDeliveryDetailsPageObject inputNotRequiredInformation(String firstName, String lastName, String company, String address1, String city, String selectCountry, int selectCountryRegionOrState) {
         this
                 .setFirstName(firstName)
                 .setLastName(lastName)
@@ -62,7 +65,9 @@ public class CheckoutBillingDetailsPageObject extends BasePageObject {
         return new CheckoutDeliveryDetailsPageObject(driver);
     }
 
-    public CheckoutDeliveryDetailsPageObject inputRequiredInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, int selectCountryRegionOrState) {
+    public CheckoutDeliveryDetailsPageObject inputRequiredInformation(
+            String firstName, String lastName, String company, String address1, String address2,
+            String city, String postCode, String selectCountry, int selectCountryRegionOrState) {
         this
                 .setFirstName(firstName)
                 .setLastName(lastName)
@@ -77,16 +82,15 @@ public class CheckoutBillingDetailsPageObject extends BasePageObject {
         return new CheckoutDeliveryDetailsPageObject(driver);
     }
 
-    public CheckoutDeliveryDetailsPageObject wantUseAnExistingAddressButton()
-    {
-       return this.clickNextButton();
+    public CheckoutDeliveryDetailsPageObject wantUseAnExistingAddressButton() {
+        return this.clickNextButton();
     }
 
-    public CheckoutDeliveryDetailsPageObject WantUseNewExistingAddressButtonWithAllInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, int selectCountryRegionOrState)
-    {
-       return this.clickIWantUseAnExistingAddressButton()
-               .inputNotRequiredInformation(firstName,lastName,company,address1,city,selectCountry, selectCountryRegionOrState);
+    public CheckoutDeliveryDetailsPageObject WantUseNewExistingAddressButtonWithAllInformation(String firstName, String lastName, String company, String address1, String address2, String city, String postCode, String selectCountry, int selectCountryRegionOrState) {
+        return this.clickIWantUseAnExistingAddressButton()
+                .inputNotRequiredInformation(firstName, lastName, company, address1, city, selectCountry, selectCountryRegionOrState);
     }
+
     public CheckoutBillingDetailsPageObject setFirstName(String firstName) {
         firstNameField = new Input(this.driver, CheckoutBillingDetailsLocators.FIRST_NAME);
         firstNameField.setText(firstName);
@@ -136,9 +140,10 @@ public class CheckoutBillingDetailsPageObject extends BasePageObject {
     }
 
     public CheckoutBillingDetailsPageObject selectCountryRegionOrState(int ordinalIndexCountryRegionOrState) {
-        selectCountryRegionOrStateDrop = new DropDown(this.driver, CheckoutBillingDetailsLocators.REGION_OR_STATE);
-        System.out.println("here");
-        selectCountryRegionOrStateDrop.getElement().selectByValue(Integer.valueOf(ordinalIndexCountryRegionOrState).toString());
+        selectCountryRegionOrStateDrop = new DropDown(this.driver, REGION_OR_STATE);
+        System.out.println("selectCountryRegionOrState");
+        driver.findElement(By.xpath(REGION_OR_STATE)).click();
+        selectCountryRegionOrStateDrop.getElement().selectByValue(String.valueOf(ordinalIndexCountryRegionOrState));
         return this;
     }
 
@@ -155,7 +160,7 @@ public class CheckoutBillingDetailsPageObject extends BasePageObject {
     }
 
     public CheckoutDeliveryDetailsPageObject clickNextButton() {
-       continueButton = new Button(this.driver, CheckoutBillingDetailsLocators.CONTINUE_BUTTON);
+        continueButton = new Button(this.driver, CheckoutBillingDetailsLocators.CONTINUE_BUTTON);
         continueButton.click();
         return new CheckoutDeliveryDetailsPageObject(driver);
 

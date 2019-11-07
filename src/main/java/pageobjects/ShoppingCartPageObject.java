@@ -3,7 +3,10 @@ package pageobjects;
 
 import locators.ShoppingCartLocators;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.sikuli.api.robot.Keyboard;
@@ -17,10 +20,13 @@ import patterns.ShoppingCartPatterns;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import static locators.ShoppingCartLocators.PRODUCTS_TABLE_XPATH;
+
 /**
- *  The class is created to describe the basic functionality on the shopping cart page
+ * The class is created to describe the basic functionality on the shopping cart page
  */
 public class ShoppingCartPageObject extends BasePageObject {
     private ShoppingProductsTable productsTable;
@@ -57,10 +63,12 @@ public class ShoppingCartPageObject extends BasePageObject {
         super(driver);
         screen = new Screen();
     }
+
     /**
      * This method is used to create screenshots when displaying a web page by the driver.
-     * @param driver .
-     * @param screenshotsName .
+     *
+     * @param driver          .
+     * @param screenshotsName - name of screenshots file.
      */
     public static void makeScreenShotSteps(WebDriver driver, String screenshotsName) {
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -70,41 +78,50 @@ public class ShoppingCartPageObject extends BasePageObject {
 
         }
     }
+
     /**
      * This method is used to extract the table of products, that have been added to the cart.
+     *
      * @return Map of products in the cart.
      */
+
     public HashMap<String, ShoppingCartProduct> getShoppingProductsList() {
         new WebDriverWait(driver, 30).
-                until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.PRODUCTS_TABLE_XPATH)));
-        this.productsTable = new ShoppingProductsTable(driver, ShoppingCartLocators.PRODUCTS_TABLE_XPATH);
+                until(ExpectedConditions.presenceOfElementLocated(By.xpath(PRODUCTS_TABLE_XPATH)));
+        this.productsTable = new ShoppingProductsTable(driver, PRODUCTS_TABLE_XPATH);
         return productsTable.productsListInCart();
     }
+
     /**
      * This method is used to remove products from the cart.
+     *
      * @param productID .
-     * @return this.
+     * @return ShoppingCartPageObject.
      */
     public ShoppingCartPageObject removeProductFromCart(String productID) {
         HashMap<String, ShoppingCartProduct> mapProducts = this.getShoppingProductsList();
         mapProducts.get(productID).removeProductsFromCart();
         return this;
     }
+
     /**
      * This method is used to update quantity products in the cart.
+     *
      * @param productID .
-     * @return this.
+     * @return ShoppingCartPageObject .
      */
     public ShoppingCartPageObject updateProductQuantityInCart(String productID) {
         HashMap<String, ShoppingCartProduct> mapProducts = this.getShoppingProductsList();
         mapProducts.get(productID).updateProductsFromCart();
         return this;
     }
+
     /**
      * This method is used to write some new quantity of products in the cart.
+     *
      * @param productID .
-     * @param quantity .
-     * @return this.
+     * @param quantity  - quantity products.
+     * @return ShoppingCartPageObject.
      */
     public ShoppingCartPageObject writeProductQuantityInCart(String productID, String quantity) {
         HashMap<String, ShoppingCartProduct> mapProducts = this.getShoppingProductsList();
@@ -112,8 +129,10 @@ public class ShoppingCartPageObject extends BasePageObject {
         mapProducts.get(productID).writeQuantity(quantity);
         return this;
     }
+
     /**
      * This method gets the total cost of some product from the products table in cart .
+     *
      * @param productID .
      * @return total prise .
      */
@@ -121,10 +140,12 @@ public class ShoppingCartPageObject extends BasePageObject {
         HashMap<String, ShoppingCartProduct> mapProducts = this.getShoppingProductsList();
         return mapProducts.get(productID).getTotalPrice();
     }
+
     /**
      * This method write code in Use Coupon Code input  .
-     * @param couponCode .
-     * @return this .
+     *
+     * @param couponCode - code for discount .
+     * @return ShoppingCartPageObject .
      */
     public ShoppingCartPageObject writeCouponCode(String couponCode) {
         openCouponCodeButton = new Button(driver, ShoppingCartLocators.OPEN_COUPON_CODE_BUTTON_XPATH);
@@ -141,13 +162,16 @@ public class ShoppingCartPageObject extends BasePageObject {
         messageAboutOption();
         return this;
     }
+
     /**
      * This method write data in Estimate Shipping And Taxes inputs  .
-     * @param shippingCountry .
-     * @param shippingRegion .
-     * @param postCode .
-     * @return this .
+     *
+     * @param shippingCountry - data for shipping input.
+     * @param shippingRegion  - data for shipping input.
+     * @param postCode        - data for shipping input.
+     * @return ShoppingCartPageObject .
      */
+
     public ShoppingCartPageObject writeEstimateShippingAndTaxes(String shippingCountry, Integer shippingRegion, String postCode) {
         new WebDriverWait(driver, 30).
                 until(ExpectedConditions.presenceOfElementLocated(By.xpath(ShoppingCartLocators.OPEN_ESTIMATE_SHIPPING_TAXES_BUTTON)));
@@ -172,9 +196,11 @@ public class ShoppingCartPageObject extends BasePageObject {
         this.messageAboutOption();
         return this;
     }
+
     /**
      * This method write data in Estimate Shipping And Taxes inputs  .
-     * @return this .
+     *
+     * @return - data for shipping input .
      */
     public ShoppingCartPageObject chooseFlatRate() {
         new WebDriverWait(driver, 15).
@@ -186,10 +212,12 @@ public class ShoppingCartPageObject extends BasePageObject {
         this.messageAboutOption();
         return this;
     }
+
     /**
      * This method write code in Use Gift Certificate input  .
-     * @param certificateCode .
-     * @return this .
+     *
+     * @param certificateCode - code for discount.
+     * @return - ShoppingCartPageObject .
      */
     public ShoppingCartPageObject writeGiftCertificate(String certificateCode) {
         new WebDriverWait(driver, 20).
@@ -207,8 +235,10 @@ public class ShoppingCartPageObject extends BasePageObject {
         messageAboutOption();
         return this;
     }
+
     /**
      * This method redirects driver to the homepage  .
+     *
      * @return Home Page Object .
      */
     public HomePageObject continueShopping() {
@@ -218,8 +248,10 @@ public class ShoppingCartPageObject extends BasePageObject {
         continueShoppingButton.click();
         return new HomePageObject(driver);
     }
+
     /**
      * This method redirects driver to the Checkout page  .
+     *
      * @return driver current url after redirects .
      */
     public String goToCheckout() {
@@ -227,25 +259,31 @@ public class ShoppingCartPageObject extends BasePageObject {
         checkoutButton.click();
         return driver.getCurrentUrl();
     }
+
     /**
      * This method extracts coupon code from cart page  .
-     * @return couponCode .
+     *
+     * @return couponCode - which was used .
      */
     public String getCouponCode() {
         couponCode = new Label(driver, ShoppingCartLocators.COUPON_XPATH);
         return couponCode.getText();
     }
+
     /**
      * This method extracts gift certificate code from cart page  .
-     * @return giftCertificate .
+     *
+     * @return giftCertificate - which was used  .
      */
     public String getGiftCertificate() {
         giftCertificate = new Label(driver, ShoppingCartLocators.GIFT_CERTIFICATE_XPATH);
         return giftCertificate.getText();
     }
+
     /**
      * This method extracts gift certificate code from cart page with explicitly wait  .
-     * @return giftCertificate .
+     *
+     * @return giftCertificate - which was used  .
      */
     public String getGiftCertificateWithWait() {
         new WebDriverWait(driver, 15).
@@ -253,8 +291,10 @@ public class ShoppingCartPageObject extends BasePageObject {
         giftCertificate = new Label(driver, ShoppingCartLocators.GIFT_CERTIFICATE_XPATH);
         return giftCertificate.getText();
     }
+
     /**
      * This method extracts massage from empty shopping cart .
+     *
      * @return massage .
      */
     public String getCartEmptyMassage() {
@@ -263,8 +303,10 @@ public class ShoppingCartPageObject extends BasePageObject {
         shoppingCartEmptyMassage = new Label(driver, ShoppingCartLocators.CART_EMPTY_MASSAGE);
         return shoppingCartEmptyMassage.getText();
     }
+
     /**
      * This method gets the total cost of all products from the products table in cart .
+     *
      * @return total prise .
      */
     public String getTotalCost() {
@@ -273,8 +315,10 @@ public class ShoppingCartPageObject extends BasePageObject {
         totalCost = new Label(driver, ShoppingCartLocators.TOTAL_COST_XPATH);
         return totalCost.getText();
     }
+
     /**
      * This method extracts a message from shopping cart when coupon code or gift certificates used successfully .
+     *
      * @return massage .
      */
     public String messageAboutOption() {
@@ -286,6 +330,7 @@ public class ShoppingCartPageObject extends BasePageObject {
 
     /**
      * This method finds the item on the current page.
+     *
      * @return match .
      */
 
@@ -298,8 +343,10 @@ public class ShoppingCartPageObject extends BasePageObject {
         }
         return match;
     }
+
     /**
      * This method is used to change quantity products in the cart.
+     *
      * @return this.
      */
     public ShoppingCartPageObject changeQuantityProductsSikuly() {
@@ -319,8 +366,10 @@ public class ShoppingCartPageObject extends BasePageObject {
         }
         return this;
     }
+
     /**
      * This method is used to remove products from the cart use sikuly.
+     *
      * @return location messageEmpty cart.
      */
     public String removeProductSikuly() {
@@ -335,8 +384,10 @@ public class ShoppingCartPageObject extends BasePageObject {
         }
         return messageCart;
     }
+
     /**
      * This method gets the total cost of some product from the products table in cart use sikuly.
+     *
      * @return total prise .
      */
     public String getTotalCostSikuly() {
@@ -358,4 +409,29 @@ public class ShoppingCartPageObject extends BasePageObject {
         return new CheckoutBillingDetailsPageObject(driver);
     }
 
+    public BasePageObject determineIfTableExistsAndRemoveAll(){
+        String shopCart = driver.findElement(By.xpath(ShoppingCartLocators.PRODUCTS_TABLE)).getText();
+        if(shopCart.contains("Use Gift Certificate")){
+            return this.removeAllProductsFromCart();
+        }else {
+            return this;
+        }
+    }
+
+    public ShoppingCartPageObject removeAllProductsFromCart() {
+        HashMap<String, ShoppingCartProduct> mapProducts = this.getShoppingProductsList();
+        ArrayList<String> listIDs = new ArrayList<>();
+        if(mapProducts.isEmpty()){
+            return this;
+        }else {
+            for (HashMap.Entry<String, ShoppingCartProduct> entry : mapProducts.entrySet()) {
+                listIDs.add(entry.getKey());
+            }
+            for (String s : listIDs) {
+                this.removeProductFromCart(s);
+            }
+            return new ShoppingCartPageObject(driver);
+        }
+
+    }
 }

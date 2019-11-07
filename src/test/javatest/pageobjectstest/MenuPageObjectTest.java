@@ -29,7 +29,7 @@ public class MenuPageObjectTest {
     public void getHome() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         menu = new MenuPageObject(driver);
-        menu.goToUrl(MENU_URL);
+        menu.goToUrl(BASE_URL);
 
     }
     @AfterClass

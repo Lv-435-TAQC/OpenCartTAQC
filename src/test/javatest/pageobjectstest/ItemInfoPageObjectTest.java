@@ -1,5 +1,6 @@
 package pageobjectstest;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -29,6 +30,7 @@ public class ItemInfoPageObjectTest {
     @BeforeMethod
     public void getHome() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
         driver.get("http://localhost/opencart/index.php?route=product/product&path=57&product_id=49");
         item = new ItemInfoPageObject(driver);
     }

@@ -53,11 +53,12 @@ public class HomePageObject extends BasePageObject {
 
     public ShoppingCartPageObject goToShoppingCartPage() {
         driver.navigate().to(BASE_URL+"index.php?route=checkout/cart");
+
         return new ShoppingCartPageObject(driver);
     }
 
     public HomePageObject addIphoneToShoppingCartSikuly() {
-        iphoneAddToCartButton = new Pattern(ShoppingCartPatterns.IPHONE_ADD_TO_CART_BUTTON).targetOffset(10, 180);
+        iphoneAddToCartButton = new Pattern(ShoppingCartPatterns.IPHONE_ADD_TO_CART_BUTTON).targetOffset(10, 100);
         scroll = new Pattern(ShoppingCartPatterns.SCROLL);
 
         try {
@@ -82,7 +83,7 @@ public class HomePageObject extends BasePageObject {
     }
 
     public HeaderPageObject getHeaderPageObject() {
-        return new HeaderPageObject(driver);
+        return this.headerPageObject;
     }
 
     public MenuPageObject getMenuPageObject() {
