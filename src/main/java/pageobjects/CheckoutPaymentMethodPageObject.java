@@ -60,6 +60,8 @@ public class CheckoutPaymentMethodPageObject extends BasePageObject {
         return new CheckoutConfirmOrderPageObject(driver);
     }
     public CheckoutPaymentMethodPageObject checkOnPrivacyPolicyCheckbox() {
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CheckoutPaymentMethodLocators.TERMS_AND_CONDITIONS)));
         termsAndConditions = new Checkbox(driver, CheckoutPaymentMethodLocators.TERMS_AND_CONDITIONS);
         termsAndConditions.clickOnCheckbox();
         return this;

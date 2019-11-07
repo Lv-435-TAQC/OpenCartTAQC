@@ -3,12 +3,12 @@ package pageobjects;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class AdminStatisticsItemPageObject extends BasePageObject {
+public class AdminStatisticsItem extends BasePageObject {
     private String name;
     private String value;
     private WebElement refresh;
 
-    public AdminStatisticsItemPageObject(WebDriver driver, String name, String value, WebElement refresh) {
+    public AdminStatisticsItem(WebDriver driver, String name, String value, WebElement refresh) {
         super(driver);
         this.name = name;
         this.value = value;
