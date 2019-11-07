@@ -54,6 +54,8 @@ public class CheckoutPaymentMethodPageObject extends BasePageObject {
     }
 
     public CheckoutConfirmOrderPageObject clickContinueButton() {
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CheckoutPaymentMethodLocators.CONTINUE_PAYMENT_METHOD)));
         continueButton = new Button(this.driver, CheckoutPaymentMethodLocators.CONTINUE_PAYMENT_METHOD);
         try {
             Thread.sleep(5000);
@@ -68,7 +70,7 @@ public class CheckoutPaymentMethodPageObject extends BasePageObject {
 
     public CheckoutPaymentMethodPageObject checkOnPrivacyPolicyCheckbox() {
         WebDriverWait wait = new WebDriverWait(driver, 20);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CheckoutPaymentMethodLocators.TERMS_AND_CONDITIONS)));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(CheckoutPaymentMethodLocators.TERMS_AND_CONDITIONS)));
         termsAndConditions = new Checkbox(driver, CheckoutPaymentMethodLocators.TERMS_AND_CONDITIONS);
         termsAndConditions.clickOnCheckbox();
         return this;

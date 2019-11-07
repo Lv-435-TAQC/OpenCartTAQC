@@ -137,6 +137,8 @@ public class CheckoutDeliveryDetailsPageObject extends BasePageObject {
     }
 
     public CheckoutDeliveryDetailsPageObject clickIWantUseAnExistingAddressButton() {
+        new WebDriverWait(driver, 20)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CheckoutDeliveryDetailsLocators.EXISTING_ADDRESS)));
         iWantUseAnExistingAddress = new Button(this.driver, CheckoutDeliveryDetailsLocators.EXISTING_ADDRESS);
         iWantUseAnExistingAddress.click();
         return this;
