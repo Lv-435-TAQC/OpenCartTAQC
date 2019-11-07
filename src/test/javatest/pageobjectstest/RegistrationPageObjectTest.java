@@ -10,6 +10,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageobjects.AdminLoginPageObject;
 import pageobjects.RegistrationPageObject;
 
 import java.util.Random;
@@ -24,6 +25,8 @@ public class RegistrationPageObjectTest {
 
     private WebDriver driver;
     private RegistrationPageObject registrationPageObject;
+    private String email = new Random().nextInt(1000) + "paprika@paprika.com";
+    private String password = "12345";
 
     @BeforeClass
     public void setUp() {
@@ -126,12 +129,16 @@ public class RegistrationPageObjectTest {
         assertFalse(driver.getPageSource().contains(PRIVACY_POLICY_AGREE_WARNING_MESSAGE));
     }
 
-    @Test(priority = 2)
-    public void successfulRegisterTest() {
+    private void registerSuccessfully(String emailData) {
         registrationPageObject.setDataToFirstNameField("Paprika").setDataToLastNameField("Pepper")
-                .setDataToEmailField(new Random().nextInt(1000) + "paprika@paprika.com")
-                .setDataToTelephoneField("0794852421").setDataToPasswordField("12345").setDataToPasswordConfirmField("12345")
+                .setDataToEmailField(emailData)
+                .setDataToTelephoneField("0794852421").setDataToPasswordField(password).setDataToPasswordConfirmField("12345")
                 .checkOnPrivacyPolicyCheckbox().pushOnContinueButton().waitForUrlToBe(SUCCESSFUL_REGISTRATION_URL);
+    }
+
+    @Test(priority = 1)
+    public void successfulRegisterTest() {
+        registerSuccessfully(1 + email);
         assertEquals(driver.getCurrentUrl(), SUCCESSFUL_REGISTRATION_URL);
         registrationPageObject.goToUrl(LOGOUT_URL);
     }
@@ -141,9 +148,10 @@ public class RegistrationPageObjectTest {
         Screen screen = new Screen();
         Pattern buttonLogout = new Pattern(BUTTON_LOGOUT);
         Pattern labelYourPassword = new Pattern(LABEL_YOUR_PASSWORD);
-        registrationPageObject.typeTextToPattern(screen, new Pattern(FIELD_FIRST_NAME), "Paprika")
-                .typeTextToPattern(screen, new Pattern(FIELD_LAST_NAME), "Pepper")
-                .typeTextToPattern(screen, new Pattern(FIELD_EMAIL),
+        Pattern labelYourPersonalDetails = new Pattern(LABEL_YOUR_PERSONAL_DETAILS);
+        registrationPageObject.typeTextToPattern(screen, labelYourPersonalDetails.targetOffset(300, 65), "Paprika")
+                .typeTextToPattern(screen, labelYourPersonalDetails.targetOffset(300, 110), "Pepper")
+                .typeTextToPattern(screen, labelYourPersonalDetails.targetOffset(300, 160),
                         new Random().nextInt(1000) + "paprika@paprika.com")
                 .typeTextToPattern(screen, new Pattern(FIELD_TELEPHONE), "0794852421")
                 .clickOnPattern(screen, labelYourPassword);
@@ -157,5 +165,17 @@ public class RegistrationPageObjectTest {
         registrationPageObject.waitForPattern(screen, buttonLogout, 10)
                 .clickOnPattern(screen, buttonLogout)
                 .waitForPattern(screen, new Pattern(MESSAGE_ON_SUCCESSFUL_LOGOUT), 10);
+    }
+
+    @Test
+    public void registerUserAndCheckSuccessByAdminTest() {
+        String emailData = 2 + email;
+        registerSuccessfully(emailData);
+        AdminLoginPageObject adminLoginPageObject = new AdminLoginPageObject(driver);
+        adminLoginPageObject.goToUrl(ADMIN_LOGIN_URL);
+        adminLoginPageObject.logIn("admin", "admin").closeModalWindow().getNavigation()
+                .goToCustomers().clickOnCustomersSubButton().setDataToEmailField(emailData).clickOnButtonFilter();
+        assertTrue(driver.getPageSource().contains(emailData));
+        adminLoginPageObject.goToUrl(LOGOUT_URL);
     }
 }

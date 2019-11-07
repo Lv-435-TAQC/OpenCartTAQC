@@ -21,6 +21,8 @@ public class OrderingProductsWithDiscountCodeTest {
     WebDriver driver;
     LoginPageObject login;
 
+    private static final String SOME_TEXT = "Some text";
+
     @BeforeClass
     public void setUp() {
         System.setProperty(Constants.KEY_TO_DRIVER, Constants.PATH_TO_DRIVER);
@@ -36,13 +38,7 @@ public class OrderingProductsWithDiscountCodeTest {
     }
 
     @AfterMethod
-    public void makeScreenshots(ITestResult result)  {
-       TestScreenRecorder.stopRecording();
-        if (result.getStatus() == ITestResult.FAILURE) {
-            ShoppingCartPageObject.makeScreenShotSteps(driver, result.getName());
-        } else {
-           TestScreenRecorder.deleteRecord();
-        }
+    public void makeScreenshots(ITestResult result) {
         driver.manage().deleteAllCookies();
     }
 
@@ -79,37 +75,39 @@ public class OrderingProductsWithDiscountCodeTest {
      * Expected Result: Order includes coupon row and total cost is discounted.
      */
 
-//    @Test
-//    public void testOrderingProductUsingCouponCode() {
-//       TestScreenRecorder.startRecording("testOrderingProductUsingCouponCode");
-//        DBMethods methods = new DBMethods();
-//        login.logIn(TestData.USER_NAME, TestData.USER_PASSWORD);
-//        HomePageObject home = login.goToHome();
-//        home.addToCartIphone();
-//        ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
-//        shoppingCartPageObject.
-//                writeCouponCode(TestData.COUPON_CODE).
-//                getCouponCode();
-//        String totalCostFromShoppingCartPage= shoppingCartPageObject.getTotalCost().substring(1) + "00";
-//        AdminOrderDescriptionPageObject orderDescriptionPageObject = shoppingCartPageObject.
-//                goCheckoutBillingDetails().
-//                clickIWantUseAnExistingAddressButton()
-//                .wantUseAnExistingAddressButton()
-//                .wantUseAnExistingAddressButton()
-//                .deliveryMethodWithCommentsAboutYourOrder("My buy")
-//                .paymentMethodWithCommentsAboutYourOrder("I paid")
-//                .clickContinueButton().
-//                        goToAdminPage().
-//                        logIn(TestData.ADMIN_NAME, TestData.ADMIN_PASSWORD).
-//                        closeModalWindow().
-//                        getNavigation().
-//                        goToOrdersList().
-//                        getTheOrder(new DBMethods().getLastOrderIDFromDB()).
-//                        viewOrder();
-//        assertEquals(methods.getOrdersTotalCostFromDB(methods.getLastOrderIDFromDB()), totalCostFromShoppingCartPage);
-//        assertEquals(orderDescriptionPageObject.getCouponCode(), TestData.COUPON_CODE_FIELD_ON_ORDER_PAGE);
-//        assertEquals(orderDescriptionPageObject.getCouponDiscountAmount(), TestData.COST_OF_IPHONE_USING_COUPON_WITH_SHIPPING);
-//    }
+    @Test(invocationCount = 5)
+    public void testOrderingProductUsingCouponCode() {
+        DBMethods methods = new DBMethods();
+        login.logIn(TestData.USER_NAME, TestData.USER_PASSWORD);
+        HomePageObject home = login.goToHome();
+        home.goToShoppingCartPage()
+        .determineIfTableExistsAndRemoveAll()
+        .goToHomePage()
+        .addToCartIphone();
+        ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
+        shoppingCartPageObject
+                .writeCouponCode(TestData.COUPON_CODE)
+                .getCouponCode();
+        String totalCostFromShoppingCartPage= shoppingCartPageObject.getTotalCost() + "00";
+        AdminOrderDescriptionPageObject orderDescriptionPageObject = shoppingCartPageObject
+                .goCheckoutBillingDetails()
+                .continueWantUseAnExistingAddressBillingDetailsPageButton()
+                .continueWantUseAnExistingAddressButton()
+                .deliveryMethodWithCommentsAboutYourOrder(SOME_TEXT)
+                .paymentMethodWithCommentsAboutYourOrder(SOME_TEXT)
+                .clickContinueButtonX()
+                .goToAdminPage()
+                .logIn(TestData.ADMIN_NAME, TestData.ADMIN_PASSWORD)
+                .closeModalWindow()
+                .getNavigation()
+                .goToOrdersList()
+                .getTheOrder(new DBMethods().getLastOrderIDFromDB())
+                .viewOrder();
+        assertEquals(String.format("$%s", methods.getOrdersTotalCostFromDB(methods.getLastOrderIDFromDB())),
+                totalCostFromShoppingCartPage);
+        assertEquals(orderDescriptionPageObject.getCouponCode(), TestData.COUPON_CODE_FIELD_ON_ORDER_PAGE);
+        assertEquals(orderDescriptionPageObject.getCouponDiscountAmount(), TestData.COST_OF_IPHONE_USING_COUPON_WITH_SHIPPING);
+    }
 
     /**
      * <b>TC-19: Test, ordering a product using the gift certificate.</b>
@@ -138,33 +136,30 @@ public class OrderingProductsWithDiscountCodeTest {
      * Expected Result: Order includes gift certificate row and total cost is discounted.
      */
 
-//    @Test
-//    public void testOrderingProductUsingGiftCertificate() {
-//        TestScreenRecorder.startRecording("GiftCertificate");
-//        login.logIn(TestData.USER_NAME, TestData.USER_PASSWORD);
-//        HomePageObject home = login.goToHome();
-//        home.addToCartIphone();
-//        ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
-//        shoppingCartPageObject.
-//                writeGiftCertificate(TestData.GIFT_CERTIFICATE).
-//                getGiftCertificateWithWait();
-//        AdminOrderDescriptionPageObject orderDescriptionPageObject = shoppingCartPageObject.
-//                goCheckoutBillingDetails().
-//                clickIWantUseAnExistingAddressButton()
-//                .wantUseAnExistingAddressButton()
-//                .wantUseAnExistingAddressButton()
-//                .deliveryMethodWithCommentsAboutYourOrder("My buy")
-//                .paymentMethodWithCommentsAboutYourOrder("I paid")
-//                .clickContinueButton().
-//                        goToAdminPage().
-//                        logIn(TestData.ADMIN_NAME, TestData.ADMIN_PASSWORD).
-//                        closeModalWindow().
-//                        getNavigation().
-//                        goToOrdersList().
-//                        getTheOrder(new DBMethods().getLastOrderIDFromDB()).
-//                        viewOrder();
-//        assertEquals(orderDescriptionPageObject.getGiftCertificateCode(), TestData.GIFT_CERTIFICATE_FIELD_ON_ORDER_PAGE);
-//        assertEquals(orderDescriptionPageObject.getGiftCertificateAmount(), TestData.COST_OF_IPHONE_USING_GIFT_CERTIFICATE_WITH_SHIPPING);
-//    }
+    @Test
+    public void testOrderingProductUsingGiftCertificate() {
+        login.logIn(TestData.USER_NAME, TestData.USER_PASSWORD);
+        HomePageObject home = login.goToHome();
+        home.addToCartIphone();
+        ShoppingCartPageObject shoppingCartPageObject = home.goToShoppingCartPage();
+        shoppingCartPageObject.
+                writeGiftCertificate(TestData.GIFT_CERTIFICATE).
+                getGiftCertificateWithWait();
+        AdminOrderDescriptionPageObject orderDescriptionPageObject = shoppingCartPageObject
+                .goCheckoutBillingDetails()
+                .continueWantUseAnExistingAddressBillingDetailsPageButton()
+                .continueWantUseAnExistingAddressButton()
+                .deliveryMethodWithCommentsAboutYourOrder(SOME_TEXT)
+                .paymentMethodWithCommentsAboutYourOrder(SOME_TEXT)
+                .clickContinueButtonX()
+                .goToAdminPage()
+                .logIn(TestData.ADMIN_NAME, TestData.ADMIN_PASSWORD)
+                .closeModalWindow()
+                .getNavigation()
+                .goToOrdersList()
+                .getTheOrder(new DBMethods().getLastOrderIDFromDB()).viewOrder();
+        assertEquals(orderDescriptionPageObject.getGiftCertificateCode(), TestData.GIFT_CERTIFICATE_FIELD_ON_ORDER_PAGE);
+        assertEquals(orderDescriptionPageObject.getGiftCertificateAmount(), TestData.COST_OF_IPHONE_USING_GIFT_CERTIFICATE_WITH_SHIPPING);
+    }
 
 }
