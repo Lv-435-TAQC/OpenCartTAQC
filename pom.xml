@@ -8,6 +8,11 @@
     <artifactId>softserve</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <jdk.level>1.8</jdk.level>
+        <sikuli.api.version>1.2.0</sikuli.api.version>
+    </properties>
+
 
     <dependencies>
         <dependency>
@@ -53,7 +58,7 @@
         <dependency>
             <groupId>org.sikuli</groupId>
             <artifactId>sikuli-api</artifactId>
-            <version>1.0.1</version>
+            <version>${sikuli.api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
@@ -65,8 +70,6 @@
             <artifactId>monte-screen-recorder</artifactId>
             <version>0.7.7.0</version>
         </dependency>
-
-
     </dependencies>
 
     <build>
