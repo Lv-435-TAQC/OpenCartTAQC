@@ -196,4 +196,4 @@ public class LoginPageObjectTest {
         Boolean isFound = loginPageObject.sikuliGoodDate();
         assertTrue(isFound);
     }
-    }
+}
