@@ -18,7 +18,7 @@ public class Button extends BaseElement {
         return this;
     }
 
-    public Button isDisplayed(){
+    public Button isDisplayed() {
         this.element.isDisplayed();
         return this;
     }
@@ -32,6 +32,4 @@ public class Button extends BaseElement {
         this.element.isSelected();
         return this;
     }
-
-
 }

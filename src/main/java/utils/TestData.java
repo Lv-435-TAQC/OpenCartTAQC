@@ -58,6 +58,17 @@ public class TestData {
     public static final String COUPON_USES_PER_COUPON = "20";
     public static final String COUPON_USES_PER_CUSTOMER = "20";
     public static final String COUPON_STATUS = "Enabled";
+    public static final String EMAIL_FOR_REGISTRATION = "paprika@paprika.com";
+    public static final String PASSWORD_FOR_REGISTRATION = "12345";
+    public static final String CHAR_SEQUENCE_WITH_LETTERS_NUMBERS_SPECIAL_SYMBOLS = "q873458273#%";
+    public static final String BIG_LENGTH_CHAR_SEQUENCE = "alsoiruejthgnsmcbnbksjsnbksdjfsjdnfjsndfjnsdjfnsdjfn";
+    public static final String INVALID_CHAR_SEQUENCE_FOR_EMAIL = "akjdgfjdfkg";
+    public static final String TOO_SMALL_NUMBER_SEQUENCE_FOR_PASSWORD = "075";
+    public static final String TOO_BIG_NUMBER_SEQUENCE_FOR_PASSWORD = "12345678901234567890123456789012345678901";
+    public static final String INVALID_PASSWORD_CONFIRM_NUMBER_SEQUENCE = "085741";
+    public static final String USER_FIRST_NAME_FOR_REGISTRATION = "Paprika";
+    public static final String USER_LAST_NAME_FOR_REGISTRATION = "Pepper";
+    public static final String USER_TELEPHONE_FOR_REGISTRATION = "0794852421";
 
 
 }
