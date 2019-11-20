@@ -1,5 +1,5 @@
+import greencity.OwnSecurityController;
 import greencity.Security;
-import utils.DBMethods;
 
 public class Main {
 
