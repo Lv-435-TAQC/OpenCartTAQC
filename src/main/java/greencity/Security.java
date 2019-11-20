@@ -15,6 +15,6 @@ public class Security {
                 "  \"email\": \""+name+"\"," +
                 "  \"password\": \""+password+"\""+
                 "}");
-        return baseHttpRequest.getResponse().get("accessToken").toString();
+        return baseHttpRequest.getResponseJsonObject().get("accessToken").toString();
     }
 }

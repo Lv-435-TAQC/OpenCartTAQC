@@ -1,5 +1,6 @@
 package greencity;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -49,24 +50,32 @@ public class BaseHttpRequest {
         }
     }
 
-    public JSONObject getResponse(){
-        JSONObject jsonObject = null;
+    private String getResponse(){
+//        JSONObject jsonObject = null;
+        StringBuilder response = new StringBuilder();
         try (
                 BufferedReader br = new BufferedReader(
                         new InputStreamReader(connection.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
+
             String responseLine = null;
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
-            jsonObject = new JSONObject(response.toString());
+//            System.out.println(response.toString());
+//            jsonObject = new JSONObject(response.toString());
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return jsonObject;
+        return response.toString();
+    }
+    public  JSONObject getResponseJsonObject(){
+        return new JSONObject(this.getResponse());
+    }
+    public JSONArray getResponseJsonArray(){
+        return new JSONArray(this.getResponse());
     }
 
 }
