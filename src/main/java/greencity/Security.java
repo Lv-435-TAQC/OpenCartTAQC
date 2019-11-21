@@ -9,14 +9,12 @@ public class Security {
     public String signIn(String name,String password){
         Map<String,String> map = new HashMap();
         map.put("Content-Type","application/json;utf-8");
-        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(LOGIN_URL);
-
-        baseHttpRequest.setHeader("POST",map);
-        baseHttpRequest.sendRequest("{" +
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(LOGIN_URL, "POST");
+        baseHttpRequest.setHeader(map);
+        baseHttpRequest.sendRequestWithBody("{" +
                 "  \"email\": \""+name+"\"," +
                 "  \"password\": \""+password+"\""+
                 "}");
-        baseHttpRequest.getResponse();
         return baseHttpRequest.getResponseJsonObject().get("accessToken").toString();
     }
 }

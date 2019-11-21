@@ -10,43 +10,35 @@ public class OwnSecurityController {
         Map<String, String> map = new HashMap();
         map.put("Content-Type", "application/json;utf-8");
         map.put("Authorization", " Bearer " + token);
-        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(OWN_SECURITY_URL);
-        baseHttpRequest.setHeader("PUT", map);
-        baseHttpRequest.sendRequest("{" +
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(OWN_SECURITY_URL, "PUT");
+        baseHttpRequest.setHeader(map);
+        baseHttpRequest.sendRequestWithBody("{" +
                 "  \"confirmPassword\": \"" + newPassword + "\"," +
                 "  \"currentPassword\": \"" + oldPassword + "\"," +
                 "  \"password\": \"" + newPassword + "\"" +
                 "}");
         System.out.println(token);
-        return baseHttpRequest.getStatuusCode();
+        return baseHttpRequest.statusCode;
     }
 
-    public int ownSecurityChangePassword(String token, String oldPassword, String newPassword) {
+    public String ownSecurityChangePassword(String token, String oldPassword, String newPassword) {
         Map<String, String> map = new HashMap();
-        map.put("Content-Type", "application/json;utf-8");
-        map.put("Authorization", " Bearer " + token);
-        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(OWN_SECURITY_CHANGE_PASSWORD_URL);
-        baseHttpRequest.setHeader("POST", map);
-        baseHttpRequest.sendRequest("{" +
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(OWN_SECURITY_CHANGE_PASSWORD_URL, "POST");
+        baseHttpRequest.setHeader(map);
+        baseHttpRequest.sendRequestWithBody("{" +
                 "  \"confirmPassword\": \"" + newPassword + "\"," +
                 "  \"password\": \"" + oldPassword + "\"," +
                 "  \"token\": \"" + " Bearer " + token + "\"" +
                 "}");
-        return baseHttpRequest.getStatuusCode();
+        return baseHttpRequest.getResponseString();
     }
 
-    public int restorePasswrod(String token, String email) {
+    public String restorePassword(String email) {
         Map<String, String> map = new HashMap();
-        map.put("Content-Type", "application/json;utf-8");
-        map.put("Authorization", " Bearer " + token);
-        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(OWN_SECURITY_CHANGE_PASSWORD_URL);
-        baseHttpRequest.setHeader("POST", map);
-        baseHttpRequest.sendRequest("{" +
-//                "  \"confirmPassword\": \"" + newPassword + "\"," +
-//                "  \"password\": \"" + oldPassword + "\"," +
-                "  \"token\": \"" + " Bearer " + token + "\"" +
-                "}");
-        return baseHttpRequest.getStatuusCode();
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(RESTORE_PASSWORD, "GET");
+        baseHttpRequest.setHeader(map);
+        baseHttpRequest.sendRequest();
+        return baseHttpRequest.parseJsonObject("message");
     }
 
 }
