@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlaceCommentController {
-    public String postComments(String name, String text, int estimateRate) {
+    public String postComments(int estimateRate, String name, String text, String token ) {
         Map<String, String> map = new HashMap();
         map.put("Content-Type", "application/json;utf-8");
-        BaseHttpRequest baseHttpRequest = new BaseHttpRequest("https://greencitysoftserve.herokuapp.com/ownSecurity/signIn");
+        map.put("Authorization", "Bearer "+ token );
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest("https://greencitysoftserve.herokuapp.com/place/4/comments");
 
         baseHttpRequest.setHeader("POST",map);
         baseHttpRequest.sendRequest("{" +
@@ -21,6 +22,6 @@ public class PlaceCommentController {
                 "  ],\n" +
                 "  \"text\": \""+text+"\"\n" +
                 "}");
-        return baseHttpRequest.getResponse().get("commentToken").toString();
+        return baseHttpRequest.getResponseJsonObject().get("id").toString();
     }
 }
