@@ -1,20 +1,19 @@
 package greencity;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Security {
-    public String signIn(String name,String password){
-        Map<String,String> map = new HashMap();
-        map.put("Content-Type","application/json;utf-8");
-        BaseHttpRequest baseHttpRequest = new BaseHttpRequest("https://greencitysoftserve.herokuapp.com/ownSecurity/signIn");
+import static utils.GreenCityURL.LOGIN_URL;
 
-        baseHttpRequest.setHeader("POST",map);
-        baseHttpRequest.sendRequest("{" +
-                "  \"email\": \""+name+"\"," +
-                "  \"password\": \""+password+"\""+
+public class Security {
+    public String signIn(String name, String password) {
+        Map<String, String> map = new HashMap();
+        map.put("Content-Type", "application/json;utf-8");
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
+        baseHttpRequest.postRequest(LOGIN_URL, "{" +
+                "  \"email\": \"" + name + "\"," +
+                "  \"password\": \"" + password + "\"" +
                 "}");
-        return baseHttpRequest.getResponseJsonObject().get("accessToken").toString();
+        return baseHttpRequest.parseJsonObject("accessToken");
     }
 }
