@@ -12,9 +12,6 @@ public class FavoritePlace {
         map.put("Authorization", "Bearer "+ token);
         request.setHeader("GET", map);
         System.out.println(map.toString());
-//        request.sendRequest("{" +
-//                "  \"email\": \""+"oleh.zarichnyi@gmail.com"+
-//                "}");
         return request.getResponseJsonArray().toString();
     }
 
