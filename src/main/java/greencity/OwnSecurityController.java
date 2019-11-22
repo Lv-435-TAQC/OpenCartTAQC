@@ -1,5 +1,6 @@
 package greencity;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,43 +11,30 @@ public class OwnSecurityController {
         Map<String, String> map = new HashMap();
         map.put("Content-Type", "application/json;utf-8");
         map.put("Authorization", " Bearer " + token);
-        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(OWN_SECURITY_URL);
-        baseHttpRequest.setHeader("PUT", map);
-        baseHttpRequest.sendRequest("{" +
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
+        baseHttpRequest.putRequest(OWN_SECURITY_URL,"{" +
                 "  \"confirmPassword\": \"" + newPassword + "\"," +
                 "  \"currentPassword\": \"" + oldPassword + "\"," +
                 "  \"password\": \"" + newPassword + "\"" +
                 "}");
         System.out.println(token);
-        return baseHttpRequest.getStatuusCode();
+        return baseHttpRequest.getStatusCode();
     }
 
-    public int ownSecurityChangePassword(String token, String oldPassword, String newPassword) {
-        Map<String, String> map = new HashMap();
-        map.put("Content-Type", "application/json;utf-8");
-        map.put("Authorization", " Bearer " + token);
-        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(OWN_SECURITY_CHANGE_PASSWORD_URL);
-        baseHttpRequest.setHeader("POST", map);
-        baseHttpRequest.sendRequest("{" +
+    public String ownSecurityChangePassword(String token, String oldPassword, String newPassword) {
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
+        baseHttpRequest.postRequest(OWN_SECURITY_CHANGE_PASSWORD_URL,"{" +
                 "  \"confirmPassword\": \"" + newPassword + "\"," +
                 "  \"password\": \"" + oldPassword + "\"," +
                 "  \"token\": \"" + " Bearer " + token + "\"" +
                 "}");
-        return baseHttpRequest.getStatuusCode();
+        return baseHttpRequest.getResponse();
     }
 
-    public int restorePasswrod(String token, String email) {
-        Map<String, String> map = new HashMap();
-        map.put("Content-Type", "application/json;utf-8");
-        map.put("Authorization", " Bearer " + token);
-        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(OWN_SECURITY_CHANGE_PASSWORD_URL);
-        baseHttpRequest.setHeader("POST", map);
-        baseHttpRequest.sendRequest("{" +
-//                "  \"confirmPassword\": \"" + newPassword + "\"," +
-//                "  \"password\": \"" + oldPassword + "\"," +
-                "  \"token\": \"" + " Bearer " + token + "\"" +
-                "}");
-        return baseHttpRequest.getStatuusCode();
+    public String restorePassword(String email) {
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
+        baseHttpRequest.getRequest(RESTORE_PASSWORD);
+        return baseHttpRequest.parseJsonObject("message");
     }
 
 }

@@ -50,4 +50,7 @@ public class OwnSecurityControllerTest {
         Integer actual=ownSecurityController.ownSecurityPassword(token, oldPassword, newPassword);
         assertEquals(actual, FOUR_HUNDRED);
     }
+
+
+
 }
