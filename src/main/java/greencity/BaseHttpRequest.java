@@ -13,50 +13,20 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Map;
 
 public class BaseHttpRequest {
-    CloseableHttpClient httpClient = HttpClients.createDefault();
-    HttpRequestBase httpRequestBase;
-    String response;
-    String statusLine;
-    int statusCode;
-    private String url;
+    private CloseableHttpClient httpClient;
+    private HttpRequestBase httpRequestBase;
+    private String response;
+    private String statusLine;
+    private int statusCode;
 
-    public BaseHttpRequest(String url, String method) {
-        this.url = url;
-        switch (method) {
-            case "GET": {
-                httpRequestBase = new HttpGet(url);
-                break;
-            }
-            case "POST": {
-                httpRequestBase = new HttpPost(url);
-                break;
-            }
-            case "PUT": {
-                httpRequestBase = new HttpPut(url);
-                break;
-            }
-            case "PATCH": {
-                httpRequestBase = new HttpPatch(url);
-                break;
-            }
-            case "DELETE": {
-                httpRequestBase = new HttpDelete(url);
-                break;
-            }
-        }
-        this.url = url;
+    public BaseHttpRequest() {
+        httpClient = HttpClients.createDefault();
     }
 
-    public void setHeader(Map<String, String> map) {
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            httpRequestBase.addHeader(entry.getKey(), entry.getValue());
-        }
-    }
-
-    public String sendRequest() {
+    public String getRequest(String url) {
+        httpRequestBase = new HttpGet(url);
         try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
             this.response = response.toString();
             this.statusCode = response.getStatusLine().getStatusCode();
@@ -74,14 +44,16 @@ public class BaseHttpRequest {
         return this.response;
     }
 
-    public String sendRequestWithBody( String body) {
+    public String postRequest(String url, String body) {
+        HttpPost httpRequestBase = new HttpPost(url);
         StringEntity stringEntity = null;
         try {
             stringEntity = new StringEntity(body);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
+        httpRequestBase.setEntity(stringEntity);
+        httpRequestBase.setHeader("Content-type", "application/json");
         try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
             this.response = response.toString();
             this.statusCode = response.getStatusLine().getStatusCode();
@@ -97,6 +69,76 @@ public class BaseHttpRequest {
             e.printStackTrace();
         }
         return this.response;
+    }
+
+    public String putRequest(String url, String body) {
+        HttpPut httpRequestBase = new HttpPut(url);
+
+        StringEntity stringEntity = null;
+        try {
+            stringEntity = new StringEntity(body);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        httpRequestBase.setEntity(stringEntity);
+        httpRequestBase.setHeader("Content-type", "application/json");
+        try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
+            this.response = response.toString();
+            this.statusCode = response.getStatusLine().getStatusCode();
+            this.statusLine = response.getStatusLine().toString();
+            HttpEntity entity = response.getEntity();
+            Header headers = entity.getContentType();
+            if (entity != null) {
+                this.response = EntityUtils.toString(entity);
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return this.response;
+    }
+
+    public String patchRequest(String url, String body) {
+        HttpPatch httpRequestBase = new HttpPatch(url);
+
+        StringEntity stringEntity = null;
+        try {
+            stringEntity = new StringEntity(body);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        httpRequestBase.setEntity(stringEntity);
+        httpRequestBase.setHeader("Content-type", "application/json");
+        try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
+            this.response = response.toString();
+            this.statusCode = response.getStatusLine().getStatusCode();
+            this.statusLine = response.getStatusLine().toString();
+            HttpEntity entity = response.getEntity();
+            Header headers = entity.getContentType();
+            if (entity != null) {
+                this.response = EntityUtils.toString(entity);
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return this.response;
+    }
+
+
+    public String deleteRequest(String url) {
+        httpRequestBase = new HttpDelete(url);
+        return this.response;
+    }
+
+    public String getResponse() {
+        return this.response;
+    }
+
+    public int getStatusCode() {
+        return this.statusCode;
     }
 
     private void close() throws IOException {
@@ -111,10 +153,6 @@ public class BaseHttpRequest {
     public String parseJsonArrays(String key, String nameOfParagraph) {
         JSONObject json = new JSONObject(response);
         return json.getJSONArray(nameOfParagraph).getJSONObject(0).getString(key);
-    }
-
-    public String getResponseString() {
-        return response;
     }
 
     public JSONObject getResponseJsonObject() {

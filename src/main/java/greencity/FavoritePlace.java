@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FavoritePlace {
-
+//
 //    public String getAllFavoritePlaces(String token){
 //        Map<String,String> map = new HashMap();
 //        map.put("Content-Type","application/json;utf-8");

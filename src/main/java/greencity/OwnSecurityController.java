@@ -1,5 +1,6 @@
 package greencity;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,34 +11,29 @@ public class OwnSecurityController {
         Map<String, String> map = new HashMap();
         map.put("Content-Type", "application/json;utf-8");
         map.put("Authorization", " Bearer " + token);
-        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(OWN_SECURITY_URL, "PUT");
-        baseHttpRequest.setHeader(map);
-        baseHttpRequest.sendRequestWithBody("{" +
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
+        baseHttpRequest.putRequest(OWN_SECURITY_URL,"{" +
                 "  \"confirmPassword\": \"" + newPassword + "\"," +
                 "  \"currentPassword\": \"" + oldPassword + "\"," +
                 "  \"password\": \"" + newPassword + "\"" +
                 "}");
         System.out.println(token);
-        return baseHttpRequest.statusCode;
+        return baseHttpRequest.getStatusCode();
     }
 
     public String ownSecurityChangePassword(String token, String oldPassword, String newPassword) {
-        Map<String, String> map = new HashMap();
-        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(OWN_SECURITY_CHANGE_PASSWORD_URL, "POST");
-        baseHttpRequest.setHeader(map);
-        baseHttpRequest.sendRequestWithBody("{" +
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
+        baseHttpRequest.postRequest(OWN_SECURITY_CHANGE_PASSWORD_URL,"{" +
                 "  \"confirmPassword\": \"" + newPassword + "\"," +
                 "  \"password\": \"" + oldPassword + "\"," +
                 "  \"token\": \"" + " Bearer " + token + "\"" +
                 "}");
-        return baseHttpRequest.getResponseString();
+        return baseHttpRequest.getResponse();
     }
 
     public String restorePassword(String email) {
-        Map<String, String> map = new HashMap();
-        BaseHttpRequest baseHttpRequest = new BaseHttpRequest(RESTORE_PASSWORD, "GET");
-        baseHttpRequest.setHeader(map);
-        baseHttpRequest.sendRequest();
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
+        baseHttpRequest.getRequest(RESTORE_PASSWORD);
         return baseHttpRequest.parseJsonObject("message");
     }
 
