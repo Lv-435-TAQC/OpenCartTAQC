@@ -22,6 +22,7 @@ public class PlaceCommentController {
                 "  ],\n" +
                 "  \"text\": \""+text+"\"\n" +
                 "}");
+        baseHttpRequest.getResponse();
         return baseHttpRequest.getResponseJsonObject().get("id").toString();
     }
 }

@@ -46,7 +46,6 @@ public class BaseHttpRequest {
             OutputStream os = connection.getOutputStream()) {
             byte[] input = s.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
-            statusCode = connection.getResponseCode();
         } catch (IOException e) {
             e.printStackTrace();
         }
