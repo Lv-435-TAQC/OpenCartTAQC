@@ -17,7 +17,7 @@ public class OwnSecurityControllerTest {
     @BeforeClass
     public void setUp() {
         Security sec = new Security();
-        token = sec.signIn("orysita.lviv@gmail.com", "QWErty123$%^");
+        token = sec.signIn("orysita.lviv+10001@gmail.com", "QWErty123$%^");
     }
 
     @Test
@@ -51,6 +51,11 @@ public class OwnSecurityControllerTest {
         assertEquals(actual, FOUR_HUNDRED);
     }
 
-
+    @Test()
+    public void testRegistation() {
+        OwnSecurityController ownSecurityController = new OwnSecurityController();
+        Integer actual=ownSecurityController.signUp("orysita.lviv+4@gmail.com","Orysia","Benko","QWErty123$%^");
+        assertEquals(actual, TWO_HUNDRED_ONE);
+    }
 
 }

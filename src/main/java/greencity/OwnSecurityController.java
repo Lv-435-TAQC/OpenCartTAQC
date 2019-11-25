@@ -1,6 +1,5 @@
 package greencity;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,4 +36,20 @@ public class OwnSecurityController {
         return baseHttpRequest.parseJsonObject("message");
     }
 
+    public Integer signUp(String email, String firstName, String lastName, String password) {
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
+        baseHttpRequest.postRequest(REISTATION_URL,"{" +
+                "  \"email\": \"" + email + "\"," +
+                "  \"firstName\": \"" + firstName + "\"," +
+                "  \"lastName\": \"" + lastName + "\"," +
+                "  \"password\": \"" + password + "\"" +
+                "}");
+        return baseHttpRequest.getStatusCode();
+    }
+
+    public String varifyEmail(String token) {
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
+        baseHttpRequest.getRequest(VARIFY_EMAIL+token);
+        return baseHttpRequest.getResponse();
+    }
 }

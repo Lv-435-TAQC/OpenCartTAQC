@@ -45,16 +45,16 @@ public class BaseHttpRequest {
     }
 
     public String postRequest(String url, String body) {
-        HttpPost httpRequestBase = new HttpPost(url);
+        HttpPost httpRequestBasePost = new HttpPost(url);
         StringEntity stringEntity = null;
         try {
             stringEntity = new StringEntity(body);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        httpRequestBase.setEntity(stringEntity);
-        httpRequestBase.setHeader("Content-type", "application/json");
-        try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
+        httpRequestBasePost.setEntity(stringEntity);
+        httpRequestBasePost.setHeader("Content-type", "application/json");
+        try (CloseableHttpResponse response = httpClient.execute(httpRequestBasePost)) {
             this.response = response.toString();
             this.statusCode = response.getStatusLine().getStatusCode();
             this.statusLine = response.getStatusLine().toString();
@@ -72,17 +72,16 @@ public class BaseHttpRequest {
     }
 
     public String putRequest(String url, String body) {
-        HttpPut httpRequestBase = new HttpPut(url);
-
+        HttpPut httpRequestBasePut = new HttpPut(url);
         StringEntity stringEntity = null;
         try {
             stringEntity = new StringEntity(body);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        httpRequestBase.setEntity(stringEntity);
-        httpRequestBase.setHeader("Content-type", "application/json");
-        try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
+        httpRequestBasePut.setEntity(stringEntity);
+        httpRequestBasePut.setHeader("Content-type", "application/json");
+        try (CloseableHttpResponse response = httpClient.execute(httpRequestBasePut)) {
             this.response = response.toString();
             this.statusCode = response.getStatusLine().getStatusCode();
             this.statusLine = response.getStatusLine().toString();
