@@ -22,6 +22,7 @@ public class BaseHttpRequest {
     private String response;
     private String statusLine;
     private int statusCode;
+    
     private HashMap<String, String> requestHeaders = new HashMap();
     
     public HashMap<String, String> getRequestHeaders() {
@@ -59,12 +60,14 @@ public class BaseHttpRequest {
     public String postRequest(String url, String body) {
         HttpPost httpRequestBase = new HttpPost(url);
         StringEntity stringEntity = null;
+        System.out.println(body);
         try {
             stringEntity = new StringEntity(body);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         httpRequestBase.setEntity(stringEntity);
+
         this.requestHeaders.forEach((key, value)-> httpRequestBase.setHeader(key, value));
         try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
             this.response = response.toString();
@@ -82,6 +85,7 @@ public class BaseHttpRequest {
         }
         return this.response;
     }
+
 
     public String putRequest(String url, String body) {
         HttpPut httpRequestBase = new HttpPut(url);
