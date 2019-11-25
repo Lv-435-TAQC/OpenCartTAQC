@@ -1,4 +1,5 @@
 import greencity.OwnSecurityController;
+import greencity.PlaceController;
 import greencity.Security;
 
 public class Main {
@@ -17,5 +18,12 @@ public class Main {
 //        ownSecurityController.varifyEmail(token);
 //        FavoritePlace favoritePlace = new FavoritePlace();
 //        System.out.println(favoritePlace.getAllFavoritePlaces(token));
-    }
+
+//        Security sec = new Security();
+//        String token = sec.signIn("andrijrubchuk@gmail.com", "Andr0306%");
+//        System.out.println(token);
+//        PlaceController placeController = new PlaceController();
+//        System.out.println(placeController.saveFavoritePlace(token));
+//
+//    }
 }
