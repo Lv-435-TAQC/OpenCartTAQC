@@ -13,6 +13,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BaseHttpRequest {
     private CloseableHttpClient httpClient;
@@ -20,6 +22,16 @@ public class BaseHttpRequest {
     private String response;
     private String statusLine;
     private int statusCode;
+    Map<String, String> requestHeaders = new HashMap();
+
+    public Map<String, String> getRequestHeaders() {
+        return requestHeaders;
+    }
+
+    public void setRequestHeaders(Map<String, String> requestHeaders) {
+        this.requestHeaders = requestHeaders;
+    }
+
 
     public BaseHttpRequest() {
         httpClient = HttpClients.createDefault();
@@ -47,19 +59,21 @@ public class BaseHttpRequest {
     public String postRequest(String url, String body) {
         HttpPost httpRequestBase = new HttpPost(url);
         StringEntity stringEntity = null;
+        System.out.println(body);
         try {
             stringEntity = new StringEntity(body);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         httpRequestBase.setEntity(stringEntity);
-        httpRequestBase.setHeader("Content-type", "application/json");
+        this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader (key, value));
+        httpRequestBase.setHeader ("Content-type", "application/json");
         try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
             this.response = response.toString();
             this.statusCode = response.getStatusLine().getStatusCode();
             this.statusLine = response.getStatusLine().toString();
             HttpEntity entity = response.getEntity();
-            Header headers = entity.getContentType();
+//            Header headers = entity.getContentType();
             if (entity != null) {
                 this.response = EntityUtils.toString(entity);
             }
