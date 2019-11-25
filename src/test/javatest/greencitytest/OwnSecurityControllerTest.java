@@ -1,6 +1,7 @@
 package javatest.greencitytest;
 
-import greencity.OwnSecurityController;
+import
+        greencity.OwnSecurityController;
 import greencity.Security;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
