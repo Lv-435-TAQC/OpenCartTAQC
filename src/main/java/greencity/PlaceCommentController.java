@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static utils.GreenCityURL.COMMENT_URL;
+import static utils.GreenCityURL.GET_SPECIFICATION;
 
 public class PlaceCommentController {
     public String postComments(int estimateRate, String name, String text, String token ) {
@@ -34,7 +35,7 @@ public class PlaceCommentController {
         Map<String, String> map = new HashMap();
         map.put("Content-Type", "application/json;utf-8");
         BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
-        baseHttpRequest.getRequest("https://greencitysoftserve.herokuapp.com/specification");
+        baseHttpRequest.getRequest(GET_SPECIFICATION);
         return baseHttpRequest.getResponseJsonArray().toString();
     }
 }

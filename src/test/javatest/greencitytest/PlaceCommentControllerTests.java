@@ -16,8 +16,8 @@ public class PlaceCommentControllerTests {
     @Test
     public void postComment() {
         PlaceCommentController commentController = new PlaceCommentController();
-        String actual=commentController.postComments(2, "QWErcxzsdscx1f23$", "QWErs12f3$%^",ftoken);
-        assertEquals(actual, "47");
+        String actual=commentController.postComments(2, "QWxxxrcxzdsdscx1f23$", "QWErs12f3d$%^",ftoken);
+        assertEquals(actual, "49");
     }
     @Test
     public void specificationGet(){
