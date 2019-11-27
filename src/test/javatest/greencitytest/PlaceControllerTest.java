@@ -19,7 +19,7 @@ public class PlaceControllerTest {
     @BeforeClass
     public void setUp() {
         Security sec = new Security();
-        token = sec.signIn("andrijrubchuk@gmail.com", "Andr0306%");
+        token = sec.signIn("qweqwe234123@gmail.com", "Andr0306%");
         System.out.println(token);
         placeController = new PlaceController();
     }
@@ -44,7 +44,7 @@ public class PlaceControllerTest {
 
     @Test
     public void saveFavoritePlace(){
-        String actualJSON = placeController.saveFavoritePlace(token,"Cafe",3);
+        String actualJSON = placeController.saveFavoritePlace(token,"GoodPlace",5);
         assertEquals(actualJSON,PlaceControllerConstants.DATA_ABOUT_FAVORITE_PLACE);
     }
 
@@ -57,32 +57,32 @@ public class PlaceControllerTest {
 
     @Test
      public void updateStatus(){
-        placeController.updatePlace(token,2,"APPROVED");
-        String actual = placeController.updatePlace(token,2,"PROPOSED");
+        placeController.updatePlaceStatus(token,2,"APPROVED");
+        String actual = placeController.updatePlaceStatus(token,2,"PROPOSED");
         assertTrue(actual.contains(PlaceControllerConstants.PLACE_UPDATING_MESSAGE));
      }
 
     @Test
     public void updateCurrentStatus(){
-        placeController.updatePlace(token,2,"PROPOSED");
-        String actual = placeController.updatePlace(token,2,"PROPOSED");
+        placeController.updatePlaceStatus(token,2,"PROPOSED");
+        String actual = placeController.updatePlaceStatus(token,2,"PROPOSED");
         assertTrue(actual.contains(CURRENT_STATUS_MESSAGE));
     }
 
-    @Test
+    @Test(priority = 1)
     public void deletePlace(){
-        placeController.updatePlace(token,6,"PROPOSED");
+        placeController.updatePlaceStatus(token,6,"PROPOSED");
         Integer actual = placeController.deletePlaceStatusCode(token,6);
         assertEquals(actual,TWO_HUNDRED);
     }
 
-    @Test
+    @Test(priority = 1)
     public void deleteDeletedPlace(){
         String actual = placeController.deletePlace(token,7);
         assertTrue(actual.contains(CURRENT_STATUS_MESSAGE));
     }
 
-    @Test
+    @Test(priority = 1)
     public void deleteNotExistingPlace(){
         String actual = placeController.deletePlace(token,30);
         assertTrue(actual.contains(NOT_EXIST_PLACE_MESSAGE));
