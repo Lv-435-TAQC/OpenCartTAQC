@@ -11,5 +11,8 @@ public class GreenCityConstants {
     public static final String USER_PASSWORD = "QWErty123$%^";
     public static Integer TWO_HUNDRED=200;
     public static Integer FOUR_HUNDRED=400;
+    public static final Integer TWO_HUNDRED_ONE=201;
     public static String WRONG_MESSAGE = "The user does not exist by this email: ";
+    public static final String USER_EMAIL = "orysita.lviv+10001@gmail.com";
+    public static final String PASSWORD = "QWErty123$%^";
 }
