@@ -142,8 +142,12 @@ public class BaseHttpRequest {
         }
         return this.response;
     }
-
-
+    
+    public String closeRequest(String url) {
+        httpRequestBase = new HttpDelete(url);
+        return httpRequestBase.toString();
+    }
+    
     public String deleteRequest(String url) {
         HttpDelete httpRequestBase = new HttpDelete(url);
         this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader (key, value));
