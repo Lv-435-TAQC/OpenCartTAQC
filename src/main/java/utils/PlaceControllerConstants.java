@@ -10,7 +10,7 @@ public class PlaceControllerConstants {
     public static final String NOT_EXIST_PLACE_MESSAGE = "{\"message\":\"The place does not exist by this id:";
     public static final String LIST_OF_STATUSES = "[\"PROPOSED\",\"DECLINED\",\"APPROVED\",\"DELETED\"]";
     public static final String ALREADY_EXIST_PLACE_MESSAGE = "\"message\":\"Favorite place already exist for this placeId: ";
-    public static final String DATA_ABOUT_FAVORITE_PLACE = "\"name\":\"wesadsaf\",\"placeId\":6}";
+    public static final String DATA_ABOUT_FAVORITE_PLACE =  "{\"name\":\"GoodPlace\",\"placeId\":5}";
     public static final String PLACE_UPDATING_MESSAGE = "{\"id\":2,\"status\":\"PROPOSED\"}";
     public static final String CURRENT_STATUS_MESSAGE = "\"Place with id: ";
 }
