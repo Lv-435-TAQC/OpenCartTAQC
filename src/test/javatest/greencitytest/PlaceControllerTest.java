@@ -5,8 +5,7 @@ import greencity.Security;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static utils.GreenCityConstants.TWO_HUNDRED;
-import static utils.PlaceControllerConstants.NOT_EXIST_PLACE_MESSAGE;
-import static utils.PlaceControllerConstants.CURRENT_STATUS_MESSAGE;
+import static utils.PlaceControllerConstants.*;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -19,8 +18,7 @@ public class PlaceControllerTest {
     @BeforeClass
     public void setUp() {
         Security sec = new Security();
-        token = sec.signIn("qweqwe234123@gmail.com", "Andr0306%");
-        System.out.println(token);
+        token = sec.signIn(LOGIN, PASSWORD);
         placeController = new PlaceController();
     }
 
