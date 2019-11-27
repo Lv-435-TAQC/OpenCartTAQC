@@ -1,8 +1,5 @@
 package greencity;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static utils.GreenCityURL.LOGIN_URL;
 
 public class Security {
