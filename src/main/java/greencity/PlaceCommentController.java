@@ -8,7 +8,7 @@ import static utils.GreenCityURL.GET_SPECIFICATION;
 
 public class PlaceCommentController {
     public String postComments(int estimateRate, String name, String text, String token ) {
-        Map<String, String> map = new HashMap();
+        HashMap<String, String> map = new HashMap();
         map.put("Content-Type", "application/json;utf-8");
         map.put("Authorization", "Bearer "+ token );
         BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
