@@ -1,6 +1,5 @@
 package greencity;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.*;
@@ -17,31 +16,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BaseHttpRequest {
+    Map<String, String> requestHeaders = new HashMap();
     private CloseableHttpClient httpClient;
     private HttpRequestBase httpRequestBase;
     private String response;
-    private String statusLine;
     private int statusCode;
 
-    Map<String, String> requestHeaders = new HashMap();
-
+    public BaseHttpRequest() {
+        httpClient = HttpClients.createDefault();
+    }
 
     public void setRequestHeaders(Map<String, String> requestHeaders) {
 
         this.requestHeaders = requestHeaders;
     }
-    
-    public BaseHttpRequest() {
-        httpClient = HttpClients.createDefault();
-    }
 
     public String getRequest(String url) {
         httpRequestBase = new HttpGet(url);
-        this.requestHeaders.forEach((key, value)-> httpRequestBase.setHeader(key, value));
+        this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader(key, value));
         try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
             this.response = response.toString();
             this.statusCode = response.getStatusLine().getStatusCode();
-            this.statusLine = response.getStatusLine().toString();
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 this.response = EntityUtils.toString(entity);
@@ -63,14 +58,12 @@ public class BaseHttpRequest {
             e.printStackTrace();
         }
         httpRequestBase.setEntity(stringEntity);
-
-        this.requestHeaders.forEach((key, value)-> httpRequestBase.setHeader(key, value));
+        this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader(key, value));
+        httpRequestBase.setHeader("Content-type", "application/json");
         try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
             this.response = response.toString();
             this.statusCode = response.getStatusLine().getStatusCode();
-            this.statusLine = response.getStatusLine().toString();
             HttpEntity entity = response.getEntity();
-
             if (entity != null) {
                 this.response = EntityUtils.toString(entity);
             }
@@ -91,16 +84,12 @@ public class BaseHttpRequest {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        this.requestHeaders.forEach((key, value)-> httpRequestBase.setHeader(key, value));
-        httpRequestBase.setEntity(stringEntity);
-
-        this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader (key, value));
+        this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader(key, value));
         httpRequestBase.setHeader("Content-type", "application/json");
-
+        httpRequestBase.setEntity(stringEntity);
         try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
             this.response = response.toString();
             this.statusCode = response.getStatusLine().getStatusCode();
-            this.statusLine = response.getStatusLine().toString();
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 this.response = EntityUtils.toString(entity);
@@ -123,14 +112,11 @@ public class BaseHttpRequest {
             e.printStackTrace();
         }
         httpRequestBase.setEntity(stringEntity);
-
-        this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader (key, value));
+        this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader(key, value));
         httpRequestBase.setHeader("Content-type", "application/json");
-
         try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
             this.response = response.toString();
             this.statusCode = response.getStatusLine().getStatusCode();
-            this.statusLine = response.getStatusLine().toString();
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 this.response = EntityUtils.toString(entity);
@@ -142,20 +128,19 @@ public class BaseHttpRequest {
         }
         return this.response;
     }
-    
+
     public String closeRequest(String url) {
         httpRequestBase = new HttpDelete(url);
         return httpRequestBase.toString();
     }
-    
+
     public String deleteRequest(String url) {
         HttpDelete httpRequestBase = new HttpDelete(url);
-        this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader (key, value));
+        this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader(key, value));
         httpRequestBase.setHeader("Content-type", "application/json");
         try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
             this.response = response.toString();
             this.statusCode = response.getStatusLine().getStatusCode();
-            this.statusLine = response.getStatusLine().toString();
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 this.response = EntityUtils.toString(entity);
@@ -174,10 +159,6 @@ public class BaseHttpRequest {
 
     public int getStatusCode() {
         return this.statusCode;
-    }
-
-    private void close() throws IOException {
-        httpClient.close();
     }
 
     public String parseJsonObject(String key) {

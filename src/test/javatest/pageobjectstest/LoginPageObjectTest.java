@@ -90,11 +90,10 @@ public class LoginPageObjectTest {
     public Object[][] createDataForLoginPage(Method m) {
         return new Object[][]{
                 new Object[]{"orysia.benko@gmail.com", ""}
-                , new Object[]{"orysita.lviv+1@gmail.com", " "}
+                , new Object[]{"", "Orysia"}
+                , new Object[]{"", ""}
                 , new Object[]{"orysita.lviv521311@gmail.com", "fdgfdfg"}
                 , new Object[]{"Uhyyyyyyy", "Aaaaaaa"}
-                , new Object[]{"", ""}
-                , new Object[]{"", "orysia"}
         };
     }
 

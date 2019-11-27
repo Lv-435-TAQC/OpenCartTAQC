@@ -1,4 +1,4 @@
-package pageobjectstest;
+package javatest.pageobjectstest;
 
 import entity.Product;
 import locators.CategoryLocators;
