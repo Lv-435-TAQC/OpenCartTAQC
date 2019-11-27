@@ -4,39 +4,83 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static utils.GreenCityURL.LOGIN_URL;
+import static utils.PlaceControllerConstants.*;
 
 public class PlaceController {
+    Map<String, String> map = new HashMap();
 
     public String getPlaceById(int id) {
+<<<<<<< HEAD
         HashMap<String, String> map = new HashMap();
+=======
+>>>>>>> develop
         map.put("Content-Type", "application/json;utf-8");
         BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
-        baseHttpRequest.getRequest("https://greencitysoftserve.herokuapp.com//place/about/" + id);
+        baseHttpRequest.getRequest(PLACE_URL + id);
         return baseHttpRequest.getResponseJsonObject().toString();
     }
 
 
     public String getStatuses() {
+<<<<<<< HEAD
         HashMap<String, String> map = new HashMap();
+=======
+>>>>>>> develop
         map.put("Content-Type", "application/json;utf-8");
         BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
-        baseHttpRequest.getRequest("https://greencitysoftserve.herokuapp.com/place/statuses");
+        baseHttpRequest.getRequest(STATUSES_URL);
         return baseHttpRequest.getResponseJsonArray().toString();
     }
 
+<<<<<<< HEAD
     public String saveFavoritePlace(String token) {
         HashMap<String, String> map = new HashMap();
+=======
+
+    public String saveFavoritePlace(String token,String name,int id) {
+>>>>>>> develop
         map.put("Content-Type", "application/json;utf-8");
         map.put("Authorization", "Bearer " + token);
         BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
         baseHttpRequest.setRequestHeaders(map);
-        baseHttpRequest.postRequest("https://greencitysoftserve.herokuapp.com/place/save/favorite/",  "{\n" +
-                "  \"name\": \"HHhsdwea\",\n" +
-                "  \"placeId\": 2\n" +
+        baseHttpRequest.postRequest(FAVORITE_PLACE_URL,  "{\n" +
+                "  \"name\": \""+name+"\",\n" +
+                "  \"placeId\": "+id+"\n" +
+                "}");
+        return baseHttpRequest.getResponseJsonObject().toString();
+
+    }
+    public String updatePlace(String token,int id,String status){
+        map.put("Content-Type", "application/json;utf-8");
+        map.put("Authorization", "Bearer " + token);
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
+        baseHttpRequest.setRequestHeaders(map);
+        baseHttpRequest.patchRequest(UPDATE_STATUS_URL,  "{\n" +
+                "  \"id\": "+id+",\n" +
+                "  \"status\": \""+status+"\"\n" +
                 "}");
         return baseHttpRequest.getResponseJsonObject().toString();
     }
+
+    public String deletePlace(String token,int id){
+        map.put("Content-Type", "application/json;utf-8");
+        map.put("Authorization", "Bearer " + token);
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
+        baseHttpRequest.setRequestHeaders(map);
+        baseHttpRequest.deleteRequest(DELETE_PLACE_URL+id);
+        return baseHttpRequest.getResponse();
+    }
+
+    public int deletePlaceStatusCode(String token,int id){
+        map.put("Content-Type", "application/json;utf-8");
+        map.put("Authorization", "Bearer " + token);
+        BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
+        baseHttpRequest.setRequestHeaders(map);
+        baseHttpRequest.deleteRequest(DELETE_PLACE_URL+id);
+        return baseHttpRequest.getStatusCode();
+    }
 }
+
 
 
 
