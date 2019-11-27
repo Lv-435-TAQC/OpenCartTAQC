@@ -12,6 +12,6 @@ public class Main {
         System.out.println(token);
         FavoritePlace favoritePlace = new FavoritePlace();
         System.out.println(favoritePlace.getAllFavoritePlaces(token));
-        System.out.println(favoritePlace.updateFavoritePlaceName(token, "Букхара", 3));
+        System.out.println(favoritePlace.updateFavoritePlaceName(token, "Бук", 3));
     }
 }

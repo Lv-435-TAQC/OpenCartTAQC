@@ -8,7 +8,7 @@ import static utils.GreenCityURL.LOGIN_URL;
 public class PlaceController {
 
     public String getPlaceById(int id) {
-        Map<String, String> map = new HashMap();
+        HashMap<String, String> map = new HashMap();
         map.put("Content-Type", "application/json;utf-8");
         BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
         baseHttpRequest.getRequest("https://greencitysoftserve.herokuapp.com//place/about/" + id);
@@ -17,7 +17,7 @@ public class PlaceController {
 
 
     public String getStatuses() {
-        Map<String, String> map = new HashMap();
+        HashMap<String, String> map = new HashMap();
         map.put("Content-Type", "application/json;utf-8");
         BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
         baseHttpRequest.getRequest("https://greencitysoftserve.herokuapp.com/place/statuses");
@@ -25,7 +25,7 @@ public class PlaceController {
     }
 
     public String saveFavoritePlace(String token) {
-        Map<String, String> map = new HashMap();
+        HashMap<String, String> map = new HashMap();
         map.put("Content-Type", "application/json;utf-8");
         map.put("Authorization", "Bearer " + token);
         BaseHttpRequest baseHttpRequest = new BaseHttpRequest();

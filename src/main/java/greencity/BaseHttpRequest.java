@@ -143,7 +143,7 @@ public class BaseHttpRequest {
     }
 
 
-    public String deleteRequest(String url) {
+    public String closeRequest(String url) {
         httpRequestBase = new HttpDelete(url);
         return this.response;
     }
