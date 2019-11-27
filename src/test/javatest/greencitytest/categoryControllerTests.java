@@ -8,6 +8,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static org.junit.Assert.assertEquals;
+import static utils.testDataForCommentController.ASSERT_FOR_GET_CATEGORY_LIST;
+import static utils.testDataForCommentController.ASSERT_FOR_POST_NEW_CATEGORY;
 
 
 public class categoryControllerTests {
@@ -21,14 +23,14 @@ public class categoryControllerTests {
     @Test
     public void postNewCategory() {
         categoryController categoryController = new categoryController();
-        String actual=categoryController.postNewCategory("sdasdfadssa",ftoken);
-        assertEquals(actual, "16");
+        String actual=categoryController.postNewCategory("sdasddfadssa",ftoken);
+        assertEquals(actual, ASSERT_FOR_POST_NEW_CATEGORY);
     }
     @Test
     public void getCategoryList(){
         categoryController categoryController = new categoryController();
         String actual = categoryController.getCategoryList();
-        Assert.assertEquals(actual, "[{\"name\":\"Food\"},{\"name\":\"Food&Wine\"},{\"name\":\"Green-grocery\"},{\"name\":\"2 the grocery\"},{\"name\":\"qweqwe\"},{\"name\":\"qweqweeqeeeqwewq\"},{\"name\":\"string\"},{\"name\":\"TTTTT\"},{\"name\":\"123123wadsadfsa\"},{\"name\":\"123123wadsadfqsa\"},{\"name\":\"dsfddsfsdfsdfhfhd\"},{\"name\":\"strsding\"},{\"name\":\"strssdding\"},{\"name\":\"sdafadsa\"},{\"name\":\"sdafadssa\"}]" );
+        Assert.assertEquals(actual, ASSERT_FOR_GET_CATEGORY_LIST );
     }
 }
 
