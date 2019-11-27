@@ -26,16 +26,14 @@ public class BaseHttpRequest {
         httpClient = HttpClients.createDefault();
     }
 
-    public Map<String, String> getRequestHeaders() {
-        return requestHeaders;
-    }
-
     public void setRequestHeaders(Map<String, String> requestHeaders) {
+
         this.requestHeaders = requestHeaders;
     }
 
     public String getRequest(String url) {
         httpRequestBase = new HttpGet(url);
+        this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader(key, value));
         try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
             this.response = response.toString();
             this.statusCode = response.getStatusLine().getStatusCode();
@@ -54,7 +52,6 @@ public class BaseHttpRequest {
     public String postRequest(String url, String body) {
         HttpPost httpRequestBase = new HttpPost(url);
         StringEntity stringEntity = null;
-        System.out.println(body);
         try {
             stringEntity = new StringEntity(body);
         } catch (UnsupportedEncodingException e) {
@@ -78,18 +75,19 @@ public class BaseHttpRequest {
         return this.response;
     }
 
+
     public String putRequest(String url, String body) {
-        HttpPut httpRequestBasePut = new HttpPut(url);
+        HttpPut httpRequestBase = new HttpPut(url);
         StringEntity stringEntity = null;
         try {
             stringEntity = new StringEntity(body);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        httpRequestBasePut.setEntity(stringEntity);
-        this.requestHeaders.forEach((key, value) -> httpRequestBasePut.setHeader(key, value));
-        httpRequestBasePut.setHeader("Content-type", "application/json");
-        try (CloseableHttpResponse response = httpClient.execute(httpRequestBasePut)) {
+        this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader(key, value));
+        httpRequestBase.setHeader("Content-type", "application/json");
+        httpRequestBase.setEntity(stringEntity);
+        try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
             this.response = response.toString();
             this.statusCode = response.getStatusLine().getStatusCode();
             HttpEntity entity = response.getEntity();
@@ -114,6 +112,7 @@ public class BaseHttpRequest {
             e.printStackTrace();
         }
         httpRequestBase.setEntity(stringEntity);
+        this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader(key, value));
         httpRequestBase.setHeader("Content-type", "application/json");
         try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
             this.response = response.toString();
@@ -130,8 +129,27 @@ public class BaseHttpRequest {
         return this.response;
     }
 
-    public String deleteRequest(String url) {
+    public String closeRequest(String url) {
         httpRequestBase = new HttpDelete(url);
+        return httpRequestBase.toString();
+    }
+
+    public String deleteRequest(String url) {
+        HttpDelete httpRequestBase = new HttpDelete(url);
+        this.requestHeaders.forEach((key, value) -> httpRequestBase.setHeader(key, value));
+        httpRequestBase.setHeader("Content-type", "application/json");
+        try (CloseableHttpResponse response = httpClient.execute(httpRequestBase)) {
+            this.response = response.toString();
+            this.statusCode = response.getStatusLine().getStatusCode();
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                this.response = EntityUtils.toString(entity);
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return this.response;
     }
 
@@ -142,7 +160,6 @@ public class BaseHttpRequest {
     public int getStatusCode() {
         return this.statusCode;
     }
-
 
     public String parseJsonObject(String key) {
         JSONObject json = new JSONObject(response);
