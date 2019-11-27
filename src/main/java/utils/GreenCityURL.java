@@ -9,4 +9,5 @@ public class GreenCityURL {
     public static String GET_CATEGORY_LIST="https://greencitysoftserve.herokuapp.com/category";
     public static String GET_SPECIFICATION="https://greencitysoftserve.herokuapp.com/specification";
     public static String POST_NEW_CATEGORY="https://greencitysoftserve.herokuapp.com/category";
+    public static String FAVORITE_PLACE ="https://greencitysoftserve.herokuapp.com/favorite_place/";
 }

@@ -10,10 +10,7 @@ public class PlaceController {
     Map<String, String> map = new HashMap();
 
     public String getPlaceById(int id) {
-<<<<<<< HEAD
         HashMap<String, String> map = new HashMap();
-=======
->>>>>>> develop
         map.put("Content-Type", "application/json;utf-8");
         BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
         baseHttpRequest.getRequest(PLACE_URL + id);
@@ -22,23 +19,14 @@ public class PlaceController {
 
 
     public String getStatuses() {
-<<<<<<< HEAD
         HashMap<String, String> map = new HashMap();
-=======
->>>>>>> develop
         map.put("Content-Type", "application/json;utf-8");
         BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
         baseHttpRequest.getRequest(STATUSES_URL);
         return baseHttpRequest.getResponseJsonArray().toString();
     }
-
-<<<<<<< HEAD
-    public String saveFavoritePlace(String token) {
-        HashMap<String, String> map = new HashMap();
-=======
-
+    
     public String saveFavoritePlace(String token,String name,int id) {
->>>>>>> develop
         map.put("Content-Type", "application/json;utf-8");
         map.put("Authorization", "Bearer " + token);
         BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
