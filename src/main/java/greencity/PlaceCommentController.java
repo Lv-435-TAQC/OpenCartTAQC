@@ -7,6 +7,14 @@ import static utils.GreenCityURL.COMMENT_URL;
 import static utils.GreenCityURL.GET_SPECIFICATION;
 
 public class PlaceCommentController {
+    /**
+     * post comments
+     * @param estimateRate
+     * @param name
+     * @param text
+     * @param token
+     * @return if from JsonObject
+     */
     public String postComments(int estimateRate, String name, String text, String token ) {
         HashMap<String, String> map = new HashMap();
         map.put("Content-Type", "application/json;utf-8");
@@ -31,6 +39,11 @@ public class PlaceCommentController {
 
         return baseHttpRequest.getResponseJsonObject().get("id").toString();
     }
+
+    /**
+     *get list of specification
+     * @return list from JsonArray
+     */
     public String getSpecification(){
         Map<String, String> map = new HashMap();
         map.put("Content-Type", "application/json;utf-8");
