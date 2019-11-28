@@ -7,6 +7,7 @@ import static utils.PlaceControllerConstants.*;
 
 public class PlaceController {
     Map<String, String> map = new HashMap();
+    BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
 
     /**
      * getPlaceById
@@ -18,7 +19,6 @@ public class PlaceController {
     public String getPlaceById(int id) {
         HashMap<String, String> map = new HashMap();
         map.put("Content-Type", "application/json;utf-8");
-        BaseHttpRequest baseHttpRequest = new BaseHttpRequest();
         baseHttpRequest.getRequest(PLACE_URL + id);
         return baseHttpRequest.getResponseJsonObject().toString();
     }
