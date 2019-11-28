@@ -7,6 +7,12 @@ import static utils.GreenCityURL.GET_CATEGORY_LIST;
 import static utils.GreenCityURL.POST_NEW_CATEGORY;
 
 public class categoryController {
+    /**
+     *postNewCategory
+     * @param name
+     * @param token
+     * @return id from JsonObject
+     */
         public String postNewCategory( String name ,String token) {
             Map<String, String> map = new HashMap();
             map.put("Content-Type", "application/json;utf-8");
@@ -23,6 +29,11 @@ public class categoryController {
 
             return baseHttpRequest.getResponseJsonObject().get("id").toString();
         }
+
+    /**
+     * get category list
+     * @return getResponseJsonArray
+     */
     public String getCategoryList(){
         Map<String, String> map = new HashMap();
         map.put("Content-Type", "application/json;utf-8");
